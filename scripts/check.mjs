@@ -30,7 +30,7 @@ assert(
   "Sidebar advertising slot is missing",
 );
 assert(
-  enhancements.includes("mailto:firmaglogow@gmail.com"),
+  enhancements.includes("mailto:emistrzostwaswiata2026@gmail.com"),
   "Advertising contact link is missing",
 );
 assert(

@@ -70,9 +70,9 @@
 
   function createContactLink(className) {
     const link = document.createElement("a");
-    link.href = "mailto:firmaglogow@gmail.com";
+    link.href = "mailto:emistrzostwaswiata2026@gmail.com";
     link.className = className;
-    link.textContent = "firmaglogow@gmail.com";
+    link.textContent = "emistrzostwaswiata2026@gmail.com";
     return link;
   }
 
