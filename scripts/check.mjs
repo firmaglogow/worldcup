@@ -20,7 +20,15 @@ assert(!index.includes("cdn.tailwindcss.com"), "Tailwind CDN is still present");
 assert(index.includes('rel="canonical"'), "Canonical URL is missing");
 assert(index.includes("assets/og-image.png"), "Open Graph image is missing");
 assert(index.includes("assets/squads.js"), "Squad data script is missing");
+assert(
+  index.includes('name="theme-color" content="#07111f"'),
+  "Updated browser theme color is missing",
+);
 assert(css.length > 10_000, "Generated stylesheet looks incomplete");
+assert(
+  css.includes("linear-gradient(145deg,#07111f,#0a1924 52%,#08131f)"),
+  "Improved dark background is missing",
+);
 assert(
   enhancements.includes('slot.dataset.adSlot = "main"'),
   "Main advertising slot is missing",

@@ -10,7 +10,7 @@
 
   body {
     min-width: 320px;
-    background: #020617;
+    background: #07111f;
   }
 
   :focus-visible {
@@ -274,6 +274,32 @@
     font-weight: 900;
     letter-spacing: -0.025em;
   }
+}
+
+#root > [class~="from-slate-950"] {
+  background-color: #07111f;
+  background-image:
+    radial-gradient(circle at 88% 16%, rgb(16 185 129 / 0.13), transparent 30rem),
+    radial-gradient(circle at 8% 58%, rgb(14 116 144 / 0.1), transparent 34rem),
+    linear-gradient(145deg, #07111f 0%, #0a1924 52%, #08131f 100%);
+}
+
+#root
+  > [class~="from-slate-950"]
+  [class~="rounded-2xl"][class~="bg-slate-900/60"],
+#root
+  > [class~="from-slate-950"]
+  [class~="rounded-2xl"][class~="bg-slate-900/50"] {
+  border-color: rgb(51 100 108 / 0.48);
+  background-color: rgb(15 30 48 / 0.88);
+  box-shadow:
+    0 12px 30px rgb(2 6 23 / 0.18),
+    inset 0 1px 0 rgb(255 255 255 / 0.025);
+}
+
+footer {
+  border-color: rgb(51 65 85 / 0.82);
+  background: #07111f;
 }
 
 @media (min-width: 768px) {
