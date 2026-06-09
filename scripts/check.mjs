@@ -14,6 +14,24 @@ const css = fs.readFileSync(
 const squads = JSON.parse(
   fs.readFileSync(new URL("../data/squads.json", import.meta.url), "utf8"),
 );
+const stadiumImages = [
+  "arrowhead-stadium.webp",
+  "att-stadium.webp",
+  "bc-place.webp",
+  "bmo-field.webp",
+  "estadio-akron.webp",
+  "estadio-azteca.webp",
+  "estadio-bbva.webp",
+  "gillette-stadium.webp",
+  "hard-rock-stadium.webp",
+  "levis-stadium.webp",
+  "lincoln-financial-field.webp",
+  "lumen-field.webp",
+  "mercedes-benz-stadium.webp",
+  "metlife-stadium.webp",
+  "nrg-stadium.webp",
+  "sofi-stadium.webp",
+];
 
 assert(!index.includes("G-XXXXXXXXXX"), "Placeholder analytics is still present");
 assert(!index.includes("cdn.tailwindcss.com"), "Tailwind CDN is still present");
@@ -61,6 +79,20 @@ assert(
   css.includes(".site-trophy-image"),
   "Header trophy styles are missing",
 );
+assert(
+  index.includes("stadium-credits.html"),
+  "Stadium photo credits link is missing",
+);
+for (const image of stadiumImages) {
+  assert(
+    fs.existsSync(new URL(`../assets/stadiums/${image}`, import.meta.url)),
+    `Missing stadium image: ${image}`,
+  );
+  assert(
+    app.includes(`assets/stadiums/${image}`),
+    `Stadium image is not connected: ${image}`,
+  );
+}
 assert(
   css.includes("height:132px"),
   "Mobile advertising animation is missing",
