@@ -138,17 +138,11 @@
 
     const badge = document.createElement("p");
     badge.className = "ad-slot-kicker";
-    badge.textContent = "REKLAMA / WSPÓŁPRACA";
+    badge.textContent = "ZOSTAŃ PARTNEREM SERWISU";
 
     const title = document.createElement("h2");
     title.className = "ad-slot-title";
-    title.textContent =
-      "Chcesz promować swoją markę przy Mistrzostwach Świata 2026?";
-
-    const description = document.createElement("p");
-    description.className = "ad-slot-description";
-    description.textContent =
-      "Twoja reklama może być widoczna przy terminarzu, wynikach i tabelach.";
+    title.textContent = "Mistrzostwa Świata 2026";
 
     const contact = document.createElement("p");
     contact.className = "ad-slot-contact";
@@ -157,7 +151,7 @@
 
     const content = document.createElement("div");
     content.className = "ad-slot-content";
-    content.append(badge, title, description, contact);
+    content.append(badge, title, contact);
 
     slot.append(content, createAdVisual());
     return slot;
