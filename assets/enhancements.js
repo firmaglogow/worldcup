@@ -111,8 +111,8 @@
 
         <g class="ad-slot-brand-board">
           <rect x="224" y="14" width="108" height="28" rx="7" />
-          <text x="278" y="26">TWOJA MARKA</text>
-          <text x="278" y="36">TUTAJ</text>
+          <text x="278" y="26">MIEJSCE DLA</text>
+          <text x="278" y="36">PARTNERA</text>
         </g>
 
         <circle class="ad-slot-ball-glow" cx="0" cy="0" r="28" />
