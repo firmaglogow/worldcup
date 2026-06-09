@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#020617"/>
+      <stop offset="1" stop-color="#064e3b"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop stop-color="#10b981" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#10b981" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1000" cy="110" r="390" fill="url(#glow)"/>
+  <circle cx="1040" cy="315" r="150" fill="#f8fafc"/>
+  <path fill="#0f172a" d="m1040 210 52 38-20 62h-64l-20-62 52-38Zm-92 59 40 50-40 51-45-20 8-63 37-18Zm184 0 37 18 8 63-45 20-40-51 40-50Zm-124 123h64l28 71a150 150 0 0 1-120 0l28-71Z"/>
+  <path fill="none" stroke="#0f172a" stroke-width="20" d="m988 319-40 51m144-51 40 51m-124-60v82m64-82v82"/>
+  <text x="90" y="180" fill="#fbbf24" font-family="Arial, sans-serif" font-size="36" font-weight="700" letter-spacing="5">CENTRUM KIBICA</text>
+  <text x="84" y="300" fill="#f8fafc" font-family="Arial, sans-serif" font-size="92" font-weight="900">WORLD CUP</text>
+  <text x="84" y="405" fill="#f8fafc" font-family="Arial, sans-serif" font-size="118" font-weight="900">2026</text>
+  <text x="90" y="500" fill="#a7f3d0" font-family="Arial, sans-serif" font-size="34" font-weight="600">Terminarz · Tabele · Typer · Symulator</text>
+</svg>
