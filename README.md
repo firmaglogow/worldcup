@@ -7,6 +7,8 @@ https://firmaglogow.github.io/worldcup/
 
 - `index.html` - metadane strony i ładowanie aplikacji.
 - `assets/app.js` - skompilowana aplikacja React.
+- `data/squads.json` - kompletne dane 48 oficjalnych kadr.
+- `assets/squads.js` - dane kadr ładowane bezpośrednio przez stronę.
 - `assets/enhancements.js` - dostępność, źródła danych i drobne ulepszenia.
 - `src/styles.css` - źródło stylów.
 - `assets/styles.css` - gotowe style używane przez stronę.
@@ -17,6 +19,12 @@ https://firmaglogow.github.io/worldcup/
 node scripts/update-bundle.mjs
 sh scripts/build-css.sh
 node scripts/check.mjs
+```
+
+Import nowego oficjalnego pliku ze składami:
+
+```sh
+python3 scripts/import-squads.py /ścieżka/do/składy.pdf
 ```
 
 Po zatwierdzeniu i wysłaniu zmian do gałęzi `main` GitHub Pages automatycznie

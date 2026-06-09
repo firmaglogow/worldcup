@@ -42,6 +42,14 @@ const matchCorrections = [
 
 for (const [from, to] of matchCorrections) replaceOnce(from, to);
 
+replaceOnce(
+  "[L,I]=(0,Y.useState)({})",
+  "[L,I]=(0,Y.useState)(()=>window.WC2026_SQUADS||{})",
+);
+replaceOnce(
+  "I(Z.teamData||{})",
+  "I(Object.assign({},Z.teamData||{},window.WC2026_SQUADS||{}))",
+);
 replaceOnce("capacity:78576", "capacity:82500");
 replaceOnce(
   String.raw`najwi\u0119kszym obiekcie turnieju (78 576 miejsc).`,
@@ -66,6 +74,26 @@ replaceOnce(
 replaceOnce(
   String.raw`Oficjalne, pe\u0142ne kadry (26 zawodnik\xF3w) zostan\u0105 og\u0142oszone przez federacje ok. 3 tygodnie przed turniejem.`,
   String.raw`FIFA opublikowa\u0142a oficjalne kadry turniejowe 2 czerwca 2026.`,
+);
+replaceOnce(
+  String.raw`S&&!f&&(0,c.jsxs)("button",{onClick:L,className:"text-xs text-emerald-300 hover:text-emerald-100 flex items-center gap-1",children:[(0,c.jsx)(no,{className:"w-3 h-3"})," Od\u015Bwie\u017C"]})`,
+  String.raw`S&&!f&&(0,c.jsx)("span",{className:"text-xs text-slate-500",children:"26 zawodnik\u00f3w"})`,
+);
+replaceOnce(
+  String.raw`Sk\u0142ad orientacyjny \u2014 oficjalne kadry FIFA og\u0142aszane s\u0105 ok. 3 tygodnie przed turniejem.`,
+  String.raw`Oficjalna kadra turniejowa \u00b7 lista FIFA z 9 czerwca 2026.`,
+);
+replaceOnce(
+  String.raw`Chcesz wi\u0119cej nazwisk? Pobierz kadry dru\u017Cyn w zak\u0142adce Reprezentacje \u2014 pojawi\u0105 si\u0119 tutaj.`,
+  String.raw`Do wyboru s\u0105 wszyscy zawodnicy z oficjalnych kadr turniejowych.`,
+);
+replaceOnce(
+  String.raw`(gwiazdy + pobrane kadry).`,
+  String.raw`(oficjalne kadry turniejowe).`,
+);
+replaceOnce(
+  "return Object.entries(Q_).forEach(([n,o])=>(o.stars||[]).forEach(i=>a(i,n,null))),Object.entries(e||{})",
+  "return Object.entries(e||{})",
 );
 
 const fetchHint = String.raw`"\u2014 (pobierz kadr\u0119)"`;

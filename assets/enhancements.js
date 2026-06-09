@@ -1,9 +1,6 @@
 (() => {
   "use strict";
 
-  const squadUrl =
-    "https://www.fifa.com/en/articles/fifa-world-cup-2026-squads-confirmed";
-
   const selectLabels = new Map([
     ["Wszystkie grupy", "Filtr grupy"],
     ["Wszystkie dni", "Filtr dnia"],
@@ -59,27 +56,6 @@
       });
   }
 
-  function addSquadSource() {
-    const paragraphs = [...document.querySelectorAll("p")];
-    const info = paragraphs.find((paragraph) =>
-      paragraph.textContent.includes(
-        "FIFA opublikowała oficjalne kadry turniejowe",
-      ),
-    );
-    if (!info || info.dataset.squadSource === "true") return;
-
-    const link = document.createElement("a");
-    link.href = squadUrl;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.className =
-      "inline-flex mt-3 text-amber-300 font-bold underline underline-offset-4 hover:text-amber-200";
-    link.textContent = "Zobacz oficjalne kadry na FIFA.com";
-
-    info.dataset.squadSource = "true";
-    info.insertAdjacentElement("afterend", link);
-  }
-
   function addDataSource() {
     const footer = document.querySelector("footer");
     if (!footer || footer.querySelector("[data-data-source]")) return;
@@ -87,8 +63,8 @@
     const note = document.createElement("p");
     note.dataset.dataSource = "true";
     note.className = "mt-3 text-xs text-slate-400";
-    note.innerHTML =
-      'Terminarz i kadry: <a class="text-amber-300 underline underline-offset-2" href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026" target="_blank" rel="noopener noreferrer">FIFA</a>. Aktualizacja: 9 czerwca 2026.';
+    note.textContent =
+      "Terminarz i oficjalne kadry: FIFA. Aktualizacja: 9 czerwca 2026.";
     footer.append(note);
   }
 
@@ -101,7 +77,6 @@
   function applyEnhancements() {
     labelControls();
     labelFavoriteButtons();
-    addSquadSource();
     addDataSource();
     secureExternalLinks();
   }
