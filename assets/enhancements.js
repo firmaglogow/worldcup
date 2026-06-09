@@ -68,6 +68,89 @@
     footer.append(note);
   }
 
+  function createContactLink(className) {
+    const link = document.createElement("a");
+    link.href = "mailto:firmaglogow@gmail.com";
+    link.className = className;
+    link.textContent = "firmaglogow@gmail.com";
+    return link;
+  }
+
+  function createMainAdSlot() {
+    const slot = document.createElement("section");
+    slot.dataset.adSlot = "main";
+    slot.className = "ad-slot ad-slot-main";
+    slot.setAttribute("aria-label", "Reklama i współpraca");
+
+    const badge = document.createElement("p");
+    badge.className = "ad-slot-kicker";
+    badge.textContent = "REKLAMA / WSPÓŁPRACA";
+
+    const title = document.createElement("h2");
+    title.className = "ad-slot-title";
+    title.textContent =
+      "Chcesz promować swoją markę przy Mistrzostwach Świata 2026?";
+
+    const description = document.createElement("p");
+    description.className = "ad-slot-description";
+    description.textContent =
+      "Twoja reklama może być widoczna przy terminarzu, wynikach i tabelach.";
+
+    const contact = document.createElement("p");
+    contact.className = "ad-slot-contact";
+    contact.append("Napisz: ");
+    contact.append(createContactLink("ad-slot-email"));
+
+    slot.append(badge, title, description, contact);
+    return slot;
+  }
+
+  function createSidebarAdSlot() {
+    const slot = document.createElement("aside");
+    slot.dataset.adSlot = "sidebar";
+    slot.className = "ad-slot ad-slot-sidebar";
+    slot.setAttribute("aria-label", "Miejsce na reklamę");
+
+    const badge = document.createElement("p");
+    badge.className = "ad-slot-kicker";
+    badge.textContent = "MIEJSCE NA REKLAMĘ";
+
+    const size = document.createElement("p");
+    size.className = "ad-slot-size";
+    size.textContent = "300 × 250 px";
+
+    const description = document.createElement("p");
+    description.className = "ad-slot-description";
+    description.textContent = "Promuj swoją firmę przy MŚ 2026.";
+
+    const contact = document.createElement("p");
+    contact.className = "ad-slot-contact";
+    contact.append("Kontakt:");
+
+    const email = createContactLink("ad-slot-email");
+    slot.append(badge, size, description, contact, email);
+    return slot;
+  }
+
+  function addAdSlots() {
+    if (!document.querySelector('[data-ad-slot="main"]')) {
+      const countdown = [...document.querySelectorAll(".mb-6.rounded-2xl")].find(
+        (element) =>
+          element.textContent.includes("Do meczu otwarcia") ||
+          element.textContent.includes("Do wielkiego finału") ||
+          element.textContent.includes("Mundial zakończony"),
+      );
+
+      if (countdown?.parentElement) {
+        countdown.insertAdjacentElement("afterend", createMainAdSlot());
+      }
+    }
+
+    if (!document.querySelector('[data-ad-slot="sidebar"]')) {
+      document.body.append(createSidebarAdSlot());
+    }
+  }
+
   function secureExternalLinks() {
     document
       .querySelectorAll('a[target="_blank"]')
@@ -78,6 +161,7 @@
     labelControls();
     labelFavoriteButtons();
     addDataSource();
+    addAdSlots();
     secureExternalLinks();
   }
 

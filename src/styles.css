@@ -37,6 +37,110 @@
   .skip-link:focus {
     transform: translateY(0);
   }
+
+  .ad-slot {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgb(16 185 129 / 0.3);
+    background:
+      radial-gradient(circle at top right, rgb(245 158 11 / 0.14), transparent 45%),
+      linear-gradient(135deg, rgb(15 23 42 / 0.98), rgb(6 78 59 / 0.38));
+    box-shadow: 0 18px 50px rgb(2 6 23 / 0.24);
+    color: #e2e8f0;
+  }
+
+  .ad-slot::before {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 5rem;
+    height: 0.125rem;
+    background: linear-gradient(90deg, #fbbf24, #34d399);
+    content: "";
+  }
+
+  .ad-slot-main {
+    margin-bottom: 1.5rem;
+    border-radius: 1rem;
+    padding: 1.25rem;
+  }
+
+  .ad-slot-kicker {
+    color: #fbbf24;
+    font-size: 0.6875rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+  }
+
+  .ad-slot-title {
+    margin-top: 0.5rem;
+    color: #f8fafc;
+    font-size: 1.125rem;
+    font-weight: 900;
+    line-height: 1.35;
+  }
+
+  .ad-slot-description {
+    margin-top: 0.5rem;
+    color: #cbd5e1;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .ad-slot-contact {
+    margin-top: 0.875rem;
+    color: #a7f3d0;
+    font-size: 0.8125rem;
+    font-weight: 700;
+  }
+
+  .ad-slot-email {
+    color: #fde68a;
+    font-weight: 900;
+    text-decoration: underline;
+    text-decoration-color: rgb(251 191 36 / 0.55);
+    text-underline-offset: 0.25rem;
+  }
+
+  .ad-slot-email:hover {
+    color: #fef3c7;
+  }
+
+  .ad-slot-sidebar {
+    display: none;
+  }
+
+  .ad-slot-size {
+    margin-top: 1.5rem;
+    color: #f8fafc;
+    font-size: 1.75rem;
+    font-weight: 900;
+    letter-spacing: -0.025em;
+  }
+}
+
+@media (min-width: 1440px) {
+  #root {
+    padding-right: 332px;
+  }
+
+  .ad-slot-sidebar {
+    position: fixed;
+    top: 9.5rem;
+    right: 1rem;
+    z-index: 30;
+    display: flex;
+    width: 300px;
+    min-height: 250px;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
+
+  .ad-slot-sidebar .ad-slot-email {
+    margin-top: 0.375rem;
+    overflow-wrap: anywhere;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

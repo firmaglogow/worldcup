@@ -3,6 +3,10 @@ import fs from "node:fs";
 
 const index = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const app = fs.readFileSync(new URL("../assets/app.js", import.meta.url), "utf8");
+const enhancements = fs.readFileSync(
+  new URL("../assets/enhancements.js", import.meta.url),
+  "utf8",
+);
 const css = fs.readFileSync(
   new URL("../assets/styles.css", import.meta.url),
   "utf8",
@@ -17,6 +21,22 @@ assert(index.includes('rel="canonical"'), "Canonical URL is missing");
 assert(index.includes("assets/og-image.png"), "Open Graph image is missing");
 assert(index.includes("assets/squads.js"), "Squad data script is missing");
 assert(css.length > 10_000, "Generated stylesheet looks incomplete");
+assert(
+  enhancements.includes('slot.dataset.adSlot = "main"'),
+  "Main advertising slot is missing",
+);
+assert(
+  enhancements.includes('slot.dataset.adSlot = "sidebar"'),
+  "Sidebar advertising slot is missing",
+);
+assert(
+  enhancements.includes("mailto:firmaglogow@gmail.com"),
+  "Advertising contact link is missing",
+);
+assert(
+  !enhancements.includes("googlesyndication"),
+  "External advertising script found",
+);
 assert.equal(Object.keys(squads.teams).length, 48, "Expected 48 squad lists");
 assert("CIV" in squads.teams, "Côte d'Ivoire must use the app code CIV");
 assert(!("WKS" in squads.teams), "Unsupported WKS code found in squad data");
