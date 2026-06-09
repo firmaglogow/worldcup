@@ -54,6 +54,14 @@ assert(
   "Recognizable advertising goal is missing",
 );
 assert(
+  enhancements.includes("assets/trophy-header.png"),
+  "Realistic header trophy is missing",
+);
+assert(
+  css.includes(".site-trophy-image"),
+  "Header trophy styles are missing",
+);
+assert(
   css.includes("height:132px"),
   "Mobile advertising animation is missing",
 );

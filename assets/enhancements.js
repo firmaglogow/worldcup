@@ -68,6 +68,27 @@
     footer.append(note);
   }
 
+  function replaceHeaderTrophy() {
+    const heading = [...document.querySelectorAll("h1")].find(
+      (element) => element.textContent.trim() === "MISTRZOSTWA ŚWIATA 2026",
+    );
+    const brandRow = heading?.parentElement?.parentElement;
+    const mark = brandRow?.firstElementChild;
+
+    if (!mark || mark.querySelector(".site-trophy-image")) return;
+
+    const image = document.createElement("img");
+    image.src = "assets/trophy-header.png";
+    image.alt = "";
+    image.className = "site-trophy-image";
+    image.width = 48;
+    image.height = 48;
+    image.decoding = "async";
+
+    mark.classList.add("site-trophy-mark");
+    mark.replaceChildren(image);
+  }
+
   function createContactLink(className) {
     const link = document.createElement("a");
     link.href = "mailto:emistrzostwaswiata2026@gmail.com";
@@ -213,6 +234,7 @@
     labelControls();
     labelFavoriteButtons();
     addDataSource();
+    replaceHeaderTrophy();
     addAdSlots();
     secureExternalLinks();
   }

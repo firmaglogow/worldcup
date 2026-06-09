@@ -38,6 +38,23 @@
     transform: translateY(0);
   }
 
+  .site-trophy-mark {
+    border: 1px solid rgb(251 191 36 / 0.62);
+    background:
+      radial-gradient(circle at 50% 35%, rgb(51 65 85 / 0.95), transparent 64%),
+      linear-gradient(145deg, #152238, #07111f) !important;
+    box-shadow:
+      0 8px 20px rgb(2 6 23 / 0.5),
+      0 0 18px rgb(245 158 11 / 0.18) !important;
+  }
+
+  .site-trophy-image {
+    width: 88%;
+    height: 88%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 3px rgb(2 6 23 / 0.55));
+  }
+
   .ad-slot {
     position: relative;
     overflow: hidden;
