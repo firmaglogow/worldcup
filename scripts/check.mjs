@@ -42,6 +42,14 @@ assert(
   "Advertising animation styles are missing",
 );
 assert(
+  enhancements.includes("ad-slot-goal-frame"),
+  "Recognizable advertising goal is missing",
+);
+assert(
+  css.includes("height:132px"),
+  "Mobile advertising animation is missing",
+);
+assert(
   !enhancements.includes("googlesyndication"),
   "External advertising script found",
 );

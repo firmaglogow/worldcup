@@ -81,7 +81,7 @@
     visual.className = "ad-slot-visual";
     visual.setAttribute("aria-hidden", "true");
     visual.innerHTML = `
-      <svg class="ad-slot-scene" viewBox="0 0 360 180" role="presentation">
+      <svg class="ad-slot-scene" viewBox="0 0 360 176" role="presentation">
         <defs>
           <linearGradient id="adGoalGlow" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stop-color="#fbbf24" />
@@ -93,21 +93,26 @@
           </radialGradient>
         </defs>
 
-        <path class="ad-slot-flight-path" d="M40 132 C112 18 215 18 292 74" />
-        <path class="ad-slot-field-line" d="M18 152 H342" />
-        <ellipse class="ad-slot-field-mark" cx="183" cy="152" rx="58" ry="13" />
+        <path class="ad-slot-flight-path" d="M34 136 C94 34 184 25 278 100" />
+        <path class="ad-slot-field-line" d="M16 151 H344" />
+        <path class="ad-slot-penalty-area" d="M188 151 207 124 H344" />
+        <ellipse class="ad-slot-field-mark" cx="278" cy="151" rx="70" ry="12" />
 
         <g class="ad-slot-goal">
-          <path d="M258 62 H332 V151 H258 Z" />
-          <path d="M258 62 242 78 V151 H258" />
-          <path d="M275 62 V151 M294 62 V151 M313 62 V151" />
-          <path d="M242 91 H332 M242 112 H332 M242 132 H332" />
+          <rect class="ad-slot-goal-shadow" x="218" y="54" width="120" height="96" rx="3" />
+          <g class="ad-slot-goal-net">
+            <path d="M238 56 V148 M258 56 V148 M278 56 V148 M298 56 V148 M318 56 V148" />
+            <path d="M220 73 H336 M220 92 H336 M220 111 H336 M220 130 H336" />
+          </g>
+          <path class="ad-slot-goal-frame" d="M218 149 V52 H338 V149 M218 52 H338" />
+          <path class="ad-slot-goal-base" d="M207 151 H346" />
+          <circle class="ad-slot-goal-impact" cx="278" cy="100" r="25" />
         </g>
 
         <g class="ad-slot-brand-board">
-          <rect x="221" y="92" width="101" height="36" rx="8" />
-          <text x="271.5" y="106">TWOJA MARKA</text>
-          <text x="271.5" y="119">TUTAJ</text>
+          <rect x="224" y="14" width="108" height="28" rx="7" />
+          <text x="278" y="26">TWOJA MARKA</text>
+          <text x="278" y="36">TUTAJ</text>
         </g>
 
         <circle class="ad-slot-ball-glow" cx="0" cy="0" r="28" />
@@ -116,9 +121,9 @@
           <path d="m0-6 5 4-2 6h-6l-2-6 5-4Zm-9 5 4 5-3 5m17-10-4 5 3 5M-3 4l-3 7M3 4l3 7" />
         </g>
 
-        <circle class="ad-slot-spark ad-slot-spark-one" cx="121" cy="54" r="2.5" />
-        <circle class="ad-slot-spark ad-slot-spark-two" cx="183" cy="34" r="2" />
-        <circle class="ad-slot-spark ad-slot-spark-three" cx="235" cy="47" r="1.8" />
+        <circle class="ad-slot-spark ad-slot-spark-one" cx="112" cy="55" r="2.5" />
+        <circle class="ad-slot-spark ad-slot-spark-two" cx="174" cy="34" r="2" />
+        <circle class="ad-slot-spark ad-slot-spark-three" cx="207" cy="58" r="1.8" />
       </svg>
       <span class="ad-slot-visual-caption">Twoja marka w centrum emocji</span>
     `;
