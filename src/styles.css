@@ -59,9 +59,17 @@
   }
 
   .ad-slot-main {
+    display: grid;
+    align-items: center;
+    gap: 1rem;
     margin-bottom: 1.5rem;
     border-radius: 1rem;
     padding: 1.25rem;
+  }
+
+  .ad-slot-content {
+    position: relative;
+    z-index: 2;
   }
 
   .ad-slot-kicker {
@@ -109,12 +117,139 @@
     display: none;
   }
 
+  .ad-slot-visual {
+    position: relative;
+    z-index: 1;
+    display: none;
+    min-width: 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ad-slot-visual::before {
+    position: absolute;
+    inset: 12% 8%;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgb(52 211 153 / 0.14), transparent 68%);
+    filter: blur(12px);
+    content: "";
+  }
+
+  .ad-slot-scene {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    overflow: visible;
+  }
+
+  .ad-slot-flight-path {
+    fill: none;
+    stroke: url("#adGoalGlow");
+    stroke-dasharray: 7 9;
+    stroke-linecap: round;
+    stroke-width: 2;
+    opacity: 0.42;
+  }
+
+  .ad-slot-field-line,
+  .ad-slot-field-mark {
+    fill: none;
+    stroke: rgb(167 243 208 / 0.2);
+    stroke-width: 1.5;
+  }
+
+  .ad-slot-goal {
+    fill: none;
+    stroke: rgb(226 232 240 / 0.46);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
+  }
+
+  .ad-slot-brand-board rect {
+    fill: rgb(15 23 42 / 0.9);
+    stroke: url("#adGoalGlow");
+    stroke-width: 1.2;
+  }
+
+  .ad-slot-brand-board text {
+    fill: #fde68a;
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 0.11em;
+    text-anchor: middle;
+  }
+
+  .ad-slot-ball-glow {
+    fill: url("#adBallGlow");
+    offset-path: path("M40 132 C112 18 215 18 292 74");
+    animation: ad-ball-flight 4.5s cubic-bezier(0.45, 0, 0.35, 1) infinite;
+  }
+
+  .ad-slot-ball {
+    offset-path: path("M40 132 C112 18 215 18 292 74");
+    animation: ad-ball-flight 4.5s cubic-bezier(0.45, 0, 0.35, 1) infinite;
+    filter: drop-shadow(0 5px 8px rgb(2 6 23 / 0.55));
+  }
+
+  .ad-slot-ball circle {
+    fill: #f8fafc;
+    stroke: #fbbf24;
+    stroke-width: 1.5;
+  }
+
+  .ad-slot-ball path {
+    fill: #0f172a;
+    stroke: #0f172a;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.4;
+  }
+
+  .ad-slot-spark {
+    fill: #6ee7b7;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ad-spark 2.2s ease-in-out infinite;
+  }
+
+  .ad-slot-spark-two {
+    animation-delay: 0.55s;
+  }
+
+  .ad-slot-spark-three {
+    animation-delay: 1.1s;
+  }
+
+  .ad-slot-visual-caption {
+    position: absolute;
+    right: 1rem;
+    bottom: 0.3rem;
+    color: rgb(167 243 208 / 0.72);
+    font-size: 0.625rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
   .ad-slot-size {
     margin-top: 1.5rem;
     color: #f8fafc;
     font-size: 1.75rem;
     font-weight: 900;
     letter-spacing: -0.025em;
+  }
+}
+
+@media (min-width: 768px) {
+  .ad-slot-main {
+    grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+    min-height: 190px;
+    padding: 1.5rem 1.75rem;
+  }
+
+  .ad-slot-visual {
+    display: flex;
   }
 }
 
@@ -143,6 +278,43 @@
   }
 }
 
+@keyframes ad-ball-flight {
+  0%,
+  12% {
+    offset-distance: 0%;
+    opacity: 0;
+    transform: rotate(0deg) scale(0.82);
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  72% {
+    opacity: 1;
+  }
+
+  82%,
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+    transform: rotate(540deg) scale(0.58);
+  }
+}
+
+@keyframes ad-spark {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.75);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: scale(1.35);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -155,5 +327,11 @@
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  .ad-slot-ball,
+  .ad-slot-ball-glow {
+    offset-distance: 72%;
+    opacity: 1;
   }
 }

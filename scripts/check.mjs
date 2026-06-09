@@ -34,6 +34,14 @@ assert(
   "Advertising contact link is missing",
 );
 assert(
+  enhancements.includes("ad-slot-scene"),
+  "Advertising animation scene is missing",
+);
+assert(
+  css.includes("@keyframes ad-ball-flight"),
+  "Advertising animation styles are missing",
+);
+assert(
   !enhancements.includes("googlesyndication"),
   "External advertising script found",
 );
