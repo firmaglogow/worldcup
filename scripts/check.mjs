@@ -11,6 +11,7 @@ const css = fs.readFileSync(
   new URL("../assets/styles.css", import.meta.url),
   "utf8",
 );
+const stadiumMap = new URL("../assets/stadium-map.jpg", import.meta.url);
 const squads = JSON.parse(
   fs.readFileSync(new URL("../data/squads.json", import.meta.url), "utf8"),
 );
@@ -84,21 +85,22 @@ assert(
   "Mobile stadium map enhancement is missing",
 );
 assert(
-  css.includes(".stadium-map-svg"),
-  "Mobile stadium map styles are missing",
+  enhancements.includes("assets/stadium-map.jpg"),
+  "Detailed stadium map image is not connected",
 );
 assert(
   enhancements.includes("Pokaż informacje:"),
   "Touchable stadium markers are missing",
 );
 assert(
-  enhancements.includes("data-mobile-stadium-tooltip"),
-  "Mobile stadium tooltip is missing",
+  enhancements.includes("stadiumMapTooltip"),
+  "Stadium map tooltip is missing",
 );
 assert(
   css.includes(".stadium-map-desktop-help"),
   "Desktop-only stadium map hint handling is missing",
 );
+assert(fs.existsSync(stadiumMap), "Detailed stadium map image is missing");
 assert(
   index.includes("stadium-credits.html"),
   "Stadium photo credits link is missing",

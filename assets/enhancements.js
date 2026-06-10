@@ -89,94 +89,231 @@
     mark.replaceChildren(image);
   }
 
-  const stadiumMapInfo = new Map([
-    ["NEW JERSEY", ["MetLife Stadium", "82 500 miejsc · 8 meczów"]],
-    ["MEXICO CITY", ["Estadio Azteca", "72 766 miejsc · 5 meczów"]],
-    ["DALLAS", ["AT&T Stadium", "70 122 miejsc · 9 meczów"]],
-    ["LOS ANGELES", ["SoFi Stadium", "69 650 miejsc · 8 meczów"]],
-    ["SAN FRANCISCO", ["Levi's Stadium", "69 391 miejsc · 6 meczów"]],
-    ["HOUSTON", ["NRG Stadium", "68 311 miejsc · 7 meczów"]],
-    ["KANSAS CITY", ["Arrowhead Stadium", "67 513 miejsc · 6 meczów"]],
-    ["ATLANTA", ["Mercedes-Benz Stadium", "67 382 miejsc · 8 meczów"]],
-    [
-      "PHILADELPHIA",
-      ["Lincoln Financial Field", "65 827 miejsc · 6 meczów"],
-    ],
-    ["SEATTLE", ["Lumen Field", "65 123 miejsc · 5 meczów"]],
-    ["MIAMI", ["Hard Rock Stadium", "64 091 miejsc · 7 meczów"]],
-    ["BOSTON", ["Gillette Stadium", "63 815 miejsc · 7 meczów"]],
-    ["MONTERREY", ["Estadio BBVA", "50 113 miejsc · 4 mecze"]],
-    ["VANCOUVER", ["BC Place", "48 821 miejsc · 8 meczów"]],
-    ["TORONTO", ["BMO Field", "45 000 miejsc · 6 meczów"]],
-    ["GUADALAJARA", ["Estadio Akron", "44 330 miejsc · 4 mecze"]],
-  ]);
+  const stadiumMapInfo = [
+    {
+      city: "Vancouver",
+      stadium: "BC Place",
+      details: "48 821 miejsc · 8 meczów",
+      x: 17.96,
+      y: 17.96,
+      color: "#fb5b4b",
+    },
+    {
+      city: "Seattle",
+      stadium: "Lumen Field",
+      details: "65 123 miejsc · 5 meczów",
+      x: 18.85,
+      y: 25.05,
+      color: "#3b82f6",
+    },
+    {
+      city: "San Francisco",
+      stadium: "Levi's Stadium",
+      details: "69 391 miejsc · 6 meczów",
+      x: 15.95,
+      y: 43.19,
+      color: "#3b82f6",
+    },
+    {
+      city: "Los Angeles",
+      stadium: "SoFi Stadium",
+      details: "69 650 miejsc · 8 meczów",
+      x: 17.96,
+      y: 49.54,
+      color: "#3b82f6",
+    },
+    {
+      city: "Kansas City",
+      stadium: "Arrowhead Stadium",
+      details: "67 513 miejsc · 6 meczów",
+      x: 53.25,
+      y: 43.74,
+      color: "#3b82f6",
+    },
+    {
+      city: "Dallas",
+      stadium: "AT&T Stadium",
+      details: "70 122 miejsc · 9 meczów",
+      x: 50.28,
+      y: 53.96,
+      color: "#3b82f6",
+    },
+    {
+      city: "Houston",
+      stadium: "NRG Stadium",
+      details: "68 311 miejsc · 7 meczów",
+      x: 51.38,
+      y: 61.6,
+      color: "#3b82f6",
+    },
+    {
+      city: "Atlanta",
+      stadium: "Mercedes-Benz Stadium",
+      details: "67 382 miejsc · 8 meczów",
+      x: 67.54,
+      y: 50.55,
+      color: "#3b82f6",
+    },
+    {
+      city: "Miami",
+      stadium: "Hard Rock Stadium",
+      details: "64 091 miejsc · 7 meczów",
+      x: 73.76,
+      y: 61.05,
+      color: "#3b82f6",
+    },
+    {
+      city: "Boston",
+      stadium: "Gillette Stadium",
+      details: "63 815 miejsc · 7 meczów",
+      x: 81.42,
+      y: 31.68,
+      color: "#3b82f6",
+    },
+    {
+      city: "New York / New Jersey",
+      stadium: "MetLife Stadium",
+      details: "82 500 miejsc · 8 meczów · finał",
+      x: 79.97,
+      y: 36.37,
+      color: "#fbbf24",
+    },
+    {
+      city: "Philadelphia",
+      stadium: "Lincoln Financial Field",
+      details: "65 827 miejsc · 6 meczów",
+      x: 78.45,
+      y: 40.61,
+      color: "#3b82f6",
+    },
+    {
+      city: "Toronto",
+      stadium: "BMO Field",
+      details: "45 000 miejsc · 6 meczów",
+      x: 72.31,
+      y: 23.94,
+      color: "#fb5b4b",
+    },
+    {
+      city: "Monterrey",
+      stadium: "Estadio BBVA",
+      details: "50 113 miejsc · 4 mecze",
+      x: 44.54,
+      y: 73.3,
+      color: "#4ade80",
+    },
+    {
+      city: "Guadalajara",
+      stadium: "Estadio Akron",
+      details: "44 330 miejsc · 4 mecze",
+      x: 37.29,
+      y: 79.74,
+      color: "#4ade80",
+    },
+    {
+      city: "Mexico City",
+      stadium: "Estadio Azteca",
+      details: "72 766 miejsc · 5 meczów · otwarcie",
+      x: 45.3,
+      y: 82.87,
+      color: "#4ade80",
+    },
+  ];
 
-  function clearMobileStadiumTooltip(map) {
-    map.querySelector("[data-mobile-stadium-tooltip]")?.remove();
-    map
-      .querySelectorAll("[data-mobile-stadium-active]")
-      .forEach((element) => delete element.dataset.mobileStadiumActive);
-  }
+  function createStadiumMapVisual(viewport) {
+    const visual = document.createElement("div");
+    visual.dataset.stadiumMapVisual = "true";
+    visual.className = "stadium-map-image-wrap";
 
-  function showMobileStadiumTooltip(map, marker) {
-    clearMobileStadiumTooltip(map);
+    const image = document.createElement("img");
+    image.src = "assets/stadium-map.jpg";
+    image.alt =
+      "Mapa Kanady, Stanów Zjednoczonych i Meksyku z miastami-gospodarzami Mistrzostw Świata 2026";
+    image.className = "stadium-map-image";
+    image.width = 1448;
+    image.height = 1086;
+    image.decoding = "async";
 
-    const city = marker.dataset.stadiumCity;
-    const info = stadiumMapInfo.get(city);
-    const point = marker.querySelector("circle");
-    if (!info || !point) return;
+    const tooltip = document.createElement("div");
+    tooltip.dataset.stadiumMapTooltip = "true";
+    tooltip.className = "stadium-map-tooltip";
+    tooltip.setAttribute("role", "status");
+    tooltip.hidden = true;
 
-    const x = Number(point.getAttribute("cx"));
-    const y = Number(point.getAttribute("cy"));
-    const width = 270;
-    const height = 68;
-    const left = Math.min(Math.max(x - width / 2, 12), 1000 - width - 12);
-    const top = y < 100 ? y + 24 : y - height - 22;
-    const namespace = "http://www.w3.org/2000/svg";
-    const viewport = map.closest(".stadium-map-viewport");
+    const tooltipTitle = document.createElement("strong");
+    tooltipTitle.className = "stadium-map-tooltip-title";
 
-    if (viewport) {
-      const markerRect = marker.getBoundingClientRect();
-      const viewportRect = viewport.getBoundingClientRect();
-      const markerCenter = markerRect.left + markerRect.width / 2;
-      const viewportCenter = viewportRect.left + viewportRect.width / 2;
-      const reducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
+    const tooltipDetails = document.createElement("span");
+    tooltipDetails.className = "stadium-map-tooltip-details";
+    tooltip.append(tooltipTitle, tooltipDetails);
 
-      viewport.scrollBy({
-        left: markerCenter - viewportCenter,
-        behavior: reducedMotion ? "auto" : "smooth",
-      });
-    }
+    const clearSelection = () => {
+      visual
+        .querySelectorAll(".stadium-map-marker.is-active")
+        .forEach((marker) => marker.classList.remove("is-active"));
+      tooltip.hidden = true;
+    };
 
-    const tooltip = document.createElementNS(namespace, "g");
-    tooltip.dataset.mobileStadiumTooltip = "true";
-    tooltip.classList.add("stadium-map-mobile-tooltip");
-    tooltip.setAttribute("transform", `translate(${left} ${top})`);
-    tooltip.setAttribute("pointer-events", "none");
-    tooltip.setAttribute("aria-hidden", "true");
+    const showStadium = (marker, centerMarker = false) => {
+      const stadium = stadiumMapInfo[Number(marker.dataset.stadiumIndex)];
+      if (!stadium) return;
 
-    const background = document.createElementNS(namespace, "rect");
-    background.setAttribute("width", String(width));
-    background.setAttribute("height", String(height));
-    background.setAttribute("rx", "10");
+      visual
+        .querySelectorAll(".stadium-map-marker.is-active")
+        .forEach((element) => element.classList.remove("is-active"));
+      marker.classList.add("is-active");
 
-    const title = document.createElementNS(namespace, "text");
-    title.setAttribute("x", "16");
-    title.setAttribute("y", "28");
-    title.classList.add("stadium-map-tooltip-title");
-    title.textContent = info[0];
+      tooltipTitle.textContent = stadium.stadium;
+      tooltipDetails.textContent = `${stadium.city} · ${stadium.details}`;
+      tooltip.style.setProperty("--tooltip-x", `${stadium.x}%`);
+      tooltip.style.setProperty("--tooltip-y", `${stadium.y}%`);
+      tooltip.hidden = false;
 
-    const details = document.createElementNS(namespace, "text");
-    details.setAttribute("x", "16");
-    details.setAttribute("y", "51");
-    details.classList.add("stadium-map-tooltip-details");
-    details.textContent = `${city} · ${info[1]}`;
+      if (centerMarker && window.matchMedia("(max-width: 639px)").matches) {
+        const reducedMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+        viewport.scrollTo({
+          left: marker.offsetLeft - viewport.clientWidth / 2,
+          behavior: reducedMotion ? "auto" : "smooth",
+        });
+      }
+    };
 
-    tooltip.append(background, title, details);
-    marker.dataset.mobileStadiumActive = "true";
-    map.append(tooltip);
+    stadiumMapInfo.forEach((stadium, index) => {
+      const marker = document.createElement("button");
+      marker.type = "button";
+      marker.className = "stadium-map-marker";
+      marker.dataset.stadiumIndex = String(index);
+      marker.style.setProperty("--marker-x", `${stadium.x}%`);
+      marker.style.setProperty("--marker-y", `${stadium.y}%`);
+      marker.style.setProperty("--marker-color", stadium.color);
+      marker.setAttribute(
+        "aria-label",
+        `Pokaż informacje: ${stadium.city}, ${stadium.stadium}, ${stadium.details}`,
+      );
+
+      marker.addEventListener("mouseenter", () => showStadium(marker));
+      marker.addEventListener("focus", () => showStadium(marker, true));
+      marker.addEventListener("click", () => showStadium(marker, true));
+      visual.append(marker);
+    });
+
+    visual.addEventListener("mouseleave", () => {
+      if (window.matchMedia("(hover: hover)").matches) clearSelection();
+    });
+    visual.addEventListener("pointerdown", (event) => {
+      if (
+        event.target instanceof Element &&
+        !event.target.closest(".stadium-map-marker")
+      ) {
+        clearSelection();
+      }
+    });
+
+    visual.prepend(image);
+    visual.append(tooltip);
+    return visual;
   }
 
   function enhanceStadiumMap() {
@@ -184,9 +321,9 @@
       element.textContent.includes("MAPA STADIONÓW MŚ 2026"),
     );
     const viewport = heading?.nextElementSibling;
-    const map = viewport?.querySelector('svg[viewBox="0 0 1000 800"]');
+    const legacyMap = viewport?.querySelector('svg[viewBox="0 0 1000 800"]');
 
-    if (!viewport || !map) return;
+    if (!viewport || !legacyMap) return;
 
     const mapDescription = [...document.querySelectorAll("p")].find((element) =>
       element.textContent.includes("Na mapie najedź na pinezkę."),
@@ -199,13 +336,17 @@
     }
 
     viewport.classList.add("stadium-map-viewport");
-    map.classList.add("stadium-map-svg");
+    legacyMap.classList.add("stadium-map-legacy");
+    legacyMap.setAttribute("aria-hidden", "true");
 
     const desktopHelp = [...heading.parentElement.querySelectorAll("span")].find(
       (element) =>
         element.textContent.includes("najedź na pinezkę po szczegóły"),
     );
-    desktopHelp?.classList.add("stadium-map-desktop-help");
+    if (desktopHelp) {
+      desktopHelp.classList.add("stadium-map-desktop-help");
+      desktopHelp.textContent = "najedź lub kliknij punkt po szczegóły";
+    }
 
     if (!viewport.previousElementSibling?.matches("[data-stadium-map-hint]")) {
       const hint = document.createElement("p");
@@ -216,71 +357,9 @@
       viewport.before(hint);
     }
 
-    map.querySelectorAll('g[style*="cursor"]').forEach((marker) => {
-      const city =
-        marker.querySelector("text tspan")?.textContent.trim() ||
-        marker.querySelector("text")?.textContent.trim();
-      const info = stadiumMapInfo.get(city);
-
-      if (!city || !info) return;
-
-      marker.dataset.stadiumCity = city;
-      marker.setAttribute("role", "button");
-      marker.setAttribute("tabindex", "0");
-      marker.setAttribute(
-        "aria-label",
-        `Pokaż informacje: ${city}, ${info[0]}, ${info[1]}`,
-      );
-    });
-
-    if (viewport.dataset.touchReady === "true") return;
-    viewport.dataset.touchReady = "true";
-
-    viewport.addEventListener("pointerdown", (event) => {
-      const marker =
-        event.target instanceof Element
-          ? event.target.closest('g[style*="cursor"]')
-          : null;
-      if (!marker) clearMobileStadiumTooltip(map);
-    });
-
-    const activateMarker = (marker) => {
-      if (window.matchMedia("(max-width: 639px)").matches) {
-        showMobileStadiumTooltip(map, marker);
-        return;
-      }
-
-      marker.dispatchEvent(
-        new MouseEvent("mouseover", {
-          bubbles: true,
-          cancelable: true,
-          view: window,
-        }),
-      );
-    };
-
-    map.addEventListener("click", (event) => {
-      const marker =
-        event.target instanceof Element
-          ? event.target.closest('g[style*="cursor"]')
-          : null;
-      if (!marker) return;
-
-      activateMarker(marker);
-    });
-
-    map.addEventListener("keydown", (event) => {
-      if (event.key !== "Enter" && event.key !== " ") return;
-
-      const marker =
-        event.target instanceof Element
-          ? event.target.closest('g[style*="cursor"]')
-          : null;
-      if (!marker) return;
-
-      event.preventDefault();
-      activateMarker(marker);
-    });
+    if (!viewport.querySelector("[data-stadium-map-visual]")) {
+      viewport.append(createStadiumMapVisual(viewport));
+    }
   }
 
   function createContactLink(className) {
