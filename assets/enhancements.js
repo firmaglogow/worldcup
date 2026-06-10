@@ -411,6 +411,168 @@
     return link;
   }
 
+  const playerPositionLabels = {
+    GK: "Bramkarz",
+    DF: "Obrońca",
+    MF: "Pomocnik",
+    FW: "Napastnik",
+  };
+
+  const franceSquadGroups = [
+    ["GK", "Bramkarze"],
+    ["DF", "Obrońcy"],
+    ["MF", "Pomocnicy"],
+    ["FW", "Napastnicy"],
+  ];
+
+  function calculatePlayerAge(birthDate, today = new Date()) {
+    const [day, month, year] = birthDate.split("/").map(Number);
+    let age = today.getFullYear() - year;
+    const birthdayThisYear = new Date(today.getFullYear(), month - 1, day);
+    if (today < birthdayThisYear) age -= 1;
+    return age;
+  }
+
+  function formatPlayerAge(age) {
+    if (age === 1) return "1 rok";
+    const lastTwo = age % 100;
+    const last = age % 10;
+    return `${age} ${last >= 2 && last <= 4 && !(lastTwo >= 12 && lastTwo <= 14) ? "lata" : "lat"}`;
+  }
+
+  function playerInitials(name) {
+    return name
+      .split(/[\s-]+/)
+      .slice(0, 2)
+      .map((part) => part[0])
+      .join("")
+      .toUpperCase();
+  }
+
+  function createPlayerPortrait(player, className) {
+    const portrait = document.createElement("span");
+    portrait.className = className;
+
+    const fallback = document.createElement("span");
+    fallback.className = "player-portrait-fallback";
+    fallback.textContent = playerInitials(player.name);
+    fallback.setAttribute("aria-hidden", "true");
+    portrait.append(fallback);
+
+    if (player.image) {
+      const image = document.createElement("img");
+      image.src = player.image;
+      image.alt = `Zdjęcie: ${player.name}`;
+      image.loading = "lazy";
+      image.decoding = "async";
+      image.width = 72;
+      image.height = 72;
+      image.addEventListener("load", () => {
+        portrait.classList.add("has-player-image");
+      });
+      image.addEventListener("error", () => image.remove());
+      portrait.prepend(image);
+    }
+
+    return portrait;
+  }
+
+  function createFrancePlayerCard(player) {
+    const link = document.createElement("a");
+    link.href = `player.html?id=${encodeURIComponent(player.slug)}`;
+    link.className = "france-player-card";
+    link.dataset.playerSlug = player.slug;
+    link.setAttribute(
+      "aria-label",
+      `${player.name}, ${playerPositionLabels[player.position]}, ${formatPlayerAge(calculatePlayerAge(player.birthDate))}, profil zawodnika`,
+    );
+
+    const number = document.createElement("span");
+    number.className = "france-player-number";
+    number.textContent = player.number;
+
+    const info = document.createElement("span");
+    info.className = "france-player-info";
+
+    const name = document.createElement("strong");
+    name.className = "france-player-name";
+    name.textContent = player.name;
+
+    const club = document.createElement("span");
+    club.className = "france-player-club";
+    club.textContent = player.club;
+    info.append(name, club);
+
+    const metrics = document.createElement("span");
+    metrics.className = "france-player-metrics";
+
+    const age = document.createElement("strong");
+    age.className = "france-player-age";
+    age.textContent = formatPlayerAge(calculatePlayerAge(player.birthDate));
+
+    const height = document.createElement("span");
+    height.className = "france-player-height";
+    height.textContent = `${player.heightCm} cm`;
+    metrics.append(age, height);
+
+    const arrow = document.createElement("span");
+    arrow.className = "france-player-arrow";
+    arrow.setAttribute("aria-hidden", "true");
+    arrow.textContent = "›";
+
+    link.append(
+      createPlayerPortrait(player, "france-player-portrait"),
+      number,
+      info,
+      metrics,
+      arrow,
+    );
+    return link;
+  }
+
+  function enhanceFranceSquad() {
+    const france = window.WC2026_PLAYER_PROFILES?.FRA;
+    if (!france?.players?.length) return;
+
+    const teamHeading = [...document.querySelectorAll("h2")].find(
+      (element) => element.textContent.trim() === "Francja",
+    );
+    const squadHeading = [...document.querySelectorAll("h3")].find((element) =>
+      element.textContent.includes("PEŁNA KADRA"),
+    );
+    if (!teamHeading || !squadHeading) return;
+
+    const panel = squadHeading.parentElement?.parentElement;
+    if (!panel || panel.querySelector("[data-france-squad]")) return;
+
+    const originalGrid = panel.querySelector(".grid.grid-cols-1");
+    if (!originalGrid) return;
+
+    const squad = document.createElement("div");
+    squad.className = "france-squad-grid";
+    squad.dataset.franceSquad = "true";
+
+    franceSquadGroups.forEach(([position, label]) => {
+      const group = document.createElement("section");
+      group.className = "france-squad-group";
+
+      const heading = document.createElement("h4");
+      heading.className = "france-squad-group-title";
+      heading.textContent = label;
+
+      const players = document.createElement("div");
+      players.className = "france-squad-players";
+      france.players
+        .filter((player) => player.position === position)
+        .forEach((player) => players.append(createFrancePlayerCard(player)));
+
+      group.append(heading, players);
+      squad.append(group);
+    });
+
+    originalGrid.replaceWith(squad);
+  }
+
   function createAdVisual() {
     const visual = document.createElement("div");
     visual.className = "ad-slot-visual";
@@ -550,6 +712,7 @@
     addDataSource();
     replaceHeaderTrophy();
     enhanceStadiumMap();
+    enhanceFranceSquad();
     addAdSlots();
     secureExternalLinks();
   }

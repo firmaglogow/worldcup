@@ -14,5 +14,5 @@ fi
 "$BINARY" \
   -i "./src/styles.css" \
   -o "./assets/styles.css" \
-  --content "./index.html,./assets/*.js" \
+  --content "./*.html,./assets/*.js" \
   --minify

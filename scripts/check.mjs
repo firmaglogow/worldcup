@@ -11,6 +11,20 @@ const css = fs.readFileSync(
   new URL("../assets/styles.css", import.meta.url),
   "utf8",
 );
+const playerProfile = fs.readFileSync(
+  new URL("../assets/player-profile.js", import.meta.url),
+  "utf8",
+);
+const playerPage = fs.readFileSync(
+  new URL("../player.html", import.meta.url),
+  "utf8",
+);
+const francePlayers = JSON.parse(
+  fs.readFileSync(
+    new URL("../data/france-players.json", import.meta.url),
+    "utf8",
+  ),
+);
 const stadiumMap = new URL("../assets/stadium-map.jpg", import.meta.url);
 const squads = JSON.parse(
   fs.readFileSync(new URL("../data/squads.json", import.meta.url), "utf8"),
@@ -109,6 +123,50 @@ assert(
   index.includes("stadium-credits.html"),
   "Stadium photo credits link is missing",
 );
+assert(
+  index.includes("assets/france-players.js"),
+  "France player profile data is missing",
+);
+assert(
+  index.includes("player-credits.html"),
+  "Player photo credits link is missing",
+);
+assert(
+  enhancements.includes("calculatePlayerAge"),
+  "Automatic player age calculation is missing",
+);
+assert(
+  enhancements.includes("data-france-squad") ||
+    enhancements.includes("dataset.franceSquad"),
+  "Detailed France squad is missing",
+);
+assert(
+  enhancements.includes("player.html?id="),
+  "Player profile links are missing",
+);
+assert(
+  playerProfile.includes("birthdayThisYear"),
+  "Player profile age is not calculated from the full birth date",
+);
+assert(
+  playerPage.includes("data-player-profile"),
+  "Player profile page is incomplete",
+);
+assert.equal(
+  francePlayers.players.length,
+  26,
+  "Expected 26 France player profiles",
+);
+for (const player of francePlayers.players) {
+  assert(player.birthDate, `Missing birth date: ${player.name}`);
+  assert(player.club, `Missing club: ${player.name}`);
+  assert(player.heightCm, `Missing height: ${player.name}`);
+  assert(player.photo?.license, `Missing photo license: ${player.name}`);
+  assert(
+    fs.existsSync(new URL(`../${player.image}`, import.meta.url)),
+    `Missing player image: ${player.name}`,
+  );
+}
 for (const image of stadiumImages) {
   assert(
     fs.existsSync(new URL(`../assets/stadiums/${image}`, import.meta.url)),
