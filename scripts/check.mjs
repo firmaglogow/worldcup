@@ -97,6 +97,10 @@ assert(
   "Stadium map tooltip is missing",
 );
 assert(
+  enhancements.includes("stadium-map-tooltip-image"),
+  "Stadium preview image is missing from the map tooltip",
+);
+assert(
   css.includes(".stadium-map-desktop-help"),
   "Desktop-only stadium map hint handling is missing",
 );
@@ -113,6 +117,10 @@ for (const image of stadiumImages) {
   assert(
     app.includes(`assets/stadiums/${image}`),
     `Stadium image is not connected: ${image}`,
+  );
+  assert(
+    enhancements.includes(`image: "${image}"`),
+    `Stadium map preview is not connected: ${image}`,
   );
 }
 assert(

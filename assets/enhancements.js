@@ -94,6 +94,7 @@
       city: "Vancouver",
       stadium: "BC Place",
       details: "48 821 miejsc · 8 meczów",
+      image: "bc-place.webp",
       x: 17.96,
       y: 17.96,
       color: "#fb5b4b",
@@ -102,6 +103,7 @@
       city: "Seattle",
       stadium: "Lumen Field",
       details: "65 123 miejsc · 5 meczów",
+      image: "lumen-field.webp",
       x: 18.85,
       y: 25.05,
       color: "#3b82f6",
@@ -110,6 +112,7 @@
       city: "San Francisco",
       stadium: "Levi's Stadium",
       details: "69 391 miejsc · 6 meczów",
+      image: "levis-stadium.webp",
       x: 15.95,
       y: 43.19,
       color: "#3b82f6",
@@ -118,6 +121,7 @@
       city: "Los Angeles",
       stadium: "SoFi Stadium",
       details: "69 650 miejsc · 8 meczów",
+      image: "sofi-stadium.webp",
       x: 17.96,
       y: 49.54,
       color: "#3b82f6",
@@ -126,6 +130,7 @@
       city: "Kansas City",
       stadium: "Arrowhead Stadium",
       details: "67 513 miejsc · 6 meczów",
+      image: "arrowhead-stadium.webp",
       x: 53.25,
       y: 43.74,
       color: "#3b82f6",
@@ -134,6 +139,7 @@
       city: "Dallas",
       stadium: "AT&T Stadium",
       details: "70 122 miejsc · 9 meczów",
+      image: "att-stadium.webp",
       x: 50.28,
       y: 53.96,
       color: "#3b82f6",
@@ -142,6 +148,7 @@
       city: "Houston",
       stadium: "NRG Stadium",
       details: "68 311 miejsc · 7 meczów",
+      image: "nrg-stadium.webp",
       x: 51.38,
       y: 61.6,
       color: "#3b82f6",
@@ -150,6 +157,7 @@
       city: "Atlanta",
       stadium: "Mercedes-Benz Stadium",
       details: "67 382 miejsc · 8 meczów",
+      image: "mercedes-benz-stadium.webp",
       x: 67.54,
       y: 50.55,
       color: "#3b82f6",
@@ -158,6 +166,7 @@
       city: "Miami",
       stadium: "Hard Rock Stadium",
       details: "64 091 miejsc · 7 meczów",
+      image: "hard-rock-stadium.webp",
       x: 73.76,
       y: 61.05,
       color: "#3b82f6",
@@ -166,6 +175,7 @@
       city: "Boston",
       stadium: "Gillette Stadium",
       details: "63 815 miejsc · 7 meczów",
+      image: "gillette-stadium.webp",
       x: 81.42,
       y: 31.68,
       color: "#3b82f6",
@@ -174,6 +184,7 @@
       city: "New York / New Jersey",
       stadium: "MetLife Stadium",
       details: "82 500 miejsc · 8 meczów · finał",
+      image: "metlife-stadium.webp",
       x: 79.97,
       y: 36.37,
       color: "#fbbf24",
@@ -182,6 +193,7 @@
       city: "Philadelphia",
       stadium: "Lincoln Financial Field",
       details: "65 827 miejsc · 6 meczów",
+      image: "lincoln-financial-field.webp",
       x: 78.45,
       y: 40.61,
       color: "#3b82f6",
@@ -190,6 +202,7 @@
       city: "Toronto",
       stadium: "BMO Field",
       details: "45 000 miejsc · 6 meczów",
+      image: "bmo-field.webp",
       x: 72.31,
       y: 23.94,
       color: "#fb5b4b",
@@ -198,6 +211,7 @@
       city: "Monterrey",
       stadium: "Estadio BBVA",
       details: "50 113 miejsc · 4 mecze",
+      image: "estadio-bbva.webp",
       x: 44.54,
       y: 73.3,
       color: "#4ade80",
@@ -206,6 +220,7 @@
       city: "Guadalajara",
       stadium: "Estadio Akron",
       details: "44 330 miejsc · 4 mecze",
+      image: "estadio-akron.webp",
       x: 37.29,
       y: 79.74,
       color: "#4ade80",
@@ -214,6 +229,7 @@
       city: "Mexico City",
       stadium: "Estadio Azteca",
       details: "72 766 miejsc · 5 meczów · otwarcie",
+      image: "estadio-azteca.webp",
       x: 45.3,
       y: 82.87,
       color: "#4ade80",
@@ -240,12 +256,23 @@
     tooltip.setAttribute("role", "status");
     tooltip.hidden = true;
 
+    const tooltipImage = document.createElement("img");
+    tooltipImage.className = "stadium-map-tooltip-image";
+    tooltipImage.alt = "";
+    tooltipImage.width = 112;
+    tooltipImage.height = 76;
+    tooltipImage.decoding = "async";
+
+    const tooltipContent = document.createElement("span");
+    tooltipContent.className = "stadium-map-tooltip-content";
+
     const tooltipTitle = document.createElement("strong");
     tooltipTitle.className = "stadium-map-tooltip-title";
 
     const tooltipDetails = document.createElement("span");
     tooltipDetails.className = "stadium-map-tooltip-details";
-    tooltip.append(tooltipTitle, tooltipDetails);
+    tooltipContent.append(tooltipTitle, tooltipDetails);
+    tooltip.append(tooltipImage, tooltipContent);
 
     const clearSelection = () => {
       visual
@@ -263,6 +290,7 @@
         .forEach((element) => element.classList.remove("is-active"));
       marker.classList.add("is-active");
 
+      tooltipImage.src = `assets/stadiums/${stadium.image}`;
       tooltipTitle.textContent = stadium.stadium;
       tooltipDetails.textContent = `${stadium.city} · ${stadium.details}`;
       tooltip.style.setProperty("--tooltip-x", `${stadium.x}%`);
@@ -313,6 +341,19 @@
 
     visual.prepend(image);
     visual.append(tooltip);
+
+    const preloadPreviews = () => {
+      stadiumMapInfo.forEach((stadium) => {
+        const preview = new Image();
+        preview.src = `assets/stadiums/${stadium.image}`;
+      });
+    };
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(preloadPreviews, { timeout: 2500 });
+    } else {
+      window.setTimeout(preloadPreviews, 600);
+    }
+
     return visual;
   }
 
