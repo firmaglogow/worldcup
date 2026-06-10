@@ -23,8 +23,9 @@
     return `${age} ${last >= 2 && last <= 4 && !(lastTwo >= 12 && lastTwo <= 14) ? "lata" : "lat"}`;
   }
 
-  function initials(name) {
-    return name
+  function initials(player) {
+    const source = player.name.includes(" ") ? player.name : player.firstNames;
+    return source
       .split(/[\s-]+/)
       .slice(0, 2)
       .map((part) => part[0])
@@ -51,7 +52,7 @@
     title.textContent = "Nie znaleziono zawodnika";
     const description = document.createElement("p");
     description.textContent =
-      "Wróć do strony głównej i wybierz zawodnika z kadry Francji.";
+      "Wróć do strony głównej i wybierz zawodnika z listy reprezentacji.";
     const link = document.createElement("a");
     link.href = "index.html";
     link.textContent = "Przejdź do strony głównej";
@@ -59,7 +60,7 @@
   }
 
   function renderProfile(container, player, team) {
-    document.title = `${player.name} – Francja – Mistrzostwa Świata 2026`;
+    document.title = `${player.name} – ${team.team} – Mistrzostwa Świata 2026`;
 
     const hero = document.createElement("div");
     hero.className = "player-profile-hero";
@@ -67,7 +68,7 @@
     const portrait = document.createElement("div");
     portrait.className = "player-profile-portrait";
     const fallback = document.createElement("span");
-    fallback.textContent = initials(player.name);
+    fallback.textContent = initials(player);
     portrait.append(fallback);
 
     if (player.image) {
@@ -89,7 +90,7 @@
 
     const teamLabel = document.createElement("p");
     teamLabel.className = "player-profile-team";
-    teamLabel.textContent = `${team.flag} REPREZENTACJA FRANCJI`;
+    teamLabel.textContent = `${team.flag} REPREZENTACJA ${(team.teamGenitive || team.team).toLocaleUpperCase("pl")}`;
 
     const title = document.createElement("h1");
     title.textContent = player.name;
@@ -171,8 +172,15 @@
   });
 
   const container = document.querySelector("[data-player-profile]");
-  const slug = new URLSearchParams(window.location.search).get("id");
-  const team = window.WC2026_PLAYER_PROFILES?.FRA;
+  const parameters = new URLSearchParams(window.location.search);
+  const slug = parameters.get("id");
+  const teamCode = parameters.get("team");
+  const profiles = Object.values(window.WC2026_PLAYER_PROFILES || {});
+  const team =
+    window.WC2026_PLAYER_PROFILES?.[teamCode] ||
+    profiles.find((profile) =>
+      profile.players.some((candidate) => candidate.slug === slug),
+    );
   const player = team?.players?.find((candidate) => candidate.slug === slug);
 
   if (!container || !player) {

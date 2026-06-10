@@ -9,7 +9,7 @@ https://firmaglogow.github.io/worldcup/
 - `assets/app.js` - skompilowana aplikacja React.
 - `data/squads.json` - kompletne dane 48 oficjalnych kadr.
 - `assets/squads.js` - dane kadr ładowane bezpośrednio przez stronę.
-- `assets/france-players.js` - szczegółowe profile i zdjęcia kadry Francji.
+- `assets/player-profiles.js` - szczegółowe profile i zdjęcia obsługiwanych kadr.
 - `player.html` - podstrona pełnego profilu zawodnika.
 - `assets/enhancements.js` - dostępność, źródła danych i drobne ulepszenia.
 - `src/styles.css` - źródło stylów.
@@ -29,10 +29,10 @@ Import nowego oficjalnego pliku ze składami:
 python3 scripts/import-squads.py /ścieżka/do/składy.pdf
 ```
 
-Odświeżenie legalnych zdjęć i metadanych kadry Francji z Wikimedia Commons:
+Odświeżenie legalnych zdjęć i metadanych zawodników z Wikimedia Commons:
 
 ```sh
-node scripts/fetch-france-player-photos.mjs
+node scripts/fetch-player-profiles.mjs
 ```
 
 Po zatwierdzeniu i wysłaniu zmian do gałęzi `main` GitHub Pages automatycznie

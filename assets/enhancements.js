@@ -418,7 +418,7 @@
     FW: "Napastnik",
   };
 
-  const franceSquadGroups = [
+  const playerSquadGroups = [
     ["GK", "Bramkarze"],
     ["DF", "Obrońcy"],
     ["MF", "Pomocnicy"],
@@ -440,8 +440,9 @@
     return `${age} ${last >= 2 && last <= 4 && !(lastTwo >= 12 && lastTwo <= 14) ? "lata" : "lat"}`;
   }
 
-  function playerInitials(name) {
-    return name
+  function playerInitials(player) {
+    const source = player.name.includes(" ") ? player.name : player.firstNames;
+    return source
       .split(/[\s-]+/)
       .slice(0, 2)
       .map((part) => part[0])
@@ -455,7 +456,7 @@
 
     const fallback = document.createElement("span");
     fallback.className = "player-portrait-fallback";
-    fallback.textContent = playerInitials(player.name);
+    fallback.textContent = playerInitials(player);
     fallback.setAttribute("aria-hidden", "true");
     portrait.append(fallback);
 
@@ -477,10 +478,12 @@
     return portrait;
   }
 
-  function createFrancePlayerCard(player) {
+  function createPlayerCard(player) {
     const link = document.createElement("a");
-    link.href = `player.html?id=${encodeURIComponent(player.slug)}`;
-    link.className = "france-player-card";
+    link.href = `player.html?team=${encodeURIComponent(player.teamCode)}&id=${encodeURIComponent(player.slug)}`;
+    link.className = "player-card";
+    link.dataset.playerProfileLink = "true";
+    link.dataset.playerTeam = player.teamCode;
     link.dataset.playerSlug = player.slug;
     link.setAttribute(
       "aria-label",
@@ -488,40 +491,40 @@
     );
 
     const number = document.createElement("span");
-    number.className = "france-player-number";
+    number.className = "player-card-number";
     number.textContent = player.number;
 
     const info = document.createElement("span");
-    info.className = "france-player-info";
+    info.className = "player-card-info";
 
     const name = document.createElement("strong");
-    name.className = "france-player-name";
+    name.className = "player-card-name";
     name.textContent = player.name;
 
     const club = document.createElement("span");
-    club.className = "france-player-club";
+    club.className = "player-card-club";
     club.textContent = player.club;
     info.append(name, club);
 
     const metrics = document.createElement("span");
-    metrics.className = "france-player-metrics";
+    metrics.className = "player-card-metrics";
 
     const age = document.createElement("strong");
-    age.className = "france-player-age";
+    age.className = "player-card-age";
     age.textContent = formatPlayerAge(calculatePlayerAge(player.birthDate));
 
     const height = document.createElement("span");
-    height.className = "france-player-height";
+    height.className = "player-card-height";
     height.textContent = `${player.heightCm} cm`;
     metrics.append(age, height);
 
     const arrow = document.createElement("span");
-    arrow.className = "france-player-arrow";
+    arrow.className = "player-card-arrow";
     arrow.setAttribute("aria-hidden", "true");
     arrow.textContent = "›";
 
     link.append(
-      createPlayerPortrait(player, "france-player-portrait"),
+      createPlayerPortrait(player, "player-card-portrait"),
       number,
       info,
       metrics,
@@ -530,41 +533,46 @@
     return link;
   }
 
-  function enhanceFranceSquad() {
-    const france = window.WC2026_PLAYER_PROFILES?.FRA;
-    if (!france?.players?.length) return;
+  function enhancePlayerSquad() {
+    const profiles = Object.values(window.WC2026_PLAYER_PROFILES || {});
+    if (!profiles.length) return;
 
-    const teamHeading = [...document.querySelectorAll("h2")].find(
-      (element) => element.textContent.trim() === "Francja",
+    const teamHeading = [...document.querySelectorAll("h2")].find((element) =>
+      profiles.some((team) => team.team === element.textContent.trim()),
     );
     const squadHeading = [...document.querySelectorAll("h3")].find((element) =>
       element.textContent.includes("PEŁNA KADRA"),
     );
     if (!teamHeading || !squadHeading) return;
 
+    const team = profiles.find(
+      (profile) => profile.team === teamHeading.textContent.trim(),
+    );
+    if (!team?.players?.length) return;
+
     const panel = squadHeading.parentElement?.parentElement;
-    if (!panel || panel.querySelector("[data-france-squad]")) return;
+    if (!panel || panel.querySelector("[data-player-squad]")) return;
 
     const originalGrid = panel.querySelector(".grid.grid-cols-1");
     if (!originalGrid) return;
 
     const squad = document.createElement("div");
-    squad.className = "france-squad-grid";
-    squad.dataset.franceSquad = "true";
+    squad.className = "player-squad-grid";
+    squad.dataset.playerSquad = team.teamCode;
 
-    franceSquadGroups.forEach(([position, label]) => {
+    playerSquadGroups.forEach(([position, label]) => {
       const group = document.createElement("section");
-      group.className = "france-squad-group";
+      group.className = "player-squad-group";
 
       const heading = document.createElement("h4");
-      heading.className = "france-squad-group-title";
+      heading.className = "player-squad-group-title";
       heading.textContent = label;
 
       const players = document.createElement("div");
-      players.className = "france-squad-players";
-      france.players
+      players.className = "player-squad-players";
+      team.players
         .filter((player) => player.position === position)
-        .forEach((player) => players.append(createFrancePlayerCard(player)));
+        .forEach((player) => players.append(createPlayerCard(player)));
 
       group.append(heading, players);
       squad.append(group);
@@ -712,7 +720,7 @@
     addDataSource();
     replaceHeaderTrophy();
     enhanceStadiumMap();
-    enhanceFranceSquad();
+    enhancePlayerSquad();
     addAdSlots();
     secureExternalLinks();
   }
