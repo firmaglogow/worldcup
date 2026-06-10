@@ -89,6 +89,200 @@
     mark.replaceChildren(image);
   }
 
+  const stadiumMapInfo = new Map([
+    ["NEW JERSEY", ["MetLife Stadium", "82 500 miejsc · 8 meczów"]],
+    ["MEXICO CITY", ["Estadio Azteca", "72 766 miejsc · 5 meczów"]],
+    ["DALLAS", ["AT&T Stadium", "70 122 miejsc · 9 meczów"]],
+    ["LOS ANGELES", ["SoFi Stadium", "69 650 miejsc · 8 meczów"]],
+    ["SAN FRANCISCO", ["Levi's Stadium", "69 391 miejsc · 6 meczów"]],
+    ["HOUSTON", ["NRG Stadium", "68 311 miejsc · 7 meczów"]],
+    ["KANSAS CITY", ["Arrowhead Stadium", "67 513 miejsc · 6 meczów"]],
+    ["ATLANTA", ["Mercedes-Benz Stadium", "67 382 miejsc · 8 meczów"]],
+    [
+      "PHILADELPHIA",
+      ["Lincoln Financial Field", "65 827 miejsc · 6 meczów"],
+    ],
+    ["SEATTLE", ["Lumen Field", "65 123 miejsc · 5 meczów"]],
+    ["MIAMI", ["Hard Rock Stadium", "64 091 miejsc · 7 meczów"]],
+    ["BOSTON", ["Gillette Stadium", "63 815 miejsc · 7 meczów"]],
+    ["MONTERREY", ["Estadio BBVA", "50 113 miejsc · 4 mecze"]],
+    ["VANCOUVER", ["BC Place", "48 821 miejsc · 8 meczów"]],
+    ["TORONTO", ["BMO Field", "45 000 miejsc · 6 meczów"]],
+    ["GUADALAJARA", ["Estadio Akron", "44 330 miejsc · 4 mecze"]],
+  ]);
+
+  function clearMobileStadiumTooltip(map) {
+    map.querySelector("[data-mobile-stadium-tooltip]")?.remove();
+    map
+      .querySelectorAll("[data-mobile-stadium-active]")
+      .forEach((element) => delete element.dataset.mobileStadiumActive);
+  }
+
+  function showMobileStadiumTooltip(map, marker) {
+    clearMobileStadiumTooltip(map);
+
+    const city = marker.dataset.stadiumCity;
+    const info = stadiumMapInfo.get(city);
+    const point = marker.querySelector("circle");
+    if (!info || !point) return;
+
+    const x = Number(point.getAttribute("cx"));
+    const y = Number(point.getAttribute("cy"));
+    const width = 270;
+    const height = 68;
+    const left = Math.min(Math.max(x - width / 2, 12), 1000 - width - 12);
+    const top = y < 100 ? y + 24 : y - height - 22;
+    const namespace = "http://www.w3.org/2000/svg";
+    const viewport = map.closest(".stadium-map-viewport");
+
+    if (viewport) {
+      const markerRect = marker.getBoundingClientRect();
+      const viewportRect = viewport.getBoundingClientRect();
+      const markerCenter = markerRect.left + markerRect.width / 2;
+      const viewportCenter = viewportRect.left + viewportRect.width / 2;
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      viewport.scrollBy({
+        left: markerCenter - viewportCenter,
+        behavior: reducedMotion ? "auto" : "smooth",
+      });
+    }
+
+    const tooltip = document.createElementNS(namespace, "g");
+    tooltip.dataset.mobileStadiumTooltip = "true";
+    tooltip.classList.add("stadium-map-mobile-tooltip");
+    tooltip.setAttribute("transform", `translate(${left} ${top})`);
+    tooltip.setAttribute("pointer-events", "none");
+    tooltip.setAttribute("aria-hidden", "true");
+
+    const background = document.createElementNS(namespace, "rect");
+    background.setAttribute("width", String(width));
+    background.setAttribute("height", String(height));
+    background.setAttribute("rx", "10");
+
+    const title = document.createElementNS(namespace, "text");
+    title.setAttribute("x", "16");
+    title.setAttribute("y", "28");
+    title.classList.add("stadium-map-tooltip-title");
+    title.textContent = info[0];
+
+    const details = document.createElementNS(namespace, "text");
+    details.setAttribute("x", "16");
+    details.setAttribute("y", "51");
+    details.classList.add("stadium-map-tooltip-details");
+    details.textContent = `${city} · ${info[1]}`;
+
+    tooltip.append(background, title, details);
+    marker.dataset.mobileStadiumActive = "true";
+    map.append(tooltip);
+  }
+
+  function enhanceStadiumMap() {
+    const heading = [...document.querySelectorAll("h3")].find((element) =>
+      element.textContent.includes("MAPA STADIONÓW MŚ 2026"),
+    );
+    const viewport = heading?.nextElementSibling;
+    const map = viewport?.querySelector('svg[viewBox="0 0 1000 800"]');
+
+    if (!viewport || !map) return;
+
+    const mapDescription = [...document.querySelectorAll("p")].find((element) =>
+      element.textContent.includes("Na mapie najedź na pinezkę."),
+    );
+    if (mapDescription) {
+      mapDescription.textContent = mapDescription.textContent.replace(
+        "Na mapie najedź na pinezkę.",
+        "Na mapie kliknij lub dotknij pinezki.",
+      );
+    }
+
+    viewport.classList.add("stadium-map-viewport");
+    map.classList.add("stadium-map-svg");
+
+    const desktopHelp = [...heading.parentElement.querySelectorAll("span")].find(
+      (element) =>
+        element.textContent.includes("najedź na pinezkę po szczegóły"),
+    );
+    desktopHelp?.classList.add("stadium-map-desktop-help");
+
+    if (!viewport.previousElementSibling?.matches("[data-stadium-map-hint]")) {
+      const hint = document.createElement("p");
+      hint.dataset.stadiumMapHint = "true";
+      hint.className = "stadium-map-mobile-hint";
+      hint.textContent =
+        "Przesuń mapę na boki i dotknij punktu, aby zobaczyć stadion.";
+      viewport.before(hint);
+    }
+
+    map.querySelectorAll('g[style*="cursor"]').forEach((marker) => {
+      const city =
+        marker.querySelector("text tspan")?.textContent.trim() ||
+        marker.querySelector("text")?.textContent.trim();
+      const info = stadiumMapInfo.get(city);
+
+      if (!city || !info) return;
+
+      marker.dataset.stadiumCity = city;
+      marker.setAttribute("role", "button");
+      marker.setAttribute("tabindex", "0");
+      marker.setAttribute(
+        "aria-label",
+        `Pokaż informacje: ${city}, ${info[0]}, ${info[1]}`,
+      );
+    });
+
+    if (viewport.dataset.touchReady === "true") return;
+    viewport.dataset.touchReady = "true";
+
+    viewport.addEventListener("pointerdown", (event) => {
+      const marker =
+        event.target instanceof Element
+          ? event.target.closest('g[style*="cursor"]')
+          : null;
+      if (!marker) clearMobileStadiumTooltip(map);
+    });
+
+    const activateMarker = (marker) => {
+      if (window.matchMedia("(max-width: 639px)").matches) {
+        showMobileStadiumTooltip(map, marker);
+        return;
+      }
+
+      marker.dispatchEvent(
+        new MouseEvent("mouseover", {
+          bubbles: true,
+          cancelable: true,
+          view: window,
+        }),
+      );
+    };
+
+    map.addEventListener("click", (event) => {
+      const marker =
+        event.target instanceof Element
+          ? event.target.closest('g[style*="cursor"]')
+          : null;
+      if (!marker) return;
+
+      activateMarker(marker);
+    });
+
+    map.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+
+      const marker =
+        event.target instanceof Element
+          ? event.target.closest('g[style*="cursor"]')
+          : null;
+      if (!marker) return;
+
+      event.preventDefault();
+      activateMarker(marker);
+    });
+  }
+
   function createContactLink(className) {
     const link = document.createElement("a");
     link.href = "mailto:emistrzostwaswiata2026@gmail.com";
@@ -235,6 +429,7 @@
     labelFavoriteButtons();
     addDataSource();
     replaceHeaderTrophy();
+    enhanceStadiumMap();
     addAdSlots();
     secureExternalLinks();
   }
