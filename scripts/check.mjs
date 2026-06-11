@@ -174,6 +174,32 @@ const expectedProfileTeams = [
   "TUR",
   "ECU",
   "AUT",
+  "ALG",
+  "AUS",
+  "BIH",
+  "CAN",
+  "CIV",
+  "COD",
+  "CPV",
+  "CUW",
+  "CZE",
+  "EGY",
+  "GHA",
+  "HAI",
+  "IRQ",
+  "JOR",
+  "KOR",
+  "KSA",
+  "NOR",
+  "NZL",
+  "PAN",
+  "PAR",
+  "QAT",
+  "RSA",
+  "SCO",
+  "SWE",
+  "TUN",
+  "UZB",
 ];
 assert.deepEqual(
   Object.keys(playerProfiles),
@@ -199,7 +225,7 @@ for (const [teamCode, team] of Object.entries(playerProfiles)) {
     }
   }
 }
-assert.equal(profileCount, 572, "Expected 572 player profiles");
+assert.equal(profileCount, 1248, "Expected 1248 player profiles");
 assert(imageCount >= 505, "Too many player avatars instead of photos");
 for (const image of stadiumImages) {
   assert(

@@ -13,6 +13,7 @@ const squads = JSON.parse(
 const cachePath = path.join(root, "data/player-wikidata.json");
 const outputDataPath = path.join(root, "data/player-profiles.json");
 const outputScriptPath = path.join(root, "assets/player-profiles.js");
+const metricsOnly = process.argv.includes("--metrics-only");
 const userAgent =
   "mistrzostwaswiata2026.pl/1.0 (emistrzostwaswiata2026@gmail.com)";
 
@@ -171,6 +172,215 @@ const teamConfigs = [
     teamGenitive: "Austrii",
     flag: "🇦🇹",
     directory: "austria",
+  },
+  {
+    code: "ALG",
+    team: "Algieria",
+    teamGenitive: "Algierii",
+    flag: "🇩🇿",
+    directory: "algeria",
+    fetchPhotos: false,
+  },
+  {
+    code: "AUS",
+    team: "Australia",
+    teamGenitive: "Australii",
+    flag: "🇦🇺",
+    directory: "australia",
+    fetchPhotos: false,
+  },
+  {
+    code: "BIH",
+    team: "Bośnia i H.",
+    teamGenitive: "Bośni i Hercegowiny",
+    flag: "🇧🇦",
+    directory: "bosnia-and-herzegovina",
+    fetchPhotos: false,
+  },
+  {
+    code: "CAN",
+    team: "Kanada",
+    teamGenitive: "Kanady",
+    flag: "🇨🇦",
+    directory: "canada",
+    fetchPhotos: false,
+  },
+  {
+    code: "CIV",
+    team: "WKS",
+    teamGenitive: "Wybrzeża Kości Słoniowej",
+    flag: "🇨🇮",
+    directory: "ivory-coast",
+    fetchPhotos: false,
+  },
+  {
+    code: "COD",
+    team: "DR Konga",
+    teamGenitive: "Demokratycznej Republiki Konga",
+    flag: "🇨🇩",
+    directory: "dr-congo",
+    fetchPhotos: false,
+  },
+  {
+    code: "CPV",
+    team: "Z. Przylądek",
+    teamGenitive: "Republiki Zielonego Przylądka",
+    flag: "🇨🇻",
+    directory: "cabo-verde",
+    fetchPhotos: false,
+  },
+  {
+    code: "CUW",
+    team: "Curaçao",
+    teamGenitive: "Curaçao",
+    flag: "🇨🇼",
+    directory: "curacao",
+    fetchPhotos: false,
+  },
+  {
+    code: "CZE",
+    team: "Czechy",
+    teamGenitive: "Czech",
+    flag: "🇨🇿",
+    directory: "czechia",
+    fetchPhotos: false,
+  },
+  {
+    code: "EGY",
+    team: "Egipt",
+    teamGenitive: "Egiptu",
+    flag: "🇪🇬",
+    directory: "egypt",
+    fetchPhotos: false,
+  },
+  {
+    code: "GHA",
+    team: "Ghana",
+    teamGenitive: "Ghany",
+    flag: "🇬🇭",
+    directory: "ghana",
+    fetchPhotos: false,
+  },
+  {
+    code: "HAI",
+    team: "Haiti",
+    teamGenitive: "Haiti",
+    flag: "🇭🇹",
+    directory: "haiti",
+    fetchPhotos: false,
+  },
+  {
+    code: "IRQ",
+    team: "Irak",
+    teamGenitive: "Iraku",
+    flag: "🇮🇶",
+    directory: "iraq",
+    fetchPhotos: false,
+  },
+  {
+    code: "JOR",
+    team: "Jordania",
+    teamGenitive: "Jordanii",
+    flag: "🇯🇴",
+    directory: "jordan",
+    fetchPhotos: false,
+  },
+  {
+    code: "KOR",
+    team: "Korea Płd.",
+    teamGenitive: "Korei Południowej",
+    flag: "🇰🇷",
+    directory: "south-korea",
+    fetchPhotos: false,
+  },
+  {
+    code: "KSA",
+    team: "A. Saudyjska",
+    teamGenitive: "Arabii Saudyjskiej",
+    flag: "🇸🇦",
+    directory: "saudi-arabia",
+    fetchPhotos: false,
+  },
+  {
+    code: "NOR",
+    team: "Norwegia",
+    teamGenitive: "Norwegii",
+    flag: "🇳🇴",
+    directory: "norway",
+    fetchPhotos: false,
+  },
+  {
+    code: "NZL",
+    team: "Nowa Zelandia",
+    teamGenitive: "Nowej Zelandii",
+    flag: "🇳🇿",
+    directory: "new-zealand",
+    fetchPhotos: false,
+  },
+  {
+    code: "PAN",
+    team: "Panama",
+    teamGenitive: "Panamy",
+    flag: "🇵🇦",
+    directory: "panama",
+    fetchPhotos: false,
+  },
+  {
+    code: "PAR",
+    team: "Paragwaj",
+    teamGenitive: "Paragwaju",
+    flag: "🇵🇾",
+    directory: "paraguay",
+    fetchPhotos: false,
+  },
+  {
+    code: "QAT",
+    team: "Katar",
+    teamGenitive: "Kataru",
+    flag: "🇶🇦",
+    directory: "qatar",
+    fetchPhotos: false,
+  },
+  {
+    code: "RSA",
+    team: "RPA",
+    teamGenitive: "Republiki Południowej Afryki",
+    flag: "🇿🇦",
+    directory: "south-africa",
+    fetchPhotos: false,
+  },
+  {
+    code: "SCO",
+    team: "Szkocja",
+    teamGenitive: "Szkocji",
+    flag:
+      "\u{1F3F4}\u{E0067}\u{E0062}\u{E0073}\u{E0063}\u{E0074}\u{E007F}",
+    directory: "scotland",
+    fetchPhotos: false,
+  },
+  {
+    code: "SWE",
+    team: "Szwecja",
+    teamGenitive: "Szwecji",
+    flag: "🇸🇪",
+    directory: "sweden",
+    fetchPhotos: false,
+  },
+  {
+    code: "TUN",
+    team: "Tunezja",
+    teamGenitive: "Tunezji",
+    flag: "🇹🇳",
+    directory: "tunisia",
+    fetchPhotos: false,
+  },
+  {
+    code: "UZB",
+    team: "Uzbekistan",
+    teamGenitive: "Uzbekistanu",
+    flag: "🇺🇿",
+    directory: "uzbekistan",
+    fetchPhotos: false,
   },
 ];
 
@@ -640,8 +850,15 @@ const wikidataCache = {
   ...seedWikidataIds,
 };
 await saveCache(wikidataCache);
+let existingProfiles = {};
+try {
+  existingProfiles = JSON.parse(await fs.readFile(outputDataPath, "utf8"));
+} catch {
+  existingProfiles = {};
+}
 
 for (const config of teamConfigs) {
+  if (metricsOnly || config.fetchPhotos === false) continue;
   const squad = squads.teams[config.code];
   console.log(`Weryfikuję Wikidata: ${config.team}`);
   for (const player of squad.players) {
@@ -656,15 +873,19 @@ for (const config of teamConfigs) {
   }
 }
 
-const allIds = Object.values(wikidataCache).filter(Boolean);
+const allIds = metricsOnly
+  ? []
+  : Object.values(wikidataCache).filter(Boolean);
 const wikidataEntities = await getEntities(allIds);
-const commonsFiles = allIds
-  .map(
-    (id) =>
-      wikidataEntities[id]?.claims?.P18?.[0]?.mainsnak?.datavalue?.value,
-  )
-  .filter(Boolean)
-  .concat(Object.values(commonsFileOverrides));
+const commonsFiles = metricsOnly
+  ? []
+  : allIds
+      .map(
+        (id) =>
+          wikidataEntities[id]?.claims?.P18?.[0]?.mainsnak?.datavalue?.value,
+      )
+      .filter(Boolean)
+      .concat(Object.values(commonsFileOverrides));
 const commonsByTitle = await getCommonsMetadata(commonsFiles);
 const profiles = {};
 
@@ -677,24 +898,38 @@ for (const config of teamConfigs) {
   );
   await fs.mkdir(outputDirectory, { recursive: true });
 
-  console.log(`Przygotowuję zdjęcia: ${config.team}`);
+  console.log(
+    `${metricsOnly ? "Przygotowuję metryki" : "Przygotowuję zdjęcia"}: ${config.team}`,
+  );
   const players = await mapConcurrent(squad.players, 1, async (player) => {
-    const wikidataId = wikidataCache[`${config.code}:${player.name}`];
+    const key = `${config.code}:${player.name}`;
+    const canFetchPhotos = !metricsOnly && config.fetchPhotos !== false;
+    const slug = slugOverrides[key] || slugify(player.name);
+    const existingPlayer = existingProfiles[config.code]?.players?.find(
+      (profile) => profile.slug === slug,
+    );
+    const wikidataId = canFetchPhotos ? wikidataCache[key] : null;
     const entity = wikidataEntities[wikidataId];
     const commonsFile =
-      commonsFileOverrides[`${config.code}:${player.name}`] ||
-      entity?.claims?.P18?.[0]?.mainsnak?.datavalue?.value ||
-      null;
+      canFetchPhotos
+        ? commonsFileOverrides[key] ||
+          entity?.claims?.P18?.[0]?.mainsnak?.datavalue?.value ||
+          null
+        : null;
     const commonsPage = commonsByTitle.get(`File:${commonsFile}`);
     const imageInfo = commonsPage?.imageinfo?.[0];
     const metadata = imageInfo?.extmetadata || {};
     const remoteImage = imageInfo?.thumburl || imageInfo?.url;
-    const slug =
-      slugOverrides[`${config.code}:${player.name}`] || slugify(player.name);
     let image = null;
     let photo = null;
 
-    if (remoteImage && hasFreeLicense(metadata)) {
+    if (
+      existingPlayer?.image &&
+      (await fileExists(path.join(root, existingPlayer.image)))
+    ) {
+      image = existingPlayer.image;
+      photo = existingPlayer.photo;
+    } else if (canFetchPhotos && remoteImage && hasFreeLicense(metadata)) {
       const localName = `${slug}.jpg`;
       const localPath = path.join(outputDirectory, localName);
       try {
