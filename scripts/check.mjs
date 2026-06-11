@@ -151,7 +151,20 @@ assert(
   playerPage.includes("data-player-profile"),
   "Player profile page is incomplete",
 );
-const expectedProfileTeams = ["FRA", "ESP", "ARG", "ENG", "POR", "BRA"];
+const expectedProfileTeams = [
+  "FRA",
+  "ESP",
+  "ARG",
+  "ENG",
+  "POR",
+  "BRA",
+  "NED",
+  "MAR",
+  "BEL",
+  "GER",
+  "CRO",
+  "COL",
+];
 assert.deepEqual(
   Object.keys(playerProfiles),
   expectedProfileTeams,
@@ -176,8 +189,8 @@ for (const [teamCode, team] of Object.entries(playerProfiles)) {
     }
   }
 }
-assert.equal(profileCount, 156, "Expected 156 player profiles");
-assert(imageCount >= 145, "Too many player avatars instead of photos");
+assert.equal(profileCount, 312, "Expected 312 player profiles");
+assert(imageCount >= 290, "Too many player avatars instead of photos");
 for (const image of stadiumImages) {
   assert(
     fs.existsSync(new URL(`../assets/stadiums/${image}`, import.meta.url)),

@@ -60,6 +60,48 @@ const teamConfigs = [
     flag: "🇧🇷",
     directory: "brazil",
   },
+  {
+    code: "NED",
+    team: "Holandia",
+    teamGenitive: "Holandii",
+    flag: "🇳🇱",
+    directory: "netherlands",
+  },
+  {
+    code: "MAR",
+    team: "Maroko",
+    teamGenitive: "Maroka",
+    flag: "🇲🇦",
+    directory: "morocco",
+  },
+  {
+    code: "BEL",
+    team: "Belgia",
+    teamGenitive: "Belgii",
+    flag: "🇧🇪",
+    directory: "belgium",
+  },
+  {
+    code: "GER",
+    team: "Niemcy",
+    teamGenitive: "Niemiec",
+    flag: "🇩🇪",
+    directory: "germany",
+  },
+  {
+    code: "CRO",
+    team: "Chorwacja",
+    teamGenitive: "Chorwacji",
+    flag: "🇭🇷",
+    directory: "croatia",
+  },
+  {
+    code: "COL",
+    team: "Kolumbia",
+    teamGenitive: "Kolumbii",
+    flag: "🇨🇴",
+    directory: "colombia",
+  },
 ];
 
 const seedWikidataIds = {
@@ -90,10 +132,17 @@ const seedWikidataIds = {
   "FRA:Maghnes Akliouche": "Q108910786",
   "FRA:Maxence Lacroix": "Q60286976",
   "BRA:Alisson": "Q18237361",
+  "MAR:Youssef Belamm Ari": "Q110964329",
+  "COL:Willer Ditta": "Q79880395",
+  "COL:Cucho Hernandez": "Q27037962",
+  "COL:Andres Gomez": "Q116215934",
 };
 
 const commonsFileOverrides = {
   "BRA:Raphinha": "Raphinha (2025) (cropped).png",
+  "MAR:Abde Ezzalzouli": "Barcelona Training Miami 2022 04 (cropped).jpg",
+  "CRO:Ivor Pandur": "Ivor Pandur.jpg",
+  "COL:Andres Gomez": "IMCF vs. RSL 25 (cropped) (cropped).jpg",
 };
 
 const displayNameOverrides = {
@@ -148,6 +197,56 @@ const displayNameOverrides = {
   "BRA:Bruno Guimaraes": "Bruno Guimarães",
   "BRA:Lucas Paqueta": "Lucas Paquetá",
   "BRA:Roger Ibanez": "Roger Ibañez",
+  "NED:Nathan Ake": "Nathan Aké",
+  "MAR:Brahim Diaz": "Brahim Díaz",
+  "MAR:Youssef Belamm Ari": "Youssef Belammari",
+  "MAR:Ayoub El Kaabi": "Ayoub El Kaâbi",
+  "BEL:Jeremy Doku": "Jérémy Doku",
+  "BEL:Joaquin Seys": "Joaquin Seys",
+  "BEL:Matias Fernandez-Pardo": "Matías Fernández-Pardo",
+  "GER:Antonio Ruediger": "Antonio Rüdiger",
+  "GER:Aleksandar Pavlovic": "Aleksandar Pavlović",
+  "GER:Pascal Gross": "Pascal Groß",
+  "GER:Leroy Sane": "Leroy Sané",
+  "GER:Alexander Nuebel": "Alexander Nübel",
+  "GER:Assan Ouedraogo": "Assan Ouédraogo",
+  "CRO:Dominik Livakovic": "Dominik Livaković",
+  "CRO:Josip Stanisic": "Josip Stanišić",
+  "CRO:Marin Pongracic": "Marin Pongračić",
+  "CRO:Josko Gvardiol": "Joško Gvardiol",
+  "CRO:Duje Caleta-Car": "Duje Ćaleta-Car",
+  "CRO:Josip Sutalo": "Josip Šutalo",
+  "CRO:Mateo Kovacic": "Mateo Kovačić",
+  "CRO:Andrej Kramaric": "Andrej Kramarić",
+  "CRO:Luka Modric": "Luka Modrić",
+  "CRO:Nikola Vlasic": "Nikola Vlašić",
+  "CRO:Ivan Perisic": "Ivan Perišić",
+  "CRO:Mario Pasalic": "Mario Pašalić",
+  "CRO:Petar Sucic": "Petar Sučić",
+  "CRO:Kristijan Jakic": "Kristijan Jakić",
+  "CRO:Igor Matanovic": "Igor Matanović",
+  "CRO:Luka Sucic": "Luka Sučić",
+  "CRO:Luka Vuskovic": "Luka Vušković",
+  "CRO:Marco Pasalic": "Marco Pašalić",
+  "CRO:Martin Erlic": "Martin Erlić",
+  "COL:Daniel Munoz": "Daniel Muñoz",
+  "COL:Jhon Lucumi": "Jhon Lucumí",
+  "COL:Kevin Castano": "Kevin Castaño",
+  "COL:Richard Rios": "Richard Ríos",
+  "COL:Luis Diaz": "Luis Díaz",
+  "COL:Jhon Cordoba": "Jhon Córdoba",
+  "COL:James Rodriguez": "James Rodríguez",
+  "COL:Cucho Hernandez": "Cucho Hernández",
+  "COL:Juan Quintero": "Juan Fernando Quintero",
+  "COL:Davinson Sanchez": "Davinson Sánchez",
+  "COL:Alvaro Montero": "Álvaro Montero",
+  "COL:Luis Suarez": "Luis Suárez",
+  "COL:Andres Gomez": "Andrés Gómez",
+};
+
+const playerDataOverrides = {
+  "COL:Willer Ditta": { birthDate: "23/01/1997" },
+  "COL:Cucho Hernandez": { birthDate: "22/04/1999" },
 };
 
 function sleep(milliseconds) {
@@ -351,6 +450,7 @@ const wikidataCache = {
   ...(await loadCache()),
   ...seedWikidataIds,
 };
+await saveCache(wikidataCache);
 
 for (const config of teamConfigs) {
   const squad = squads.teams[config.code];
@@ -427,6 +527,7 @@ for (const config of teamConfigs) {
 
     return {
       ...player,
+      ...playerDataOverrides[`${config.code}:${player.name}`],
       name:
         displayNameOverrides[`${config.code}:${player.name}`] || player.name,
       slug,
