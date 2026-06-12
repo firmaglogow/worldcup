@@ -64,7 +64,7 @@
     note.dataset.dataSource = "true";
     note.className = "mt-3 text-xs text-slate-400";
     note.textContent =
-      "Terminarz i oficjalne kadry: FIFA. Aktualizacja: 9 czerwca 2026.";
+      "Terminarz, oficjalne kadry i pojemności stadionów: FIFA. Aktualizacja: 12 czerwca 2026.";
     footer.append(note);
   }
 
@@ -93,7 +93,7 @@
     {
       city: "Vancouver",
       stadium: "BC Place",
-      details: "48 821 miejsc · 8 meczów",
+      details: "54 000 miejsc · 8 meczów",
       image: "bc-place.webp",
       x: 17.96,
       y: 17.96,
@@ -102,7 +102,7 @@
     {
       city: "Seattle",
       stadium: "Lumen Field",
-      details: "65 123 miejsc · 5 meczów",
+      details: "69 000 miejsc · 5 meczów",
       image: "lumen-field.webp",
       x: 18.85,
       y: 25.05,
@@ -111,7 +111,7 @@
     {
       city: "San Francisco",
       stadium: "Levi's Stadium",
-      details: "69 391 miejsc · 6 meczów",
+      details: "71 000 miejsc · 6 meczów",
       image: "levis-stadium.webp",
       x: 15.95,
       y: 43.19,
@@ -120,7 +120,7 @@
     {
       city: "Los Angeles",
       stadium: "SoFi Stadium",
-      details: "69 650 miejsc · 8 meczów",
+      details: "70 000 miejsc · 8 meczów",
       image: "sofi-stadium.webp",
       x: 17.96,
       y: 49.54,
@@ -129,7 +129,7 @@
     {
       city: "Kansas City",
       stadium: "Arrowhead Stadium",
-      details: "67 513 miejsc · 6 meczów",
+      details: "73 000 miejsc · 6 meczów",
       image: "arrowhead-stadium.webp",
       x: 53.25,
       y: 43.74,
@@ -138,7 +138,7 @@
     {
       city: "Dallas",
       stadium: "AT&T Stadium",
-      details: "70 122 miejsc · 9 meczów",
+      details: "94 000 miejsc · Arlington · 9 meczów",
       image: "att-stadium.webp",
       x: 50.28,
       y: 53.96,
@@ -147,7 +147,7 @@
     {
       city: "Houston",
       stadium: "NRG Stadium",
-      details: "68 311 miejsc · 7 meczów",
+      details: "72 000 miejsc · 7 meczów",
       image: "nrg-stadium.webp",
       x: 51.38,
       y: 61.6,
@@ -156,7 +156,7 @@
     {
       city: "Atlanta",
       stadium: "Mercedes-Benz Stadium",
-      details: "67 382 miejsc · 8 meczów",
+      details: "75 000 miejsc · 8 meczów",
       image: "mercedes-benz-stadium.webp",
       x: 67.54,
       y: 50.55,
@@ -165,7 +165,7 @@
     {
       city: "Miami",
       stadium: "Hard Rock Stadium",
-      details: "64 091 miejsc · 7 meczów",
+      details: "65 000 miejsc · 7 meczów",
       image: "hard-rock-stadium.webp",
       x: 73.76,
       y: 61.05,
@@ -174,7 +174,7 @@
     {
       city: "Boston",
       stadium: "Gillette Stadium",
-      details: "63 815 miejsc · 7 meczów",
+      details: "65 000 miejsc · 7 meczów",
       image: "gillette-stadium.webp",
       x: 81.42,
       y: 31.68,
@@ -192,7 +192,7 @@
     {
       city: "Philadelphia",
       stadium: "Lincoln Financial Field",
-      details: "65 827 miejsc · 6 meczów",
+      details: "69 000 miejsc · 6 meczów",
       image: "lincoln-financial-field.webp",
       x: 78.45,
       y: 40.61,
@@ -210,7 +210,7 @@
     {
       city: "Monterrey",
       stadium: "Estadio BBVA",
-      details: "50 113 miejsc · 4 mecze",
+      details: "53 500 miejsc · 4 mecze",
       image: "estadio-bbva.webp",
       x: 44.54,
       y: 73.3,
@@ -219,7 +219,7 @@
     {
       city: "Guadalajara",
       stadium: "Estadio Akron",
-      details: "44 330 miejsc · 4 mecze",
+      details: "48 000 miejsc · 4 mecze",
       image: "estadio-akron.webp",
       x: 37.29,
       y: 79.74,
@@ -228,7 +228,7 @@
     {
       city: "Mexico City",
       stadium: "Estadio Azteca",
-      details: "72 766 miejsc · 5 meczów · otwarcie",
+      details: "83 000 miejsc · 5 meczów · otwarcie",
       image: "estadio-azteca.webp",
       x: 45.3,
       y: 82.87,

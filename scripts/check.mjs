@@ -317,7 +317,52 @@ assert(
   !app.includes("Sk\\u0142ad orientacyjny"),
   "Old provisional squad notice remains",
 );
-assert(app.includes("capacity:82500"), "Final venue capacity was not corrected");
+const expectedStadiumCapacities = {
+  "Estadio Azteca": ["83e3", "83 000 miejsc"],
+  "Estadio Akron": ["48e3", "48 000 miejsc"],
+  "Estadio BBVA": ["53500", "53 500 miejsc"],
+  "BMO Field": ["45e3", "45 000 miejsc"],
+  "BC Place": ["54e3", "54 000 miejsc"],
+  "MetLife Stadium": ["82500", "82 500 miejsc"],
+  "SoFi Stadium": ["70e3", "70 000 miejsc"],
+  "Levi's Stadium": ["71e3", "71 000 miejsc"],
+  "NRG Stadium": ["72e3", "72 000 miejsc"],
+  "AT&T Stadium": ["94e3", "94 000 miejsc"],
+  "Gillette Stadium": ["65e3", "65 000 miejsc"],
+  "Lincoln Financial Field": ["69e3", "69 000 miejsc"],
+  "Hard Rock Stadium": ["65e3", "65 000 miejsc"],
+  "Mercedes-Benz Stadium": ["75e3", "75 000 miejsc"],
+  "Arrowhead Stadium": ["73e3", "73 000 miejsc"],
+  "Lumen Field": ["69e3", "69 000 miejsc"],
+};
+
+for (const [stadium, [bundleCapacity, mapCapacity]] of Object.entries(
+  expectedStadiumCapacities,
+)) {
+  assert(
+    app.includes(`${JSON.stringify(stadium)}:{capacity:${bundleCapacity}`),
+    `Wrong capacity for ${stadium}`,
+  );
+  assert(
+    enhancements.includes(mapCapacity),
+    `Wrong map capacity for ${stadium}`,
+  );
+}
+
+assert(
+  app.includes(String.raw`children:"Pojemno\u015B\u0107 wg FIFA"`),
+  "Stadium capacity source label is missing",
+);
+assert(
+  enhancements.includes("94 000 miejsc · Arlington · 9 meczów"),
+  "Dallas map capacity or location is wrong",
+);
+assert(
+  index.includes(
+    "Terminarz, oficjalne kadry i pojemności stadionów: FIFA. Aktualizacja: 12 czerwca 2026.",
+  ),
+  "Stadium capacity source note is missing",
+);
 assert.equal(matches.matches.length, 104, "Expected 104 scheduled matches");
 assert.equal(
   matches.matches.filter((match) => match.phase === "group").length,

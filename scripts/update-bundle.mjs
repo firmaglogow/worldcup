@@ -50,7 +50,34 @@ replaceOnce(
   "I(Z.teamData||{})",
   "I(Object.assign({},Z.teamData||{},window.WC2026_SQUADS||{}))",
 );
-replaceOnce("capacity:78576", "capacity:82500");
+const stadiumCapacityCorrections = [
+  ["capacity:72766", "capacity:83e3"],
+  ["capacity:44330", "capacity:48e3"],
+  ["capacity:50113", "capacity:53500"],
+  ["capacity:48821", "capacity:54e3"],
+  ["capacity:78576", "capacity:82500"],
+  ["capacity:69650", "capacity:70e3"],
+  ["capacity:69391", "capacity:71e3"],
+  ["capacity:68311", "capacity:72e3"],
+  ["capacity:70122", "capacity:94e3"],
+  ["capacity:63815", "capacity:65e3"],
+  ["capacity:65827", "capacity:69e3"],
+  ["capacity:64091", "capacity:65e3"],
+  ["capacity:67382", "capacity:75e3"],
+  ["capacity:67513", "capacity:73e3"],
+  ["capacity:65123", "capacity:69e3"],
+];
+
+for (const [from, to] of stadiumCapacityCorrections) replaceOnce(from, to);
+
+replaceOnce(
+  String.raw`children:"Pojemno\u015B\u0107"`,
+  String.raw`children:"Pojemno\u015B\u0107 wg FIFA"`,
+);
+replaceOnce(
+  String.raw`fact:"Gigantyczny ekran 50\xD722m. Dom Dallas Cowboys \u2013 go\u015Bci p\xF3\u0142fina\u0142."`,
+  String.raw`fact:"Stadion znajduje si\u0119 w Arlington. Gigantyczny ekran 50\xD722m. Dom Dallas Cowboys \u2013 go\u015Bci p\xF3\u0142fina\u0142."`,
+);
 replaceOnce(
   String.raw`najwi\u0119kszym obiekcie turnieju (78 576 miejsc).`,
   String.raw`arenie fina\u0142u turnieju (82 500 miejsc).`,
