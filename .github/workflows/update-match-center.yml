@@ -1,0 +1,48 @@
+name: Automatyczna aktualizacja wyników
+
+on:
+  schedule:
+    - cron: "7,37 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-match-center
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+    steps:
+      - name: Pobierz repozytorium
+        uses: actions/checkout@v4
+
+      - name: Ustaw Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Informacja o brakującym kluczu
+        if: env.API_FOOTBALL_KEY == ''
+        run: echo "Dodaj sekret API_FOOTBALL_KEY, aby włączyć aktualizację."
+
+      - name: Pobierz wyniki i statystyki
+        if: env.API_FOOTBALL_KEY != ''
+        run: node scripts/update-match-center.mjs
+
+      - name: Zapisz nowe dane
+        if: env.API_FOOTBALL_KEY != ''
+        run: |
+          if git diff --quiet -- data/match-center.json assets/match-center-data.js; then
+            echo "Brak nowych danych."
+            exit 0
+          fi
+          git config user.name "worldcup-results-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/match-center.json assets/match-center-data.js
+          git commit -m "Automatyczna aktualizacja wyników"
+          git push
