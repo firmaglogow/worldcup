@@ -29,6 +29,42 @@ const stadiumMap = new URL("../assets/stadium-map.jpg", import.meta.url);
 const squads = JSON.parse(
   fs.readFileSync(new URL("../data/squads.json", import.meta.url), "utf8"),
 );
+const matches = JSON.parse(
+  fs.readFileSync(new URL("../data/matches.json", import.meta.url), "utf8"),
+);
+const matchCenter = JSON.parse(
+  fs.readFileSync(
+    new URL("../data/match-center.json", import.meta.url),
+    "utf8",
+  ),
+);
+const matchPage = fs.readFileSync(
+  new URL("../match.html", import.meta.url),
+  "utf8",
+);
+const matchDetail = fs.readFileSync(
+  new URL("../assets/match-detail.js", import.meta.url),
+  "utf8",
+);
+const matchCards = fs.readFileSync(
+  new URL("../assets/match-center.js", import.meta.url),
+  "utf8",
+);
+const matchSync = fs.readFileSync(
+  new URL("../assets/match-sync.js", import.meta.url),
+  "utf8",
+);
+const matchCenterCss = fs.readFileSync(
+  new URL("../assets/match-center.css", import.meta.url),
+  "utf8",
+);
+const matchWorkflow = fs.readFileSync(
+  new URL(
+    "../.github/workflows/update-match-center.yml",
+    import.meta.url,
+  ),
+  "utf8",
+);
 const stadiumImages = [
   "arrowhead-stadium.webp",
   "att-stadium.webp",
@@ -282,5 +318,62 @@ assert(
   "Old provisional squad notice remains",
 );
 assert(app.includes("capacity:82500"), "Final venue capacity was not corrected");
+assert.equal(matches.matches.length, 104, "Expected 104 scheduled matches");
+assert.equal(
+  matches.matches.filter((match) => match.phase === "group").length,
+  72,
+  "Expected 72 group matches",
+);
+assert.equal(
+  new Set(matches.matches.map((match) => match.id)).size,
+  104,
+  "Match identifiers must be unique",
+);
+assert.equal(matchCenter.competition.id, 1, "Wrong API-Football competition");
+assert(index.includes("assets/matches.js"), "Match schedule script is missing");
+assert(
+  index.includes("assets/match-center-data.js"),
+  "Automatic result data script is missing",
+);
+assert(
+  index.indexOf("assets/match-sync.js") < index.indexOf("assets/app.js"),
+  "Official results must sync before the application starts",
+);
+assert(
+  index.includes("assets/match-center.js"),
+  "Match card enhancement is missing",
+);
+assert(
+  matchCards.includes("Szczegóły meczu"),
+  "Match detail links are missing",
+);
+assert(
+  matchSync.includes('storageKey = "wc2026:v1"'),
+  "Official results are not connected to tables",
+);
+assert(
+  matchPage.includes("data-match-statistics"),
+  "Match statistics section is missing",
+);
+assert(
+  matchPage.includes("data-match-lineups"),
+  "Match lineups section is missing",
+);
+assert(
+  matchDetail.includes("renderEvents"),
+  "Match event timeline is missing",
+);
+assert(
+  matchCenterCss.includes(".match-scoreboard"),
+  "Match center styles are missing",
+);
+assert(
+  matchWorkflow.includes("API_FOOTBALL_KEY"),
+  "GitHub Actions API secret is missing",
+);
+assert(
+  matchWorkflow.includes('cron: "7,37 * * * *"'),
+  "Automatic update schedule is missing",
+);
 
 console.log("All project checks passed.");
