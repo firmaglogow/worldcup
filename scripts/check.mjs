@@ -111,6 +111,22 @@ assert(
   "Advertising is not limited to the matches tab",
 );
 assert(
+  enhancements.includes("function enhanceUpcomingMatches()"),
+  "Upcoming matches panel is missing",
+);
+assert(
+  enhancements.includes("slice(0, 4)"),
+  "Upcoming matches panel does not show four fixtures",
+);
+assert(
+  enhancements.includes("NAJBLIŻSZE MECZE"),
+  "Upcoming matches heading is missing",
+);
+assert(
+  enhancements.includes("match.html?id="),
+  "Upcoming match detail links are missing",
+);
+assert(
   enhancements.includes('.querySelectorAll("[data-ad-slot]")'),
   "Advertising slots are not removed from other tabs",
 );
@@ -119,7 +135,7 @@ assert(
   "Advertising is not removed immediately after tab navigation",
 );
 assert(
-  index.includes("assets/enhancements.js?v=20260613-ads-matches-only-2"),
+  index.includes("assets/enhancements.js?v=20260614-upcoming-matches"),
   "Latest advertising visibility cache key is missing",
 );
 assert(
@@ -463,6 +479,14 @@ assert(
   "Detailed venue styles are missing",
 );
 assert(
+  matchCenterCss.includes(".upcoming-matches-grid"),
+  "Upcoming matches responsive grid is missing",
+);
+assert(
+  matchCenterCss.includes("[data-legacy-today-matches]"),
+  "Legacy today matches strip is not hidden",
+);
+assert(
   index.includes("assets/match-center.js?v=20260613-stadium-details"),
   "Latest match card cache key is missing",
 );
@@ -479,11 +503,11 @@ assert(
   "Statistics navigation order is not stable across application refreshes",
 );
 assert(
-  index.includes("assets/enhancements.js?v=20260613-ads-matches-only-2"),
+  index.includes("assets/enhancements.js?v=20260614-upcoming-matches"),
   "Latest navigation enhancement cache key is missing",
 );
 assert(
-  index.includes("assets/match-center.css?v=20260613-stadium-details"),
+  index.includes("assets/match-center.css?v=20260614-upcoming-matches"),
   "Latest navigation styles cache key is missing",
 );
 assert(

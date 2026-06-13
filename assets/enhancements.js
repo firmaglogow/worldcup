@@ -581,6 +581,244 @@
     originalGrid.replaceWith(squad);
   }
 
+  const upcomingMatchColors = [
+    "#fbbf24",
+    "#38bdf8",
+    "#34d399",
+    "#a78bfa",
+    "#fb7185",
+    "#22d3ee",
+  ];
+  const polishMonths = [
+    "STYCZNIA",
+    "LUTEGO",
+    "MARCA",
+    "KWIETNIA",
+    "MAJA",
+    "CZERWCA",
+    "LIPCA",
+    "SIERPNIA",
+    "WRZEŚNIA",
+    "PAŹDZIERNIKA",
+    "LISTOPADA",
+    "GRUDNIA",
+  ];
+  const polishWeekdays = ["NDZ", "PN", "WT", "ŚR", "CZW", "PT", "SOB"];
+
+  function matchKickoff(match) {
+    return new Date(`${match.date}T${match.time}:00+02:00`);
+  }
+
+  function nearestMatches() {
+    const matches = window.WC2026_MATCHES?.matches || [];
+    const fixtures = new Map(
+      (window.WC2026_MATCH_CENTER?.fixtures || []).map((fixture) => [
+        Number(fixture.appMatchId),
+        fixture,
+      ]),
+    );
+    const finished = new Set(["FT", "AET", "PEN", "CANC", "ABD"]);
+    const live = new Set(["1H", "HT", "2H", "ET", "BT", "P", "LIVE"]);
+    const recentThreshold = Date.now() - 3 * 60 * 60 * 1000;
+
+    const candidates = matches
+      .map((match) => ({
+        match,
+        fixture: fixtures.get(Number(match.id)),
+        kickoff: matchKickoff(match),
+      }))
+      .filter(({ fixture, kickoff }) => {
+        const status = fixture?.status?.short;
+        return (
+          !finished.has(status) &&
+          (live.has(status) || kickoff.getTime() >= recentThreshold)
+        );
+      })
+      .sort((first, second) => first.kickoff - second.kickoff);
+
+    return candidates.slice(0, 4);
+  }
+
+  function upcomingDateRange(matches) {
+    if (!matches.length) return "TERMINARZ MUNDIALU";
+
+    const [firstYear, firstMonth, firstDay] = matches[0].match.date
+      .split("-")
+      .map(Number);
+    const [lastYear, lastMonth, lastDay] = matches[
+      matches.length - 1
+    ].match.date
+      .split("-")
+      .map(Number);
+    if (
+      firstYear === lastYear &&
+      firstMonth === lastMonth &&
+      firstDay === lastDay
+    ) {
+      return `${firstDay} ${polishMonths[firstMonth - 1]}`;
+    }
+    if (firstYear === lastYear && firstMonth === lastMonth) {
+      return `${firstDay}–${lastDay} ${polishMonths[firstMonth - 1]}`;
+    }
+    return `${firstDay} ${polishMonths[firstMonth - 1]} – ${lastDay} ${polishMonths[lastMonth - 1]}`;
+  }
+
+  function upcomingMatchStatus(fixture, match) {
+    const status = fixture?.status?.short;
+    if (["1H", "HT", "2H", "ET", "BT", "P", "LIVE"].includes(status)) {
+      const hasScore =
+        Number.isInteger(fixture.goals?.home) &&
+        Number.isInteger(fixture.goals?.away);
+      return {
+        main: hasScore
+          ? `${fixture.goals.home}:${fixture.goals.away}`
+          : "NA ŻYWO",
+        detail: fixture.status?.elapsed
+          ? `NA ŻYWO · ${fixture.status.elapsed}'`
+          : "NA ŻYWO",
+        live: true,
+      };
+    }
+    return { main: match.time, detail: "START", live: false };
+  }
+
+  function createUpcomingMatchCard(item, index) {
+    const { match, fixture } = item;
+    const [, month, day] = match.date.split("-").map(Number);
+    const weekday = new Date(`${match.date}T12:00:00Z`).getUTCDay();
+    const card = document.createElement("a");
+    card.className = "upcoming-match-card";
+    card.href = `match.html?id=${match.id}`;
+    card.style.setProperty(
+      "--upcoming-accent",
+      upcomingMatchColors[index % upcomingMatchColors.length],
+    );
+    card.setAttribute(
+      "aria-label",
+      `${match.homeName} - ${match.awayName}, ${match.time}`,
+    );
+
+    const meta = document.createElement("div");
+    meta.className = "upcoming-match-meta";
+
+    const date = document.createElement("span");
+    date.textContent = `${polishWeekdays[weekday]}, ${day} ${polishMonths[month - 1].slice(0, 3)}`;
+
+    const phase = document.createElement("span");
+    phase.className = "upcoming-match-phase";
+    phase.textContent = match.group
+      ? `GRUPA ${match.group}`
+      : match.round || "FAZA PUCHAROWA";
+    meta.append(date, phase);
+
+    const matchup = document.createElement("div");
+    matchup.className = "upcoming-match-matchup";
+
+    const createTeam = (flagText, nameText) => {
+      const team = document.createElement("div");
+      team.className = "upcoming-match-team";
+
+      const flag = document.createElement("span");
+      flag.className = "upcoming-match-flag";
+      flag.textContent = flagText;
+      flag.setAttribute("aria-hidden", "true");
+
+      const name = document.createElement("strong");
+      name.textContent = nameText;
+      team.append(flag, name);
+      return team;
+    };
+
+    const status = upcomingMatchStatus(fixture, match);
+    const center = document.createElement("div");
+    center.className = `upcoming-match-time${status.live ? " is-live" : ""}`;
+
+    const mainStatus = document.createElement("strong");
+    mainStatus.textContent = status.main;
+    const detail = document.createElement("small");
+    detail.textContent = status.detail;
+    center.append(mainStatus, detail);
+
+    matchup.append(
+      createTeam(match.homeFlag, match.homeName),
+      center,
+      createTeam(match.awayFlag, match.awayName),
+    );
+
+    const venue = document.createElement("p");
+    venue.className = "upcoming-match-venue";
+    venue.textContent = `${match.stadium} · ${match.city}`;
+
+    card.append(meta, matchup, venue);
+    return card;
+  }
+
+  function createUpcomingMatchesPanel(matches) {
+    const panel = document.createElement("section");
+    panel.className = "upcoming-matches";
+    panel.dataset.upcomingMatches = matches
+      .map(({ match, fixture }) => `${match.id}:${fixture?.status?.short || "NS"}`)
+      .join("|");
+    panel.setAttribute("aria-label", "Najbliższe mecze mundialu");
+
+    const header = document.createElement("header");
+    header.className = "upcoming-matches-header";
+
+    const titleGroup = document.createElement("div");
+    const kicker = document.createElement("span");
+    kicker.className = "upcoming-matches-kicker";
+    kicker.textContent = "MUNDIAL 26'";
+
+    const title = document.createElement("h2");
+    title.textContent = "NAJBLIŻSZE MECZE";
+    titleGroup.append(kicker, title);
+
+    const dateRange = document.createElement("strong");
+    dateRange.className = "upcoming-matches-range";
+    dateRange.textContent = upcomingDateRange(matches);
+    header.append(titleGroup, dateRange);
+
+    const grid = document.createElement("div");
+    grid.className = "upcoming-matches-grid";
+    matches.forEach((match, index) =>
+      grid.append(createUpcomingMatchCard(match, index)),
+    );
+
+    panel.append(header, grid);
+    return panel;
+  }
+
+  function enhanceUpcomingMatches() {
+    const countdown = [...document.querySelectorAll(".mb-6.rounded-2xl")].find(
+      (element) =>
+        element.textContent.includes("Do meczu otwarcia") ||
+        element.textContent.includes("Do wielkiego finału") ||
+        element.textContent.includes("Mundial zakończony"),
+    );
+    if (!countdown) return;
+
+    const legacyHeading = [...countdown.querySelectorAll("div")].find(
+      (element) => element.textContent.trim() === "⚽ DZIŚ GRAJĄ",
+    );
+    const legacyPanel = legacyHeading?.parentElement;
+    if (legacyPanel) {
+      legacyPanel.dataset.legacyTodayMatches = "true";
+      legacyPanel.hidden = true;
+    }
+
+    const matches = nearestMatches();
+    if (!matches.length) return;
+
+    const signature = matches
+      .map(({ match, fixture }) => `${match.id}:${fixture?.status?.short || "NS"}`)
+      .join("|");
+    const currentPanel = countdown.querySelector("[data-upcoming-matches]");
+    if (currentPanel?.dataset.upcomingMatches === signature) return;
+
+    currentPanel?.remove();
+    countdown.append(createUpcomingMatchesPanel(matches));
+  }
+
   function createAdVisual() {
     const visual = document.createElement("div");
     visual.className = "ad-slot-visual";
@@ -1039,6 +1277,7 @@
     replaceHeaderTrophy();
     enhanceStadiumMap();
     enhancePlayerSquad();
+    enhanceUpcomingMatches();
     addAdSlots();
     reorderNavigation();
     enhanceStatistics();
