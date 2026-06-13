@@ -107,6 +107,22 @@ assert(
   "Sidebar advertising slot is missing",
 );
 assert(
+  enhancements.includes("function isMatchesTabActive()"),
+  "Advertising is not limited to the matches tab",
+);
+assert(
+  enhancements.includes('.querySelectorAll("[data-ad-slot]")'),
+  "Advertising slots are not removed from other tabs",
+);
+assert(
+  enhancements.includes('document.addEventListener("click", removeAdsAfterNavigation)'),
+  "Advertising is not removed immediately after tab navigation",
+);
+assert(
+  index.includes("assets/enhancements.js?v=20260613-ads-matches-only-2"),
+  "Latest advertising visibility cache key is missing",
+);
+assert(
   enhancements.includes("mailto:emistrzostwaswiata2026@gmail.com"),
   "Advertising contact link is missing",
 );
@@ -429,7 +445,7 @@ assert(
   "Statistics navigation order is not stable across application refreshes",
 );
 assert(
-  index.includes("assets/enhancements.js?v=20260613-scorers-nav-3"),
+  index.includes("assets/enhancements.js?v=20260613-ads-matches-only-2"),
   "Latest navigation enhancement cache key is missing",
 );
 assert(

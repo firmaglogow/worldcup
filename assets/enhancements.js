@@ -689,7 +689,56 @@
     return slot;
   }
 
+  function isMatchesTabActive() {
+    return [...document.querySelectorAll("button")].some(
+      (button) =>
+        button.textContent.trim() === "Mecze" &&
+        (button.classList.contains("border-amber-400") ||
+          button.classList.contains("bg-amber-400/15")),
+    );
+  }
+
+  function removeAdsAfterNavigation(event) {
+    if (!(event.target instanceof Element)) return;
+    const button = event.target.closest("button");
+    if (!button) return;
+
+    const navigationLabels = new Set([
+      "Tabele grup",
+      "Tabele",
+      "Statystyki",
+      "Staty",
+      "Grupa śmierci",
+      "Śmierci",
+      "Reprezentacje",
+      "Drużyny",
+      "Faza pucharowa",
+      "Puchar",
+      "Symulator",
+      "Mój typ",
+      "Dream Team",
+      "Dream XI",
+      "Stadiony",
+      "Ciekawostki",
+      "Ciekawe",
+      "Historia MŚ",
+      "Historia",
+    ]);
+
+    if (!navigationLabels.has(button.textContent.trim())) return;
+    document
+      .querySelectorAll("[data-ad-slot]")
+      .forEach((slot) => slot.remove());
+  }
+
   function addAdSlots() {
+    if (!isMatchesTabActive()) {
+      document
+        .querySelectorAll("[data-ad-slot]")
+        .forEach((slot) => slot.remove());
+      return;
+    }
+
     if (!document.querySelector('[data-ad-slot="main"]')) {
       const countdown = [...document.querySelectorAll(".mb-6.rounded-2xl")].find(
         (element) =>
@@ -1007,6 +1056,7 @@
   };
 
   document.addEventListener("DOMContentLoaded", scheduleEnhancements);
+  document.addEventListener("click", removeAdsAfterNavigation);
   new MutationObserver(scheduleEnhancements).observe(document.body, {
     childList: true,
     subtree: true,
