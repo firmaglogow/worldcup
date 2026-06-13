@@ -38,22 +38,93 @@
     knockoutResults[fixture.appMatchId] = result;
   }
 
-  if (
-    Object.keys(groupResults).length === 0 &&
-    Object.keys(knockoutResults).length === 0
-  ) {
-    return;
-  }
-
   try {
     const storageKey = "wc2026:v1";
     const current = JSON.parse(localStorage.getItem(storageKey) || "{}");
-    current.results = { ...(current.results || {}), ...groupResults };
-    current.koResults = { ...(current.koResults || {}), ...knockoutResults };
+    current.results = { ...groupResults };
+    current.koResults = { ...knockoutResults };
     current.lastSync = matchCenter.updatedAt;
     current.autoSync = true;
     localStorage.setItem(storageKey, JSON.stringify(current));
   } catch (error) {
     console.warn("Nie udało się zsynchronizować oficjalnych wyników.", error);
   }
+})();
+
+(function lockManualOfficialScores() {
+  const officialTabs = new Set(["Mecze", "Faza pucharowa"]);
+  const scorePattern = /^\d+\s*:\s*\d+$/;
+
+  function activeTabName() {
+    const activeTab = [...document.querySelectorAll("button")].find(
+      (button) =>
+        officialTabs.has(button.textContent.trim()) &&
+        button.classList.contains("border-amber-400"),
+    );
+    return activeTab?.textContent.trim() || "";
+  }
+
+  function lockScoreButton(button) {
+    const label = button.textContent.trim();
+    const normalizedLabel = label.toLocaleLowerCase("pl");
+    const awaitingResult =
+      normalizedLabel === "wpisz wynik" || normalizedLabel === "wpisz";
+
+    if (!awaitingResult && !scorePattern.test(label)) return;
+
+    button.disabled = true;
+    button.dataset.officialScoreLocked = "true";
+    button.classList.add("official-score-locked");
+    button.setAttribute("aria-disabled", "true");
+
+    if (awaitingResult) {
+      button.textContent = "wynik automatyczny";
+      button.classList.add("is-awaiting-result");
+      button.setAttribute(
+        "aria-label",
+        "Wynik zostanie uzupełniony automatycznie po meczu",
+      );
+      button.title = "Wynik zostanie uzupełniony automatycznie po meczu";
+      return;
+    }
+
+    button.title = "Wynik oficjalny, aktualizowany automatycznie";
+  }
+
+  function applyScoreLocks() {
+    if (!officialTabs.has(activeTabName())) return;
+
+    document
+      .querySelectorAll("[data-match-id] button")
+      .forEach(lockScoreButton);
+  }
+
+  let scheduled = false;
+  function scheduleScoreLocks() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(() => {
+      scheduled = false;
+      applyScoreLocks();
+    });
+  }
+
+  document.addEventListener(
+    "click",
+    (event) => {
+      const button = event.target.closest(
+        'button[data-official-score-locked="true"]',
+      );
+      if (!button) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    },
+    true,
+  );
+
+  document.addEventListener("DOMContentLoaded", scheduleScoreLocks);
+  new MutationObserver(scheduleScoreLocks).observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
 })();

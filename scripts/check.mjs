@@ -397,6 +397,22 @@ assert(
   "Official results are not connected to tables",
 );
 assert(
+  matchSync.includes("current.results = { ...groupResults }"),
+  "Manual group results are not cleared during official sync",
+);
+assert(
+  matchSync.includes('button.dataset.officialScoreLocked = "true"'),
+  "Manual official result editing is not locked",
+);
+assert(
+  matchSync.includes('officialTabs = new Set(["Mecze", "Faza pucharowa"])'),
+  "Result locking is not limited to official match tabs",
+);
+assert(
+  matchCenterCss.includes(".official-score-locked"),
+  "Locked official result styles are missing",
+);
+assert(
   matchPage.includes("data-match-statistics"),
   "Match statistics section is missing",
 );

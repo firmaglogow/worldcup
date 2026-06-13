@@ -75,6 +75,25 @@
     0 12px 28px rgba(2, 6, 23, 0.18);
 }
 
+.official-score-locked {
+  cursor: default !important;
+  opacity: 1 !important;
+}
+
+.official-score-locked.is-awaiting-result {
+  border: 1px solid rgba(52, 211, 153, 0.22);
+  border-radius: 0.55rem;
+  color: #a7f3d0 !important;
+  font-size: 0.66rem !important;
+  font-style: normal !important;
+  font-weight: 800;
+  letter-spacing: 0.025em;
+  line-height: 1.2;
+  padding: 0.42rem 0.55rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .match-page {
   color: #e2e8f0;
   margin: 0 auto;
