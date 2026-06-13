@@ -2,7 +2,7 @@ name: Automatyczna aktualizacja wyników
 
 on:
   schedule:
-    - cron: "7,37 * * * *"
+    - cron: "7,22,37,52 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -15,8 +15,6 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    env:
-      API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
     steps:
       - name: Pobierz repozytorium
         uses: actions/checkout@v4
@@ -26,16 +24,10 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Informacja o brakującym kluczu
-        if: env.API_FOOTBALL_KEY == ''
-        run: echo "Dodaj sekret API_FOOTBALL_KEY, aby włączyć aktualizację."
-
-      - name: Pobierz wyniki i statystyki
-        if: env.API_FOOTBALL_KEY != ''
+      - name: Pobierz bezpłatne wyniki
         run: node scripts/update-match-center.mjs
 
       - name: Zapisz nowe dane
-        if: env.API_FOOTBALL_KEY != ''
         run: |
           if git diff --quiet -- data/match-center.json assets/match-center-data.js; then
             echo "Brak nowych danych."
