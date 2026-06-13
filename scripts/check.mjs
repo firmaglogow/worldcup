@@ -139,7 +139,7 @@ assert(
   "Advertising is not removed immediately after tab navigation",
 );
 assert(
-  index.includes("assets/enhancements.js?v=20260614-upcoming-matches"),
+  index.includes("assets/enhancements.js?v=20260614-ad-goal"),
   "Latest advertising visibility cache key is missing",
 );
 assert(
@@ -431,8 +431,9 @@ assert(
   "Match card enhancement is missing",
 );
 assert(
-  matchCards.includes("Szczegóły meczu"),
-  "Match detail links are missing",
+  !matchCards.includes("Szczegóły meczu") &&
+    matchCards.includes("is-status-only"),
+  "Separate match detail links are still visible",
 );
 assert(
   matchCards.includes("stadiumCapacities"),
@@ -463,6 +464,11 @@ assert(
   "Manual official result editing is not locked",
 );
 assert(
+  matchSync.includes("button.dataset.matchCenterTarget") &&
+    matchSync.includes("window.location.assign(`match.html?id=${matchId}`)"),
+  "Match scores do not open match details",
+);
+assert(
   matchSync.includes('button.textContent = "– : –"'),
   "Upcoming matches do not use a neutral score placeholder",
 );
@@ -491,7 +497,7 @@ assert(
   "Legacy today matches strip is not hidden",
 );
 assert(
-  index.includes("assets/match-center.js?v=20260613-stadium-details"),
+  index.includes("assets/match-center.js?v=20260614-score-links"),
   "Latest match card cache key is missing",
 );
 assert(
@@ -507,17 +513,23 @@ assert(
   "Statistics navigation order is not stable across application refreshes",
 );
 assert(
-  index.includes("assets/enhancements.js?v=20260614-upcoming-matches"),
+  index.includes("assets/enhancements.js?v=20260614-ad-goal"),
   "Latest navigation enhancement cache key is missing",
 );
 assert(
-  index.includes("assets/match-center.css?v=20260614-compact-fixtures"),
+  index.includes("assets/match-center.css?v=20260614-score-links-ad-goal"),
   "Latest navigation styles cache key is missing",
 );
 assert(
   matchCenterCss.includes(".ad-slot-main .ad-slot-visual") &&
     matchCenterCss.includes("min-height: 96px"),
   "Compact main advertising module styles are missing",
+);
+assert(
+  enhancements.includes('x="158" y="58" width="188" height="92"') &&
+    enhancements.includes("ad-slot-partner-label") &&
+    matchCenterCss.includes(".ad-slot-main .ad-slot-partner-label"),
+  "Wider advertising goal and partner board are missing",
 );
 assert(
   matchCenterCss.includes('[data-nav-order="3"] { order: 3; }'),

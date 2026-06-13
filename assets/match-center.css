@@ -12,6 +12,10 @@
   justify-content: flex-end;
 }
 
+.match-center-card-footer.is-status-only {
+  justify-content: center;
+}
+
 .match-card-venue {
   align-items: flex-start;
   color: #94a3b8 !important;
@@ -219,6 +223,25 @@
   font-size: 0.5rem;
 }
 
+.ad-slot-main .ad-slot-partner-label {
+  background: rgba(15, 23, 42, 0.94);
+  border: 1px solid #fbbf24;
+  border-radius: 0.35rem;
+  color: #fde68a;
+  font-size: 0.58rem;
+  font-weight: 950;
+  left: 62%;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 0.28rem 0.45rem;
+  position: absolute;
+  text-align: center;
+  top: 0.1rem;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 3;
+}
+
 @media (min-width: 768px) {
   .ad-slot-main {
     gap: 0.75rem;
@@ -308,8 +331,19 @@
 }
 
 .official-score-locked {
-  cursor: default !important;
+  cursor: pointer !important;
   opacity: 1 !important;
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease !important;
+}
+
+.official-score-locked:hover,
+.official-score-locked:focus-visible {
+  background: rgba(251, 191, 36, 0.12) !important;
+  box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.32);
+  transform: translateY(-1px);
 }
 
 .official-score-locked.is-awaiting-result {

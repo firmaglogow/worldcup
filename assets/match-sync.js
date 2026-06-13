@@ -68,27 +68,30 @@
     const label = button.textContent.trim();
     const normalizedLabel = label.toLocaleLowerCase("pl");
     const awaitingResult =
-      normalizedLabel === "wpisz wynik" || normalizedLabel === "wpisz";
+      normalizedLabel === "wpisz wynik" ||
+      normalizedLabel === "wpisz" ||
+      normalizedLabel === "vs";
 
     if (!awaitingResult && !scorePattern.test(label)) return;
 
-    button.disabled = true;
+    const matchId = button.closest("[data-match-id]")?.dataset.matchId;
+    if (!matchId) return;
+
+    button.disabled = false;
     button.dataset.officialScoreLocked = "true";
+    button.dataset.matchCenterTarget = String(matchId);
     button.classList.add("official-score-locked");
-    button.setAttribute("aria-disabled", "true");
+    button.removeAttribute("aria-disabled");
+    button.setAttribute(
+      "aria-label",
+      `Otwórz szczegóły meczu numer ${matchId}`,
+    );
+    button.title = "Otwórz szczegóły meczu";
 
     if (awaitingResult) {
       button.textContent = "– : –";
       button.classList.add("is-awaiting-result");
-      button.setAttribute(
-        "aria-label",
-        "Mecz jeszcze bez wyniku. Rezultat zostanie uzupełniony automatycznie",
-      );
-      button.title = "Rezultat zostanie uzupełniony automatycznie";
-      return;
     }
-
-    button.title = "Wynik aktualizowany automatycznie";
   }
 
   function applyScoreLocks() {
@@ -118,6 +121,10 @@
       if (!button) return;
       event.preventDefault();
       event.stopImmediatePropagation();
+      const matchId = button.dataset.matchCenterTarget;
+      if (matchId) {
+        window.location.assign(`match.html?id=${matchId}`);
+      }
     },
     true,
   );

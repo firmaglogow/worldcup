@@ -89,27 +89,21 @@
 
     const fixture = fixtureByMatchId.get(matchId);
     const status = statusDetails(fixture);
-    const footer = document.createElement("div");
-    footer.className = "match-center-card-footer";
-    footer.dataset.matchCenterLink = String(matchId);
+    if (
+      status.label &&
+      ["is-live", "is-alert"].includes(status.className)
+    ) {
+      const footer = document.createElement("div");
+      footer.className = "match-center-card-footer is-status-only";
+      footer.dataset.matchCenterLink = String(matchId);
 
-    const badge = document.createElement("span");
-    badge.className = `match-center-status ${status.className}`;
-    badge.textContent = status.label;
-
-    const link = document.createElement("a");
-    link.className = "match-center-link";
-    link.href = `match.html?id=${matchId}`;
-    link.textContent = "Szczegóły meczu";
-    link.setAttribute("aria-label", `Otwórz szczegóły meczu numer ${matchId}`);
-
-    if (status.label) {
-      footer.append(badge, link);
-    } else {
-      footer.classList.add("is-link-only");
-      footer.append(link);
+      const badge = document.createElement("span");
+      badge.className = `match-center-status ${status.className}`;
+      badge.textContent = status.label;
+      footer.append(badge);
+      card.append(footer);
     }
-    card.append(footer);
+
     card.dataset.matchId = String(matchId);
     if (status.className === "is-finished") {
       card.classList.add("match-card-official");

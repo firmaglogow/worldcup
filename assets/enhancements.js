@@ -842,20 +842,14 @@
         <ellipse class="ad-slot-field-mark" cx="278" cy="151" rx="70" ry="12" />
 
         <g class="ad-slot-goal">
-          <rect class="ad-slot-goal-shadow" x="218" y="54" width="120" height="96" rx="3" />
+          <rect class="ad-slot-goal-shadow" x="158" y="58" width="188" height="92" rx="3" />
           <g class="ad-slot-goal-net">
-            <path d="M238 56 V148 M258 56 V148 M278 56 V148 M298 56 V148 M318 56 V148" />
-            <path d="M220 73 H336 M220 92 H336 M220 111 H336 M220 130 H336" />
+            <path d="M182 58 V148 M206 58 V148 M230 58 V148 M254 58 V148 M278 58 V148 M302 58 V148 M326 58 V148" />
+            <path d="M160 76 H344 M160 94 H344 M160 112 H344 M160 130 H344" />
           </g>
-          <path class="ad-slot-goal-frame" d="M218 149 V52 H338 V149 M218 52 H338" />
-          <path class="ad-slot-goal-base" d="M207 151 H346" />
-          <circle class="ad-slot-goal-impact" cx="278" cy="100" r="25" />
-        </g>
-
-        <g class="ad-slot-brand-board">
-          <rect x="224" y="14" width="108" height="28" rx="7" />
-          <text x="278" y="26">MIEJSCE DLA</text>
-          <text x="278" y="36">PARTNERA</text>
+          <path class="ad-slot-goal-frame" d="M158 149 V56 H346 V149 M158 56 H346" />
+          <path class="ad-slot-goal-base" d="M148 151 H354" />
+          <circle class="ad-slot-goal-impact" cx="278" cy="101" r="25" />
         </g>
 
         <circle class="ad-slot-ball-glow" cx="0" cy="0" r="28" />
@@ -868,6 +862,7 @@
         <circle class="ad-slot-spark ad-slot-spark-two" cx="174" cy="34" r="2" />
         <circle class="ad-slot-spark ad-slot-spark-three" cx="207" cy="58" r="1.8" />
       </svg>
+      <span class="ad-slot-partner-label">MIEJSCE DLA PARTNERA</span>
       <span class="ad-slot-visual-caption">Twoja marka w centrum emocji</span>
     `;
     return visual;
