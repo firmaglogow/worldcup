@@ -88,7 +88,7 @@
       return;
     }
 
-    button.title = "Wynik oficjalny, aktualizowany automatycznie";
+    button.title = "Wynik aktualizowany automatycznie";
   }
 
   function applyScoreLocks() {

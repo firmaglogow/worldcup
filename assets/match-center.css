@@ -8,6 +8,21 @@
   padding-top: 0.65rem;
 }
 
+.match-center-card-footer.is-link-only {
+  justify-content: flex-end;
+}
+
+.match-card-venue {
+  align-items: flex-start;
+  color: #94a3b8 !important;
+  display: inline-flex !important;
+  font-size: 0.625rem !important;
+  line-height: 1.35;
+  max-width: 72%;
+  text-align: right;
+  white-space: normal;
+}
+
 .match-center-status {
   align-items: center;
   color: #94a3b8;
@@ -676,6 +691,11 @@
 }
 
 @media (max-width: 520px) {
+  .match-card-venue {
+    font-size: 0.56rem !important;
+    max-width: 68%;
+  }
+
   .automatic-scorers-header {
     display: grid;
     padding: 1rem;

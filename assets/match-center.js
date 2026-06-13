@@ -10,9 +10,30 @@
   const groupMatches = schedule.matches.filter(
     (match) => match.phase === "group",
   );
+  const matchById = new Map(
+    schedule.matches.map((match) => [Number(match.id), match]),
+  );
   const teamNames = new Set(
     Object.values(schedule.teams).map((team) => team.name),
   );
+  const stadiumCapacities = {
+    "Estadio Azteca": "83 000",
+    "Estadio Akron": "48 000",
+    "Estadio BBVA": "53 500",
+    "BMO Field": "45 000",
+    "BC Place": "54 000",
+    "MetLife Stadium": "82 500",
+    "SoFi Stadium": "70 000",
+    "Levi's Stadium": "71 000",
+    "NRG Stadium": "72 000",
+    "AT&T Stadium": "94 000",
+    "Gillette Stadium": "65 000",
+    "Lincoln Financial Field": "69 000",
+    "Hard Rock Stadium": "65 000",
+    "Mercedes-Benz Stadium": "75 000",
+    "Arrowhead Stadium": "73 000",
+    "Lumen Field": "69 000",
+  };
 
   function statusDetails(fixture) {
     if (!fixture) {
@@ -21,7 +42,7 @@
 
     const status = fixture.status?.short;
     if (["FT", "AET", "PEN"].includes(status)) {
-      return { label: "Wynik oficjalny", className: "is-finished" };
+      return { label: "", className: "is-finished" };
     }
     if (["1H", "HT", "2H", "ET", "BT", "P", "LIVE"].includes(status)) {
       const score =
@@ -43,7 +64,27 @@
     return { label: "Zapowiedź meczu", className: "is-scheduled" };
   }
 
+  function enhanceVenue(card, match) {
+    if (!match || card.querySelector("[data-match-venue]")) return;
+
+    const location = [...card.querySelectorAll("span, div")].find((element) => {
+      if (element.children.length) return false;
+      const text = element.textContent.trim();
+      return text === match.city || text === `📍 ${match.city}`;
+    });
+    if (!location) return;
+
+    const capacity = stadiumCapacities[match.stadium];
+    location.dataset.matchVenue = String(match.id);
+    location.classList.add("match-card-venue");
+    location.textContent = `📍 ${match.city} · ${match.stadium}${capacity ? ` · ${capacity} miejsc` : ""}`;
+    location.title = capacity
+      ? `${match.stadium}, pojemność ${capacity} miejsc`
+      : match.stadium;
+  }
+
   function appendMatchLink(card, matchId) {
+    enhanceVenue(card, matchById.get(Number(matchId)));
     if (card.querySelector("[data-match-center-link]")) return;
 
     const fixture = fixtureByMatchId.get(matchId);
@@ -62,7 +103,12 @@
     link.textContent = "Szczegóły meczu";
     link.setAttribute("aria-label", `Otwórz szczegóły meczu numer ${matchId}`);
 
-    footer.append(badge, link);
+    if (status.label) {
+      footer.append(badge, link);
+    } else {
+      footer.classList.add("is-link-only");
+      footer.append(link);
+    }
     card.append(footer);
     card.dataset.matchId = String(matchId);
     if (status.className === "is-finished") {

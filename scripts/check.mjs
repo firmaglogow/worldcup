@@ -363,6 +363,12 @@ for (const [stadium, [bundleCapacity, mapCapacity]] of Object.entries(
     enhancements.includes(mapCapacity),
     `Wrong map capacity for ${stadium}`,
   );
+  assert(
+    matchCards.includes(
+      `${JSON.stringify(stadium)}: ${JSON.stringify(mapCapacity.replace(" miejsc", ""))}`,
+    ),
+    `Wrong match card capacity for ${stadium}`,
+  );
 }
 
 assert(
@@ -409,6 +415,22 @@ assert(
   "Match detail links are missing",
 );
 assert(
+  matchCards.includes("stadiumCapacities"),
+  "Stadium capacities are missing from match cards",
+);
+assert(
+  matchCards.includes("match-card-venue"),
+  "Detailed venue information is missing from match cards",
+);
+assert(
+  matchCards.includes('"AT&T Stadium": "94 000"'),
+  "Dallas capacity is missing from match cards",
+);
+assert(
+  !matchCards.includes("Wynik oficjalny"),
+  "Official result label is still visible on match cards",
+);
+assert(
   matchSync.includes('storageKey = "wc2026:v1"'),
   "Official results are not connected to tables",
 );
@@ -425,12 +447,24 @@ assert(
   "Upcoming matches do not use a neutral score placeholder",
 );
 assert(
+  !matchSync.includes("Wynik oficjalny"),
+  "Official result tooltip is still present",
+);
+assert(
   matchSync.includes('officialTabs = new Set(["Mecze", "Faza pucharowa"])'),
   "Result locking is not limited to official match tabs",
 );
 assert(
   matchCenterCss.includes(".official-score-locked"),
   "Locked official result styles are missing",
+);
+assert(
+  matchCenterCss.includes(".match-card-venue"),
+  "Detailed venue styles are missing",
+);
+assert(
+  index.includes("assets/match-center.js?v=20260613-stadium-details"),
+  "Latest match card cache key is missing",
 );
 assert(
   enhancements.includes("function reorderNavigation()"),
@@ -449,7 +483,7 @@ assert(
   "Latest navigation enhancement cache key is missing",
 );
 assert(
-  index.includes("assets/match-center.css?v=20260613-scorers-nav-2"),
+  index.includes("assets/match-center.css?v=20260613-stadium-details"),
   "Latest navigation styles cache key is missing",
 );
 assert(
