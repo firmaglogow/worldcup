@@ -78,13 +78,13 @@
     button.setAttribute("aria-disabled", "true");
 
     if (awaitingResult) {
-      button.textContent = "wynik automatyczny";
+      button.textContent = "– : –";
       button.classList.add("is-awaiting-result");
       button.setAttribute(
         "aria-label",
-        "Wynik zostanie uzupełniony automatycznie po meczu",
+        "Mecz jeszcze bez wyniku. Rezultat zostanie uzupełniony automatycznie",
       );
-      button.title = "Wynik zostanie uzupełniony automatycznie po meczu";
+      button.title = "Rezultat zostanie uzupełniony automatycznie";
       return;
     }
 

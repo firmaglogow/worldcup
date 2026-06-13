@@ -81,16 +81,14 @@
 }
 
 .official-score-locked.is-awaiting-result {
-  border: 1px solid rgba(52, 211, 153, 0.22);
-  border-radius: 0.55rem;
-  color: #a7f3d0 !important;
-  font-size: 0.66rem !important;
+  border: 0;
+  color: #64748b !important;
+  font-size: 1.05rem !important;
   font-style: normal !important;
-  font-weight: 800;
-  letter-spacing: 0.025em;
+  font-weight: 900;
+  letter-spacing: 0.04em;
   line-height: 1.2;
-  padding: 0.42rem 0.55rem;
-  text-transform: uppercase;
+  padding: 0.42rem 0.25rem;
   white-space: nowrap;
 }
 

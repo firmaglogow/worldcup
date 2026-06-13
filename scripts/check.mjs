@@ -405,6 +405,10 @@ assert(
   "Manual official result editing is not locked",
 );
 assert(
+  matchSync.includes('button.textContent = "– : –"'),
+  "Upcoming matches do not use a neutral score placeholder",
+);
+assert(
   matchSync.includes('officialTabs = new Set(["Mecze", "Faza pucharowa"])'),
   "Result locking is not limited to official match tabs",
 );
