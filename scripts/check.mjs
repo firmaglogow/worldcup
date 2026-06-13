@@ -65,6 +65,10 @@ const matchWorkflow = fs.readFileSync(
   ),
   "utf8",
 );
+const matchUpdater = fs.readFileSync(
+  new URL("../scripts/update-match-center.mjs", import.meta.url),
+  "utf8",
+);
 const stadiumImages = [
   "arrowhead-stadium.webp",
   "att-stadium.webp",
@@ -507,7 +511,7 @@ assert(
   "Latest navigation enhancement cache key is missing",
 );
 assert(
-  index.includes("assets/match-center.css?v=20260614-compact-ad"),
+  index.includes("assets/match-center.css?v=20260614-compact-fixtures"),
   "Latest navigation styles cache key is missing",
 );
 assert(
@@ -540,16 +544,59 @@ assert(
   "Match lineups section is missing",
 );
 assert(
+  !matchPage.includes(
+    "Bezpłatne źródła nie udostępniają pełnych statystyk meczu",
+  ) &&
+    !matchPage.includes(
+      "Bezpłatne źródła nie gwarantują danych o składach",
+    ),
+  "Technical empty-state notices are still visible on match pages",
+);
+assert(
+  matchPage.includes("data-match-statistics-section hidden") &&
+    matchPage.includes("data-match-lineups-section hidden"),
+  "Empty match statistics and lineups are not hidden",
+);
+assert(
   matchDetail.includes("renderEvents"),
   "Match event timeline is missing",
+);
+assert(
+  matchDetail.includes('if (short === "HT") return "PRZERWA"'),
+  "Halftime status is not presented clearly",
+);
+assert(
+  matchDetail.includes("section.hidden = false"),
+  "Match data sections are not revealed when data becomes available",
+);
+assert(
+  matchDetail.includes("5 * 60 * 1000") &&
+    matchDetail.includes('url.searchParams.set("live"'),
+  "Live match page refresh is missing",
 );
 assert(
   matchCenterCss.includes(".match-scoreboard"),
   "Match center styles are missing",
 );
 assert(
-  matchWorkflow.includes('cron: "7,22,37,52 * * * *"'),
+  matchCenterCss.includes(".match-page-grid.is-single-panel"),
+  "Single match panel layout is missing",
+);
+assert(
+  matchWorkflow.includes('cron: "*/5 * * * *"'),
   "Automatic update schedule is missing",
+);
+assert(
+  matchUpdater.includes("capturedCommunityHalftime") &&
+    matchUpdater.includes(
+      "openHalftime || capturedCommunityHalftime || existingHalftime",
+    ),
+  "Halftime score capture and preservation are missing",
+);
+assert(
+  matchUpdater.includes("assets/match-center-data.js?v=${dataVersion}") &&
+    matchWorkflow.includes("index.html match.html"),
+  "Automatic live-data cache refresh is missing",
 );
 assert(
   matchWorkflow.includes("Pobierz bezpłatne wyniki"),

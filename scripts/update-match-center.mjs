@@ -14,6 +14,10 @@ const browserDataPath = new URL(
   "../assets/match-center-data.js",
   import.meta.url,
 );
+const pagePaths = [
+  new URL("../index.html", import.meta.url),
+  new URL("../match.html", import.meta.url),
+];
 const previous = fs.existsSync(matchCenterPath)
   ? JSON.parse(fs.readFileSync(matchCenterPath, "utf8"))
   : { fixtures: [] };
@@ -262,6 +266,34 @@ const fixtures = schedule.matches.map((appMatch) => {
     : canUseCommunityScore
       ? communityAway
       : null;
+  const openHalftimeCandidate =
+    Array.isArray(openScore?.ht) && openScore.ht.length === 2
+      ? {
+          home: numberOrNull(openScore.ht[0]),
+          away: numberOrNull(openScore.ht[1]),
+        }
+      : null;
+  const openHalftime =
+    Number.isInteger(openHalftimeCandidate?.home) &&
+    Number.isInteger(openHalftimeCandidate?.away)
+      ? openHalftimeCandidate
+      : null;
+  const capturedCommunityHalftime =
+    status.short === "HT" &&
+    Number.isInteger(communityHome) &&
+    Number.isInteger(communityAway)
+      ? { home: communityHome, away: communityAway }
+      : null;
+  const existingHalftime =
+    Number.isInteger(existing?.score?.halftime?.home) &&
+    Number.isInteger(existing?.score?.halftime?.away)
+      ? existing.score.halftime
+      : null;
+  const halftime =
+    openHalftime || capturedCommunityHalftime || existingHalftime || {
+      home: null,
+      away: null,
+    };
   const events = hasOpenResult
     ? openFootballEvents(openMatch)
     : existing?.events || [];
@@ -297,12 +329,7 @@ const fixtures = schedule.matches.map((appMatch) => {
     teams: { home, away },
     goals: { home: homeGoals, away: awayGoals },
     score: {
-      halftime: Array.isArray(openScore?.ht)
-        ? {
-            home: numberOrNull(openScore.ht[0]),
-            away: numberOrNull(openScore.ht[1]),
-          }
-        : { home: null, away: null },
+      halftime,
       fulltime: hasOpenResult
         ? { home: homeGoals, away: awayGoals }
         : { home: null, away: null },
@@ -364,6 +391,18 @@ fs.writeFileSync(
   browserDataPath,
   `window.WC2026_MATCH_CENTER = ${JSON.stringify(output)};\n`,
 );
+const dataVersion = `live-${output.updatedAt.replace(/\D/g, "").slice(0, 12)}`;
+for (const pagePath of pagePaths) {
+  const page = fs.readFileSync(pagePath, "utf8");
+  if (!/assets\/match-center-data\.js\?v=[^"]+/.test(page)) {
+    throw new Error(`Nie znaleziono wersji danych w ${pagePath.pathname}`);
+  }
+  const updatedPage = page.replace(
+    /assets\/match-center-data\.js\?v=[^"]+/g,
+    `assets/match-center-data.js?v=${dataVersion}`,
+  );
+  if (updatedPage !== page) fs.writeFileSync(pagePath, updatedPage);
+}
 
 console.log(
   `Zaktualizowano ${fixtures.length} meczów: ${

@@ -58,6 +58,7 @@
       if (short === "AET") return "Zakończony po dogrywce";
       return "Mecz zakończony";
     }
+    if (short === "HT") return "PRZERWA";
     if (liveStatuses.has(short)) {
       return fixture.status.elapsed
         ? `NA ŻYWO · ${fixture.status.elapsed}'`
@@ -142,6 +143,7 @@
 
   function renderStatistics(home, away) {
     const container = document.querySelector("[data-match-statistics]");
+    const section = document.querySelector("[data-match-statistics-section]");
     const statistics = fixture?.statistics || [];
     if (!container || statistics.length === 0) return;
 
@@ -158,6 +160,10 @@
     );
     if (rows.length === 0) return;
 
+    if (section) {
+      section.hidden = false;
+      section.parentElement?.classList.remove("is-single-panel");
+    }
     container.className = "match-statistics";
     container.innerHTML = `
       <div class="match-statistics-head">
@@ -223,9 +229,11 @@
 
   function renderLineups(home, away) {
     const container = document.querySelector("[data-match-lineups]");
+    const section = document.querySelector("[data-match-lineups-section]");
     const lineups = fixture?.lineups || [];
     if (!container || lineups.length === 0) return;
 
+    if (section) section.hidden = false;
     container.className = "match-lineups";
     container.innerHTML = lineups
       .map((lineup) => renderLineup(lineup, home, away))
@@ -298,4 +306,20 @@
   renderEvents(home, away);
   renderStatistics(home, away);
   renderLineups(home, away);
+
+  const kickoff = new Date(
+    `${match.date}T${match.time || "12:00"}:00+02:00`,
+  ).getTime();
+  const now = Date.now();
+  const refreshWindow =
+    !finishedStatuses.has(fixture?.status?.short) &&
+    now >= kickoff - 10 * 60 * 1000 &&
+    now <= kickoff + 4 * 60 * 60 * 1000;
+  if (refreshWindow) {
+    window.setTimeout(() => {
+      const url = new URL(window.location.href);
+      url.searchParams.set("live", String(Math.floor(Date.now() / 300000)));
+      window.location.replace(url);
+    }, 5 * 60 * 1000);
+  }
 })();

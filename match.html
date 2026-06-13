@@ -17,7 +17,7 @@ gtag('config', 'G-GC1HWNMR80');
 <meta name="robots" content="index,follow">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/styles.css?v=20260612-match-center">
-<link rel="stylesheet" href="assets/match-center.css?v=20260612-match-center">
+<link rel="stylesheet" href="assets/match-center.css?v=20260614-compact-fixtures">
 </head>
 <body>
 <a class="skip-link" href="#match-page">Przejdź do szczegółów meczu</a>
@@ -44,26 +44,22 @@ gtag('config', 'G-GC1HWNMR80');
     <p class="match-page-update" data-match-update></p>
   </section>
 
-  <div class="match-page-grid">
+  <div class="match-page-grid is-single-panel">
     <section class="match-page-card">
       <h2>Przebieg meczu</h2>
       <div data-match-events class="match-empty-state">
         Wydarzenia pojawią się po rozpoczęciu meczu.
       </div>
     </section>
-    <section class="match-page-card">
+    <section class="match-page-card" data-match-statistics-section hidden>
       <h2>Statystyki</h2>
-      <div data-match-statistics class="match-empty-state">
-        Bezpłatne źródła nie udostępniają pełnych statystyk meczu.
-      </div>
+      <div data-match-statistics></div>
     </section>
   </div>
 
-  <section class="match-page-card">
+  <section class="match-page-card" data-match-lineups-section hidden>
     <h2>Składy</h2>
-    <div data-match-lineups class="match-empty-state">
-      Bezpłatne źródła nie gwarantują danych o składach.
-    </div>
+    <div data-match-lineups></div>
   </section>
 
   <section class="match-page-source">
@@ -72,7 +68,7 @@ gtag('config', 'G-GC1HWNMR80');
   </section>
 </main>
 <script defer src="assets/matches.js?v=20260612-match-center"></script>
-<script defer src="assets/match-center-data.js?v=20260612-match-center"></script>
-<script defer src="assets/match-detail.js?v=20260612-match-center"></script>
+<script defer src="assets/match-center-data.js?v=live-20260614"></script>
+<script defer src="assets/match-detail.js?v=20260614-halftime"></script>
 </body>
 </html>
