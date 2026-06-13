@@ -374,7 +374,7 @@ assert.equal(
   104,
   "Match identifiers must be unique",
 );
-assert.equal(matchCenter.competition.id, 1, "Wrong API-Football competition");
+assert.equal(matchCenter.competition.id, 1, "Wrong match competition");
 assert(index.includes("assets/matches.js"), "Match schedule script is missing");
 assert(
   index.includes("assets/match-center-data.js"),
@@ -413,12 +413,12 @@ assert(
   "Match center styles are missing",
 );
 assert(
-  matchWorkflow.includes("API_FOOTBALL_KEY"),
-  "GitHub Actions API secret is missing",
+  matchWorkflow.includes('cron: "7,22,37,52 * * * *"'),
+  "Automatic update schedule is missing",
 );
 assert(
-  matchWorkflow.includes('cron: "7,37 * * * *"'),
-  "Automatic update schedule is missing",
+  matchWorkflow.includes("Pobierz bezpłatne wyniki"),
+  "Free match update step is missing",
 );
 
 console.log("All project checks passed.");

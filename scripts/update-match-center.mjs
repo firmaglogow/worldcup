@@ -1,9 +1,9 @@
 import fs from "node:fs";
 
-const API_BASE_URL = "https://v3.football.api-sports.io";
-const COMPETITION_ID = 1;
-const SEASON = 2026;
 const TIMEZONE = "Europe/Warsaw";
+const OPENFOOTBALL_URL =
+  "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json";
+const WORLDCUP26_URL = "https://worldcup26.ir/get/games";
 const FINISHED_STATUSES = new Set(["FT", "AET", "PEN"]);
 
 const schedule = JSON.parse(
@@ -17,13 +17,11 @@ const browserDataPath = new URL(
 const previous = fs.existsSync(matchCenterPath)
   ? JSON.parse(fs.readFileSync(matchCenterPath, "utf8"))
   : { fixtures: [] };
-
-const apiKey = process.env.API_FOOTBALL_KEY;
-if (!apiKey) {
-  throw new Error(
-    "Brak API_FOOTBALL_KEY. Dodaj klucz jako sekret repozytorium GitHub.",
-  );
-}
+const previousByMatchId = new Map(
+  (previous.fixtures || [])
+    .filter((fixture) => fixture.appMatchId)
+    .map((fixture) => [fixture.appMatchId, fixture]),
+);
 
 const TEAM_CODE_ALIASES = new Map([
   ["bosnia-and-herzegovina", "BIH"],
@@ -61,247 +59,278 @@ for (const team of Object.values(schedule.teams)) {
   TEAM_CODE_ALIASES.set(normalize(team.name), team.code);
 }
 
-async function apiGet(pathname, params) {
-  const url = new URL(pathname, API_BASE_URL);
-  for (const [key, value] of Object.entries(params)) {
-    url.searchParams.set(key, String(value));
-  }
+function teamCode(name) {
+  return TEAM_CODE_ALIASES.get(normalize(name)) || null;
+}
 
+function teamPairKey(home, away) {
+  const homeCode = teamCode(home);
+  const awayCode = teamCode(away);
+  return homeCode && awayCode ? `${homeCode}:${awayCode}` : null;
+}
+
+const scheduleByPair = new Map(
+  schedule.matches
+    .filter((match) => match.homeCode && match.awayCode)
+    .map((match) => [`${match.homeCode}:${match.awayCode}`, match]),
+);
+const scheduleById = new Map(
+  schedule.matches.map((match) => [match.id, match]),
+);
+
+async function fetchJson(url, label) {
   const response = await fetch(url, {
     headers: {
-      "x-apisports-key": apiKey,
+      Accept: "application/json",
+      "User-Agent": "firmaglogow-worldcup/1.0",
     },
   });
-  const payload = await response.json();
-
   if (!response.ok) {
-    throw new Error(`API-Football ${response.status}: ${response.statusText}`);
+    throw new Error(`${label}: HTTP ${response.status}`);
   }
-  if (payload.errors && Object.keys(payload.errors).length > 0) {
-    throw new Error(`API-Football: ${JSON.stringify(payload.errors)}`);
+  return response.json();
+}
+
+function appMatchForOpenFootball(match) {
+  if (Number.isInteger(match.num)) {
+    return scheduleById.get(match.num) || null;
   }
-
-  return payload.response || [];
+  const key = teamPairKey(match.team1, match.team2);
+  return key ? scheduleByPair.get(key) || null : null;
 }
 
-function fixtureLocalParts(fixture) {
-  const date = new Date(fixture.fixture.date);
-  const formatter = new Intl.DateTimeFormat("sv-SE", {
-    timeZone: TIMEZONE,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    hourCycle: "h23",
-  });
-  const parts = Object.fromEntries(
-    formatter
-      .formatToParts(date)
-      .filter((part) => part.type !== "literal")
-      .map((part) => [part.type, part.value]),
-  );
+function appMatchForWorldCup26(game) {
+  const key = teamPairKey(game.home_team_name_en, game.away_team_name_en);
+  if (key && scheduleByPair.has(key)) return scheduleByPair.get(key);
 
-  return {
-    date: `${parts.year}-${parts.month}-${parts.day}`,
-    time: `${parts.hour}:${parts.minute}`,
-  };
+  const id = Number(game.id);
+  if (game.type !== "group" && id >= 73 && id <= 104) {
+    return scheduleById.get(id) || null;
+  }
+  return null;
 }
 
-function minutes(time) {
-  const [hour, minute] = String(time).split(":").map(Number);
-  return hour * 60 + minute;
+function numberOrNull(value) {
+  if (value === null || value === undefined || value === "") return null;
+  const number = Number(value);
+  return Number.isInteger(number) ? number : null;
 }
 
-function findAppMatch(fixture) {
-  const homeCode = TEAM_CODE_ALIASES.get(normalize(fixture.teams.home.name));
-  const awayCode = TEAM_CODE_ALIASES.get(normalize(fixture.teams.away.name));
-  const local = fixtureLocalParts(fixture);
-
-  if (homeCode && awayCode) {
-    const exactTeams = schedule.matches.find(
-      (match) =>
-        match.phase === "group" &&
-        match.homeCode === homeCode &&
-        match.awayCode === awayCode,
-    );
-    if (exactTeams) return exactTeams;
+function worldCup26Status(game) {
+  const finished =
+    game.finished === true ||
+    String(game.finished || "").toLowerCase() === "true";
+  if (finished) {
+    return { short: "FT", long: "Mecz zakończony", elapsed: null };
   }
 
-  const sameDay = schedule.matches.filter((match) => match.date === local.date);
-  if (sameDay.length === 0) return null;
-
-  return sameDay
-    .map((match) => ({
-      match,
-      difference: Math.abs(minutes(match.time) - minutes(local.time)),
-      venueMatch:
-        normalize(match.stadium) === normalize(fixture.fixture.venue?.name),
-    }))
-    .sort(
-      (left, right) =>
-        Number(right.venueMatch) - Number(left.venueMatch) ||
-        left.difference - right.difference,
-    )[0]?.match;
-}
-
-function normalizeEvents(events) {
-  return events.map((event) => ({
-    elapsed: event.time?.elapsed ?? null,
-    extra: event.time?.extra ?? null,
-    team: event.team?.name || "",
-    player: event.player?.name || "",
-    assist: event.assist?.name || "",
-    type: event.type || "",
-    detail: event.detail || "",
-    comments: event.comments || "",
-  }));
-}
-
-function normalizeStatistics(statistics) {
-  return statistics.map((team) => ({
-    team: team.team?.name || "",
-    values: Object.fromEntries(
-      (team.statistics || []).map((item) => [item.type, item.value]),
-    ),
-  }));
-}
-
-function normalizeLineups(lineups) {
-  return lineups.map((lineup) => ({
-    team: lineup.team?.name || "",
-    formation: lineup.formation || "",
-    coach: lineup.coach?.name || "",
-    startXI: (lineup.startXI || []).map(({ player }) => ({
-      id: player.id,
-      name: player.name,
-      number: player.number,
-      position: player.pos,
-      grid: player.grid,
-    })),
-    substitutes: (lineup.substitutes || []).map(({ player }) => ({
-      id: player.id,
-      name: player.name,
-      number: player.number,
-      position: player.pos,
-    })),
-  }));
-}
-
-async function fetchDetails(fixtureId, previousAttempts = 0) {
-  const requests = await Promise.allSettled([
-    apiGet("/fixtures/events", { fixture: fixtureId }),
-    apiGet("/fixtures/statistics", { fixture: fixtureId }),
-    apiGet("/fixtures/lineups", { fixture: fixtureId }),
-  ]);
-  const [events, statistics, lineups] = requests.map((request) => {
-    if (request.status === "fulfilled") return request.value;
-    console.warn(
-      `Nie udało się pobrać części danych meczu ${fixtureId}:`,
-      request.reason?.message || request.reason,
-    );
-    return [];
-  });
-
-  return {
-    events: normalizeEvents(events),
-    statistics: normalizeStatistics(statistics),
-    lineups: normalizeLineups(lineups),
-    detailsFetchedAt: new Date().toISOString(),
-    detailsAttempts: previousAttempts + 1,
-  };
-}
-
-const apiFixtures = await apiGet("/fixtures", {
-  league: COMPETITION_ID,
-  season: SEASON,
-  timezone: TIMEZONE,
-});
-const previousByProviderId = new Map(
-  (previous.fixtures || []).map((fixture) => [fixture.providerId, fixture]),
-);
-
-const fixtures = [];
-for (const fixture of apiFixtures) {
-  const providerId = fixture.fixture.id;
-  const existing = previousByProviderId.get(providerId);
-  const appMatch = findAppMatch(fixture);
-  const statusShort = fixture.fixture.status?.short || "NS";
-  const isFinished = FINISHED_STATUSES.has(statusShort);
-  let details = {
-    events: existing?.events || [],
-    statistics: existing?.statistics || [],
-    lineups: existing?.lineups || [],
-    detailsFetchedAt: existing?.detailsFetchedAt || null,
-    detailsAttempts: existing?.detailsAttempts || 0,
-  };
-
-  const detailsIncomplete =
-    details.statistics.length === 0 || details.lineups.length === 0;
+  const elapsedText = String(game.time_elapsed || "").toLowerCase();
   if (
-    isFinished &&
-    details.detailsAttempts < 2 &&
-    (!details.detailsFetchedAt || detailsIncomplete)
+    !elapsedText ||
+    ["notstarted", "not-started", "scheduled"].includes(elapsedText)
   ) {
-    details = await fetchDetails(providerId, details.detailsAttempts);
+    return { short: "NS", long: "Mecz zaplanowany", elapsed: null };
+  }
+  if (elapsedText.includes("half")) {
+    return { short: "HT", long: "Przerwa", elapsed: 45 };
+  }
+  if (elapsedText.includes("postpon")) {
+    return { short: "PST", long: "Mecz przełożony", elapsed: null };
+  }
+  if (elapsedText.includes("cancel")) {
+    return { short: "CANC", long: "Mecz odwołany", elapsed: null };
   }
 
-  fixtures.push({
-    providerId,
-    appMatchId: appMatch?.id || null,
-    phase: appMatch?.phase || null,
-    round: fixture.league?.round || appMatch?.round || "",
-    kickoff: fixture.fixture.date,
-    date: appMatch?.date || fixtureLocalParts(fixture).date,
-    time: appMatch?.time || fixtureLocalParts(fixture).time,
-    venue: fixture.fixture.venue?.name || appMatch?.stadium || "",
-    city: fixture.fixture.venue?.city || appMatch?.city || "",
-    referee: fixture.fixture.referee || "",
-    status: {
-      short: statusShort,
-      long: fixture.fixture.status?.long || "",
-      elapsed: fixture.fixture.status?.elapsed ?? null,
-    },
-    teams: {
-      home: {
-        id: fixture.teams.home.id,
-        name: fixture.teams.home.name,
-        winner: fixture.teams.home.winner,
-      },
-      away: {
-        id: fixture.teams.away.id,
-        name: fixture.teams.away.name,
-        winner: fixture.teams.away.winner,
-      },
-    },
-    goals: {
-      home: fixture.goals?.home ?? null,
-      away: fixture.goals?.away ?? null,
-    },
-    score: {
-      halftime: fixture.score?.halftime || { home: null, away: null },
-      fulltime: fixture.score?.fulltime || { home: null, away: null },
-      extratime: fixture.score?.extratime || { home: null, away: null },
-      penalty: fixture.score?.penalty || { home: null, away: null },
-    },
-    ...details,
-  });
+  const elapsed = Number.parseInt(elapsedText, 10);
+  return {
+    short: "LIVE",
+    long: "Mecz trwa",
+    elapsed: Number.isInteger(elapsed) ? elapsed : null,
+  };
 }
 
-fixtures.sort(
-  (left, right) =>
-    (left.appMatchId ?? Number.MAX_SAFE_INTEGER) -
-      (right.appMatchId ?? Number.MAX_SAFE_INTEGER) ||
-    left.kickoff.localeCompare(right.kickoff),
-);
+function goalEvent(goal, scoringTeam, opposingTeam) {
+  const minuteParts = String(goal.minute || "").match(
+    /^(\d+)(?:\+(\d+))?/,
+  );
+  return {
+    elapsed: minuteParts ? Number(minuteParts[1]) : null,
+    extra: minuteParts?.[2] ? Number(minuteParts[2]) : null,
+    team: goal.owngoal ? opposingTeam : scoringTeam,
+    player: goal.name || "",
+    assist: "",
+    type: "Goal",
+    detail: goal.owngoal
+      ? "Own Goal"
+      : goal.penalty
+        ? "Penalty"
+        : "Normal Goal",
+    comments: "",
+  };
+}
+
+function openFootballEvents(match) {
+  return [
+    ...(match.goals1 || []).map((goal) =>
+      goalEvent(goal, match.team1, match.team2),
+    ),
+    ...(match.goals2 || []).map((goal) =>
+      goalEvent(goal, match.team2, match.team1),
+    ),
+  ].sort(
+    (left, right) =>
+      (left.elapsed ?? Number.MAX_SAFE_INTEGER) -
+        (right.elapsed ?? Number.MAX_SAFE_INTEGER) ||
+      (left.extra || 0) - (right.extra || 0),
+  );
+}
+
+function scheduledTeam(match, side) {
+  const code = match[`${side}Code`];
+  const team = code ? schedule.teams[code] : null;
+  return {
+    id: null,
+    name: team?.providerName || match[`${side}Label`] || "Do ustalenia",
+    winner: null,
+  };
+}
+
+const sourceErrors = [];
+let openFootball = { matches: [] };
+let worldCup26 = { games: [] };
+
+try {
+  openFootball = await fetchJson(OPENFOOTBALL_URL, "OpenFootball");
+} catch (error) {
+  sourceErrors.push(error.message);
+}
+
+try {
+  worldCup26 = await fetchJson(WORLDCUP26_URL, "WorldCup26");
+} catch (error) {
+  sourceErrors.push(error.message);
+}
+
+if (!openFootball.matches?.length && !worldCup26.games?.length) {
+  throw new Error(
+    `Brak danych z bezpłatnych źródeł: ${sourceErrors.join("; ")}`,
+  );
+}
+
+const openByMatchId = new Map();
+for (const match of openFootball.matches || []) {
+  const appMatch = appMatchForOpenFootball(match);
+  if (appMatch) openByMatchId.set(appMatch.id, match);
+}
+
+const communityByMatchId = new Map();
+for (const game of worldCup26.games || []) {
+  const appMatch = appMatchForWorldCup26(game);
+  if (appMatch) communityByMatchId.set(appMatch.id, game);
+}
+
+const fixtures = schedule.matches.map((appMatch) => {
+  const openMatch = openByMatchId.get(appMatch.id);
+  const communityMatch = communityByMatchId.get(appMatch.id);
+  const existing = previousByMatchId.get(appMatch.id);
+  const openScore = openMatch?.score;
+  const communityStatus = communityMatch
+    ? worldCup26Status(communityMatch)
+    : null;
+  const hasOpenResult =
+    Array.isArray(openScore?.ft) && openScore.ft.length === 2;
+  const status = hasOpenResult
+    ? { short: "FT", long: "Mecz zakończony", elapsed: null }
+    : communityStatus || {
+        short: "NS",
+        long: "Mecz zaplanowany",
+        elapsed: null,
+      };
+  const communityHome = numberOrNull(communityMatch?.home_score);
+  const communityAway = numberOrNull(communityMatch?.away_score);
+  const canUseCommunityScore =
+    status.short !== "NS" &&
+    Number.isInteger(communityHome) &&
+    Number.isInteger(communityAway);
+  const homeGoals = hasOpenResult
+    ? numberOrNull(openScore.ft[0])
+    : canUseCommunityScore
+      ? communityHome
+      : null;
+  const awayGoals = hasOpenResult
+    ? numberOrNull(openScore.ft[1])
+    : canUseCommunityScore
+      ? communityAway
+      : null;
+  const events = hasOpenResult
+    ? openFootballEvents(openMatch)
+    : existing?.events || [];
+  const home = scheduledTeam(appMatch, "home");
+  const away = scheduledTeam(appMatch, "away");
+
+  if (openMatch?.team1) home.name = openMatch.team1;
+  else if (communityMatch?.home_team_name_en) {
+    home.name = communityMatch.home_team_name_en;
+  }
+  if (openMatch?.team2) away.name = openMatch.team2;
+  else if (communityMatch?.away_team_name_en) {
+    away.name = communityMatch.away_team_name_en;
+  }
+
+  if (Number.isInteger(homeGoals) && Number.isInteger(awayGoals)) {
+    home.winner = homeGoals > awayGoals;
+    away.winner = awayGoals > homeGoals;
+  }
+
+  return {
+    providerId: `free-${appMatch.id}`,
+    appMatchId: appMatch.id,
+    phase: appMatch.phase,
+    round: appMatch.round,
+    kickoff: `${appMatch.date}T${appMatch.time}:00+02:00`,
+    date: appMatch.date,
+    time: appMatch.time,
+    venue: appMatch.stadium,
+    city: appMatch.city,
+    referee: "",
+    status,
+    teams: { home, away },
+    goals: { home: homeGoals, away: awayGoals },
+    score: {
+      halftime: Array.isArray(openScore?.ht)
+        ? {
+            home: numberOrNull(openScore.ht[0]),
+            away: numberOrNull(openScore.ht[1]),
+          }
+        : { home: null, away: null },
+      fulltime: hasOpenResult
+        ? { home: homeGoals, away: awayGoals }
+        : { home: null, away: null },
+      extratime: existing?.score?.extratime || { home: null, away: null },
+      penalty: existing?.score?.penalty || { home: null, away: null },
+    },
+    events,
+    statistics: [],
+    lineups: [],
+    detailsFetchedAt: hasOpenResult ? new Date().toISOString() : null,
+    detailsAttempts: 0,
+    dataSource: hasOpenResult
+      ? "OpenFootball"
+      : communityMatch
+        ? "WorldCup26"
+        : "",
+  };
+});
 
 const output = {
-  version: 1,
-  source: "API-Football",
+  version: 2,
+  source: "OpenFootball + WorldCup26",
+  sourceNotice:
+    "Bezpłatne dane społecznościowe. Wyniki mogą pojawić się z opóźnieniem i wymagają potwierdzenia.",
   competition: {
-    id: COMPETITION_ID,
+    id: 1,
     name: "FIFA World Cup",
-    season: SEASON,
+    season: 2026,
   },
   timezone: TIMEZONE,
   updatedAt: new Date().toISOString(),
@@ -313,18 +342,20 @@ const comparableOutput = JSON.stringify({
   source: output.source,
   competition: output.competition,
   timezone: output.timezone,
-  fixtures: output.fixtures,
+  fixtures: output.fixtures.map(({ detailsFetchedAt, ...fixture }) => fixture),
 });
 const comparablePrevious = JSON.stringify({
   version: previous.version,
   source: previous.source,
   competition: previous.competition,
   timezone: previous.timezone,
-  fixtures: previous.fixtures || [],
+  fixtures: (previous.fixtures || []).map(
+    ({ detailsFetchedAt, ...fixture }) => fixture,
+  ),
 });
 
 if (comparableOutput === comparablePrevious) {
-  console.log("Brak nowych wyników lub statystyk.");
+  console.log("Brak nowych wyników.");
   process.exit(0);
 }
 
@@ -335,8 +366,14 @@ fs.writeFileSync(
 );
 
 console.log(
-  `Zaktualizowano ${fixtures.length} meczów, w tym ${
+  `Zaktualizowano ${fixtures.length} meczów: ${
     fixtures.filter((fixture) => FINISHED_STATUSES.has(fixture.status.short))
       .length
-  } zakończonych.`,
+  } zakończonych, ${
+    fixtures.filter((fixture) =>
+      ["1H", "HT", "2H", "ET", "LIVE"].includes(fixture.status.short),
+    ).length
+  } na żywo.${
+    sourceErrors.length ? ` Ostrzeżenia: ${sourceErrors.join("; ")}` : ""
+  }`,
 );

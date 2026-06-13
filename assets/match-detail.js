@@ -280,7 +280,7 @@
           dateStyle: "short",
           timeStyle: "short",
         }).format(new Date(window.WC2026_MATCH_CENTER.updatedAt))}`
-      : "Automatyczne dane zostaną włączone po skonfigurowaniu źródła wyników.",
+      : "Oczekiwanie na pierwszą aktualizację bezpłatnego źródła wyników.",
   );
 
   const statusElement = document.querySelector("[data-match-status]");
