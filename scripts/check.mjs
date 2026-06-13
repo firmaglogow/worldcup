@@ -417,6 +417,26 @@ assert(
   "Locked official result styles are missing",
 );
 assert(
+  enhancements.includes("function reorderNavigation()"),
+  "Statistics navigation reorder is missing",
+);
+assert(
+  enhancements.includes('["Statystyki", "Staty"]'),
+  "Mobile statistics navigation reorder is missing",
+);
+assert(
+  enhancements.includes('section.dataset.automaticScorers = "true"'),
+  "Automatic scorers ranking is missing",
+);
+assert(
+  enhancements.includes('event.detail !== "Own Goal"'),
+  "Own goals are not excluded from the scorers ranking",
+);
+assert(
+  matchCenterCss.includes(".automatic-scorers"),
+  "Automatic scorers ranking styles are missing",
+);
+assert(
   matchPage.includes("data-match-statistics"),
   "Match statistics section is missing",
 );

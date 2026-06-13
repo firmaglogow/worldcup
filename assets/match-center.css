@@ -449,6 +449,191 @@
   margin-top: 0.5rem;
 }
 
+.automatic-scorers {
+  background:
+    radial-gradient(circle at 90% 0, rgba(16, 185, 129, 0.12), transparent 22rem),
+    linear-gradient(145deg, rgba(15, 30, 48, 0.96), rgba(10, 25, 36, 0.94));
+  border: 1px solid rgba(52, 211, 153, 0.28);
+  border-radius: 1rem;
+  box-shadow: 0 18px 42px rgba(2, 6, 23, 0.22);
+  margin-top: 1rem;
+  overflow: hidden;
+}
+
+.automatic-scorers-header {
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.72);
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 1.1rem 1.25rem;
+}
+
+.automatic-scorers-kicker {
+  color: #fbbf24;
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.automatic-scorers-header h3 {
+  color: #f8fafc;
+  font-size: 1.05rem;
+  font-weight: 950;
+  letter-spacing: 0.02em;
+  margin-top: 0.25rem;
+}
+
+.automatic-scorers-description {
+  color: #94a3b8;
+  font-size: 0.7rem;
+  margin-top: 0.25rem;
+}
+
+.automatic-scorers-badge {
+  background: rgba(6, 78, 59, 0.5);
+  border: 1px solid rgba(52, 211, 153, 0.28);
+  border-radius: 999px;
+  color: #a7f3d0;
+  flex: 0 0 auto;
+  font-size: 0.56rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  padding: 0.4rem 0.65rem;
+}
+
+.automatic-scorers-columns,
+.automatic-scorers-row {
+  align-items: center;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 2.25rem minmax(0, 1fr) minmax(5rem, 0.5fr) 3rem;
+}
+
+.automatic-scorers-columns {
+  color: #64748b;
+  font-size: 0.56rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  padding: 0.65rem 1.25rem 0.45rem;
+}
+
+.automatic-scorers-columns span:nth-child(3),
+.automatic-scorers-columns span:nth-child(4) {
+  text-align: right;
+}
+
+.automatic-scorers-list {
+  padding: 0 0.75rem 0.65rem;
+}
+
+.automatic-scorers-row {
+  border-top: 1px solid rgba(51, 65, 85, 0.62);
+  min-height: 4rem;
+  padding: 0.55rem 0.5rem;
+}
+
+.automatic-scorers-row:first-child {
+  background: linear-gradient(90deg, rgba(251, 191, 36, 0.08), transparent 72%);
+  border-color: rgba(251, 191, 36, 0.22);
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+
+.automatic-scorers-rank {
+  align-items: center;
+  background: rgba(30, 41, 59, 0.88);
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  border-radius: 999px;
+  color: #cbd5e1;
+  display: inline-flex;
+  font-size: 0.72rem;
+  font-weight: 950;
+  height: 1.85rem;
+  justify-content: center;
+  width: 1.85rem;
+}
+
+.automatic-scorers-row:first-child .automatic-scorers-rank {
+  background: rgba(120, 53, 15, 0.72);
+  border-color: rgba(251, 191, 36, 0.48);
+  color: #fde68a;
+  box-shadow: 0 0 18px rgba(251, 191, 36, 0.12);
+}
+
+.automatic-scorers-identity {
+  align-items: center;
+  display: flex;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.automatic-scorers-flag {
+  flex: 0 0 auto;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.automatic-scorers-player {
+  display: grid;
+  min-width: 0;
+}
+
+.automatic-scorers-player strong,
+.automatic-scorers-player a {
+  color: #f8fafc;
+  font-size: 0.82rem;
+  font-weight: 900;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.automatic-scorers-player a:hover {
+  color: #fde68a;
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+.automatic-scorers-player span {
+  color: #94a3b8;
+  font-size: 0.65rem;
+  margin-top: 0.1rem;
+}
+
+.automatic-scorers-minutes {
+  color: #94a3b8;
+  font-size: 0.68rem;
+  text-align: right;
+}
+
+.automatic-scorers-goals {
+  color: #6ee7b7;
+  font-size: 1.35rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.automatic-scorers-row:first-child .automatic-scorers-goals {
+  color: #fde68a;
+}
+
+.automatic-scorers-note,
+.automatic-scorers-empty {
+  color: #64748b;
+  font-size: 0.62rem;
+  line-height: 1.5;
+}
+
+.automatic-scorers-note {
+  border-top: 1px solid rgba(51, 65, 85, 0.58);
+  padding: 0.7rem 1.25rem;
+}
+
+.automatic-scorers-empty {
+  padding: 1.5rem 0.5rem;
+  text-align: center;
+}
+
 @keyframes match-live-pulse {
   0%,
   100% {
@@ -478,6 +663,57 @@
 }
 
 @media (max-width: 520px) {
+  .automatic-scorers-header {
+    display: grid;
+    padding: 1rem;
+  }
+
+  .automatic-scorers-badge {
+    justify-self: start;
+  }
+
+  .automatic-scorers-columns,
+  .automatic-scorers-row {
+    gap: 0.5rem;
+    grid-template-columns: 1.8rem minmax(0, 1fr) 2.5rem;
+  }
+
+  .automatic-scorers-columns {
+    padding-inline: 0.8rem;
+  }
+
+  .automatic-scorers-columns span:nth-child(3),
+  .automatic-scorers-minutes {
+    display: none;
+  }
+
+  .automatic-scorers-list {
+    padding-inline: 0.4rem;
+  }
+
+  .automatic-scorers-row {
+    min-height: 3.75rem;
+    padding-inline: 0.4rem;
+  }
+
+  .automatic-scorers-rank {
+    height: 1.65rem;
+    width: 1.65rem;
+  }
+
+  .automatic-scorers-flag {
+    font-size: 1.15rem;
+  }
+
+  .automatic-scorers-player strong,
+  .automatic-scorers-player a {
+    font-size: 0.78rem;
+  }
+
+  .automatic-scorers-note {
+    padding-inline: 1rem;
+  }
+
   .match-center-card-footer {
     align-items: flex-start;
     flex-direction: column;

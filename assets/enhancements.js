@@ -708,6 +708,242 @@
     }
   }
 
+  function reorderNavigation() {
+    const buttons = [...document.querySelectorAll("button")];
+    const groupTables = buttons.find((button) =>
+      ["Tabele grup", "Tabele"].includes(button.textContent.trim()),
+    );
+    const statistics = buttons.find((button) =>
+      ["Statystyki", "Staty"].includes(button.textContent.trim()),
+    );
+
+    if (
+      groupTables?.parentElement &&
+      groupTables.parentElement === statistics?.parentElement &&
+      groupTables.nextElementSibling !== statistics
+    ) {
+      groupTables.insertAdjacentElement("afterend", statistics);
+    }
+  }
+
+  function normalizeScorerText(value) {
+    return String(value || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/&/g, " and ")
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim();
+  }
+
+  function findScorerTeam(providerName) {
+    const teams = window.WC2026_MATCHES?.teams || {};
+    const aliases = {
+      "bosnia and herzegovina": "BIH",
+      "czech republic": "CZE",
+    };
+    const normalizedName = normalizeScorerText(providerName);
+    const aliasCode = aliases[normalizedName];
+
+    if (aliasCode && teams[aliasCode]) return teams[aliasCode];
+
+    return Object.values(teams).find((team) =>
+      [team.code, team.name, team.providerName]
+        .map(normalizeScorerText)
+        .includes(normalizedName),
+    );
+  }
+
+  function findScorerProfile(teamCode, playerName) {
+    const players =
+      window.WC2026_PLAYER_PROFILES?.[teamCode]?.players || [];
+    const normalizedName = normalizeScorerText(playerName);
+    return players.find(
+      (player) => normalizeScorerText(player.name) === normalizedName,
+    );
+  }
+
+  function collectAutomaticScorers() {
+    const scorers = new Map();
+
+    (window.WC2026_MATCH_CENTER?.fixtures || []).forEach((fixture) => {
+      (fixture.events || [])
+        .filter(
+          (event) =>
+            event.type === "Goal" &&
+            event.detail !== "Own Goal" &&
+            event.player?.trim(),
+        )
+        .forEach((event) => {
+          const team = findScorerTeam(event.team);
+          const key = `${normalizeScorerText(event.player)}:${team?.code || normalizeScorerText(event.team)}`;
+          const scorer = scorers.get(key) || {
+            player: event.player.trim(),
+            teamCode: team?.code || "",
+            teamName: team?.name || event.team || "",
+            flag: team?.flag || "⚽",
+            goals: 0,
+            minutes: [],
+          };
+
+          scorer.goals += 1;
+          scorer.minutes.push({
+            elapsed: Number(event.elapsed) || 0,
+            extra: Number(event.extra) || 0,
+          });
+          scorers.set(key, scorer);
+        });
+    });
+
+    return [...scorers.values()].sort(
+      (first, second) =>
+        second.goals - first.goals ||
+        first.player.localeCompare(second.player, "pl"),
+    );
+  }
+
+  function formatScorerMinutes(minutes) {
+    return minutes
+      .sort(
+        (first, second) =>
+          first.elapsed - second.elapsed || first.extra - second.extra,
+      )
+      .map(
+        ({ elapsed, extra }) =>
+          `${elapsed}${extra ? `+${extra}` : ""}'`,
+      )
+      .join(", ");
+  }
+
+  function createScorerRow(scorer, index) {
+    const row = document.createElement("li");
+    row.className = "automatic-scorers-row";
+
+    const rank = document.createElement("span");
+    rank.className = "automatic-scorers-rank";
+    rank.textContent = String(index + 1);
+    rank.setAttribute("aria-label", `Miejsce ${index + 1}`);
+
+    const identity = document.createElement("div");
+    identity.className = "automatic-scorers-identity";
+
+    const flag = document.createElement("span");
+    flag.className = "automatic-scorers-flag";
+    flag.textContent = scorer.flag;
+    flag.setAttribute("aria-hidden", "true");
+
+    const player = document.createElement("div");
+    player.className = "automatic-scorers-player";
+    const profile = findScorerProfile(scorer.teamCode, scorer.player);
+    const playerName = profile ? document.createElement("a") : document.createElement("strong");
+    playerName.textContent = scorer.player;
+
+    if (profile) {
+      playerName.href = `player.html?team=${encodeURIComponent(scorer.teamCode)}&id=${encodeURIComponent(profile.slug)}`;
+    }
+
+    const team = document.createElement("span");
+    team.textContent = scorer.teamName;
+    player.append(playerName, team);
+    identity.append(flag, player);
+
+    const minutes = document.createElement("span");
+    minutes.className = "automatic-scorers-minutes";
+    minutes.textContent = formatScorerMinutes(scorer.minutes);
+    minutes.setAttribute("aria-label", `Minuty goli: ${minutes.textContent}`);
+
+    const goals = document.createElement("strong");
+    goals.className = "automatic-scorers-goals";
+    goals.textContent = String(scorer.goals);
+    goals.setAttribute(
+      "aria-label",
+      `${scorer.goals} ${scorer.goals === 1 ? "gol" : "gole"}`,
+    );
+
+    row.append(rank, identity, minutes, goals);
+    return row;
+  }
+
+  function createAutomaticScorers() {
+    const section = document.createElement("section");
+    section.className = "automatic-scorers";
+    section.dataset.automaticScorers = "true";
+
+    const header = document.createElement("header");
+    header.className = "automatic-scorers-header";
+
+    const headingGroup = document.createElement("div");
+    const kicker = document.createElement("p");
+    kicker.className = "automatic-scorers-kicker";
+    kicker.textContent = "TURNIEJ 2026";
+
+    const heading = document.createElement("h3");
+    heading.textContent = "KLASYFIKACJA STRZELCÓW";
+
+    const description = document.createElement("p");
+    description.className = "automatic-scorers-description";
+    description.textContent =
+      "Ranking aktualizuje się automatycznie po zakończonych meczach.";
+    headingGroup.append(kicker, heading, description);
+
+    const badge = document.createElement("span");
+    badge.className = "automatic-scorers-badge";
+    badge.textContent = "AKTUALIZACJA AUTOMATYCZNA";
+    header.append(headingGroup, badge);
+
+    const columns = document.createElement("div");
+    columns.className = "automatic-scorers-columns";
+    columns.setAttribute("aria-hidden", "true");
+    columns.innerHTML = `
+      <span>LP.</span>
+      <span>ZAWODNIK</span>
+      <span>MINUTY</span>
+      <span>GOLE</span>
+    `;
+
+    const list = document.createElement("ol");
+    list.className = "automatic-scorers-list";
+    const scorers = collectAutomaticScorers();
+
+    if (scorers.length) {
+      scorers
+        .slice(0, 15)
+        .forEach((scorer, index) => list.append(createScorerRow(scorer, index)));
+    } else {
+      const empty = document.createElement("li");
+      empty.className = "automatic-scorers-empty";
+      empty.textContent =
+        "Klasyfikacja pojawi się po pierwszych golach turnieju.";
+      list.append(empty);
+    }
+
+    const note = document.createElement("p");
+    note.className = "automatic-scorers-note";
+    note.textContent =
+      "Gole samobójcze nie są zaliczane do klasyfikacji zawodników.";
+
+    section.append(header, columns, list, note);
+    return section;
+  }
+
+  function enhanceStatistics() {
+    const manualHeading = [...document.querySelectorAll("h3")].find(
+      (heading) => heading.textContent.trim() === "KRÓL STRZELCÓW TURNIEJU",
+    );
+    if (!manualHeading) return;
+
+    const manualPanel =
+      manualHeading.closest(".rounded-2xl") || manualHeading.parentElement;
+    if (!manualPanel) return;
+
+    manualPanel.dataset.manualScorersPanel = "true";
+    manualPanel.hidden = true;
+
+    if (!document.querySelector("[data-automatic-scorers]")) {
+      manualPanel.insertAdjacentElement("afterend", createAutomaticScorers());
+    }
+  }
+
   function secureExternalLinks() {
     document
       .querySelectorAll('a[target="_blank"]')
@@ -722,6 +958,8 @@
     enhanceStadiumMap();
     enhancePlayerSquad();
     addAdSlots();
+    reorderNavigation();
+    enhanceStatistics();
     secureExternalLinks();
   }
 
