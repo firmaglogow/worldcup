@@ -710,20 +710,53 @@
 
   function reorderNavigation() {
     const buttons = [...document.querySelectorAll("button")];
-    const groupTables = buttons.find((button) =>
-      ["Tabele grup", "Tabele"].includes(button.textContent.trim()),
-    );
-    const statistics = buttons.find((button) =>
-      ["Statystyki", "Staty"].includes(button.textContent.trim()),
-    );
+    const navigationOrder = new Map([
+      ["Mecze", 1],
+      ["Tabele grup", 2],
+      ["Tabele", 2],
+      ["Statystyki", 3],
+      ["Staty", 3],
+      ["Grupa śmierci", 4],
+      ["Śmierci", 4],
+      ["Reprezentacje", 5],
+      ["Drużyny", 5],
+      ["Faza pucharowa", 6],
+      ["Puchar", 6],
+      ["Symulator", 7],
+      ["Mój typ", 8],
+      ["Dream Team", 9],
+      ["Dream XI", 9],
+      ["Stadiony", 10],
+      ["Ciekawostki", 11],
+      ["Ciekawe", 11],
+      ["Historia MŚ", 12],
+      ["Historia", 12],
+    ]);
 
-    if (
-      groupTables?.parentElement &&
-      groupTables.parentElement === statistics?.parentElement &&
-      groupTables.nextElementSibling !== statistics
-    ) {
-      groupTables.insertAdjacentElement("afterend", statistics);
-    }
+    const navigationGroups = new Map();
+    buttons.forEach((button) => {
+      const label = button.textContent.trim();
+      const order = navigationOrder.get(label);
+      if (!order || !button.parentElement) return;
+
+      button.dataset.navOrder = String(order);
+      const group = navigationGroups.get(button.parentElement) || [];
+      group.push(button);
+      navigationGroups.set(button.parentElement, group);
+    });
+
+    navigationGroups.forEach((navigationButtons) => {
+      const groupTables = navigationButtons.find((button) =>
+        ["Tabele grup", "Tabele"].includes(button.textContent.trim()),
+      );
+      const statistics = navigationButtons.find((button) =>
+        ["Statystyki", "Staty"].includes(button.textContent.trim()),
+      );
+
+      if (groupTables && statistics && groupTables.nextElementSibling !== statistics) {
+        groupTables.insertAdjacentElement("afterend", statistics);
+      }
+    });
   }
 
   function normalizeScorerText(value) {

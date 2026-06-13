@@ -425,6 +425,22 @@ assert(
   "Mobile statistics navigation reorder is missing",
 );
 assert(
+  enhancements.includes("button.dataset.navOrder = String(order)"),
+  "Statistics navigation order is not stable across application refreshes",
+);
+assert(
+  index.includes("assets/enhancements.js?v=20260613-scorers-nav-3"),
+  "Latest navigation enhancement cache key is missing",
+);
+assert(
+  index.includes("assets/match-center.css?v=20260613-scorers-nav-2"),
+  "Latest navigation styles cache key is missing",
+);
+assert(
+  matchCenterCss.includes('[data-nav-order="3"] { order: 3; }'),
+  "Statistics navigation order styles are missing",
+);
+assert(
   enhancements.includes('section.dataset.automaticScorers = "true"'),
   "Automatic scorers ranking is missing",
 );
