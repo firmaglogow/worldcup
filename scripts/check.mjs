@@ -507,8 +507,13 @@ assert(
   "Latest navigation enhancement cache key is missing",
 );
 assert(
-  index.includes("assets/match-center.css?v=20260614-upcoming-matches"),
+  index.includes("assets/match-center.css?v=20260614-compact-ad"),
   "Latest navigation styles cache key is missing",
+);
+assert(
+  matchCenterCss.includes(".ad-slot-main .ad-slot-visual") &&
+    matchCenterCss.includes("min-height: 96px"),
+  "Compact main advertising module styles are missing",
 );
 assert(
   matchCenterCss.includes('[data-nav-order="3"] { order: 3; }'),

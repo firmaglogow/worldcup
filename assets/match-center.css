@@ -185,6 +185,57 @@
   white-space: nowrap;
 }
 
+/* Compact main sponsorship banner. The 300 x 250 desktop sidebar stays unchanged. */
+.ad-slot-main {
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+  padding: 0.625rem 0.875rem;
+}
+
+.ad-slot-main .ad-slot-kicker {
+  font-size: 0.6rem;
+}
+
+.ad-slot-main .ad-slot-title {
+  font-size: 0.95rem;
+  margin-top: 0.2rem;
+}
+
+.ad-slot-main .ad-slot-contact {
+  font-size: 0.7rem;
+  margin-top: 0.35rem;
+}
+
+.ad-slot-main .ad-slot-visual {
+  height: 64px;
+  margin-top: 0;
+}
+
+.ad-slot-main .ad-slot-scene {
+  max-width: 260px;
+}
+
+.ad-slot-main .ad-slot-visual-caption {
+  font-size: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .ad-slot-main {
+    gap: 0.75rem;
+    grid-template-columns: minmax(0, 1.5fr) minmax(220px, 0.5fr);
+    min-height: 96px;
+    padding: 0.625rem 1rem;
+  }
+
+  .ad-slot-main .ad-slot-visual {
+    height: 88px;
+  }
+
+  .ad-slot-main .ad-slot-scene {
+    max-width: 280px;
+  }
+}
+
 .match-center-status {
   align-items: center;
   color: #94a3b8;
