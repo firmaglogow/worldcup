@@ -8,7 +8,7 @@
     "season": 2026
   },
   "timezone": "Europe/Warsaw",
-  "updatedAt": "2026-06-13T10:50:00.307Z",
+  "updatedAt": "2026-06-13T19:49:10.100Z",
   "fixtures": [
     {
       "providerId": "free-1",
@@ -84,7 +84,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-13T10:50:00.306Z",
+      "detailsFetchedAt": "2026-06-13T19:49:10.099Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -172,7 +172,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-13T10:50:00.307Z",
+      "detailsFetchedAt": "2026-06-13T19:49:10.099Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -250,7 +250,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-13T10:50:00.307Z",
+      "detailsFetchedAt": "2026-06-13T19:49:10.099Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -358,7 +358,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-13T10:50:00.307Z",
+      "detailsFetchedAt": "2026-06-13T19:49:10.099Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -374,25 +374,25 @@
       "city": "San Francisco",
       "referee": "",
       "status": {
-        "short": "NS",
-        "long": "Mecz zaplanowany",
+        "short": "LIVE",
+        "long": "Mecz trwa",
         "elapsed": null
       },
       "teams": {
         "home": {
           "id": null,
           "name": "Qatar",
-          "winner": null
+          "winner": false
         },
         "away": {
           "id": null,
           "name": "Switzerland",
-          "winner": null
+          "winner": true
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 1
       },
       "score": {
         "halftime": {
