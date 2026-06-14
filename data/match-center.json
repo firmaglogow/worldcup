@@ -8,7 +8,7 @@
     "season": 2026
   },
   "timezone": "Europe/Warsaw",
-  "updatedAt": "2026-06-14T22:37:49.332Z",
+  "updatedAt": "2026-06-14T23:48:41.225Z",
   "fixtures": [
     {
       "providerId": "free-1",
@@ -84,7 +84,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T22:37:49.331Z",
+      "detailsFetchedAt": "2026-06-14T23:48:41.224Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -172,7 +172,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T22:37:49.332Z",
+      "detailsFetchedAt": "2026-06-14T23:48:41.224Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -250,7 +250,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T22:37:49.332Z",
+      "detailsFetchedAt": "2026-06-14T23:48:41.224Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -358,7 +358,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T22:37:49.332Z",
+      "detailsFetchedAt": "2026-06-14T23:48:41.224Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -436,7 +436,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T22:37:49.332Z",
+      "detailsFetchedAt": "2026-06-14T23:48:41.224Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -514,7 +514,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T22:37:49.332Z",
+      "detailsFetchedAt": "2026-06-14T23:48:41.225Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -582,7 +582,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T22:37:49.332Z",
+      "detailsFetchedAt": "2026-06-14T23:48:41.225Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -660,7 +660,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T22:37:49.332Z",
+      "detailsFetchedAt": "2026-06-14T23:48:41.225Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -798,7 +798,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T22:37:49.332Z",
+      "detailsFetchedAt": "2026-06-14T23:48:41.225Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -896,7 +896,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T22:37:49.332Z",
+      "detailsFetchedAt": "2026-06-14T23:48:41.225Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -912,25 +912,25 @@
       "city": "Philadelphia",
       "referee": "",
       "status": {
-        "short": "NS",
-        "long": "Mecz zaplanowany",
+        "short": "LIVE",
+        "long": "Mecz trwa",
         "elapsed": null
       },
       "teams": {
         "home": {
           "id": null,
           "name": "Ivory Coast",
-          "winner": null
+          "winner": false
         },
         "away": {
           "id": null,
           "name": "Ecuador",
-          "winner": null
+          "winner": false
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 0
       },
       "score": {
         "halftime": {
@@ -953,7 +953,7 @@
       "events": [],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": null,
+      "detailsFetchedAt": "2026-06-14T23:48:41.225Z",
       "detailsAttempts": 0,
       "dataSource": "WorldCup26"
     },
