@@ -8,7 +8,7 @@
     "season": 2026
   },
   "timezone": "Europe/Warsaw",
-  "updatedAt": "2026-06-13T23:18:24.873Z",
+  "updatedAt": "2026-06-14T01:38:15.004Z",
   "fixtures": [
     {
       "providerId": "free-1",
@@ -84,7 +84,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-13T23:18:24.872Z",
+      "detailsFetchedAt": "2026-06-14T01:38:15.004Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -172,7 +172,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-13T23:18:24.872Z",
+      "detailsFetchedAt": "2026-06-14T01:38:15.004Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -250,7 +250,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-13T23:18:24.872Z",
+      "detailsFetchedAt": "2026-06-14T01:38:15.004Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -358,7 +358,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-13T23:18:24.872Z",
+      "detailsFetchedAt": "2026-06-14T01:38:15.004Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -436,7 +436,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-13T23:18:24.872Z",
+      "detailsFetchedAt": "2026-06-14T01:38:15.004Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -452,8 +452,8 @@
       "city": "New Jersey",
       "referee": "",
       "status": {
-        "short": "LIVE",
-        "long": "Mecz trwa",
+        "short": "FT",
+        "long": "Mecz zakończony",
         "elapsed": null
       },
       "teams": {
@@ -474,12 +474,12 @@
       },
       "score": {
         "halftime": {
-          "home": null,
-          "away": null
+          "home": 1,
+          "away": 1
         },
         "fulltime": {
-          "home": null,
-          "away": null
+          "home": 1,
+          "away": 1
         },
         "extratime": {
           "home": null,
@@ -490,12 +490,33 @@
           "away": null
         }
       },
-      "events": [],
+      "events": [
+        {
+          "elapsed": 21,
+          "extra": null,
+          "team": "Morocco",
+          "player": "Ismael Saibari",
+          "assist": "",
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "comments": ""
+        },
+        {
+          "elapsed": 32,
+          "extra": null,
+          "team": "Brazil",
+          "player": "Vinícius Júnior",
+          "assist": "",
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "comments": ""
+        }
+      ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": null,
+      "detailsFetchedAt": "2026-06-14T01:38:15.004Z",
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": "OpenFootball"
     },
     {
       "providerId": "free-7",
@@ -509,25 +530,25 @@
       "city": "Boston",
       "referee": "",
       "status": {
-        "short": "NS",
-        "long": "Mecz zaplanowany",
+        "short": "LIVE",
+        "long": "Mecz trwa",
         "elapsed": null
       },
       "teams": {
         "home": {
           "id": null,
           "name": "Haiti",
-          "winner": null
+          "winner": false
         },
         "away": {
           "id": null,
           "name": "Scotland",
-          "winner": null
+          "winner": true
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 1
       },
       "score": {
         "halftime": {
