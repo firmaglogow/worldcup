@@ -8,7 +8,7 @@
     "season": 2026
   },
   "timezone": "Europe/Warsaw",
-  "updatedAt": "2026-06-14T07:57:48.176Z",
+  "updatedAt": "2026-06-14T14:04:10.925Z",
   "fixtures": [
     {
       "providerId": "free-1",
@@ -84,7 +84,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T07:57:48.126Z",
+      "detailsFetchedAt": "2026-06-14T14:04:10.924Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -172,7 +172,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T07:57:48.174Z",
+      "detailsFetchedAt": "2026-06-14T14:04:10.924Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -250,7 +250,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T07:57:48.175Z",
+      "detailsFetchedAt": "2026-06-14T14:04:10.924Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -358,7 +358,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T07:57:48.175Z",
+      "detailsFetchedAt": "2026-06-14T14:04:10.924Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -436,7 +436,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T07:57:48.175Z",
+      "detailsFetchedAt": "2026-06-14T14:04:10.924Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -514,7 +514,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T07:57:48.175Z",
+      "detailsFetchedAt": "2026-06-14T14:04:10.924Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -582,7 +582,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T07:57:48.175Z",
+      "detailsFetchedAt": "2026-06-14T14:04:10.924Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -620,8 +620,8 @@
       },
       "score": {
         "halftime": {
-          "home": null,
-          "away": null
+          "home": 1,
+          "away": 0
         },
         "fulltime": {
           "home": 2,
@@ -651,7 +651,7 @@
           "elapsed": 75,
           "extra": null,
           "team": "Australia",
-          "player": "C. Metcalfe",
+          "player": "Connor Metcalfe",
           "assist": "",
           "type": "Goal",
           "detail": "Normal Goal",
@@ -660,9 +660,9 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T07:57:48.175Z",
+      "detailsFetchedAt": "2026-06-14T14:04:10.924Z",
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": "OpenFootball"
     },
     {
       "providerId": "free-9",
