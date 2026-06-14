@@ -139,11 +139,30 @@ assert(
   "Upcoming matches are not removed from other tabs",
 );
 assert(
+  enhancements.includes("function enhanceMatchBrowser()") &&
+    enhancements.includes('results: "Wyniki"') &&
+    enhancements.includes('day: "Dzisiaj"') &&
+    enhancements.includes('upcoming: "Nadchodzące"') &&
+    enhancements.includes('all: "Wszystkie"'),
+  "Match browser modes are missing",
+);
+assert(
+  enhancements.includes("function setNativeDateFilter(value)") &&
+    enhancements.includes("function updateMatchBrowserDates(browser)"),
+  "Match browser date navigation is missing",
+);
+assert(
+  enhancements.includes("matchBrowserFinishedStatuses") &&
+    enhancements.includes("Pokaż starsze wyniki") &&
+    enhancements.includes("Pokaż kolejne mecze"),
+  "Compact results and upcoming views are missing",
+);
+assert(
   !enhancements.includes("removeAdsAfterNavigation"),
   "Advertising should remain visible on every tab",
 );
 assert(
-  index.includes("assets/enhancements.js?v=20260614-navigation-dream-team"),
+  index.includes("assets/enhancements.js?v=20260614-match-browser"),
   "Latest advertising visibility cache key is missing",
 );
 assert(
@@ -519,6 +538,12 @@ assert(
   "Upcoming matches responsive grid is missing",
 );
 assert(
+  matchCenterCss.includes(".match-browser-tabs") &&
+    matchCenterCss.includes(".match-browser-date-navigation") &&
+    matchCenterCss.includes(".match-browser-grid"),
+  "Match browser styles are missing",
+);
+assert(
   matchCenterCss.includes("[data-legacy-today-matches]"),
   "Legacy today matches strip is not hidden",
 );
@@ -539,11 +564,11 @@ assert(
   "Statistics navigation order is not stable across application refreshes",
 );
 assert(
-  index.includes("assets/enhancements.js?v=20260614-navigation-dream-team"),
+  index.includes("assets/enhancements.js?v=20260614-match-browser"),
   "Latest navigation enhancement cache key is missing",
 );
 assert(
-  index.includes("assets/match-center.css?v=20260614-navigation-dream-team"),
+  index.includes("assets/match-center.css?v=20260614-match-browser"),
   "Latest navigation styles cache key is missing",
 );
 assert(

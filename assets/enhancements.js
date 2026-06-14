@@ -793,6 +793,24 @@
 
   function upcomingMatchStatus(fixture, match) {
     const status = fixture?.status?.short;
+    if (["FT", "AET", "PEN"].includes(status)) {
+      const hasScore =
+        Number.isInteger(fixture.goals?.home) &&
+        Number.isInteger(fixture.goals?.away);
+      return {
+        main: hasScore
+          ? `${fixture.goals.home}:${fixture.goals.away}`
+          : "KONIEC",
+        detail:
+          status === "PEN"
+            ? "PO KARNYCH"
+            : status === "AET"
+              ? "PO DOGRYWCE"
+              : "KONIEC",
+        live: false,
+        finished: true,
+      };
+    }
     if (["1H", "HT", "2H", "ET", "BT", "P", "LIVE"].includes(status)) {
       const hasScore =
         Number.isInteger(fixture.goals?.home) &&
@@ -805,9 +823,15 @@
           ? `NA ŻYWO · ${fixture.status.elapsed}'`
           : "NA ŻYWO",
         live: true,
+        finished: false,
       };
     }
-    return { main: match.time, detail: "START", live: false };
+    return {
+      main: match.time,
+      detail: "START",
+      live: false,
+      finished: false,
+    };
   }
 
   function createUpcomingMatchCard(item, index) {
@@ -859,7 +883,7 @@
 
     const status = upcomingMatchStatus(fixture, match);
     const center = document.createElement("div");
-    center.className = `upcoming-match-time${status.live ? " is-live" : ""}`;
+    center.className = `upcoming-match-time${status.live ? " is-live" : ""}${status.finished ? " is-finished" : ""}`;
 
     const mainStatus = document.createElement("strong");
     mainStatus.textContent = status.main;
@@ -952,6 +976,490 @@
 
     currentPanel?.remove();
     countdown.append(createUpcomingMatchesPanel(matches));
+  }
+
+  const matchBrowserFinishedStatuses = new Set(["FT", "AET", "PEN"]);
+  const matchBrowserLiveStatuses = new Set([
+    "1H",
+    "HT",
+    "2H",
+    "ET",
+    "BT",
+    "P",
+    "LIVE",
+  ]);
+  const matchBrowserModeLabels = {
+    results: "Wyniki",
+    day: "Dzisiaj",
+    upcoming: "Nadchodzące",
+    all: "Wszystkie",
+  };
+  let matchBrowserMode = "day";
+  let matchBrowserDate = "";
+  let matchBrowserLimit = 12;
+  let matchBrowserInitialized = false;
+
+  function warsawDateKey(date = new Date()) {
+    const parts = new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Europe/Warsaw",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).formatToParts(date);
+    const values = Object.fromEntries(
+      parts
+        .filter(({ type }) => type !== "literal")
+        .map(({ type, value }) => [type, value]),
+    );
+    return `${values.year}-${values.month}-${values.day}`;
+  }
+
+  function matchBrowserDates() {
+    return [
+      ...new Set(
+        (window.WC2026_MATCHES?.matches || [])
+          .map((match) => match.date)
+          .filter(Boolean),
+      ),
+    ].sort();
+  }
+
+  function closestMatchDate() {
+    const dates = matchBrowserDates();
+    const today = warsawDateKey();
+    return (
+      dates.find((date) => date >= today) ||
+      dates[dates.length - 1] ||
+      today
+    );
+  }
+
+  function formatMatchBrowserDate(date, options = {}) {
+    const value = new Date(`${date}T12:00:00+02:00`);
+    return new Intl.DateTimeFormat("pl-PL", {
+      timeZone: "Europe/Warsaw",
+      weekday: options.short ? undefined : "long",
+      day: "numeric",
+      month: options.short ? "short" : "long",
+    }).format(value);
+  }
+
+  function setNativeDateFilter(value) {
+    const select = document.querySelector('select[aria-label="Filtr dnia"]');
+    if (!select || select.value === value) return;
+
+    const setter = Object.getOwnPropertyDescriptor(
+      HTMLSelectElement.prototype,
+      "value",
+    )?.set;
+    if (setter) setter.call(select, value);
+    else select.value = value;
+    select.dispatchEvent(new Event("change", { bubbles: true }));
+  }
+
+  function matchBrowserFixtureMap() {
+    const fixtures = new Map(
+      (window.WC2026_MATCH_CENTER?.fixtures || [])
+        .filter((fixture) => fixture.appMatchId)
+        .map((fixture) => [Number(fixture.appMatchId), fixture]),
+    );
+
+    try {
+      const saved = JSON.parse(localStorage.getItem("wc2026:v1") || "{}");
+      Object.entries(saved.results || {}).forEach(([matchId, result]) => {
+        const id = Number(matchId);
+        if (
+          fixtures.has(id) ||
+          !Number.isInteger(result?.hg) ||
+          !Number.isInteger(result?.ag)
+        ) {
+          return;
+        }
+        fixtures.set(id, {
+          appMatchId: id,
+          status: { short: "FT", long: "Match Finished" },
+          goals: { home: result.hg, away: result.ag },
+        });
+      });
+    } catch {
+      // Static match-center data remains the source if local storage is blocked.
+    }
+
+    return fixtures;
+  }
+
+  function matchBrowserFilters() {
+    const group =
+      document.querySelector('select[aria-label="Filtr grupy"]')?.value ||
+      "all";
+    const team =
+      document.querySelector('select[aria-label="Filtr drużyny"]')?.value ||
+      "all";
+    return { group, team };
+  }
+
+  function matchesBrowserFilters(match, filters) {
+    const groupMatches =
+      filters.group === "all" || match.group === filters.group;
+    const teamMatches =
+      filters.team === "all" ||
+      match.homeCode === filters.team ||
+      match.awayCode === filters.team;
+    return groupMatches && teamMatches;
+  }
+
+  function matchBrowserItems(mode) {
+    const fixtures = matchBrowserFixtureMap();
+    const filters = matchBrowserFilters();
+    const now = Date.now();
+    const recentThreshold = now - 3 * 60 * 60 * 1000;
+
+    const items = (window.WC2026_MATCHES?.matches || [])
+      .filter((match) => matchesBrowserFilters(match, filters))
+      .map((match) => ({
+        match,
+        fixture: fixtures.get(Number(match.id)),
+        kickoff: matchKickoff(match),
+      }));
+
+    if (mode === "results") {
+      return items
+        .filter(({ fixture }) =>
+          matchBrowserFinishedStatuses.has(fixture?.status?.short),
+        )
+        .sort((first, second) => second.kickoff - first.kickoff);
+    }
+
+    return items
+      .filter(({ fixture, kickoff }) => {
+        const status = fixture?.status?.short;
+        return (
+          !matchBrowserFinishedStatuses.has(status) &&
+          (matchBrowserLiveStatuses.has(status) ||
+            kickoff.getTime() >= recentThreshold)
+        );
+      })
+      .sort((first, second) => first.kickoff - second.kickoff);
+  }
+
+  function createMatchBrowserEmpty(mode) {
+    const empty = document.createElement("div");
+    empty.className = "match-browser-empty";
+    empty.textContent =
+      mode === "results"
+        ? "Brak zakończonych meczów dla wybranych filtrów."
+        : "Brak nadchodzących meczów dla wybranych filtrów.";
+    return empty;
+  }
+
+  function createMatchBrowserList(mode) {
+    const panel = document.createElement("section");
+    panel.className = "match-browser-list";
+    panel.dataset.matchBrowserList = mode;
+    panel.setAttribute(
+      "aria-label",
+      mode === "results" ? "Ostatnie wyniki" : "Nadchodzące mecze",
+    );
+
+    const allItems = matchBrowserItems(mode);
+    const items = allItems.slice(0, matchBrowserLimit);
+    const filters = matchBrowserFilters();
+    panel.dataset.matchBrowserSignature = [
+      mode,
+      matchBrowserLimit,
+      filters.group,
+      filters.team,
+      ...items.map(
+        ({ match, fixture }) =>
+          `${match.id}:${fixture?.status?.short || "NS"}:${fixture?.goals?.home ?? "-"}:${fixture?.goals?.away ?? "-"}`,
+      ),
+    ].join("|");
+    if (!items.length) {
+      panel.append(createMatchBrowserEmpty(mode));
+      return panel;
+    }
+
+    const grouped = new Map();
+    items.forEach((item) => {
+      const group = grouped.get(item.match.date) || [];
+      group.push(item);
+      grouped.set(item.match.date, group);
+    });
+
+    grouped.forEach((matches, date) => {
+      const section = document.createElement("section");
+      section.className = "match-browser-date-section";
+
+      const heading = document.createElement("h3");
+      heading.textContent = formatMatchBrowserDate(date).toUpperCase();
+
+      const grid = document.createElement("div");
+      grid.className = "match-browser-grid";
+      matches.forEach((item, index) => {
+        const card = createUpcomingMatchCard(item, index);
+        card.classList.add("match-browser-card");
+        grid.append(card);
+      });
+
+      section.append(heading, grid);
+      panel.append(section);
+    });
+
+    if (allItems.length > items.length) {
+      const more = document.createElement("button");
+      more.type = "button";
+      more.className = "match-browser-more";
+      more.textContent =
+        mode === "results"
+          ? "Pokaż starsze wyniki"
+          : "Pokaż kolejne mecze";
+      more.addEventListener("click", () => {
+        matchBrowserLimit += 12;
+        renderMatchBrowser();
+      });
+      panel.append(more);
+    }
+
+    return panel;
+  }
+
+  function createMatchBrowser() {
+    const browser = document.createElement("section");
+    browser.className = "match-browser";
+    browser.dataset.matchBrowser = "true";
+    browser.setAttribute("aria-label", "Nawigacja terminarza i wyników");
+
+    const header = document.createElement("div");
+    header.className = "match-browser-header";
+
+    const titleGroup = document.createElement("div");
+    const kicker = document.createElement("span");
+    kicker.className = "match-browser-kicker";
+    kicker.textContent = "CENTRUM MECZÓW";
+    const title = document.createElement("h2");
+    title.textContent = "Terminarz i wyniki";
+    titleGroup.append(kicker, title);
+
+    const summary = document.createElement("p");
+    summary.className = "match-browser-summary";
+    summary.dataset.matchBrowserSummary = "true";
+    header.append(titleGroup, summary);
+
+    const tabs = document.createElement("div");
+    tabs.className = "match-browser-tabs";
+    tabs.setAttribute("role", "tablist");
+    Object.entries(matchBrowserModeLabels).forEach(([mode, label]) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.dataset.matchBrowserMode = mode;
+      button.setAttribute("role", "tab");
+      button.textContent = label;
+      button.addEventListener("click", () => {
+        matchBrowserMode = mode;
+        matchBrowserLimit = 12;
+        if (mode === "day") {
+          matchBrowserDate = closestMatchDate();
+          setNativeDateFilter(matchBrowserDate);
+        } else if (mode === "all") {
+          setNativeDateFilter("all");
+        }
+        renderMatchBrowser();
+      });
+      tabs.append(button);
+    });
+
+    const dateNavigation = document.createElement("div");
+    dateNavigation.className = "match-browser-date-navigation";
+    dateNavigation.dataset.matchBrowserDates = "true";
+
+    browser.append(header, tabs, dateNavigation);
+    return browser;
+  }
+
+  function updateMatchBrowserDates(browser) {
+    const navigation = browser.querySelector("[data-match-browser-dates]");
+    if (!navigation) return;
+
+    if (matchBrowserMode !== "day") {
+      navigation.hidden = true;
+      if (navigation.childElementCount) navigation.replaceChildren();
+      navigation.dataset.matchBrowserDateSignature = matchBrowserMode;
+      return;
+    }
+
+    navigation.hidden = false;
+    const dates = matchBrowserDates();
+    const selectedIndex = Math.max(0, dates.indexOf(matchBrowserDate));
+    const signature = `${matchBrowserMode}:${matchBrowserDate}:${dates.length}`;
+    if (navigation.dataset.matchBrowserDateSignature === signature) return;
+    navigation.dataset.matchBrowserDateSignature = signature;
+
+    const createArrow = (direction, label) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "match-browser-date-arrow";
+      button.textContent = direction < 0 ? "‹" : "›";
+      button.setAttribute("aria-label", label);
+      const targetIndex = selectedIndex + direction;
+      button.disabled = targetIndex < 0 || targetIndex >= dates.length;
+      button.addEventListener("click", () => {
+        matchBrowserDate = dates[targetIndex];
+        setNativeDateFilter(matchBrowserDate);
+        renderMatchBrowser();
+      });
+      return button;
+    };
+
+    const dateList = document.createElement("div");
+    dateList.className = "match-browser-date-list";
+    dates
+      .slice(Math.max(0, selectedIndex - 1), selectedIndex + 2)
+      .forEach((date) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "match-browser-date-button";
+        button.dataset.active = String(date === matchBrowserDate);
+        button.setAttribute(
+          "aria-pressed",
+          String(date === matchBrowserDate),
+        );
+
+        const label = document.createElement("span");
+        label.textContent =
+          date === warsawDateKey() ? "DZISIAJ" : formatMatchBrowserDate(date, { short: true });
+        const detail = document.createElement("strong");
+        detail.textContent = formatMatchBrowserDate(date);
+        button.append(label, detail);
+        button.addEventListener("click", () => {
+          matchBrowserDate = date;
+          setNativeDateFilter(matchBrowserDate);
+          renderMatchBrowser();
+        });
+        dateList.append(button);
+      });
+
+    navigation.replaceChildren(
+      createArrow(-1, "Poprzedni dzień meczowy"),
+      dateList,
+      createArrow(1, "Następny dzień meczowy"),
+    );
+  }
+
+  function markNativeMatchGroups(container, filterPanel) {
+    [...container.children].forEach((child) => {
+      if (
+        child === filterPanel ||
+        child.matches("[data-match-browser]") ||
+        child.matches("[data-match-browser-list]")
+      ) {
+        return;
+      }
+      if (child.querySelector(".rounded-2xl.p-3")) {
+        child.dataset.nativeMatchGroup = "true";
+      }
+    });
+  }
+
+  function renderMatchBrowser() {
+    const dateSelect = document.querySelector(
+      'select[aria-label="Filtr dnia"]',
+    );
+    const filterPanel = dateSelect?.closest(".rounded-2xl");
+    const container = filterPanel?.parentElement;
+    if (!dateSelect || !filterPanel || !container || !isMatchesTabActive()) {
+      return;
+    }
+
+    let browser = container.querySelector("[data-match-browser]");
+    if (!browser) {
+      browser = createMatchBrowser();
+      container.insertBefore(browser, filterPanel);
+    }
+
+    filterPanel.dataset.matchBrowserFilter = "true";
+    filterPanel.dataset.matchBrowserMode = matchBrowserMode;
+    dateSelect.parentElement?.classList.add("match-browser-filter-grid");
+
+    markNativeMatchGroups(container, filterPanel);
+    container
+      .querySelectorAll("[data-native-match-group]")
+      .forEach((group) => {
+        group.hidden = ["results", "upcoming"].includes(matchBrowserMode);
+      });
+
+    browser.querySelectorAll("[data-match-browser-mode]").forEach((button) => {
+      const active = button.dataset.matchBrowserMode === matchBrowserMode;
+      button.dataset.active = String(active);
+      button.setAttribute("aria-selected", String(active));
+    });
+
+    const summary = browser.querySelector("[data-match-browser-summary]");
+    if (summary) {
+      const summaries = {
+        results: "Najnowsze zakończone spotkania",
+        upcoming: "Najbliższe zaplanowane spotkania",
+        all: "Pełny terminarz turnieju",
+        day: `Mecze: ${formatMatchBrowserDate(matchBrowserDate)}`,
+      };
+      if (summary.textContent !== summaries[matchBrowserMode]) {
+        summary.textContent = summaries[matchBrowserMode];
+      }
+    }
+
+    updateMatchBrowserDates(browser);
+
+    const currentList = container.querySelector("[data-match-browser-list]");
+    if (["results", "upcoming"].includes(matchBrowserMode)) {
+      const nextList = createMatchBrowserList(matchBrowserMode);
+      if (
+        currentList?.dataset.matchBrowserSignature !==
+        nextList.dataset.matchBrowserSignature
+      ) {
+        currentList?.remove();
+        filterPanel.insertAdjacentElement("afterend", nextList);
+      }
+    } else {
+      currentList?.remove();
+    }
+  }
+
+  function enhanceMatchBrowser() {
+    if (!isMatchesTabActive()) return;
+    labelControls();
+
+    const dateSelect = document.querySelector(
+      'select[aria-label="Filtr dnia"]',
+    );
+    if (!dateSelect) return;
+
+    if (!matchBrowserInitialized) {
+      matchBrowserInitialized = true;
+      matchBrowserDate = closestMatchDate();
+      setNativeDateFilter(matchBrowserDate);
+    }
+
+    if (dateSelect.dataset.matchBrowserListener !== "true") {
+      dateSelect.dataset.matchBrowserListener = "true";
+      dateSelect.addEventListener("change", () => {
+        if (dateSelect.value === "all") {
+          matchBrowserMode = "all";
+        } else {
+          matchBrowserMode = "day";
+          matchBrowserDate = dateSelect.value;
+        }
+        matchBrowserLimit = 12;
+        renderMatchBrowser();
+      });
+    }
+
+    ["Filtr grupy", "Filtr drużyny"].forEach((label) => {
+      const select = document.querySelector(`select[aria-label="${label}"]`);
+      if (!select || select.dataset.matchBrowserListener === "true") return;
+      select.dataset.matchBrowserListener = "true";
+      select.addEventListener("change", renderMatchBrowser);
+    });
+
+    renderMatchBrowser();
   }
 
   function createAdVisual() {
@@ -1386,6 +1894,7 @@
     enhanceTeamBackButton();
     enhanceDreamTeamPhotos();
     enhanceUpcomingMatches();
+    enhanceMatchBrowser();
     addAdSlots();
     reorderNavigation();
     enhanceStatistics();
