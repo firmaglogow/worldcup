@@ -8,7 +8,7 @@
     "season": 2026
   },
   "timezone": "Europe/Warsaw",
-  "updatedAt": "2026-06-14T14:04:10.925Z",
+  "updatedAt": "2026-06-14T17:07:31.350Z",
   "fixtures": [
     {
       "providerId": "free-1",
@@ -84,7 +84,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T14:04:10.924Z",
+      "detailsFetchedAt": "2026-06-14T17:07:31.350Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -172,7 +172,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T14:04:10.924Z",
+      "detailsFetchedAt": "2026-06-14T17:07:31.350Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -250,7 +250,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T14:04:10.924Z",
+      "detailsFetchedAt": "2026-06-14T17:07:31.350Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -358,7 +358,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T14:04:10.924Z",
+      "detailsFetchedAt": "2026-06-14T17:07:31.350Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -436,7 +436,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T14:04:10.924Z",
+      "detailsFetchedAt": "2026-06-14T17:07:31.350Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -514,7 +514,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T14:04:10.924Z",
+      "detailsFetchedAt": "2026-06-14T17:07:31.350Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -582,7 +582,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T14:04:10.924Z",
+      "detailsFetchedAt": "2026-06-14T17:07:31.350Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -660,7 +660,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T14:04:10.924Z",
+      "detailsFetchedAt": "2026-06-14T17:07:31.350Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -719,7 +719,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-10",
@@ -776,7 +776,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-11",
@@ -833,7 +833,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-12",
@@ -890,7 +890,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-13",
@@ -947,7 +947,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-14",
@@ -1004,7 +1004,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-15",
@@ -1061,7 +1061,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-16",
@@ -1118,7 +1118,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-17",
@@ -1175,7 +1175,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-18",
@@ -1232,7 +1232,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-19",
@@ -1289,7 +1289,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-20",
@@ -1346,7 +1346,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-21",
@@ -1403,7 +1403,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-22",
@@ -1460,7 +1460,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-23",
@@ -1517,7 +1517,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-24",
@@ -1574,7 +1574,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-25",
@@ -1631,7 +1631,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-26",
@@ -1688,7 +1688,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-27",
@@ -1745,7 +1745,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-28",
@@ -1802,7 +1802,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-29",
@@ -1859,7 +1859,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-30",
@@ -1916,7 +1916,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-31",
@@ -1973,7 +1973,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-32",
@@ -2030,7 +2030,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-33",
@@ -2087,7 +2087,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-34",
@@ -2144,7 +2144,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-35",
@@ -2201,7 +2201,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-36",
@@ -2258,7 +2258,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-37",
@@ -2315,7 +2315,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-38",
@@ -2372,7 +2372,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-39",
@@ -2429,7 +2429,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-40",
@@ -2486,7 +2486,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-41",
@@ -2543,7 +2543,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-42",
@@ -2600,7 +2600,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-43",
@@ -2657,7 +2657,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-44",
@@ -2714,7 +2714,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-45",
@@ -2771,7 +2771,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-46",
@@ -2828,7 +2828,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-47",
@@ -2885,7 +2885,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-48",
@@ -2942,7 +2942,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-49",
@@ -2999,7 +2999,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-50",
@@ -3056,7 +3056,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-51",
@@ -3113,7 +3113,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-52",
@@ -3170,7 +3170,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-53",
@@ -3227,7 +3227,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-54",
@@ -3284,7 +3284,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-55",
@@ -3341,7 +3341,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-56",
@@ -3398,7 +3398,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-57",
@@ -3455,7 +3455,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-58",
@@ -3512,7 +3512,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-59",
@@ -3569,7 +3569,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-60",
@@ -3626,7 +3626,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-61",
@@ -3683,7 +3683,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-62",
@@ -3740,7 +3740,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-63",
@@ -3797,7 +3797,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-64",
@@ -3854,7 +3854,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-65",
@@ -3911,7 +3911,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-66",
@@ -3968,7 +3968,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-67",
@@ -4025,7 +4025,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-68",
@@ -4082,7 +4082,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-69",
@@ -4139,7 +4139,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-70",
@@ -4196,7 +4196,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-71",
@@ -4253,7 +4253,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-72",
@@ -4310,7 +4310,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-73",
@@ -4367,7 +4367,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-74",
@@ -4424,7 +4424,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-75",
@@ -4481,7 +4481,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-76",
@@ -4538,7 +4538,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-77",
@@ -4595,7 +4595,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-78",
@@ -4652,7 +4652,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-79",
@@ -4709,7 +4709,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-80",
@@ -4766,7 +4766,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-81",
@@ -4823,7 +4823,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-82",
@@ -4880,7 +4880,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-83",
@@ -4937,7 +4937,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-84",
@@ -4994,7 +4994,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-85",
@@ -5051,7 +5051,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-86",
@@ -5108,7 +5108,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-87",
@@ -5165,7 +5165,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-88",
@@ -5222,7 +5222,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-89",
@@ -5279,7 +5279,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-90",
@@ -5336,7 +5336,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-91",
@@ -5393,7 +5393,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-92",
@@ -5450,7 +5450,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-93",
@@ -5507,7 +5507,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-94",
@@ -5564,7 +5564,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-95",
@@ -5621,7 +5621,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-96",
@@ -5678,7 +5678,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-97",
@@ -5735,7 +5735,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-98",
@@ -5792,7 +5792,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-99",
@@ -5849,7 +5849,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-100",
@@ -5906,7 +5906,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-101",
@@ -5963,7 +5963,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-102",
@@ -6020,7 +6020,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-103",
@@ -6077,7 +6077,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     },
     {
       "providerId": "free-104",
@@ -6134,7 +6134,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": ""
     }
   ]
 }
