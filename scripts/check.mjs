@@ -544,6 +544,30 @@ assert(
   "Match browser styles are missing",
 );
 assert(
+  app.includes("function typOutcomeLabel") &&
+    app.includes("prediction-outcome-button") &&
+    app.includes('y("Remis","X",0,"0","0")'),
+  "Simple 1-X-2 predictions are missing",
+);
+assert(
+  app.includes("Każdy trafiony typ to 1 punkt") &&
+    !app.includes("Dok\\u0142adne (3pkt)") &&
+    !app.includes("Rezultat (1pkt)"),
+  "Prediction scoring copy was not simplified",
+);
+assert(
+  matchCenterCss.includes(".prediction-outcome-grid") &&
+    matchCenterCss.includes(".prediction-outcome-button.is-selected"),
+  "Simple prediction styles are missing",
+);
+assert(
+  index.includes("assets/app.js?v=20260614-simple-predictions") &&
+    index.includes(
+      "assets/match-center.css?v=20260614-simple-predictions",
+    ),
+  "Simple prediction cache keys are missing",
+);
+assert(
   matchCenterCss.includes("[data-legacy-today-matches]"),
   "Legacy today matches strip is not hidden",
 );
@@ -568,7 +592,7 @@ assert(
   "Latest navigation enhancement cache key is missing",
 );
 assert(
-  index.includes("assets/match-center.css?v=20260614-match-browser"),
+  index.includes("assets/match-center.css?v=20260614-simple-predictions"),
   "Latest navigation styles cache key is missing",
 );
 assert(
