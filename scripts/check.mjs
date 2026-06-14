@@ -112,7 +112,7 @@ assert(
 );
 assert(
   enhancements.includes("function isMatchesTabActive()"),
-  "Advertising is not limited to the matches tab",
+  "Active matches tab detection is missing",
 );
 assert(
   enhancements.includes("function enhanceUpcomingMatches()"),
@@ -131,15 +131,15 @@ assert(
   "Upcoming match detail links are missing",
 );
 assert(
-  enhancements.includes('.querySelectorAll("[data-ad-slot]")'),
-  "Advertising slots are not removed from other tabs",
+  enhancements.includes('.querySelectorAll("[data-upcoming-matches]")'),
+  "Upcoming matches are not removed from other tabs",
 );
 assert(
-  enhancements.includes('document.addEventListener("click", removeAdsAfterNavigation)'),
-  "Advertising is not removed immediately after tab navigation",
+  !enhancements.includes("removeAdsAfterNavigation"),
+  "Advertising should remain visible on every tab",
 );
 assert(
-  index.includes("assets/enhancements.js?v=20260614-ad-goal"),
+  index.includes("assets/enhancements.js?v=20260614-navigation-dream-team"),
   "Latest advertising visibility cache key is missing",
 );
 assert(
@@ -513,11 +513,11 @@ assert(
   "Statistics navigation order is not stable across application refreshes",
 );
 assert(
-  index.includes("assets/enhancements.js?v=20260614-ad-goal"),
+  index.includes("assets/enhancements.js?v=20260614-navigation-dream-team"),
   "Latest navigation enhancement cache key is missing",
 );
 assert(
-  index.includes("assets/match-center.css?v=20260614-score-links-ad-goal"),
+  index.includes("assets/match-center.css?v=20260614-navigation-dream-team"),
   "Latest navigation styles cache key is missing",
 );
 assert(
@@ -530,6 +530,26 @@ assert(
     enhancements.includes("ad-slot-partner-label") &&
     matchCenterCss.includes(".ad-slot-main .ad-slot-partner-label"),
   "Wider advertising goal and partner board are missing",
+);
+assert(
+  enhancements.includes("function makeHeaderTrophyInteractive()") &&
+    enhancements.includes('mark.dataset.homeNavigation = "true"'),
+  "Clickable home trophy is missing",
+);
+assert(
+  enhancements.includes("function enhanceTeamBackButton()") &&
+    matchCenterCss.includes(".team-list-back-button"),
+  "Prominent national team back button is missing",
+);
+assert(
+  enhancements.includes("function enhanceDreamTeamPhotos()") &&
+    matchCenterCss.includes(".dream-team-player-photo"),
+  "Dream Team player portraits are missing",
+);
+assert(
+  matchCenterCss.includes(".site-primary-nav-desktop") &&
+    matchCenterCss.includes("grid-template-columns: repeat(6"),
+  "Two-row desktop navigation is missing",
 );
 assert(
   matchCenterCss.includes('[data-nav-order="3"] { order: 3; }'),

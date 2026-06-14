@@ -89,6 +89,39 @@
     mark.replaceChildren(image);
   }
 
+  function activateMatchesTab() {
+    const matchesButton = [...document.querySelectorAll("button")].find(
+      (button) => button.textContent.trim() === "Mecze",
+    );
+    if (!matchesButton) return;
+
+    matchesButton.click();
+    window.scrollTo({
+      top: 0,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
+  }
+
+  function makeHeaderTrophyInteractive() {
+    const mark = document.querySelector(".site-trophy-mark");
+    if (!mark || mark.dataset.homeNavigation === "true") return;
+
+    mark.dataset.homeNavigation = "true";
+    mark.setAttribute("role", "button");
+    mark.setAttribute("tabindex", "0");
+    mark.setAttribute("aria-label", "Przejdź do strony głównej i zakładki Mecze");
+    mark.setAttribute("title", "Strona główna - Mecze");
+
+    mark.addEventListener("click", activateMatchesTab);
+    mark.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      activateMatchesTab();
+    });
+  }
+
   const stadiumMapInfo = [
     {
       city: "Vancouver",
@@ -581,6 +614,101 @@
     originalGrid.replaceWith(squad);
   }
 
+  function enhanceTeamBackButton() {
+    const button = [...document.querySelectorAll("button")].find((element) =>
+      element.textContent.includes("Powrót do listy"),
+    );
+    if (!button) return;
+
+    button.classList.add("team-list-back-button");
+    if (button.textContent.trim() !== "← Wróć do wszystkich reprezentacji") {
+      button.textContent = "← Wróć do wszystkich reprezentacji";
+    }
+    button.setAttribute("aria-label", "Wróć do listy wszystkich reprezentacji");
+  }
+
+  let dreamTeamProfilesByName;
+
+  function dreamTeamProfileIndex() {
+    if (dreamTeamProfilesByName) return dreamTeamProfilesByName;
+
+    dreamTeamProfilesByName = new Map();
+    Object.values(window.WC2026_PLAYER_PROFILES || {}).forEach((team) => {
+      (team.players || []).forEach((player) => {
+        const key = normalizeScorerText(player.name);
+        const profiles = dreamTeamProfilesByName.get(key) || [];
+        profiles.push({ player, team });
+        dreamTeamProfilesByName.set(key, profiles);
+      });
+    });
+    return dreamTeamProfilesByName;
+  }
+
+  function enhanceDreamTeamPhotos() {
+    const heading = [...document.querySelectorAll("p")].find((element) =>
+      element.textContent.includes("Twój Dream Team turnieju"),
+    );
+    const panel = heading?.closest(".space-y-4");
+    if (!panel) return;
+
+    const positionLabels = new Set([
+      "Bramkarz",
+      "Obrońcy",
+      "Pomocnicy",
+      "Napastnicy",
+    ]);
+    const profiles = dreamTeamProfileIndex();
+
+    panel
+      .querySelectorAll("button.flex.flex-col.items-center.group")
+      .forEach((button) => {
+        const parts = button.querySelectorAll(":scope > div");
+        const portrait = parts[0];
+        const label = parts[1];
+        const playerName = label?.textContent.trim();
+        if (
+          !portrait ||
+          !playerName ||
+          positionLabels.has(playerName) ||
+          portrait.textContent.trim() === "+"
+        ) {
+          return;
+        }
+
+        const flag = portrait.textContent.trim();
+        const candidates =
+          profiles.get(normalizeScorerText(playerName)) || [];
+        const profile =
+          candidates.find(
+            ({ player, team }) => player.image && team.flag === flag,
+          ) || candidates.find(({ player }) => player.image);
+
+        if (!profile?.player.image) return;
+        if (
+          button.dataset.dreamTeamPhoto === playerName &&
+          portrait.querySelector("img")
+        ) {
+          return;
+        }
+
+        portrait.querySelector("img")?.remove();
+        button.dataset.dreamTeamPhoto = playerName;
+        portrait.classList.add("dream-team-player-photo");
+
+        const image = document.createElement("img");
+        image.src = profile.player.image;
+        image.alt = `Zdjęcie: ${playerName}`;
+        image.width = 64;
+        image.height = 64;
+        image.decoding = "async";
+        image.addEventListener("error", () => {
+          image.remove();
+          portrait.classList.remove("dream-team-player-photo");
+        });
+        portrait.append(image);
+      });
+  }
+
   const upcomingMatchColors = [
     "#fbbf24",
     "#38bdf8",
@@ -806,6 +934,13 @@
       legacyPanel.hidden = true;
     }
 
+    if (!isMatchesTabActive()) {
+      document
+        .querySelectorAll("[data-upcoming-matches]")
+        .forEach((panel) => panel.remove());
+      return;
+    }
+
     const matches = nearestMatches();
     if (!matches.length) return;
 
@@ -862,7 +997,6 @@
         <circle class="ad-slot-spark ad-slot-spark-two" cx="174" cy="34" r="2" />
         <circle class="ad-slot-spark ad-slot-spark-three" cx="207" cy="58" r="1.8" />
       </svg>
-      <span class="ad-slot-partner-label">MIEJSCE DLA PARTNERA</span>
       <span class="ad-slot-visual-caption">Twoja marka w centrum emocji</span>
     `;
     return visual;
@@ -878,6 +1012,14 @@
     badge.className = "ad-slot-kicker";
     badge.textContent = "ZOSTAŃ PARTNEREM SERWISU";
 
+    const partnerLabel = document.createElement("span");
+    partnerLabel.className = "ad-slot-partner-label";
+    partnerLabel.textContent = "MIEJSCE DLA PARTNERA";
+
+    const labelRow = document.createElement("div");
+    labelRow.className = "ad-slot-label-row";
+    labelRow.append(badge, partnerLabel);
+
     const title = document.createElement("h2");
     title.className = "ad-slot-title";
     title.textContent = "Mistrzostwa Świata 2026";
@@ -889,7 +1031,7 @@
 
     const content = document.createElement("div");
     content.className = "ad-slot-content";
-    content.append(badge, title, contact);
+    content.append(labelRow, title, contact);
 
     slot.append(content, createAdVisual());
     return slot;
@@ -931,47 +1073,7 @@
     );
   }
 
-  function removeAdsAfterNavigation(event) {
-    if (!(event.target instanceof Element)) return;
-    const button = event.target.closest("button");
-    if (!button) return;
-
-    const navigationLabels = new Set([
-      "Tabele grup",
-      "Tabele",
-      "Statystyki",
-      "Staty",
-      "Grupa śmierci",
-      "Śmierci",
-      "Reprezentacje",
-      "Drużyny",
-      "Faza pucharowa",
-      "Puchar",
-      "Symulator",
-      "Mój typ",
-      "Dream Team",
-      "Dream XI",
-      "Stadiony",
-      "Ciekawostki",
-      "Ciekawe",
-      "Historia MŚ",
-      "Historia",
-    ]);
-
-    if (!navigationLabels.has(button.textContent.trim())) return;
-    document
-      .querySelectorAll("[data-ad-slot]")
-      .forEach((slot) => slot.remove());
-  }
-
   function addAdSlots() {
-    if (!isMatchesTabActive()) {
-      document
-        .querySelectorAll("[data-ad-slot]")
-        .forEach((slot) => slot.remove());
-      return;
-    }
-
     if (!document.querySelector('[data-ad-slot="main"]')) {
       const countdown = [...document.querySelectorAll(".mb-6.rounded-2xl")].find(
         (element) =>
@@ -1028,6 +1130,14 @@
     });
 
     navigationGroups.forEach((navigationButtons) => {
+      const navigation = navigationButtons[0].parentElement;
+      if (
+        navigationButtons.length >= 8 &&
+        navigation.classList.contains("sm:flex")
+      ) {
+        navigation.classList.add("site-primary-nav-desktop");
+      }
+
       const groupTables = navigationButtons.find((button) =>
         ["Tabele grup", "Tabele"].includes(button.textContent.trim()),
       );
@@ -1270,8 +1380,11 @@
     labelFavoriteButtons();
     addDataSource();
     replaceHeaderTrophy();
+    makeHeaderTrophyInteractive();
     enhanceStadiumMap();
     enhancePlayerSquad();
+    enhanceTeamBackButton();
+    enhanceDreamTeamPhotos();
     enhanceUpcomingMatches();
     addAdSlots();
     reorderNavigation();
@@ -1290,7 +1403,6 @@
   };
 
   document.addEventListener("DOMContentLoaded", scheduleEnhancements);
-  document.addEventListener("click", removeAdsAfterNavigation);
   new MutationObserver(scheduleEnhancements).observe(document.body, {
     childList: true,
     subtree: true,

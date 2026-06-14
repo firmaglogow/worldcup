@@ -223,23 +223,26 @@
   font-size: 0.5rem;
 }
 
+.ad-slot-main .ad-slot-label-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.55rem;
+}
+
 .ad-slot-main .ad-slot-partner-label {
   background: rgba(15, 23, 42, 0.94);
   border: 1px solid #fbbf24;
   border-radius: 0.35rem;
   color: #fde68a;
-  font-size: 0.58rem;
+  display: inline-flex;
+  font-size: 0.54rem;
   font-weight: 950;
-  left: 62%;
   letter-spacing: 0.08em;
   line-height: 1;
   padding: 0.28rem 0.45rem;
-  position: absolute;
   text-align: center;
-  top: 0.1rem;
-  transform: translateX(-50%);
   white-space: nowrap;
-  z-index: 3;
 }
 
 @media (min-width: 768px) {
@@ -370,6 +373,92 @@
 [data-nav-order="10"] { order: 10; }
 [data-nav-order="11"] { order: 11; }
 [data-nav-order="12"] { order: 12; }
+
+.site-trophy-mark[data-home-navigation="true"] {
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+.site-trophy-mark[data-home-navigation="true"]:hover,
+.site-trophy-mark[data-home-navigation="true"]:focus-visible {
+  border-color: #fbbf24;
+  box-shadow:
+    0 10px 24px rgba(2, 6, 23, 0.52),
+    0 0 22px rgba(251, 191, 36, 0.26) !important;
+  transform: translateY(-1px);
+}
+
+.team-list-back-button {
+  align-items: center !important;
+  background: linear-gradient(
+    135deg,
+    rgba(6, 78, 59, 0.72),
+    rgba(15, 23, 42, 0.9)
+  ) !important;
+  border: 1px solid rgba(52, 211, 153, 0.42) !important;
+  border-radius: 0.7rem !important;
+  color: #a7f3d0 !important;
+  display: inline-flex !important;
+  font-size: 0.75rem !important;
+  font-weight: 900 !important;
+  margin-bottom: 0.85rem;
+  padding: 0.6rem 0.85rem !important;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.team-list-back-button:hover,
+.team-list-back-button:focus-visible {
+  border-color: #fbbf24 !important;
+  color: #fde68a !important;
+  transform: translateX(-2px);
+}
+
+.dream-team-player-photo {
+  background: #0f172a !important;
+  font-size: 0 !important;
+  overflow: hidden;
+  position: relative;
+}
+
+.dream-team-player-photo img {
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  object-position: 50% 18%;
+  position: absolute;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .site-primary-nav-desktop {
+    display: grid !important;
+    gap: 0.3rem 0.4rem !important;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    overflow: visible !important;
+    padding-bottom: 0.45rem;
+  }
+
+  .site-primary-nav-desktop > button {
+    justify-content: center;
+    line-height: 1.15;
+    min-width: 0;
+    padding: 0.65rem 0.45rem !important;
+    text-align: center;
+    white-space: normal !important;
+  }
+
+  .site-primary-nav-desktop > button svg {
+    flex: 0 0 auto;
+    height: 1rem;
+    width: 1rem;
+  }
+}
 
 .match-page {
   color: #e2e8f0;
