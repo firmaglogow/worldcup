@@ -8,7 +8,7 @@
     "season": 2026
   },
   "timezone": "Europe/Warsaw",
-  "updatedAt": "2026-06-14T06:19:15.325Z",
+  "updatedAt": "2026-06-14T07:57:48.176Z",
   "fixtures": [
     {
       "providerId": "free-1",
@@ -84,7 +84,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T06:19:15.324Z",
+      "detailsFetchedAt": "2026-06-14T07:57:48.126Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -172,7 +172,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T06:19:15.325Z",
+      "detailsFetchedAt": "2026-06-14T07:57:48.174Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -250,7 +250,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T06:19:15.325Z",
+      "detailsFetchedAt": "2026-06-14T07:57:48.175Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -358,7 +358,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T06:19:15.325Z",
+      "detailsFetchedAt": "2026-06-14T07:57:48.175Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -436,7 +436,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T06:19:15.325Z",
+      "detailsFetchedAt": "2026-06-14T07:57:48.175Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -514,7 +514,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T06:19:15.325Z",
+      "detailsFetchedAt": "2026-06-14T07:57:48.175Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -582,7 +582,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T06:19:15.325Z",
+      "detailsFetchedAt": "2026-06-14T07:57:48.175Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -598,25 +598,25 @@
       "city": "Vancouver",
       "referee": "",
       "status": {
-        "short": "NS",
-        "long": "Mecz zaplanowany",
+        "short": "FT",
+        "long": "Mecz zakończony",
         "elapsed": null
       },
       "teams": {
         "home": {
           "id": null,
           "name": "Australia",
-          "winner": null
+          "winner": true
         },
         "away": {
           "id": null,
-          "name": "Turkiye",
-          "winner": null
+          "name": "Turkey",
+          "winner": false
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 0
       },
       "score": {
         "halftime": {
@@ -624,8 +624,8 @@
           "away": null
         },
         "fulltime": {
-          "home": null,
-          "away": null
+          "home": 2,
+          "away": 0
         },
         "extratime": {
           "home": null,
@@ -636,12 +636,33 @@
           "away": null
         }
       },
-      "events": [],
+      "events": [
+        {
+          "elapsed": 27,
+          "extra": null,
+          "team": "Australia",
+          "player": "Nestory Irankunda",
+          "assist": "",
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "comments": ""
+        },
+        {
+          "elapsed": 75,
+          "extra": null,
+          "team": "Australia",
+          "player": "C. Metcalfe",
+          "assist": "",
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "comments": ""
+        }
+      ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": null,
+      "detailsFetchedAt": "2026-06-14T07:57:48.175Z",
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-9",
@@ -1382,7 +1403,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-22",
@@ -1973,7 +1994,7 @@
       "teams": {
         "home": {
           "id": null,
-          "name": "Turkiye",
+          "name": "Turkey",
           "winner": null
         },
         "away": {
@@ -2009,7 +2030,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-33",
@@ -2921,7 +2942,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-49",
@@ -3512,7 +3533,7 @@
       "teams": {
         "home": {
           "id": null,
-          "name": "Turkiye",
+          "name": "Turkey",
           "winner": null
         },
         "away": {
@@ -3548,7 +3569,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-60",
@@ -4175,7 +4196,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-71",

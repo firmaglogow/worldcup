@@ -7,6 +7,10 @@ const enhancements = fs.readFileSync(
   new URL("../assets/enhancements.js", import.meta.url),
   "utf8",
 );
+const liveResults = fs.readFileSync(
+  new URL("../assets/live-results.js", import.meta.url),
+  "utf8",
+);
 const css = fs.readFileSync(
   new URL("../assets/styles.css", import.meta.url),
   "utf8",
@@ -145,6 +149,28 @@ assert(
 assert(
   enhancements.includes("mailto:emistrzostwaswiata2026@gmail.com"),
   "Advertising contact link is missing",
+);
+assert(
+  matchUpdater.includes('["turkey", "TUR"]') &&
+    matchUpdater.includes(
+      '["democratic-republic-of-the-congo", "COD"]',
+    ),
+  "Community team aliases are incomplete",
+);
+assert(
+  matchUpdater.includes("function worldCup26Events(game)"),
+  "Community goal events are not imported",
+);
+assert(
+  index.includes("assets/live-results.js?v=20260614-team-alias-fallback") &&
+    matchPage.includes("assets/live-results.js?v=20260614-team-alias-fallback"),
+  "Browser live-results fallback is not connected",
+);
+assert(
+  liveResults.includes("https://worldcup26.ir/get/games") &&
+    liveResults.includes("window.setInterval") &&
+    liveResults.includes("wc2026:live-fixtures-v1"),
+  "Browser live-results fallback is incomplete",
 );
 assert(
   enhancements.includes("ad-slot-scene"),

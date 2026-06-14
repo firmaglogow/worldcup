@@ -35,6 +35,7 @@ const TEAM_CODE_ALIASES = new Map([
   ["curacao", "CUW"],
   ["czech-republic", "CZE"],
   ["czechia", "CZE"],
+  ["democratic-republic-of-the-congo", "COD"],
   ["dr-congo", "COD"],
   ["congo-dr", "COD"],
   ["iran", "IRN"],
@@ -43,6 +44,7 @@ const TEAM_CODE_ALIASES = new Map([
   ["saudi-arabia", "KSA"],
   ["south-africa", "RSA"],
   ["south-korea", "KOR"],
+  ["turkey", "TUR"],
   ["turkiye", "TUR"],
   ["united-states", "USA"],
   ["usa", "USA"],
@@ -189,6 +191,42 @@ function openFootballEvents(match) {
   );
 }
 
+function parseCommunityScorers(value) {
+  const source = String(value || "").trim();
+  if (!source || source.toLowerCase() === "null") return [];
+
+  const scorers = [];
+  const itemPattern = /"([^"]+)"|([^,{}]+)/g;
+  for (const match of source.matchAll(itemPattern)) {
+    const item = (match[1] || match[2] || "").trim();
+    const scorer = item.match(/^(.+?)\s+(\d+)(?:\+(\d+))?'$/);
+    if (!scorer) continue;
+    scorers.push({
+      name: scorer[1].trim(),
+      minute: `${scorer[2]}${scorer[3] ? `+${scorer[3]}` : ""}`,
+      penalty: false,
+      owngoal: false,
+    });
+  }
+  return scorers;
+}
+
+function worldCup26Events(game) {
+  return [
+    ...parseCommunityScorers(game.home_scorers).map((goal) =>
+      goalEvent(goal, game.home_team_name_en, game.away_team_name_en),
+    ),
+    ...parseCommunityScorers(game.away_scorers).map((goal) =>
+      goalEvent(goal, game.away_team_name_en, game.home_team_name_en),
+    ),
+  ].sort(
+    (left, right) =>
+      (left.elapsed ?? Number.MAX_SAFE_INTEGER) -
+        (right.elapsed ?? Number.MAX_SAFE_INTEGER) ||
+      (left.extra || 0) - (right.extra || 0),
+  );
+}
+
 function scheduledTeam(match, side) {
   const code = match[`${side}Code`];
   const team = code ? schedule.teams[code] : null;
@@ -294,9 +332,14 @@ const fixtures = schedule.matches.map((appMatch) => {
       home: null,
       away: null,
     };
+  const communityEvents = communityMatch
+    ? worldCup26Events(communityMatch)
+    : [];
   const events = hasOpenResult
     ? openFootballEvents(openMatch)
-    : existing?.events || [];
+    : communityEvents.length
+      ? communityEvents
+      : existing?.events || [];
   const home = scheduledTeam(appMatch, "home");
   const away = scheduledTeam(appMatch, "away");
 
@@ -330,7 +373,7 @@ const fixtures = schedule.matches.map((appMatch) => {
     goals: { home: homeGoals, away: awayGoals },
     score: {
       halftime,
-      fulltime: hasOpenResult
+      fulltime: FINISHED_STATUSES.has(status.short)
         ? { home: homeGoals, away: awayGoals }
         : { home: null, away: null },
       extratime: existing?.score?.extratime || { home: null, away: null },
@@ -339,7 +382,8 @@ const fixtures = schedule.matches.map((appMatch) => {
     events,
     statistics: [],
     lineups: [],
-    detailsFetchedAt: hasOpenResult ? new Date().toISOString() : null,
+    detailsFetchedAt:
+      hasOpenResult || canUseCommunityScore ? new Date().toISOString() : null,
     detailsAttempts: 0,
     dataSource: hasOpenResult
       ? "OpenFootball"
