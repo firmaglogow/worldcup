@@ -62,6 +62,26 @@ const matchCenterCss = fs.readFileSync(
   new URL("../assets/match-center.css", import.meta.url),
   "utf8",
 );
+const account = fs.readFileSync(
+  new URL("../assets/account.js", import.meta.url),
+  "utf8",
+);
+const accountCss = fs.readFileSync(
+  new URL("../assets/account.css", import.meta.url),
+  "utf8",
+);
+const supabaseConfig = fs.readFileSync(
+  new URL("../assets/supabase-config.js", import.meta.url),
+  "utf8",
+);
+const supabaseSchema = fs.readFileSync(
+  new URL("../supabase/schema.sql", import.meta.url),
+  "utf8",
+);
+const supabaseResultsSync = fs.readFileSync(
+  new URL("../scripts/sync-supabase-results.mjs", import.meta.url),
+  "utf8",
+);
 const matchWorkflow = fs.readFileSync(
   new URL(
     "../.github/workflows/update-match-center.yml",
@@ -556,16 +576,64 @@ assert(
   "Prediction scoring copy was not simplified",
 );
 assert(
+  app.includes("Typowanie zakończone — mecz już się rozpoczął") &&
+    app.includes("Date.now()>=new Date(`${e.date}T${e.time}:00+02:00`)"),
+  "Prediction buttons are not locked at kickoff",
+);
+assert(
   matchCenterCss.includes(".prediction-outcome-grid") &&
-    matchCenterCss.includes(".prediction-outcome-button.is-selected"),
+    matchCenterCss.includes(".prediction-outcome-button.is-selected") &&
+    matchCenterCss.includes(".prediction-outcome-lock"),
   "Simple prediction styles are missing",
 );
 assert(
-  index.includes("assets/app.js?v=20260614-simple-predictions") &&
+  index.includes("assets/app.js?v=20260614-account-system") &&
     index.includes(
-      "assets/match-center.css?v=20260614-simple-predictions",
+      "assets/match-center.css?v=20260614-account-system",
     ),
-  "Simple prediction cache keys are missing",
+  "Latest prediction cache keys are missing",
+);
+assert(
+  index.includes("assets/supabase-config.js?v=20260614-account-system") &&
+    index.includes("assets/account.js?v=20260614-account-system") &&
+    index.includes("assets/account.css?v=20260614-account-system"),
+  "Account system assets are not connected",
+);
+assert(
+  supabaseConfig.includes("publishableKey") &&
+    !supabaseConfig.includes("service_role"),
+  "Public Supabase configuration is unsafe",
+);
+assert(
+  account.includes('const APP_STORAGE_KEY = "wc2026:v1"') &&
+    account.includes("sync_my_predictions") &&
+    account.includes("/auth/v1/otp") &&
+    account.includes("/auth/v1/verify") &&
+    account.includes("get_leaderboard"),
+  "Account login or prediction synchronization is missing",
+);
+assert(
+  accountCss.includes(".wc-account-launcher") &&
+    accountCss.includes(".wc-account-dialog") &&
+    accountCss.includes(".wc-leaderboard"),
+  "Account system styles are missing",
+);
+assert(
+  supabaseSchema.includes("enable row level security") &&
+    supabaseSchema.includes("match.kickoff > now()") &&
+    supabaseSchema.includes("create or replace function public.get_leaderboard") &&
+    supabaseSchema.includes("create or replace function public.delete_my_account"),
+  "Supabase security, deadline lock, or ranking is missing",
+);
+assert(
+  supabaseResultsSync.includes("match_results?on_conflict=match_id") &&
+    supabaseResultsSync.includes("SUPABASE_SERVICE_ROLE_KEY"),
+  "Result synchronization for the leaderboard is missing",
+);
+assert(
+  index.includes("Założenie konta typera jest dobrowolne") &&
+    index.includes("nigdy adres e-mail"),
+  "Account privacy information is missing",
 );
 assert(
   matchCenterCss.includes("[data-legacy-today-matches]"),
@@ -592,7 +660,7 @@ assert(
   "Latest navigation enhancement cache key is missing",
 );
 assert(
-  index.includes("assets/match-center.css?v=20260614-simple-predictions"),
+  index.includes("assets/match-center.css?v=20260614-account-system"),
   "Latest navigation styles cache key is missing",
 );
 assert(

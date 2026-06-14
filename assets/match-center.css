@@ -525,6 +525,14 @@
   color: #fca5a5;
 }
 
+.prediction-outcome-lock {
+  color: #94a3b8;
+  font-size: 0.64rem;
+  font-weight: 700;
+  margin-top: 0.55rem;
+  text-align: center;
+}
+
 .prediction-outcome-result {
   align-items: center;
   border-top: 1px solid rgba(51, 65, 85, 0.68);
