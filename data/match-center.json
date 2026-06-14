@@ -8,7 +8,7 @@
     "season": 2026
   },
   "timezone": "Europe/Warsaw",
-  "updatedAt": "2026-06-14T01:38:15.004Z",
+  "updatedAt": "2026-06-14T06:19:15.325Z",
   "fixtures": [
     {
       "providerId": "free-1",
@@ -84,7 +84,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T01:38:15.004Z",
+      "detailsFetchedAt": "2026-06-14T06:19:15.324Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -172,7 +172,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T01:38:15.004Z",
+      "detailsFetchedAt": "2026-06-14T06:19:15.325Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -250,7 +250,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T01:38:15.004Z",
+      "detailsFetchedAt": "2026-06-14T06:19:15.325Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -358,7 +358,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T01:38:15.004Z",
+      "detailsFetchedAt": "2026-06-14T06:19:15.325Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -436,7 +436,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T01:38:15.004Z",
+      "detailsFetchedAt": "2026-06-14T06:19:15.325Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -514,7 +514,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-14T01:38:15.004Z",
+      "detailsFetchedAt": "2026-06-14T06:19:15.325Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -530,8 +530,8 @@
       "city": "Boston",
       "referee": "",
       "status": {
-        "short": "LIVE",
-        "long": "Mecz trwa",
+        "short": "FT",
+        "long": "Mecz zakończony",
         "elapsed": null
       },
       "teams": {
@@ -552,12 +552,12 @@
       },
       "score": {
         "halftime": {
-          "home": null,
-          "away": null
+          "home": 0,
+          "away": 1
         },
         "fulltime": {
-          "home": null,
-          "away": null
+          "home": 0,
+          "away": 1
         },
         "extratime": {
           "home": null,
@@ -568,12 +568,23 @@
           "away": null
         }
       },
-      "events": [],
+      "events": [
+        {
+          "elapsed": 28,
+          "extra": null,
+          "team": "Scotland",
+          "player": "John McGinn",
+          "assist": "",
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "comments": ""
+        }
+      ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": null,
+      "detailsFetchedAt": "2026-06-14T06:19:15.325Z",
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": "OpenFootball"
     },
     {
       "providerId": "free-8",
