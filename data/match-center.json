@@ -8,7 +8,7 @@
     "season": 2026
   },
   "timezone": "Europe/Warsaw",
-  "updatedAt": "2026-06-15T02:07:27.707Z",
+  "updatedAt": "2026-06-15T07:34:27.362Z",
   "fixtures": [
     {
       "providerId": "free-1",
@@ -84,7 +84,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-15T02:07:27.706Z",
+      "detailsFetchedAt": "2026-06-15T07:34:27.361Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -172,7 +172,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-15T02:07:27.706Z",
+      "detailsFetchedAt": "2026-06-15T07:34:27.361Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -250,7 +250,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-15T02:07:27.706Z",
+      "detailsFetchedAt": "2026-06-15T07:34:27.361Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -358,7 +358,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-15T02:07:27.707Z",
+      "detailsFetchedAt": "2026-06-15T07:34:27.361Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -436,7 +436,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-15T02:07:27.707Z",
+      "detailsFetchedAt": "2026-06-15T07:34:27.361Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -514,7 +514,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-15T02:07:27.707Z",
+      "detailsFetchedAt": "2026-06-15T07:34:27.361Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -582,7 +582,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-15T02:07:27.707Z",
+      "detailsFetchedAt": "2026-06-15T07:34:27.362Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -660,7 +660,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-15T02:07:27.707Z",
+      "detailsFetchedAt": "2026-06-15T07:34:27.362Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -798,7 +798,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-15T02:07:27.707Z",
+      "detailsFetchedAt": "2026-06-15T07:34:27.362Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -896,7 +896,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-15T02:07:27.707Z",
+      "detailsFetchedAt": "2026-06-15T07:34:27.362Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -964,7 +964,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-15T02:07:27.707Z",
+      "detailsFetchedAt": "2026-06-15T07:34:27.362Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -980,34 +980,34 @@
       "city": "Monterrey",
       "referee": "",
       "status": {
-        "short": "NS",
-        "long": "Mecz zaplanowany",
+        "short": "FT",
+        "long": "Mecz zakończony",
         "elapsed": null
       },
       "teams": {
         "home": {
           "id": null,
           "name": "Sweden",
-          "winner": null
+          "winner": true
         },
         "away": {
           "id": null,
           "name": "Tunisia",
-          "winner": null
+          "winner": false
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 5,
+        "away": 1
       },
       "score": {
         "halftime": {
-          "home": null,
-          "away": null
+          "home": 2,
+          "away": 1
         },
         "fulltime": {
-          "home": null,
-          "away": null
+          "home": 5,
+          "away": 1
         },
         "extratime": {
           "home": null,
@@ -1018,12 +1018,73 @@
           "away": null
         }
       },
-      "events": [],
+      "events": [
+        {
+          "elapsed": 7,
+          "extra": null,
+          "team": "Sweden",
+          "player": "Yasin Ayari",
+          "assist": "",
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "comments": ""
+        },
+        {
+          "elapsed": 30,
+          "extra": null,
+          "team": "Sweden",
+          "player": "Alexander Isak",
+          "assist": "",
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "comments": ""
+        },
+        {
+          "elapsed": 43,
+          "extra": null,
+          "team": "Tunisia",
+          "player": "Omar Rekik",
+          "assist": "",
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "comments": ""
+        },
+        {
+          "elapsed": 59,
+          "extra": null,
+          "team": "Sweden",
+          "player": "Viktor Gyökeres",
+          "assist": "",
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "comments": ""
+        },
+        {
+          "elapsed": 84,
+          "extra": null,
+          "team": "Sweden",
+          "player": "Mattias Svanberg",
+          "assist": "",
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "comments": ""
+        },
+        {
+          "elapsed": 90,
+          "extra": 6,
+          "team": "Sweden",
+          "player": "Yasin Ayari",
+          "assist": "",
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "comments": ""
+        }
+      ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": null,
+      "detailsFetchedAt": "2026-06-15T07:34:27.362Z",
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": "OpenFootball"
     },
     {
       "providerId": "free-13",
