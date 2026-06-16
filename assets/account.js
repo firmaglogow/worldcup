@@ -7,6 +7,17 @@
   const CONFIG = window.WC2026_SUPABASE || {};
   const SUPABASE_URL = String(CONFIG.url || "").replace(/\/+$/, "");
   const PUBLISHABLE_KEY = String(CONFIG.publishableKey || "");
+  const CANONICAL_SITE_URL = (() => {
+    const canonical =
+      document.querySelector('link[rel="canonical"]')?.href ||
+      "https://mistrzostwaswiata2026.pl/";
+    try {
+      return new URL(canonical).origin;
+    } catch {
+      return "https://mistrzostwaswiata2026.pl";
+    }
+  })();
+  const AUTH_REDIRECT_URL = `${CANONICAL_SITE_URL}/?auth=confirm`;
   const IS_CONFIGURED =
     /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(SUPABASE_URL) &&
     PUBLISHABLE_KEY.length > 20;
@@ -125,6 +136,104 @@
       throw new Error(message);
     }
     return payload;
+  }
+
+  function cleanAuthUrl() {
+    const url = new URL(window.location.href);
+    [
+      "auth",
+      "token_hash",
+      "type",
+      "code",
+      "error",
+      "error_code",
+      "error_description",
+      "access_token",
+      "refresh_token",
+      "expires_in",
+      "expires_at",
+      "token_type",
+    ].forEach((key) => url.searchParams.delete(key));
+    window.history.replaceState({}, document.title, `${url.pathname}${url.search}`);
+  }
+
+  function authParams() {
+    return {
+      search: new URLSearchParams(window.location.search),
+      hash: new URLSearchParams(String(window.location.hash || "").replace(/^#/, "")),
+    };
+  }
+
+  async function consumeSession(session, successMessage) {
+    saveSession(session);
+    state.user = await request("/auth/v1/user", {
+      accessToken: session.access_token,
+    });
+    await hydrateFromCloud({ migrateLocal: true });
+    state.message = successMessage;
+    state.messageType = "success";
+    state.modalOpen = true;
+    state.view = "account";
+    updateLauncher();
+    renderModal();
+    cleanAuthUrl();
+  }
+
+  async function handleAuthCallback() {
+    const { search, hash } = authParams();
+    const error = search.get("error") || hash.get("error");
+    const errorCode = search.get("error_code") || hash.get("error_code");
+    const errorDescription =
+      search.get("error_description") || hash.get("error_description") || "";
+
+    if (error || errorCode) {
+      state.message = errorDescription
+        ? `Nie udało się potwierdzić konta: ${errorDescription}`
+        : "Nie udało się potwierdzić konta. Link mógł wygasnąć albo został już użyty.";
+      state.messageType = "error";
+      state.modalOpen = true;
+      state.view = "account";
+      cleanAuthUrl();
+      return;
+    }
+
+    const tokenHash = search.get("token_hash");
+    const tokenType = search.get("type");
+    if (tokenHash && tokenType === "email") {
+      const session = await request("/auth/v1/verify", {
+        method: "POST",
+        body: JSON.stringify({
+          token_hash: tokenHash,
+          type: "email",
+        }),
+      });
+      await consumeSession(
+        session,
+        "Konto zostało potwierdzone. Możesz już korzystać z typów.",
+      );
+      return;
+    }
+
+    const accessToken = search.get("access_token") || hash.get("access_token");
+    const refreshToken = search.get("refresh_token") || hash.get("refresh_token");
+    if (accessToken && refreshToken) {
+      const expiresIn = Number(
+        search.get("expires_in") || hash.get("expires_in") || 3600,
+      );
+      const expiresAt =
+        Number(search.get("expires_at") || hash.get("expires_at")) ||
+        Math.floor(Date.now() / 1000) + expiresIn;
+      await consumeSession(
+        {
+          access_token: accessToken,
+          refresh_token: refreshToken,
+          expires_in: expiresIn,
+          expires_at: expiresAt,
+          token_type: search.get("token_type") || hash.get("token_type") || "bearer",
+        },
+        "Konto jest aktywne. Możesz już korzystać z typów.",
+      );
+    }
   }
 
   async function refreshSession() {
@@ -338,7 +447,10 @@
     }
   }
 
-  const bootPromise = restoreAccount();
+  const bootPromise = (async () => {
+    await handleAuthCallback();
+    await restoreAccount();
+  })();
 
   window.storage = {
     async get(key) {
@@ -364,13 +476,18 @@
       setMessage("Tryb podglądu: wpisz kod 123456.", "success");
       return;
     }
-    await request("/auth/v1/otp", {
+    await request(
+      `/auth/v1/otp?redirect_to=${encodeURIComponent(AUTH_REDIRECT_URL)}`,
+      {
       method: "POST",
       body: JSON.stringify({
         email,
         create_user: true,
+        emailRedirectTo: AUTH_REDIRECT_URL,
+        redirect_to: AUTH_REDIRECT_URL,
       }),
-    });
+      },
+    );
     state.awaitingEmail = email;
     setMessage("Kod logowania został wysłany. Sprawdź również spam.", "success");
   }
