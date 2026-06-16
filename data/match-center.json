@@ -8,7 +8,7 @@
     "season": 2026
   },
   "timezone": "Europe/Warsaw",
-  "updatedAt": "2026-06-16T12:21:14.075Z",
+  "updatedAt": "2026-06-16T20:26:09.799Z",
   "fixtures": [
     {
       "providerId": "free-1",
@@ -84,7 +84,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T12:21:14.074Z",
+      "detailsFetchedAt": "2026-06-16T20:26:09.797Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -172,7 +172,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T12:21:14.074Z",
+      "detailsFetchedAt": "2026-06-16T20:26:09.798Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -250,7 +250,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T12:21:14.074Z",
+      "detailsFetchedAt": "2026-06-16T20:26:09.798Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -358,7 +358,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T12:21:14.074Z",
+      "detailsFetchedAt": "2026-06-16T20:26:09.798Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -436,7 +436,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T12:21:14.074Z",
+      "detailsFetchedAt": "2026-06-16T20:26:09.798Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -514,7 +514,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T12:21:14.074Z",
+      "detailsFetchedAt": "2026-06-16T20:26:09.798Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -582,7 +582,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T12:21:14.074Z",
+      "detailsFetchedAt": "2026-06-16T20:26:09.798Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -591,8 +591,8 @@
       "appMatchId": 8,
       "phase": "group",
       "round": "Grupa D",
-      "kickoff": "2026-06-14T06:00:00+02:00",
-      "date": "2026-06-14",
+      "kickoff": "2026-06-13T06:00:00+02:00",
+      "date": "2026-06-13",
       "time": "06:00",
       "venue": "BC Place",
       "city": "Vancouver",
@@ -660,7 +660,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T12:21:14.074Z",
+      "detailsFetchedAt": "2026-06-16T20:26:09.798Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -798,7 +798,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T12:21:14.074Z",
+      "detailsFetchedAt": "2026-06-16T20:26:09.798Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -807,9 +807,9 @@
       "appMatchId": 10,
       "phase": "group",
       "round": "Grupa F",
-      "kickoff": "2026-06-14T23:00:00+02:00",
+      "kickoff": "2026-06-14T22:00:00+02:00",
       "date": "2026-06-14",
-      "time": "23:00",
+      "time": "22:00",
       "venue": "AT&T Stadium",
       "city": "Dallas",
       "referee": "",
@@ -896,7 +896,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T12:21:14.074Z",
+      "detailsFetchedAt": "2026-06-16T20:26:09.798Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -905,9 +905,9 @@
       "appMatchId": 11,
       "phase": "group",
       "round": "Grupa E",
-      "kickoff": "2026-06-15T02:00:00+02:00",
+      "kickoff": "2026-06-15T01:00:00+02:00",
       "date": "2026-06-15",
-      "time": "02:00",
+      "time": "01:00",
       "venue": "Lincoln Financial Field",
       "city": "Philadelphia",
       "referee": "",
@@ -964,7 +964,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T12:21:14.074Z",
+      "detailsFetchedAt": "2026-06-16T20:26:09.798Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -973,9 +973,9 @@
       "appMatchId": 12,
       "phase": "group",
       "round": "Grupa F",
-      "kickoff": "2026-06-15T06:00:00+02:00",
+      "kickoff": "2026-06-15T04:00:00+02:00",
       "date": "2026-06-15",
-      "time": "06:00",
+      "time": "04:00",
       "venue": "Estadio BBVA",
       "city": "Monterrey",
       "referee": "",
@@ -1082,7 +1082,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T12:21:14.074Z",
+      "detailsFetchedAt": "2026-06-16T20:26:09.799Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1091,9 +1091,9 @@
       "appMatchId": 13,
       "phase": "group",
       "round": "Grupa H",
-      "kickoff": "2026-06-15T19:00:00+02:00",
+      "kickoff": "2026-06-15T18:00:00+02:00",
       "date": "2026-06-15",
-      "time": "19:00",
+      "time": "18:00",
       "venue": "Mercedes-Benz Stadium",
       "city": "Atlanta",
       "referee": "",
@@ -1139,7 +1139,7 @@
       "events": [],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T12:21:14.074Z",
+      "detailsFetchedAt": "2026-06-16T20:26:09.799Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1148,11 +1148,11 @@
       "appMatchId": 14,
       "phase": "group",
       "round": "Grupa G",
-      "kickoff": "2026-06-16T01:00:00+02:00",
-      "date": "2026-06-16",
-      "time": "01:00",
-      "venue": "BC Place",
-      "city": "Vancouver",
+      "kickoff": "2026-06-15T21:00:00+02:00",
+      "date": "2026-06-15",
+      "time": "21:00",
+      "venue": "Lumen Field",
+      "city": "Seattle",
       "referee": "",
       "status": {
         "short": "FT",
@@ -1217,7 +1217,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T12:21:14.074Z",
+      "detailsFetchedAt": "2026-06-16T20:26:09.799Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1226,9 +1226,9 @@
       "appMatchId": 15,
       "phase": "group",
       "round": "Grupa H",
-      "kickoff": "2026-06-16T01:00:00+02:00",
+      "kickoff": "2026-06-16T00:00:00+02:00",
       "date": "2026-06-16",
-      "time": "01:00",
+      "time": "00:00",
       "venue": "Hard Rock Stadium",
       "city": "Miami",
       "referee": "",
@@ -1295,7 +1295,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T12:21:14.074Z",
+      "detailsFetchedAt": "2026-06-16T20:26:09.799Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1304,9 +1304,9 @@
       "appMatchId": 16,
       "phase": "group",
       "round": "Grupa G",
-      "kickoff": "2026-06-16T07:00:00+02:00",
+      "kickoff": "2026-06-16T03:00:00+02:00",
       "date": "2026-06-16",
-      "time": "07:00",
+      "time": "03:00",
       "venue": "SoFi Stadium",
       "city": "Los Angeles",
       "referee": "",
@@ -1393,7 +1393,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T12:21:14.074Z",
+      "detailsFetchedAt": "2026-06-16T20:26:09.799Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1409,25 +1409,25 @@
       "city": "New Jersey",
       "referee": "",
       "status": {
-        "short": "NS",
-        "long": "Mecz zaplanowany",
+        "short": "LIVE",
+        "long": "Mecz trwa",
         "elapsed": null
       },
       "teams": {
         "home": {
           "id": null,
           "name": "France",
-          "winner": null
+          "winner": false
         },
         "away": {
           "id": null,
           "name": "Senegal",
-          "winner": null
+          "winner": false
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 0
       },
       "score": {
         "halftime": {
@@ -1450,18 +1450,18 @@
       "events": [],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": null,
+      "detailsFetchedAt": "2026-06-16T20:26:09.799Z",
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-18",
       "appMatchId": 18,
       "phase": "group",
       "round": "Grupa I",
-      "kickoff": "2026-06-17T01:00:00+02:00",
+      "kickoff": "2026-06-17T00:00:00+02:00",
       "date": "2026-06-17",
-      "time": "01:00",
+      "time": "00:00",
       "venue": "Gillette Stadium",
       "city": "Boston",
       "referee": "",
@@ -1509,16 +1509,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-19",
       "appMatchId": 19,
       "phase": "group",
       "round": "Grupa J",
-      "kickoff": "2026-06-17T05:00:00+02:00",
+      "kickoff": "2026-06-17T03:00:00+02:00",
       "date": "2026-06-17",
-      "time": "05:00",
+      "time": "03:00",
       "venue": "Arrowhead Stadium",
       "city": "Kansas City",
       "referee": "",
@@ -1566,16 +1566,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-20",
       "appMatchId": 20,
       "phase": "group",
       "round": "Grupa J",
-      "kickoff": "2026-06-17T10:00:00+02:00",
-      "date": "2026-06-17",
-      "time": "10:00",
+      "kickoff": "2026-06-16T06:00:00+02:00",
+      "date": "2026-06-16",
+      "time": "06:00",
       "venue": "Levi's Stadium",
       "city": "San Francisco",
       "referee": "",
@@ -1623,16 +1623,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-21",
       "appMatchId": 21,
       "phase": "group",
       "round": "Grupa K",
-      "kickoff": "2026-06-17T21:00:00+02:00",
+      "kickoff": "2026-06-17T19:00:00+02:00",
       "date": "2026-06-17",
-      "time": "21:00",
+      "time": "19:00",
       "venue": "NRG Stadium",
       "city": "Houston",
       "referee": "",
@@ -1680,16 +1680,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-22",
       "appMatchId": 22,
       "phase": "group",
       "round": "Grupa L",
-      "kickoff": "2026-06-18T00:00:00+02:00",
-      "date": "2026-06-18",
-      "time": "00:00",
+      "kickoff": "2026-06-17T22:00:00+02:00",
+      "date": "2026-06-17",
+      "time": "22:00",
       "venue": "AT&T Stadium",
       "city": "Dallas",
       "referee": "",
@@ -1737,16 +1737,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-23",
       "appMatchId": 23,
       "phase": "group",
       "round": "Grupa L",
-      "kickoff": "2026-06-18T02:00:00+02:00",
+      "kickoff": "2026-06-18T01:00:00+02:00",
       "date": "2026-06-18",
-      "time": "02:00",
+      "time": "01:00",
       "venue": "BMO Field",
       "city": "Toronto",
       "referee": "",
@@ -1794,16 +1794,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-24",
       "appMatchId": 24,
       "phase": "group",
       "round": "Grupa K",
-      "kickoff": "2026-06-18T06:00:00+02:00",
+      "kickoff": "2026-06-18T04:00:00+02:00",
       "date": "2026-06-18",
-      "time": "06:00",
+      "time": "04:00",
       "venue": "Estadio Azteca",
       "city": "Mexico City",
       "referee": "",
@@ -1851,16 +1851,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-25",
       "appMatchId": 25,
       "phase": "group",
       "round": "Grupa A",
-      "kickoff": "2026-06-18T19:00:00+02:00",
+      "kickoff": "2026-06-18T18:00:00+02:00",
       "date": "2026-06-18",
-      "time": "19:00",
+      "time": "18:00",
       "venue": "Mercedes-Benz Stadium",
       "city": "Atlanta",
       "referee": "",
@@ -1908,16 +1908,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-26",
       "appMatchId": 26,
       "phase": "group",
       "round": "Grupa B",
-      "kickoff": "2026-06-19T01:00:00+02:00",
-      "date": "2026-06-19",
-      "time": "01:00",
+      "kickoff": "2026-06-18T21:00:00+02:00",
+      "date": "2026-06-18",
+      "time": "21:00",
       "venue": "SoFi Stadium",
       "city": "Los Angeles",
       "referee": "",
@@ -1965,16 +1965,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-27",
       "appMatchId": 27,
       "phase": "group",
       "round": "Grupa B",
-      "kickoff": "2026-06-19T04:00:00+02:00",
+      "kickoff": "2026-06-19T00:00:00+02:00",
       "date": "2026-06-19",
-      "time": "04:00",
+      "time": "00:00",
       "venue": "BC Place",
       "city": "Vancouver",
       "referee": "",
@@ -2022,16 +2022,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-28",
       "appMatchId": 28,
       "phase": "group",
       "round": "Grupa A",
-      "kickoff": "2026-06-19T05:00:00+02:00",
+      "kickoff": "2026-06-19T03:00:00+02:00",
       "date": "2026-06-19",
-      "time": "05:00",
+      "time": "03:00",
       "venue": "Estadio Akron",
       "city": "Guadalajara",
       "referee": "",
@@ -2079,16 +2079,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-29",
       "appMatchId": 29,
       "phase": "group",
       "round": "Grupa C",
-      "kickoff": "2026-06-20T01:00:00+02:00",
+      "kickoff": "2026-06-20T00:00:00+02:00",
       "date": "2026-06-20",
-      "time": "01:00",
+      "time": "00:00",
       "venue": "Gillette Stadium",
       "city": "Boston",
       "referee": "",
@@ -2136,16 +2136,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-30",
       "appMatchId": 30,
       "phase": "group",
       "round": "Grupa D",
-      "kickoff": "2026-06-20T01:00:00+02:00",
-      "date": "2026-06-20",
-      "time": "01:00",
+      "kickoff": "2026-06-19T21:00:00+02:00",
+      "date": "2026-06-19",
+      "time": "21:00",
       "venue": "Lumen Field",
       "city": "Seattle",
       "referee": "",
@@ -2193,16 +2193,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-31",
       "appMatchId": 31,
       "phase": "group",
       "round": "Grupa C",
-      "kickoff": "2026-06-20T04:00:00+02:00",
+      "kickoff": "2026-06-20T03:00:00+02:00",
       "date": "2026-06-20",
-      "time": "04:00",
+      "time": "03:00",
       "venue": "Lincoln Financial Field",
       "city": "Philadelphia",
       "referee": "",
@@ -2250,16 +2250,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-32",
       "appMatchId": 32,
       "phase": "group",
       "round": "Grupa D",
-      "kickoff": "2026-06-20T10:00:00+02:00",
-      "date": "2026-06-20",
-      "time": "10:00",
+      "kickoff": "2026-06-19T06:00:00+02:00",
+      "date": "2026-06-19",
+      "time": "06:00",
       "venue": "Levi's Stadium",
       "city": "San Francisco",
       "referee": "",
@@ -2307,16 +2307,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-33",
       "appMatchId": 33,
       "phase": "group",
       "round": "Grupa F",
-      "kickoff": "2026-06-20T21:00:00+02:00",
+      "kickoff": "2026-06-20T19:00:00+02:00",
       "date": "2026-06-20",
-      "time": "21:00",
+      "time": "19:00",
       "venue": "NRG Stadium",
       "city": "Houston",
       "referee": "",
@@ -2364,16 +2364,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-34",
       "appMatchId": 34,
       "phase": "group",
       "round": "Grupa E",
-      "kickoff": "2026-06-20T23:00:00+02:00",
+      "kickoff": "2026-06-20T22:00:00+02:00",
       "date": "2026-06-20",
-      "time": "23:00",
+      "time": "22:00",
       "venue": "BMO Field",
       "city": "Toronto",
       "referee": "",
@@ -2421,7 +2421,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-35",
@@ -2478,16 +2478,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-36",
       "appMatchId": 36,
       "phase": "group",
       "round": "Grupa F",
-      "kickoff": "2026-06-21T08:00:00+02:00",
-      "date": "2026-06-21",
-      "time": "08:00",
+      "kickoff": "2026-06-20T06:00:00+02:00",
+      "date": "2026-06-20",
+      "time": "06:00",
       "venue": "Estadio BBVA",
       "city": "Monterrey",
       "referee": "",
@@ -2535,16 +2535,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-37",
       "appMatchId": 37,
       "phase": "group",
       "round": "Grupa H",
-      "kickoff": "2026-06-21T19:00:00+02:00",
+      "kickoff": "2026-06-21T18:00:00+02:00",
       "date": "2026-06-21",
-      "time": "19:00",
+      "time": "18:00",
       "venue": "Mercedes-Benz Stadium",
       "city": "Atlanta",
       "referee": "",
@@ -2592,16 +2592,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-38",
       "appMatchId": 38,
       "phase": "group",
       "round": "Grupa G",
-      "kickoff": "2026-06-22T01:00:00+02:00",
-      "date": "2026-06-22",
-      "time": "01:00",
+      "kickoff": "2026-06-21T21:00:00+02:00",
+      "date": "2026-06-21",
+      "time": "21:00",
       "venue": "SoFi Stadium",
       "city": "Los Angeles",
       "referee": "",
@@ -2649,16 +2649,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-39",
       "appMatchId": 39,
       "phase": "group",
       "round": "Grupa H",
-      "kickoff": "2026-06-22T01:00:00+02:00",
+      "kickoff": "2026-06-22T00:00:00+02:00",
       "date": "2026-06-22",
-      "time": "01:00",
+      "time": "00:00",
       "venue": "Hard Rock Stadium",
       "city": "Miami",
       "referee": "",
@@ -2706,16 +2706,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-40",
       "appMatchId": 40,
       "phase": "group",
       "round": "Grupa G",
-      "kickoff": "2026-06-22T07:00:00+02:00",
+      "kickoff": "2026-06-22T03:00:00+02:00",
       "date": "2026-06-22",
-      "time": "07:00",
+      "time": "03:00",
       "venue": "BC Place",
       "city": "Vancouver",
       "referee": "",
@@ -2763,16 +2763,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-41",
       "appMatchId": 41,
       "phase": "group",
       "round": "Grupa J",
-      "kickoff": "2026-06-22T21:00:00+02:00",
+      "kickoff": "2026-06-22T19:00:00+02:00",
       "date": "2026-06-22",
-      "time": "21:00",
+      "time": "19:00",
       "venue": "AT&T Stadium",
       "city": "Dallas",
       "referee": "",
@@ -2820,16 +2820,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-42",
       "appMatchId": 42,
       "phase": "group",
       "round": "Grupa I",
-      "kickoff": "2026-06-23T00:00:00+02:00",
-      "date": "2026-06-23",
-      "time": "00:00",
+      "kickoff": "2026-06-22T23:00:00+02:00",
+      "date": "2026-06-22",
+      "time": "23:00",
       "venue": "Lincoln Financial Field",
       "city": "Philadelphia",
       "referee": "",
@@ -2877,7 +2877,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-43",
@@ -2934,16 +2934,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-44",
       "appMatchId": 44,
       "phase": "group",
       "round": "Grupa J",
-      "kickoff": "2026-06-23T09:00:00+02:00",
+      "kickoff": "2026-06-23T05:00:00+02:00",
       "date": "2026-06-23",
-      "time": "09:00",
+      "time": "05:00",
       "venue": "Levi's Stadium",
       "city": "San Francisco",
       "referee": "",
@@ -2991,16 +2991,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-45",
       "appMatchId": 45,
       "phase": "group",
       "round": "Grupa K",
-      "kickoff": "2026-06-23T21:00:00+02:00",
+      "kickoff": "2026-06-23T19:00:00+02:00",
       "date": "2026-06-23",
-      "time": "21:00",
+      "time": "19:00",
       "venue": "NRG Stadium",
       "city": "Houston",
       "referee": "",
@@ -3048,16 +3048,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-46",
       "appMatchId": 46,
       "phase": "group",
       "round": "Grupa L",
-      "kickoff": "2026-06-23T23:00:00+02:00",
+      "kickoff": "2026-06-23T22:00:00+02:00",
       "date": "2026-06-23",
-      "time": "23:00",
+      "time": "22:00",
       "venue": "Gillette Stadium",
       "city": "Boston",
       "referee": "",
@@ -3105,16 +3105,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-47",
       "appMatchId": 47,
       "phase": "group",
       "round": "Grupa L",
-      "kickoff": "2026-06-24T02:00:00+02:00",
+      "kickoff": "2026-06-24T01:00:00+02:00",
       "date": "2026-06-24",
-      "time": "02:00",
+      "time": "01:00",
       "venue": "BMO Field",
       "city": "Toronto",
       "referee": "",
@@ -3162,16 +3162,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-48",
       "appMatchId": 48,
       "phase": "group",
       "round": "Grupa K",
-      "kickoff": "2026-06-24T06:00:00+02:00",
+      "kickoff": "2026-06-24T04:00:00+02:00",
       "date": "2026-06-24",
-      "time": "06:00",
+      "time": "04:00",
       "venue": "Estadio Akron",
       "city": "Guadalajara",
       "referee": "",
@@ -3219,16 +3219,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-49",
       "appMatchId": 49,
       "phase": "group",
       "round": "Grupa B",
-      "kickoff": "2026-06-25T01:00:00+02:00",
-      "date": "2026-06-25",
-      "time": "01:00",
+      "kickoff": "2026-06-24T21:00:00+02:00",
+      "date": "2026-06-24",
+      "time": "21:00",
       "venue": "BC Place",
       "city": "Vancouver",
       "referee": "",
@@ -3276,16 +3276,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-50",
       "appMatchId": 50,
       "phase": "group",
       "round": "Grupa B",
-      "kickoff": "2026-06-25T01:00:00+02:00",
-      "date": "2026-06-25",
-      "time": "01:00",
+      "kickoff": "2026-06-24T21:00:00+02:00",
+      "date": "2026-06-24",
+      "time": "21:00",
       "venue": "Lumen Field",
       "city": "Seattle",
       "referee": "",
@@ -3333,16 +3333,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-51",
       "appMatchId": 51,
       "phase": "group",
       "round": "Grupa C",
-      "kickoff": "2026-06-25T01:00:00+02:00",
+      "kickoff": "2026-06-25T00:00:00+02:00",
       "date": "2026-06-25",
-      "time": "01:00",
+      "time": "00:00",
       "venue": "Hard Rock Stadium",
       "city": "Miami",
       "referee": "",
@@ -3390,16 +3390,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-52",
       "appMatchId": 52,
       "phase": "group",
       "round": "Grupa C",
-      "kickoff": "2026-06-25T01:00:00+02:00",
+      "kickoff": "2026-06-25T00:00:00+02:00",
       "date": "2026-06-25",
-      "time": "01:00",
+      "time": "00:00",
       "venue": "Mercedes-Benz Stadium",
       "city": "Atlanta",
       "referee": "",
@@ -3447,16 +3447,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-53",
       "appMatchId": 53,
       "phase": "group",
       "round": "Grupa A",
-      "kickoff": "2026-06-25T05:00:00+02:00",
+      "kickoff": "2026-06-25T03:00:00+02:00",
       "date": "2026-06-25",
-      "time": "05:00",
+      "time": "03:00",
       "venue": "Estadio Azteca",
       "city": "Mexico City",
       "referee": "",
@@ -3504,16 +3504,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-54",
       "appMatchId": 54,
       "phase": "group",
       "round": "Grupa A",
-      "kickoff": "2026-06-25T05:00:00+02:00",
+      "kickoff": "2026-06-25T03:00:00+02:00",
       "date": "2026-06-25",
-      "time": "05:00",
+      "time": "03:00",
       "venue": "Estadio BBVA",
       "city": "Monterrey",
       "referee": "",
@@ -3561,7 +3561,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-55",
@@ -3618,7 +3618,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-56",
@@ -3675,16 +3675,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-57",
       "appMatchId": 57,
       "phase": "group",
       "round": "Grupa F",
-      "kickoff": "2026-06-26T03:00:00+02:00",
+      "kickoff": "2026-06-26T01:00:00+02:00",
       "date": "2026-06-26",
-      "time": "03:00",
+      "time": "01:00",
       "venue": "AT&T Stadium",
       "city": "Dallas",
       "referee": "",
@@ -3732,16 +3732,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-58",
       "appMatchId": 58,
       "phase": "group",
       "round": "Grupa F",
-      "kickoff": "2026-06-26T03:00:00+02:00",
+      "kickoff": "2026-06-26T01:00:00+02:00",
       "date": "2026-06-26",
-      "time": "03:00",
+      "time": "01:00",
       "venue": "Arrowhead Stadium",
       "city": "Kansas City",
       "referee": "",
@@ -3789,16 +3789,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-59",
       "appMatchId": 59,
       "phase": "group",
       "round": "Grupa D",
-      "kickoff": "2026-06-26T08:00:00+02:00",
+      "kickoff": "2026-06-26T04:00:00+02:00",
       "date": "2026-06-26",
-      "time": "08:00",
+      "time": "04:00",
       "venue": "SoFi Stadium",
       "city": "Los Angeles",
       "referee": "",
@@ -3846,16 +3846,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-60",
       "appMatchId": 60,
       "phase": "group",
       "round": "Grupa D",
-      "kickoff": "2026-06-26T08:00:00+02:00",
+      "kickoff": "2026-06-26T04:00:00+02:00",
       "date": "2026-06-26",
-      "time": "08:00",
+      "time": "04:00",
       "venue": "Levi's Stadium",
       "city": "San Francisco",
       "referee": "",
@@ -3903,16 +3903,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-61",
       "appMatchId": 61,
       "phase": "group",
       "round": "Grupa I",
-      "kickoff": "2026-06-26T22:00:00+02:00",
+      "kickoff": "2026-06-26T21:00:00+02:00",
       "date": "2026-06-26",
-      "time": "22:00",
+      "time": "21:00",
       "venue": "Gillette Stadium",
       "city": "Boston",
       "referee": "",
@@ -3960,16 +3960,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-62",
       "appMatchId": 62,
       "phase": "group",
       "round": "Grupa I",
-      "kickoff": "2026-06-26T22:00:00+02:00",
+      "kickoff": "2026-06-26T21:00:00+02:00",
       "date": "2026-06-26",
-      "time": "22:00",
+      "time": "21:00",
       "venue": "BMO Field",
       "city": "Toronto",
       "referee": "",
@@ -4017,16 +4017,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-63",
       "appMatchId": 63,
       "phase": "group",
       "round": "Grupa H",
-      "kickoff": "2026-06-27T04:00:00+02:00",
+      "kickoff": "2026-06-27T02:00:00+02:00",
       "date": "2026-06-27",
-      "time": "04:00",
+      "time": "02:00",
       "venue": "NRG Stadium",
       "city": "Houston",
       "referee": "",
@@ -4074,16 +4074,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-64",
       "appMatchId": 64,
       "phase": "group",
       "round": "Grupa H",
-      "kickoff": "2026-06-27T04:00:00+02:00",
+      "kickoff": "2026-06-27T02:00:00+02:00",
       "date": "2026-06-27",
-      "time": "04:00",
+      "time": "02:00",
       "venue": "Estadio Akron",
       "city": "Guadalajara",
       "referee": "",
@@ -4131,16 +4131,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-65",
       "appMatchId": 65,
       "phase": "group",
       "round": "Grupa G",
-      "kickoff": "2026-06-27T09:00:00+02:00",
+      "kickoff": "2026-06-27T05:00:00+02:00",
       "date": "2026-06-27",
-      "time": "09:00",
+      "time": "05:00",
       "venue": "Lumen Field",
       "city": "Seattle",
       "referee": "",
@@ -4188,16 +4188,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-66",
       "appMatchId": 66,
       "phase": "group",
       "round": "Grupa G",
-      "kickoff": "2026-06-27T09:00:00+02:00",
+      "kickoff": "2026-06-27T05:00:00+02:00",
       "date": "2026-06-27",
-      "time": "09:00",
+      "time": "05:00",
       "venue": "BC Place",
       "city": "Vancouver",
       "referee": "",
@@ -4245,7 +4245,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-67",
@@ -4302,16 +4302,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-68",
       "appMatchId": 68,
       "phase": "group",
       "round": "Grupa L",
-      "kickoff": "2026-06-28T00:00:00+02:00",
-      "date": "2026-06-28",
-      "time": "00:00",
+      "kickoff": "2026-06-27T23:00:00+02:00",
+      "date": "2026-06-27",
+      "time": "23:00",
       "venue": "Lincoln Financial Field",
       "city": "Philadelphia",
       "referee": "",
@@ -4359,16 +4359,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-69",
       "appMatchId": 69,
       "phase": "group",
       "round": "Grupa K",
-      "kickoff": "2026-06-28T04:30:00+02:00",
+      "kickoff": "2026-06-28T01:30:00+02:00",
       "date": "2026-06-28",
-      "time": "04:30",
+      "time": "01:30",
       "venue": "Hard Rock Stadium",
       "city": "Miami",
       "referee": "",
@@ -4416,16 +4416,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-70",
       "appMatchId": 70,
       "phase": "group",
       "round": "Grupa K",
-      "kickoff": "2026-06-28T04:30:00+02:00",
+      "kickoff": "2026-06-28T01:30:00+02:00",
       "date": "2026-06-28",
-      "time": "04:30",
+      "time": "01:30",
       "venue": "Mercedes-Benz Stadium",
       "city": "Atlanta",
       "referee": "",
@@ -4473,16 +4473,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-71",
       "appMatchId": 71,
       "phase": "group",
       "round": "Grupa J",
-      "kickoff": "2026-06-28T06:00:00+02:00",
+      "kickoff": "2026-06-28T04:00:00+02:00",
       "date": "2026-06-28",
-      "time": "06:00",
+      "time": "04:00",
       "venue": "Arrowhead Stadium",
       "city": "Kansas City",
       "referee": "",
@@ -4530,16 +4530,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-72",
       "appMatchId": 72,
       "phase": "group",
       "round": "Grupa J",
-      "kickoff": "2026-06-28T06:00:00+02:00",
+      "kickoff": "2026-06-28T04:00:00+02:00",
       "date": "2026-06-28",
-      "time": "06:00",
+      "time": "04:00",
       "venue": "AT&T Stadium",
       "city": "Dallas",
       "referee": "",
@@ -4587,7 +4587,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-73",
@@ -4644,7 +4644,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-74",
@@ -4701,7 +4701,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-75",
@@ -4758,7 +4758,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-76",
@@ -4815,7 +4815,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-77",
@@ -4872,7 +4872,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-78",
@@ -4929,7 +4929,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-79",
@@ -4986,7 +4986,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-80",
@@ -5043,16 +5043,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-81",
       "appMatchId": 81,
       "phase": "knockout",
       "round": "1/16",
-      "kickoff": "2026-07-02T06:00:00+02:00",
+      "kickoff": "2026-07-02T03:00:00+02:00",
       "date": "2026-07-02",
-      "time": "06:00",
+      "time": "03:00",
       "venue": "Levi's Stadium",
       "city": "San Francisco",
       "referee": "",
@@ -5100,16 +5100,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-82",
       "appMatchId": 82,
       "phase": "knockout",
       "round": "1/16",
-      "kickoff": "2026-07-02T04:00:00+02:00",
-      "date": "2026-07-02",
-      "time": "04:00",
+      "kickoff": "2026-07-01T22:00:00+02:00",
+      "date": "2026-07-01",
+      "time": "22:00",
       "venue": "Lumen Field",
       "city": "Seattle",
       "referee": "",
@@ -5157,16 +5157,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-83",
       "appMatchId": 83,
       "phase": "knockout",
       "round": "1/16",
-      "kickoff": "2026-07-03T00:00:00+02:00",
+      "kickoff": "2026-07-03T01:00:00+02:00",
       "date": "2026-07-03",
-      "time": "00:00",
+      "time": "01:00",
       "venue": "BMO Field",
       "city": "Toronto",
       "referee": "",
@@ -5214,7 +5214,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-84",
@@ -5271,16 +5271,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-85",
       "appMatchId": 85,
       "phase": "knockout",
       "round": "1/16",
-      "kickoff": "2026-07-03T07:00:00+02:00",
+      "kickoff": "2026-07-03T05:00:00+02:00",
       "date": "2026-07-03",
-      "time": "07:00",
+      "time": "05:00",
       "venue": "BC Place",
       "city": "Vancouver",
       "referee": "",
@@ -5328,7 +5328,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-86",
@@ -5385,7 +5385,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-87",
@@ -5442,7 +5442,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-88",
@@ -5499,16 +5499,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-89",
       "appMatchId": 89,
       "phase": "knockout",
       "round": "1/8",
-      "kickoff": "2026-07-04T22:00:00+02:00",
+      "kickoff": "2026-07-04T23:00:00+02:00",
       "date": "2026-07-04",
-      "time": "22:00",
+      "time": "23:00",
       "venue": "Lincoln Financial Field",
       "city": "Philadelphia",
       "referee": "",
@@ -5556,7 +5556,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-90",
@@ -5613,16 +5613,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-91",
       "appMatchId": 91,
       "phase": "knockout",
       "round": "1/8",
-      "kickoff": "2026-07-05T21:00:00+02:00",
+      "kickoff": "2026-07-05T22:00:00+02:00",
       "date": "2026-07-05",
-      "time": "21:00",
+      "time": "22:00",
       "venue": "MetLife Stadium",
       "city": "New Jersey",
       "referee": "",
@@ -5670,7 +5670,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-92",
@@ -5727,7 +5727,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-93",
@@ -5784,16 +5784,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-94",
       "appMatchId": 94,
       "phase": "knockout",
       "round": "1/8",
-      "kickoff": "2026-07-07T04:00:00+02:00",
+      "kickoff": "2026-07-07T02:00:00+02:00",
       "date": "2026-07-07",
-      "time": "04:00",
+      "time": "02:00",
       "venue": "Lumen Field",
       "city": "Seattle",
       "referee": "",
@@ -5841,16 +5841,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-95",
       "appMatchId": 95,
       "phase": "knockout",
       "round": "1/8",
-      "kickoff": "2026-07-07T17:00:00+02:00",
+      "kickoff": "2026-07-07T18:00:00+02:00",
       "date": "2026-07-07",
-      "time": "17:00",
+      "time": "18:00",
       "venue": "Mercedes-Benz Stadium",
       "city": "Atlanta",
       "referee": "",
@@ -5898,16 +5898,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-96",
       "appMatchId": 96,
       "phase": "knockout",
       "round": "1/8",
-      "kickoff": "2026-07-08T00:00:00+02:00",
-      "date": "2026-07-08",
-      "time": "00:00",
+      "kickoff": "2026-07-07T22:00:00+02:00",
+      "date": "2026-07-07",
+      "time": "22:00",
       "venue": "BC Place",
       "city": "Vancouver",
       "referee": "",
@@ -5955,16 +5955,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-97",
       "appMatchId": 97,
       "phase": "knockout",
       "round": "Ćwierćfinał",
-      "kickoff": "2026-07-09T21:00:00+02:00",
+      "kickoff": "2026-07-09T22:00:00+02:00",
       "date": "2026-07-09",
-      "time": "21:00",
+      "time": "22:00",
       "venue": "Gillette Stadium",
       "city": "Boston",
       "referee": "",
@@ -6012,16 +6012,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-98",
       "appMatchId": 98,
       "phase": "knockout",
       "round": "Ćwierćfinał",
-      "kickoff": "2026-07-10T23:00:00+02:00",
+      "kickoff": "2026-07-10T21:00:00+02:00",
       "date": "2026-07-10",
-      "time": "23:00",
+      "time": "21:00",
       "venue": "SoFi Stadium",
       "city": "Los Angeles",
       "referee": "",
@@ -6069,16 +6069,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-99",
       "appMatchId": 99,
       "phase": "knockout",
       "round": "Ćwierćfinał",
-      "kickoff": "2026-07-11T22:00:00+02:00",
+      "kickoff": "2026-07-11T23:00:00+02:00",
       "date": "2026-07-11",
-      "time": "22:00",
+      "time": "23:00",
       "venue": "Hard Rock Stadium",
       "city": "Miami",
       "referee": "",
@@ -6126,16 +6126,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-100",
       "appMatchId": 100,
       "phase": "knockout",
       "round": "Ćwierćfinał",
-      "kickoff": "2026-07-12T03:00:00+02:00",
+      "kickoff": "2026-07-12T02:00:00+02:00",
       "date": "2026-07-12",
-      "time": "03:00",
+      "time": "02:00",
       "venue": "Arrowhead Stadium",
       "city": "Kansas City",
       "referee": "",
@@ -6183,7 +6183,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-101",
@@ -6240,16 +6240,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-102",
       "appMatchId": 102,
       "phase": "knockout",
       "round": "Półfinał",
-      "kickoff": "2026-07-15T22:00:00+02:00",
+      "kickoff": "2026-07-15T21:00:00+02:00",
       "date": "2026-07-15",
-      "time": "22:00",
+      "time": "21:00",
       "venue": "Mercedes-Benz Stadium",
       "city": "Atlanta",
       "referee": "",
@@ -6297,16 +6297,16 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-103",
       "appMatchId": 103,
       "phase": "knockout",
       "round": "O 3. miejsce",
-      "kickoff": "2026-07-18T22:00:00+02:00",
+      "kickoff": "2026-07-18T21:00:00+02:00",
       "date": "2026-07-18",
-      "time": "22:00",
+      "time": "21:00",
       "venue": "Hard Rock Stadium",
       "city": "Miami",
       "referee": "",
@@ -6354,7 +6354,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     },
     {
       "providerId": "free-104",
@@ -6411,7 +6411,7 @@
       "lineups": [],
       "detailsFetchedAt": null,
       "detailsAttempts": 0,
-      "dataSource": ""
+      "dataSource": "WorldCup26"
     }
   ]
 }
