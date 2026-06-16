@@ -8,7 +8,7 @@
     "season": 2026
   },
   "timezone": "Europe/Warsaw",
-  "updatedAt": "2026-06-16T01:46:53.108Z",
+  "updatedAt": "2026-06-16T07:08:56.640Z",
   "fixtures": [
     {
       "providerId": "free-1",
@@ -84,7 +84,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T01:46:53.107Z",
+      "detailsFetchedAt": "2026-06-16T07:08:56.639Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -172,7 +172,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T01:46:53.107Z",
+      "detailsFetchedAt": "2026-06-16T07:08:56.639Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -250,7 +250,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T01:46:53.107Z",
+      "detailsFetchedAt": "2026-06-16T07:08:56.639Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -358,7 +358,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T01:46:53.107Z",
+      "detailsFetchedAt": "2026-06-16T07:08:56.639Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -436,7 +436,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T01:46:53.107Z",
+      "detailsFetchedAt": "2026-06-16T07:08:56.639Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -514,7 +514,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T01:46:53.107Z",
+      "detailsFetchedAt": "2026-06-16T07:08:56.639Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -582,7 +582,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T01:46:53.107Z",
+      "detailsFetchedAt": "2026-06-16T07:08:56.639Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -660,7 +660,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T01:46:53.107Z",
+      "detailsFetchedAt": "2026-06-16T07:08:56.639Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -798,7 +798,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T01:46:53.107Z",
+      "detailsFetchedAt": "2026-06-16T07:08:56.639Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -896,7 +896,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T01:46:53.107Z",
+      "detailsFetchedAt": "2026-06-16T07:08:56.639Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -964,7 +964,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T01:46:53.107Z",
+      "detailsFetchedAt": "2026-06-16T07:08:56.639Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1082,7 +1082,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T01:46:53.108Z",
+      "detailsFetchedAt": "2026-06-16T07:08:56.640Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1139,7 +1139,7 @@
       "events": [],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T01:46:53.108Z",
+      "detailsFetchedAt": "2026-06-16T07:08:56.640Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1217,7 +1217,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T01:46:53.108Z",
+      "detailsFetchedAt": "2026-06-16T07:08:56.640Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1295,7 +1295,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-16T01:46:53.108Z",
+      "detailsFetchedAt": "2026-06-16T07:08:56.640Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1311,34 +1311,34 @@
       "city": "Los Angeles",
       "referee": "",
       "status": {
-        "short": "NS",
-        "long": "Mecz zaplanowany",
+        "short": "FT",
+        "long": "Mecz zakończony",
         "elapsed": null
       },
       "teams": {
         "home": {
           "id": null,
           "name": "Iran",
-          "winner": null
+          "winner": false
         },
         "away": {
           "id": null,
           "name": "New Zealand",
-          "winner": null
+          "winner": false
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 2
       },
       "score": {
         "halftime": {
-          "home": null,
-          "away": null
+          "home": 1,
+          "away": 1
         },
         "fulltime": {
-          "home": null,
-          "away": null
+          "home": 2,
+          "away": 2
         },
         "extratime": {
           "home": null,
@@ -1349,12 +1349,53 @@
           "away": null
         }
       },
-      "events": [],
+      "events": [
+        {
+          "elapsed": 7,
+          "extra": null,
+          "team": "New Zealand",
+          "player": "Elijah Just",
+          "assist": "",
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "comments": ""
+        },
+        {
+          "elapsed": 32,
+          "extra": null,
+          "team": "Iran",
+          "player": "Ramin Rezaeian",
+          "assist": "",
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "comments": ""
+        },
+        {
+          "elapsed": 54,
+          "extra": null,
+          "team": "New Zealand",
+          "player": "Elijah Just",
+          "assist": "",
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "comments": ""
+        },
+        {
+          "elapsed": 64,
+          "extra": null,
+          "team": "Iran",
+          "player": "Mohammad Mohebbi",
+          "assist": "",
+          "type": "Goal",
+          "detail": "Normal Goal",
+          "comments": ""
+        }
+      ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": null,
+      "detailsFetchedAt": "2026-06-16T07:08:56.640Z",
       "detailsAttempts": 0,
-      "dataSource": "WorldCup26"
+      "dataSource": "OpenFootball"
     },
     {
       "providerId": "free-17",
