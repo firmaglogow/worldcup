@@ -1,5 +1,7 @@
 import fs from "node:fs";
 
+import { scheduleCorrections } from "./schedule-corrections.mjs";
+
 const appSource = fs.readFileSync(
   new URL("../assets/app.js", import.meta.url),
   "utf8",
@@ -74,6 +76,16 @@ const schedule = {
     })),
   ].sort((left, right) => left.id - right.id),
 };
+
+const correctionsById = new Map(
+  scheduleCorrections.map((correction) => [correction.id, correction]),
+);
+
+for (const match of schedule.matches) {
+  const correction = correctionsById.get(match.id);
+  if (!correction) continue;
+  Object.assign(match, correction);
+}
 
 const json = `${JSON.stringify(schedule, null, 2)}\n`;
 const browserScript = `window.WC2026_MATCHES = ${JSON.stringify(schedule)};\n`;

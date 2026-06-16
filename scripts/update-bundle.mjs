@@ -1,5 +1,7 @@
 import fs from "node:fs";
 
+import { scheduleCorrections } from "./schedule-corrections.mjs";
+
 const file = new URL("../assets/app.js", import.meta.url);
 let source = fs.readFileSync(file, "utf8");
 
@@ -12,35 +14,66 @@ function replaceOnce(from, to) {
   source = source.replace(from, to);
 }
 
+function replaceRegexOnce(pattern, replacer, label) {
+  const match = pattern.exec(source);
+  if (!match) {
+    throw new Error(`Expected one regex match for ${label}, found 0`);
+  }
+  const duplicateCheck = new RegExp(pattern.source, pattern.flags.includes("g") ? pattern.flags : `${pattern.flags}g`);
+  const allMatches = source.match(duplicateCheck) || [];
+  if (allMatches.length !== 1) {
+    throw new Error(`Expected one regex match for ${label}, found ${allMatches.length}`);
+  }
+  source = source.replace(pattern, replacer);
+}
+
 const matchCorrections = [
-  [
-    'id:6,date:"2026-06-14",time:"01:00"',
-    'id:6,date:"2026-06-14",time:"00:00"',
-  ],
-  [
-    'id:17,date:"2026-06-16",time:"22:00"',
-    'id:17,date:"2026-06-16",time:"21:00"',
-  ],
-  [
-    'id:43,date:"2026-06-23",time:"03:00"',
-    'id:43,date:"2026-06-23",time:"02:00"',
-  ],
-  [
-    'id:55,date:"2026-06-25",time:"23:00"',
-    'id:55,date:"2026-06-25",time:"22:00"',
-  ],
-  [
-    'id:67,date:"2026-06-28",time:"00:00"',
-    'id:67,date:"2026-06-27",time:"23:00"',
-  ],
-  [
-    'id:"M104",no:104,round:"FINA\\u0141",date:"2026-07-19",time:"20:00"',
-    'id:"M104",no:104,round:"FINA\\u0141",date:"2026-07-19",time:"21:00"',
-  ],
   ["2026-07-19T20:00", "2026-07-19T21:00"],
 ];
 
 for (const [from, to] of matchCorrections) replaceOnce(from, to);
+
+for (const correction of scheduleCorrections) {
+  const label = `match ${correction.id}`;
+  if (correction.id <= 72) {
+    replaceRegexOnce(
+      new RegExp(
+        String.raw`id:${correction.id}(?!\d),date:"([^"]+)",time:"([^"]+)",home:"([^"]+)",away:"([^"]+)",stadium:"([^"]+)",city:"([^"]+)",group:"([^"]+)"`,
+      ),
+      (_, date, time, home, away, stadium, city, group) =>
+        [
+          `id:${correction.id}`,
+          `date:"${correction.date ?? date}"`,
+          `time:"${correction.time ?? time}"`,
+          `home:"${home}"`,
+          `away:"${away}"`,
+          `stadium:"${correction.stadium ?? stadium}"`,
+          `city:"${correction.city ?? city}"`,
+          `group:"${group}"`,
+        ].join(","),
+      label,
+    );
+  } else {
+    replaceRegexOnce(
+      new RegExp(
+        String.raw`id:"M${correction.id}(?!\d)",no:${correction.id}(?!\d),round:"([^"]+)",date:"([^"]+)",time:"([^"]+)",stadium:"([^"]+)",city:"([^"]+)",home:(\{[^}]+\}),away:(\{[^}]+\})`,
+      ),
+      (_, round, date, time, stadium, city, home, away) =>
+        [
+          `id:"M${correction.id}"`,
+          `no:${correction.id}`,
+          `round:"${round}"`,
+          `date:"${correction.date ?? date}"`,
+          `time:"${correction.time ?? time}"`,
+          `stadium:"${correction.stadium ?? stadium}"`,
+          `city:"${correction.city ?? city}"`,
+          `home:${home}`,
+          `away:${away}`,
+        ].join(","),
+      label,
+    );
+  }
+}
 
 replaceOnce(
   "[L,I]=(0,Y.useState)({})",
