@@ -1920,7 +1920,10 @@
         (event) => {
           event.preventDefault();
           event.stopPropagation();
-          window.location.href = "gwiazdy-mundialu/";
+          window.location.href =
+            window.location.protocol === "file:"
+              ? "gwiazdy-mundialu/index.html"
+              : "/gwiazdy-mundialu/";
         },
         true,
       );

@@ -182,7 +182,7 @@ assert(
   "Advertising should remain visible on every tab",
 );
 assert(
-  index.includes("assets/enhancements.js?v=20260617-world-stars-nav"),
+  index.includes("assets/enhancements.js?v=20260617-world-stars-nav-local-fix"),
   "Latest advertising visibility cache key is missing",
 );
 assert(
@@ -656,7 +656,7 @@ assert(
   "Statistics navigation order is not stable across application refreshes",
 );
 assert(
-  index.includes("assets/enhancements.js?v=20260617-world-stars-nav"),
+  index.includes("assets/enhancements.js?v=20260617-world-stars-nav-local-fix"),
   "Latest navigation enhancement cache key is missing",
 );
 assert(
