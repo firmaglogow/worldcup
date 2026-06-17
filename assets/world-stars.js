@@ -596,6 +596,9 @@
     },
   ];
 
+  const sortedPlayers = [...players].sort((a, b) => b.rating - a.rating || a.name.localeCompare(b.name, "pl"));
+  const sortedAbsentPlayers = [...absentPlayers].sort((a, b) => b.rating - a.rating || a.name.localeCompare(b.name, "pl"));
+
   const positionLabels = {
     Napastnik: "FW",
     Pomocnik: "MF",
@@ -778,10 +781,10 @@
   }
 
   const grid = document.querySelector("[data-stars-grid]");
-  players.forEach((player) => grid?.append(createCard(player)));
+  sortedPlayers.forEach((player) => grid?.append(createCard(player)));
 
   const absentGrid = document.querySelector("[data-absent-grid]");
-  absentPlayers.forEach((player) => absentGrid?.append(createCard(player, { compact: true })));
+  sortedAbsentPlayers.forEach((player) => absentGrid?.append(createCard(player, { compact: true })));
 
   document.querySelector("[data-star-close]")?.addEventListener("click", closeDialog);
   document.querySelector("[data-star-dialog]")?.addEventListener("click", (event) => {
