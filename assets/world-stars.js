@@ -95,6 +95,37 @@
       whyWatch:
         "Warto go obserwować, bo Haaland zmienia mecz samą obecnością w szesnastce. Nawet przy małej liczbie kontaktów potrafi zrobić wielką różnicę jednym przyjęciem, jednym wbiegnięciem albo jednym wykończeniem.",
     },
+    {
+      id: "cristiano-ronaldo",
+      rating: 94,
+      name: "Cristiano Ronaldo",
+      shortName: "Ronaldo",
+      country: "Portugalia",
+      flag: "🇵🇹",
+      position: "Napastnik",
+      club: "Al Nassr FC",
+      age: 41,
+      image: "../assets/players/portugal/cristiano-ronaldo.jpg",
+      accent: "#22c55e",
+      accentStrong: "#facc15",
+      keyStat: {
+        label: "Key stat",
+        value: "7",
+        detail: "ikoniczny numer i stałe zagrożenie w polu karnym",
+      },
+      tournamentStats: {
+        goals: "do uzupełnienia",
+        assists: "do uzupełnienia",
+        minutes: "do uzupełnienia",
+      },
+      formImpact: 92,
+      route:
+        "Ronaldo wciąż pozostaje symbolem ambicji, profesjonalizmu i pewności siebie na największej scenie. Portugalia zyskuje dzięki niemu nie tylko strzelca, ale też zawodnika, który potrafi pociągnąć drużynę energią i doświadczeniem.",
+      curiosity:
+        "To jeden z najbardziej rozpoznawalnych piłkarzy w historii, a jego obecność nadal zmienia temperaturę każdego meczu.",
+      whyWatch:
+        "Warto go obserwować, bo Ronaldo zawsze ma w sobie coś z zawodnika, który potrafi odwrócić narrację meczu w jednym momencie. W szesnastce nadal jest jednym z najbardziej niebezpiecznych napastników turnieju.",
+    },
   ];
 
   const positionLabels = {
