@@ -45,6 +45,8 @@ Ten skrypt tworzy:
    - Site URL: `https://mistrzostwaswiata2026.pl`
    - Redirect URL: `https://mistrzostwaswiata2026.pl/**`
 
+Uwaga: w niektórych darmowych projektach Supabase edycja szablonów e-mail może być zablokowana przez plan lub brak własnego SMTP. Jeśli panel zgłasza, że zmiana szablonu nie jest dostępna, trzeba najpierw podłączyć własny serwer SMTP albo zmienić plan projektu.
+
 ## 4. Podłącz stronę
 
 1. Otwórz `Project Settings` -> `API`.

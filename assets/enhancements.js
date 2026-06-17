@@ -767,6 +767,34 @@
     return candidates.slice(0, 4);
   }
 
+  function nearestMatchSignature(matches) {
+    return matches
+      .map(
+        ({ match, fixture }) =>
+          `${match.id}:${fixture?.status?.short || "NS"}:${fixture?.goals?.home ?? "-"}:${fixture?.goals?.away ?? "-"}`,
+      )
+      .join("|");
+  }
+
+  function allMatchesForToday() {
+    const today = warsawDateKey();
+    const fixtures = new Map(
+      (window.WC2026_MATCH_CENTER?.fixtures || []).map((fixture) => [
+        Number(fixture.appMatchId),
+        fixture,
+      ]),
+    );
+
+    return (window.WC2026_MATCHES?.matches || [])
+      .map((match) => ({
+        match,
+        fixture: fixtures.get(Number(match.id)),
+        kickoff: matchKickoff(match),
+      }))
+      .filter(({ match }) => match.date === today)
+      .sort((first, second) => first.kickoff - second.kickoff);
+  }
+
   function upcomingDateRange(matches) {
     if (!matches.length) return "TERMINARZ MUNDIALU";
 
@@ -908,9 +936,7 @@
   function createUpcomingMatchesPanel(matches) {
     const panel = document.createElement("section");
     panel.className = "upcoming-matches";
-    panel.dataset.upcomingMatches = matches
-      .map(({ match, fixture }) => `${match.id}:${fixture?.status?.short || "NS"}`)
-      .join("|");
+    panel.dataset.upcomingMatches = nearestMatchSignature(matches);
     panel.setAttribute("aria-label", "Najbliższe mecze mundialu");
 
     const header = document.createElement("header");
@@ -940,6 +966,172 @@
     return panel;
   }
 
+  function createHomeSpotlightCard({
+    label,
+    title,
+    detail,
+    href = null,
+    accent = "#6ee7b7",
+    score = null,
+    badge = "",
+  }) {
+    const card = href
+      ? document.createElement("a")
+      : document.createElement("article");
+    card.className = "home-spotlight-card";
+    card.style.setProperty("--home-spotlight-accent", accent);
+    if (href) card.href = href;
+
+    const topRow = document.createElement("div");
+    topRow.className = "home-spotlight-card-top";
+
+    const tag = document.createElement("span");
+    tag.className = "home-spotlight-card-label";
+    tag.textContent = label;
+
+    const chip = document.createElement("span");
+    chip.className = "home-spotlight-card-badge";
+    chip.textContent = badge;
+
+    topRow.append(tag);
+    if (badge) topRow.append(chip);
+
+    const headline = document.createElement("strong");
+    headline.className = "home-spotlight-card-title";
+    headline.textContent = title;
+
+    const description = document.createElement("p");
+    description.className = "home-spotlight-card-detail";
+    description.textContent = detail;
+
+    card.append(topRow, headline, description);
+
+    if (score) {
+      const result = document.createElement("div");
+      result.className = "home-spotlight-card-score";
+      result.textContent = score;
+      card.append(result);
+    }
+
+    return card;
+  }
+
+  function buildHomeSpotlight(matches) {
+    const todayMatches = allMatchesForToday();
+    const primaryMatches = todayMatches.length ? todayMatches : matches;
+    const todaySignature = todayMatches
+      .map(
+        ({ match, fixture }) =>
+          `${match.id}:${fixture?.status?.short || "NS"}:${fixture?.goals?.home ?? "-"}:${fixture?.goals?.away ?? "-"}`,
+      )
+      .join("|");
+    const signature = `${nearestMatchSignature(matches)}::${todaySignature}`;
+
+    const now = todayMatches.find(({ fixture }) =>
+      ["1H", "HT", "2H", "ET", "BT", "P", "LIVE"].includes(
+        fixture?.status?.short,
+      ),
+    );
+    const finishedToday = [...todayMatches]
+      .reverse()
+      .find(({ fixture }) => ["FT", "AET", "PEN"].includes(fixture?.status?.short));
+
+    const firstMatch = primaryMatches[0];
+    const secondMatch = primaryMatches[1] || firstMatch;
+    const upcomingRange = upcomingDateRange(primaryMatches);
+    const todayCount = todayMatches.length;
+
+    const cards = [
+      createHomeSpotlightCard({
+        label: todayCount ? "DZIŚ GRAJĄ" : "NAJBLIŻSZY START",
+        title: firstMatch
+          ? `${firstMatch.match.time} · ${firstMatch.match.homeFlag} ${firstMatch.match.homeName}`
+          : "Brak meczu",
+        detail: firstMatch
+          ? `${firstMatch.match.awayFlag} ${firstMatch.match.awayName} · ${firstMatch.match.stadium}`
+          : "Terminarz jest pusto",
+        href: firstMatch ? `match.html?id=${firstMatch.match.id}` : null,
+        badge: todayCount ? `${todayCount} mecze` : "pierwszy start",
+        accent: "#fbbf24",
+      }),
+      createHomeSpotlightCard({
+        label: todayCount ? "DZISIEJSZA KOLEJKA" : "NAJBLIŻSZY DZIEŃ",
+        title: todayCount ? `${todayCount} mecz${todayCount === 1 ? "" : "e"}` : upcomingRange,
+        detail: todayCount
+          ? `${todayMatches[0]?.match.time || "?"} - ${todayMatches[todayMatches.length - 1]?.match.time || "?"}`
+          : "Patrz na karty poniżej, tam są konkretne pary i godziny.",
+        badge: todayCount ? "na dziś" : "kolejny termin",
+        accent: "#6ee7b7",
+      }),
+      createHomeSpotlightCard({
+        label: now
+          ? "NA ŻYWO"
+          : finishedToday
+            ? "OSTATNI WYNIK"
+            : "NASTĘPNY HIT",
+        title: now
+          ? `${now.fixture?.goals?.home ?? 0}:${now.fixture?.goals?.away ?? 0}`
+          : finishedToday
+            ? `${finishedToday.fixture?.goals?.home ?? 0}:${finishedToday.fixture?.goals?.away ?? 0}`
+            : secondMatch
+              ? `${secondMatch.match.time} · ${secondMatch.match.homeName}`
+              : "Brak danych",
+        detail: now
+          ? `${now.match.homeName} - ${now.match.awayName}${now.fixture?.status?.elapsed ? ` · ${now.fixture.status.elapsed}'` : ""}`
+          : finishedToday
+            ? `${finishedToday.match.homeName} - ${finishedToday.match.awayName}`
+            : secondMatch
+              ? `${secondMatch.match.homeName} - ${secondMatch.match.awayName} · ${secondMatch.match.stadium}`
+              : "Wkrótce pokażemy tu kolejny ważny mecz.",
+        href:
+          now || finishedToday || secondMatch
+            ? `match.html?id=${(now || finishedToday || secondMatch).match.id}`
+            : null,
+        badge: now ? "wynik w czasie rzeczywistym" : "warto śledzić",
+        accent: "#34d399",
+        score:
+          now && Number.isInteger(now.fixture?.goals?.home) && Number.isInteger(now.fixture?.goals?.away)
+            ? `${now.fixture.goals.home}:${now.fixture.goals.away}`
+            : null,
+      }),
+    ];
+
+    const panel = document.createElement("section");
+    panel.className = "home-spotlight";
+    panel.dataset.homeSpotlight = signature;
+    panel.setAttribute("aria-label", "Najważniejsze wydarzenia dnia");
+
+    const header = document.createElement("header");
+    header.className = "home-spotlight-header";
+
+    const titleGroup = document.createElement("div");
+    const kicker = document.createElement("span");
+    kicker.className = "home-spotlight-kicker";
+    kicker.textContent = "DZISIAJ W CENTRUM";
+
+    const title = document.createElement("h2");
+    title.textContent = "Najbliższe mecze i wydarzenia dnia";
+
+    const summary = document.createElement("p");
+    summary.className = "home-spotlight-summary";
+    summary.textContent = todayCount
+      ? `Dziś zaplanowano ${todayCount} mecz${todayCount === 1 ? "" : "e"}.`
+      : `Najbliższy dzień meczowy: ${upcomingRange}.`;
+    titleGroup.append(kicker, title, summary);
+
+    const badge = document.createElement("strong");
+    badge.className = "home-spotlight-range";
+    badge.textContent = todayCount ? upcomingRange : "NAJBLIŻSZE TERMINY";
+    header.append(titleGroup, badge);
+
+    const grid = document.createElement("div");
+    grid.className = "home-spotlight-grid";
+    cards.forEach((card) => grid.append(card));
+
+    panel.append(header, grid);
+    return panel;
+  }
+
   function enhanceUpcomingMatches() {
     const countdown = [...document.querySelectorAll(".mb-6.rounded-2xl")].find(
       (element) =>
@@ -962,20 +1154,30 @@
       document
         .querySelectorAll("[data-upcoming-matches]")
         .forEach((panel) => panel.remove());
+      document
+        .querySelectorAll("[data-home-spotlight]")
+        .forEach((panel) => panel.remove());
       return;
     }
 
     const matches = nearestMatches();
     if (!matches.length) return;
 
-    const signature = matches
-      .map(({ match, fixture }) => `${match.id}:${fixture?.status?.short || "NS"}`)
-      .join("|");
+    const signature = nearestMatchSignature(matches);
+    const currentSpotlight = countdown.querySelector("[data-home-spotlight]");
     const currentPanel = countdown.querySelector("[data-upcoming-matches]");
-    if (currentPanel?.dataset.upcomingMatches === signature) return;
+    if (
+      currentSpotlight?.dataset.homeSpotlight === `${signature}::${allMatchesForToday()
+        .map(({ match, fixture }) => `${match.id}:${fixture?.status?.short || "NS"}:${fixture?.goals?.home ?? "-"}:${fixture?.goals?.away ?? "-"}`)
+        .join("|")}` &&
+      currentPanel?.dataset.upcomingMatches === signature
+    ) {
+      return;
+    }
 
+    currentSpotlight?.remove();
     currentPanel?.remove();
-    countdown.append(createUpcomingMatchesPanel(matches));
+    countdown.append(buildHomeSpotlight(matches), createUpcomingMatchesPanel(matches));
   }
 
   const matchBrowserFinishedStatuses = new Set(["FT", "AET", "PEN"]);
@@ -1122,6 +1324,12 @@
         kickoff: matchKickoff(match),
       }));
 
+    if (mode === "day") {
+      return items
+        .filter(({ match }) => match.date === matchBrowserDate)
+        .sort((first, second) => first.kickoff - second.kickoff);
+    }
+
     if (mode === "results") {
       return items
         .filter(({ fixture }) =>
@@ -1148,6 +1356,8 @@
     empty.textContent =
       mode === "results"
         ? "Brak zakończonych meczów dla wybranych filtrów."
+        : mode === "day"
+          ? "Brak meczów dla wybranego dnia i filtrów."
         : "Brak nadchodzących meczów dla wybranych filtrów.";
     return empty;
   }
@@ -1158,7 +1368,11 @@
     panel.dataset.matchBrowserList = mode;
     panel.setAttribute(
       "aria-label",
-      mode === "results" ? "Ostatnie wyniki" : "Nadchodzące mecze",
+      mode === "results"
+        ? "Ostatnie wyniki"
+        : mode === "day"
+          ? "Mecze wybranego dnia"
+          : "Nadchodzące mecze",
     );
 
     const allItems = matchBrowserItems(mode);
@@ -1212,7 +1426,9 @@
       more.textContent =
         mode === "results"
           ? "Pokaż starsze wyniki"
-          : "Pokaż kolejne mecze";
+          : mode === "day"
+            ? "Pokaż więcej meczów tego dnia"
+            : "Pokaż kolejne mecze";
       more.addEventListener("click", () => {
         matchBrowserLimit += 12;
         renderMatchBrowser();
@@ -1384,7 +1600,7 @@
     container
       .querySelectorAll("[data-native-match-group]")
       .forEach((group) => {
-        group.hidden = ["results", "upcoming"].includes(matchBrowserMode);
+        group.hidden = ["day", "results", "upcoming"].includes(matchBrowserMode);
       });
 
     browser.querySelectorAll("[data-match-browser-mode]").forEach((button) => {
@@ -1409,7 +1625,7 @@
     updateMatchBrowserDates(browser);
 
     const currentList = container.querySelector("[data-match-browser-list]");
-    if (["results", "upcoming"].includes(matchBrowserMode)) {
+    if (["day", "results", "upcoming"].includes(matchBrowserMode)) {
       const nextList = createMatchBrowserList(matchBrowserMode);
       if (
         currentList?.dataset.matchBrowserSignature !==
@@ -1669,6 +1885,30 @@
       .trim();
   }
 
+  function scorerNameDistance(left, right) {
+    const a = normalizeScorerText(left).replace(/\s+/g, "");
+    const b = normalizeScorerText(right).replace(/\s+/g, "");
+
+    if (!a || !b) return Number.POSITIVE_INFINITY;
+    if (a === b) return 0;
+
+    const previous = Array.from({ length: b.length + 1 }, (_, index) => index);
+    for (let i = 1; i <= a.length; i += 1) {
+      let diagonal = previous[0];
+      previous[0] = i;
+      for (let j = 1; j <= b.length; j += 1) {
+        const upper = previous[j];
+        const substitution = diagonal + (a[i - 1] === b[j - 1] ? 0 : 1);
+        const insertion = previous[j - 1] + 1;
+        const deletion = upper + 1;
+        diagonal = upper;
+        previous[j] = Math.min(substitution, insertion, deletion);
+      }
+    }
+
+    return previous[b.length];
+  }
+
   function findScorerTeam(providerName) {
     const teams = window.WC2026_MATCHES?.teams || {};
     const aliases = {
@@ -1691,9 +1931,81 @@
     const players =
       window.WC2026_PLAYER_PROFILES?.[teamCode]?.players || [];
     const normalizedName = normalizeScorerText(playerName);
+    let bestMatch = null;
+    let bestDistance = Number.POSITIVE_INFINITY;
+
+    for (const player of players) {
+      const candidate = normalizeScorerText(player.name);
+      if (candidate === normalizedName) return player;
+
+      const distance = scorerNameDistance(normalizedName, candidate);
+      if (distance < bestDistance) {
+        bestDistance = distance;
+        bestMatch = player;
+      }
+    }
+
+    if (bestMatch) {
+      const threshold = Math.max(
+        3,
+        Math.ceil(normalizeScorerText(bestMatch.name).length * 0.35),
+      );
+      if (bestDistance <= threshold) return bestMatch;
+    }
+
     return players.find(
       (player) => normalizeScorerText(player.name) === normalizedName,
     );
+  }
+
+  function canonicalScorerName(teamCode, playerName) {
+    const profile = findScorerProfile(teamCode, playerName);
+    return profile?.name || String(playerName || "").trim();
+  }
+
+  function canonicalizeStoredScorers() {
+    try {
+      const saved = JSON.parse(localStorage.getItem("wc2026:v1") || "{}");
+      const scorers = Array.isArray(saved.scorers) ? saved.scorers : [];
+      let changed = false;
+
+      saved.scorers = scorers.map((scorer) => {
+        const name = canonicalScorerName(scorer.team, scorer.name);
+        if (name !== scorer.name) changed = true;
+        return { ...scorer, name };
+      });
+
+      if (changed) {
+        localStorage.setItem("wc2026:v1", JSON.stringify(saved));
+      }
+    } catch {
+      // If local storage is blocked, the live DOM fallback below still works.
+    }
+  }
+
+  function canonicalizeRenderedScorers() {
+    const manualHeading = [...document.querySelectorAll("h3")].find(
+      (heading) => heading.textContent.trim() === "KRÓL STRZELCÓW TURNIEJU",
+    );
+    if (!manualHeading) return;
+
+    const manualPanel =
+      manualHeading.closest(".rounded-2xl") || manualHeading.parentElement;
+    if (!manualPanel) return;
+
+    const nameNodes = [
+      ...manualPanel.querySelectorAll(".font-semibold.text-sm.truncate"),
+    ];
+
+    nameNodes.forEach((nameNode) => {
+      const row = nameNode.closest(".rounded-xl");
+      const teamNode = row?.querySelector(".text-\\[10px\\].text-slate-500");
+      const teamCode = findScorerTeam(teamNode?.textContent || "")?.code || "";
+      const normalizedName = canonicalScorerName(teamCode, nameNode.textContent);
+      if (normalizedName && normalizedName !== nameNode.textContent) {
+        nameNode.textContent = normalizedName;
+      }
+    });
   }
 
   function collectAutomaticScorers() {
@@ -1709,9 +2021,10 @@
         )
         .forEach((event) => {
           const team = findScorerTeam(event.team);
-          const key = `${normalizeScorerText(event.player)}:${team?.code || normalizeScorerText(event.team)}`;
+          const playerName = canonicalScorerName(team?.code || "", event.player);
+          const key = `${normalizeScorerText(playerName)}:${team?.code || normalizeScorerText(event.team)}`;
           const scorer = scorers.get(key) || {
-            player: event.player.trim(),
+            player: playerName.trim(),
             teamCode: team?.code || "",
             teamName: team?.name || event.team || "",
             flag: team?.flag || "⚽",
@@ -1769,7 +2082,7 @@
     player.className = "automatic-scorers-player";
     const profile = findScorerProfile(scorer.teamCode, scorer.player);
     const playerName = profile ? document.createElement("a") : document.createElement("strong");
-    playerName.textContent = scorer.player;
+    playerName.textContent = profile?.name || scorer.player;
 
     if (profile) {
       playerName.href = `player.html?team=${encodeURIComponent(scorer.teamCode)}&id=${encodeURIComponent(profile.slug)}`;
@@ -1897,6 +2210,8 @@
     enhanceMatchBrowser();
     addAdSlots();
     reorderNavigation();
+    canonicalizeStoredScorers();
+    canonicalizeRenderedScorers();
     enhanceStatistics();
     secureExternalLinks();
   }

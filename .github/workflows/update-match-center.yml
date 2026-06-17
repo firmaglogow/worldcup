@@ -27,12 +27,6 @@ jobs:
       - name: Pobierz bezpłatne wyniki
         run: node scripts/update-match-center.mjs
 
-      - name: Zsynchronizuj wyniki Supabase
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-        run: node scripts/sync-supabase-results.mjs
-
       - name: Zapisz nowe dane
         run: |
           if git diff --quiet -- data/match-center.json assets/match-center-data.js index.html match.html; then
