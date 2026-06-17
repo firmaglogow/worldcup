@@ -44,8 +44,8 @@
       club: "Real Madrid C. F.",
       age: 27,
       image: "../assets/players/france/kylian-mbappe.jpg",
-      thumbnailImage: "../assets/players/france/kylian-mbappe.jpg",
-      profileImage: "../assets/players/france/kylian-mbappe-profile.jpg",
+      thumbnailImage: "../assets/players/france/kylian-mbappe-profile.jpg",
+      profileImage: "../assets/players/france/kylian-mbappe.jpg",
       accent: "#60a5fa",
       accentStrong: "#fef08a",
       keyStat: {
