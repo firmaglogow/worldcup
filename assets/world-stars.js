@@ -333,6 +333,8 @@
       club: "FC Bayern München",
       age: 23,
       image: "../assets/players/germany/jamal-musiala.jpg",
+      thumbnailImage: "../assets/players/germany/jamal-musiala-thumbnail.jpg",
+      profileImage: "../assets/players/germany/jamal-musiala.jpg",
       accent: "#f59e0b",
       accentStrong: "#ef4444",
       keyStat: {
