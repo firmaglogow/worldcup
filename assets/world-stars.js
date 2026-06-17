@@ -74,7 +74,7 @@
       position: "Napastnik",
       club: "Manchester City FC",
       age: 25,
-      image: null,
+      image: "../assets/players/norway/erling-haaland.jpg",
       accent: "#ef4444",
       accentStrong: "#f8fafc",
       keyStat: {
@@ -125,6 +125,254 @@
         "To jeden z najbardziej rozpoznawalnych piłkarzy w historii, a jego obecność nadal zmienia temperaturę każdego meczu.",
       whyWatch:
         "Warto go obserwować, bo Ronaldo zawsze ma w sobie coś z zawodnika, który potrafi odwrócić narrację meczu w jednym momencie. W szesnastce nadal jest jednym z najbardziej niebezpiecznych napastników turnieju.",
+    },
+    {
+      id: "lamine-yamal",
+      rating: 93,
+      name: "Lamine Yamal",
+      shortName: "Yamal",
+      country: "Hiszpania",
+      flag: "🇪🇸",
+      position: "Napastnik",
+      club: "FC Barcelona",
+      age: 18,
+      image: "../assets/players/spain/lamine-yamal.jpg",
+      accent: "#facc15",
+      accentStrong: "#60a5fa",
+      keyStat: {
+        label: "Key stat",
+        value: "19",
+        detail: "numer i symbol bezczelności na wielkiej scenie",
+      },
+      tournamentStats: {
+        goals: 0,
+        assists: 0,
+        minutes: 0,
+      },
+      formImpact: 97,
+      route:
+        "Yamal to futbolowa odwaga w najczystszej postaci. Jego drybling i lekkość w grze sprawiają, że Hiszpania zyskuje zawodnika, który potrafi rozrywać nawet najlepiej ustawione obrony.",
+      curiosity:
+        "W tak młodym wieku już gra jak ktoś, kto nie boi się żadnej sceny ani żadnego rywala.",
+      whyWatch:
+        "Warto go obserwować, bo potrafi w jednej akcji zrobić coś, co zmienia rytm całego meczu. Przy piłce wygląda tak, jakby największe stadiony były dla niego naturalnym placem zabaw.",
+    },
+    {
+      id: "vinicius-junior",
+      rating: 95,
+      name: "Vinícius Júnior",
+      shortName: "Vinícius",
+      country: "Brazylia",
+      flag: "🇧🇷",
+      position: "Napastnik",
+      club: "Real Madrid C. F.",
+      age: 25,
+      image: "../assets/players/brazil/vinicius-junior.jpg",
+      accent: "#22c55e",
+      accentStrong: "#facc15",
+      keyStat: {
+        label: "Key stat",
+        value: "7",
+        detail: "numer skrzydłowego, który ciągnie grę Canarinhos",
+      },
+      tournamentStats: {
+        goals: 0,
+        assists: 0,
+        minutes: 0,
+      },
+      formImpact: 96,
+      route:
+        "Vinícius wnosi do Brazylii tempo, odwagę i brazylijską lekkość w grze. Gdy rozpędza się na lewej stronie, rywale często muszą bronić nie tylko piłki, ale i całego rytmu spotkania.",
+      curiosity:
+        "To jeden z tych zawodników, którzy potrafią zamienić zwykłe wejście w mecz w widowisko.",
+      whyWatch:
+        "Warto go obserwować, bo łączy szybkość, drybling i dużą odporność na presję. Jeśli Brazylia ma wrócić na sam szczyt, jego rola będzie absolutnie centralna.",
+    },
+    {
+      id: "jude-bellingham",
+      rating: 95,
+      name: "Jude Bellingham",
+      shortName: "Bellingham",
+      country: "Anglia",
+      flag: "🇬🇧",
+      position: "Pomocnik",
+      club: "Real Madrid C. F.",
+      age: 22,
+      image: "../assets/players/england/jude-bellingham.jpg",
+      accent: "#60a5fa",
+      accentStrong: "#f8fafc",
+      keyStat: {
+        label: "Key stat",
+        value: "22",
+        detail: "numer i symbol pełnej kontroli środka pola",
+      },
+      tournamentStats: {
+        goals: 0,
+        assists: 0,
+        minutes: 0,
+      },
+      formImpact: 95,
+      route:
+        "Bellingham daje Anglii połączenie elegancji, energii i skuteczności. To zawodnik, który potrafi zdominować środek pola, a jednocześnie pojawić się tam, gdzie trzeba zamknąć akcję golem.",
+      curiosity:
+        "Już teraz jest dla Anglików kimś więcej niż tylko młodą gwiazdą - to piłkarz od wielkich momentów.",
+      whyWatch:
+        "Warto go obserwować, bo ma rzadką umiejętność łączenia kontroli meczu z konkretem pod bramką. W decydujących fazach turnieju może być dla Anglii najważniejszym punktem odniesienia.",
+    },
+    {
+      id: "pedri",
+      rating: 94,
+      name: "Pedri",
+      shortName: "Pedri",
+      country: "Hiszpania",
+      flag: "🇪🇸",
+      position: "Pomocnik",
+      club: "FC Barcelona",
+      age: 23,
+      image: "../assets/players/spain/pedri.jpg",
+      accent: "#38bdf8",
+      accentStrong: "#facc15",
+      keyStat: {
+        label: "Key stat",
+        value: "8",
+        detail: "klasyczny numer mózgu drużyny",
+      },
+      tournamentStats: {
+        goals: 0,
+        assists: 0,
+        minutes: 0,
+      },
+      formImpact: 94,
+      route:
+        "Pedri widzi grę szybciej niż większość rywali i potrafi zamieniać małe przestrzenie w duże okazje. To właśnie tacy pomocnicy budują dominację drużyny bez zbędnego hałasu.",
+      curiosity:
+        "Jest jednym z tych piłkarzy, którzy grają spokojnie, a jednocześnie całkowicie kontrolują chaos wokół siebie.",
+      whyWatch:
+        "Warto go obserwować, bo jego decyzje przy piłce często ustawiają cały atak. Jeśli Hiszpania będzie miała przewagę w posiadaniu, Pedri najpewniej będzie jej najczystszą formą.",
+    },
+    {
+      id: "jamal-musiala",
+      rating: 94,
+      name: "Jamal Musiala",
+      shortName: "Musiala",
+      country: "Niemcy",
+      flag: "🇩🇪",
+      position: "Pomocnik",
+      club: "FC Bayern München",
+      age: 23,
+      image: "../assets/players/germany/jamal-musiala.jpg",
+      accent: "#f59e0b",
+      accentStrong: "#ef4444",
+      keyStat: {
+        label: "Key stat",
+        value: "10",
+        detail: "numer kreatora, który potrafi skręcić mecz w jedną stronę",
+      },
+      tournamentStats: {
+        goals: 0,
+        assists: 0,
+        minutes: 0,
+      },
+      formImpact: 95,
+      route:
+        "Musiala to drybling, lekkość i nieprzewidywalność w jednym. Niemcy bardzo liczą na to, że to właśnie on będzie ich głównym źródłem nieszablonowych rozwiązań w ofensywie.",
+      curiosity:
+        "W ciasnych przestrzeniach robi rzeczy, które wyglądają jak mała sztuczka, a kończą się dużym problemem dla obrońcy.",
+      whyWatch:
+        "Warto go obserwować, bo potrafi sam wyczarować przewagę tam, gdzie nie ma żadnej oczywistej drogi. To zawodnik, który może odpalić w każdej chwili.",
+    },
+    {
+      id: "harry-kane",
+      rating: 95,
+      name: "Harry Kane",
+      shortName: "Kane",
+      country: "Anglia",
+      flag: "🇬🇧",
+      position: "Napastnik",
+      club: "FC Bayern München",
+      age: 32,
+      image: "../assets/players/england/harry-kane.jpg",
+      accent: "#94a3b8",
+      accentStrong: "#facc15",
+      keyStat: {
+        label: "Key stat",
+        value: "9",
+        detail: "klasyczna dziewiątka i gwarancja bramek",
+      },
+      tournamentStats: {
+        goals: 0,
+        assists: 0,
+        minutes: 0,
+      },
+      formImpact: 94,
+      route:
+        "Kane to napastnik, który nie potrzebuje wielu okazji, by być groźnym. Anglia dostaje od niego spokój, jakość wykończenia i doświadczenie w meczach o najwyższą stawkę.",
+      curiosity:
+        "Jest jednym z najlepszych przykładów nowoczesnego snajpera, który potrafi też świetnie grać dla zespołu.",
+      whyWatch:
+        "Warto go obserwować, bo przy rzutach karnych i w polu karnym jest niemal bezlitosny. Jeśli Anglia dojdzie do meczu na styku, Kane będzie jedną z najważniejszych odpowiedzi.",
+    },
+    {
+      id: "mohamed-salah",
+      rating: 94,
+      name: "Mohamed Salah",
+      shortName: "Salah",
+      country: "Egipt",
+      flag: "🇪🇬",
+      position: "Napastnik",
+      club: "Liverpool FC",
+      age: 34,
+      image: "../assets/players/egypt/mohamed-salah.jpg",
+      accent: "#f59e0b",
+      accentStrong: "#ef4444",
+      keyStat: {
+        label: "Key stat",
+        value: "10",
+        detail: "numer lidera i symbol globalnego zasięgu",
+      },
+      tournamentStats: {
+        goals: 0,
+        assists: 0,
+        minutes: 0,
+      },
+      formImpact: 93,
+      route:
+        "Salah jest twarzą egipskiej piłki i zawodnikiem, który od lat przyciąga uwagę całego świata. Jego obecność podnosi rangę każdego meczu i daje Egiptowi realną siłę w ataku.",
+      curiosity:
+        "To piłkarz, którego rozpoznawalność wykracza daleko poza sam turniej i samą reprezentację.",
+      whyWatch:
+        "Warto go obserwować, bo potrafi łączyć konkret z widowiskowością. Gdy Egipt potrzebuje impulsu, Salah nadal jest jednym z najbardziej oczywistych źródeł zagrożenia.",
+    },
+    {
+      id: "son-heung-min",
+      rating: 94,
+      name: "Son Heung-min",
+      shortName: "Son",
+      country: "Korea Płd.",
+      flag: "🇰🇷",
+      position: "Napastnik",
+      club: "LAFC",
+      age: 33,
+      image: "../assets/players/korea/heungmin-son.jpg",
+      accent: "#a855f7",
+      accentStrong: "#f8fafc",
+      keyStat: {
+        label: "Key stat",
+        value: "7",
+        detail: "numer zawodnika, który daje Korei spokój w ataku",
+      },
+      tournamentStats: {
+        goals: 0,
+        assists: 0,
+        minutes: 0,
+      },
+      formImpact: 92,
+      route:
+        "Son to nie tylko lider sportowy, ale też ogromna postać dla kibiców w Azji. Jego jakość techniczna i spokój w wykończeniu potrafią zamieniać przeciętną akcję w bramkową.",
+      curiosity:
+        "Na boisku jest błyskawiczny, a poza nim ma status jednego z najbardziej lubianych piłkarzy świata.",
+      whyWatch:
+        "Warto go obserwować, bo łączy precyzję, doświadczenie i świetne czytanie gry. Dla Korei Południowej to nadal zawodnik, wokół którego kręci się najwięcej nadziei.",
     },
   ];
 
