@@ -64,6 +64,37 @@
       whyWatch:
         "Warto go obserwować, bo łączy szybkość, timing i pewność w polu karnym. Gdy Francja przyspiesza, Mbappé bywa tym momentem, po którym mecz zaczyna się naprawdę.",
     },
+    {
+      id: "erling-haaland",
+      rating: 95,
+      name: "Erling Haaland",
+      shortName: "Haaland",
+      country: "Norwegia",
+      flag: "🇳🇴",
+      position: "Napastnik",
+      club: "Manchester City FC",
+      age: 25,
+      image: null,
+      accent: "#ef4444",
+      accentStrong: "#f8fafc",
+      keyStat: {
+        label: "Key stat",
+        value: "9",
+        detail: "numer klasycznego snajpera i punkt odniesienia w polu karnym",
+      },
+      tournamentStats: {
+        goals: 0,
+        assists: 0,
+        minutes: 0,
+      },
+      formImpact: 95,
+      route:
+        "Haaland przyjeżdża na Mundial jako zawodnik zbudowany do najtrudniejszych meczów: silny, bezpośredni i niebezpieczny w każdej sytuacji w polu karnym. Norwegia może opierać swoją ofensywę właśnie na jego ruchu, sile i finalizacji.",
+      curiosity:
+        "To jeden z nielicznych napastników, którzy potrafią zamienić pół sytuacji w pełną panikę dla obrony rywala.",
+      whyWatch:
+        "Warto go obserwować, bo Haaland zmienia mecz samą obecnością w szesnastce. Nawet przy małej liczbie kontaktów potrafi zrobić wielką różnicę jednym przyjęciem, jednym wbiegnięciem albo jednym wykończeniem.",
+    },
   ];
 
   const positionLabels = {
@@ -86,6 +117,45 @@
     return item;
   }
 
+  function createVisual(player, className) {
+    const wrap = createElement("div", className);
+    wrap.style.setProperty("--accent", player.accent);
+
+    if (player.image) {
+      const image = document.createElement("img");
+      image.src = player.image;
+      image.alt = `Zdjęcie: ${player.name}`;
+      image.width = 420;
+      image.height = 520;
+      image.decoding = "async";
+      image.addEventListener("error", () => {
+        wrap.replaceChildren(createPlaceholder(player));
+      });
+      wrap.append(image);
+      return wrap;
+    }
+
+    wrap.append(createPlaceholder(player));
+    return wrap;
+  }
+
+  function createPlaceholder(player) {
+    const placeholder = createElement("div", "world-star-placeholder");
+    placeholder.style.setProperty("--accent", player.accent);
+    placeholder.style.setProperty("--accent-strong", player.accentStrong);
+
+    const monogram = createElement("div", "world-star-placeholder-monogram", player.shortName.slice(0, 2).toUpperCase());
+    const label = createElement("div", "world-star-placeholder-label");
+    label.append(
+      createElement("span", "", player.flag),
+      createElement("strong", "", player.country),
+      createElement("p", "", player.position),
+    );
+
+    placeholder.append(monogram, label);
+    return placeholder;
+  }
+
   function createCard(player) {
     const card = document.createElement("button");
     card.className = "world-star-card";
@@ -102,14 +172,7 @@
     flag.setAttribute("aria-label", player.country);
     top.append(rating, flag);
 
-    const imageWrap = createElement("div", "world-star-image");
-    const image = document.createElement("img");
-    image.src = player.image;
-    image.alt = `Zdjęcie: ${player.name}`;
-    image.width = 420;
-    image.height = 520;
-    image.decoding = "async";
-    imageWrap.append(image);
+    const imageWrap = createVisual(player, "world-star-image");
 
     const body = createElement("div", "world-star-card-body");
     body.append(
@@ -132,11 +195,7 @@
   function renderDialogContent(player) {
     const content = createElement("article", "world-star-detail");
 
-    const media = createElement("div", "world-star-detail-media");
-    const image = document.createElement("img");
-    image.src = player.image;
-    image.alt = `Zdjęcie: ${player.name}`;
-    media.append(image);
+    const media = createVisual(player, "world-star-detail-media");
 
     const details = createElement("div", "world-star-detail-content");
     const title = createElement("div", "world-star-detail-title");
