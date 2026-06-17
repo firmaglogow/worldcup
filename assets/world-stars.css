@@ -1,0 +1,590 @@
+.world-stars-page {
+  background:
+    linear-gradient(180deg, rgba(7, 17, 31, 0.58), rgba(7, 17, 31, 0.96) 34rem),
+    radial-gradient(circle at 28% 18%, rgba(116, 192, 252, 0.24), transparent 20rem),
+    radial-gradient(circle at 78% 18%, rgba(251, 191, 36, 0.14), transparent 24rem),
+    #07111f;
+  color: #e5eef8;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.world-stars-topbar {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 1rem 0;
+  width: min(1180px, calc(100% - 2rem));
+}
+
+.world-stars-brand,
+.world-stars-back {
+  align-items: center;
+  display: inline-flex;
+  font-size: 0.8125rem;
+  font-weight: 900;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+
+.world-stars-brand {
+  color: #f8fafc;
+}
+
+.world-stars-brand-mark {
+  align-items: center;
+  background: linear-gradient(145deg, rgba(25, 46, 75, 0.94), rgba(7, 17, 31, 0.9));
+  border: 1px solid rgba(251, 191, 36, 0.58);
+  border-radius: 0.75rem;
+  display: inline-flex;
+  height: 2.6rem;
+  justify-content: center;
+  width: 2.6rem;
+}
+
+.world-stars-back {
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(116, 192, 252, 0.24);
+  border-radius: 999px;
+  color: #bae6fd;
+  padding: 0.65rem 0.9rem;
+}
+
+.world-stars-back:hover {
+  border-color: rgba(251, 191, 36, 0.62);
+  color: #fde68a;
+}
+
+.world-stars-hero {
+  align-items: end;
+  display: grid;
+  min-height: clamp(27rem, 58vh, 42rem);
+  overflow: hidden;
+  padding: clamp(2rem, 6vw, 5rem) 0;
+  position: relative;
+}
+
+.world-stars-hero::before {
+  background:
+    linear-gradient(115deg, rgba(7, 17, 31, 0.88), rgba(7, 17, 31, 0.36) 58%, rgba(7, 17, 31, 0.94)),
+    url("../assets/stadiums/metlife-stadium.webp") center / cover;
+  content: "";
+  inset: 0;
+  opacity: 0.48;
+  position: absolute;
+}
+
+.world-stars-hero::after {
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 76px),
+    linear-gradient(180deg, transparent, rgba(7, 17, 31, 0.96));
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+.world-stars-hero-copy {
+  margin: 0 auto;
+  position: relative;
+  width: min(1180px, calc(100% - 2rem));
+  z-index: 2;
+}
+
+.world-stars-kicker {
+  color: #7dd3fc;
+  font-size: 0.78rem;
+  font-weight: 950;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.world-stars-hero h1 {
+  color: #f8fafc;
+  font-size: clamp(3.1rem, 9vw, 7.5rem);
+  font-weight: 950;
+  letter-spacing: 0;
+  line-height: 0.9;
+  margin-top: 0.75rem;
+  max-width: 11ch;
+  text-shadow: 0 18px 50px rgba(2, 6, 23, 0.62);
+}
+
+.world-stars-subtitle {
+  color: #fde68a;
+  font-size: clamp(1.15rem, 2.5vw, 2rem);
+  font-weight: 900;
+  margin-top: 1.25rem;
+}
+
+.world-stars-intro {
+  color: #cbd5e1;
+  font-size: 1rem;
+  line-height: 1.75;
+  margin-top: 1rem;
+  max-width: 45rem;
+}
+
+.world-stars-hero-lights {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.world-stars-hero-lights span {
+  background: linear-gradient(180deg, rgba(186, 230, 253, 0.28), transparent 72%);
+  clip-path: polygon(48% 0, 58% 0, 100% 100%, 0 100%);
+  height: 72%;
+  opacity: 0.7;
+  position: absolute;
+  top: 0;
+  transform-origin: top;
+  width: 18rem;
+}
+
+.world-stars-hero-lights span:first-child {
+  left: 6%;
+  transform: rotate(13deg);
+}
+
+.world-stars-hero-lights span:nth-child(2) {
+  left: 42%;
+  transform: rotate(-4deg);
+}
+
+.world-stars-hero-lights span:nth-child(3) {
+  right: 4%;
+  transform: rotate(-15deg);
+}
+
+.world-stars-roster {
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) 0 5rem;
+  width: min(1180px, calc(100% - 2rem));
+}
+
+.world-stars-section-heading {
+  display: grid;
+  gap: 0.65rem;
+  max-width: 48rem;
+}
+
+.world-stars-section-heading h2 {
+  color: #f8fafc;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-weight: 950;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.world-stars-section-heading p:not(.world-stars-kicker) {
+  color: #94a3b8;
+  line-height: 1.7;
+}
+
+.world-stars-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 23rem));
+  margin-top: 2rem;
+}
+
+.world-star-card {
+  --accent: #74c0fc;
+  --accent-strong: #f8fafc;
+  background:
+    linear-gradient(145deg, rgba(116, 192, 252, 0.2), transparent 42%),
+    linear-gradient(160deg, rgba(15, 23, 42, 0.72), rgba(7, 17, 31, 0.96));
+  border: 1px solid color-mix(in srgb, var(--accent) 58%, transparent);
+  border-radius: 1.4rem;
+  box-shadow: 0 26px 70px rgba(2, 6, 23, 0.48);
+  color: #f8fafc;
+  cursor: pointer;
+  isolation: isolate;
+  min-height: 34rem;
+  overflow: hidden;
+  padding: 1rem;
+  perspective: 1000px;
+  position: relative;
+  text-align: left;
+  transform-style: preserve-3d;
+  transition: box-shadow 0.22s ease, transform 0.22s ease, border-color 0.22s ease;
+}
+
+.world-star-card::before {
+  background:
+    linear-gradient(135deg, transparent 18%, rgba(255, 255, 255, 0.16) 19%, transparent 20%),
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.22), transparent 10rem);
+  content: "";
+  inset: 0;
+  opacity: 0.85;
+  position: absolute;
+  z-index: -1;
+}
+
+.world-star-card::after {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 1.05rem;
+  content: "";
+  inset: 0.55rem;
+  pointer-events: none;
+  position: absolute;
+}
+
+.world-star-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 82%, white);
+  box-shadow: 0 34px 90px rgba(2, 6, 23, 0.62), 0 0 42px color-mix(in srgb, var(--accent) 22%, transparent);
+  transform: translateY(-0.45rem) rotateX(2deg) rotateY(-2deg);
+}
+
+.world-star-card-top {
+  align-items: start;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.world-star-rating {
+  color: #f8fafc;
+  display: grid;
+  font-size: 3.8rem;
+  font-weight: 950;
+  letter-spacing: 0;
+  line-height: 0.9;
+}
+
+.world-star-rating span {
+  color: #bae6fd;
+  font-size: 0.65rem;
+  font-weight: 950;
+  letter-spacing: 0.16em;
+  margin-top: 0.35rem;
+  text-transform: uppercase;
+}
+
+.world-star-flag {
+  align-items: center;
+  background: rgba(7, 17, 31, 0.74);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 1.45rem;
+  height: 3.1rem;
+  justify-content: center;
+  width: 3.1rem;
+}
+
+.world-star-image {
+  height: 19rem;
+  margin: -1.1rem auto 0;
+  position: relative;
+  width: min(100%, 18rem);
+}
+
+.world-star-image::before {
+  background: radial-gradient(circle at 50% 52%, color-mix(in srgb, var(--accent) 42%, transparent), transparent 58%);
+  content: "";
+  inset: 10% 0 0;
+  position: absolute;
+}
+
+.world-star-image img {
+  filter: drop-shadow(0 1.2rem 1.5rem rgba(2, 6, 23, 0.7));
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 14%;
+  position: relative;
+  width: 100%;
+}
+
+.world-star-card-body {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 0.2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.world-star-name {
+  color: #f8fafc;
+  font-size: 2.35rem;
+  font-weight: 950;
+  letter-spacing: 0;
+  line-height: 0.94;
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+}
+
+.world-star-meta {
+  color: #cbd5e1;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.world-star-key-stat {
+  align-items: end;
+  background: rgba(7, 17, 31, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 1rem;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.45rem;
+  padding: 0.9rem;
+}
+
+.world-star-key-stat span {
+  color: #94a3b8;
+  font-size: 0.68rem;
+  font-weight: 950;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.world-star-key-stat strong {
+  color: var(--accent-strong);
+  font-size: 2rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.world-star-cta {
+  color: #bae6fd;
+  font-size: 0.75rem;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  margin-top: 0.2rem;
+  text-transform: uppercase;
+}
+
+.world-star-dialog {
+  background: transparent;
+  border: 0;
+  color: #e2e8f0;
+  max-width: min(58rem, calc(100% - 1.5rem));
+  padding: 0;
+  width: 100%;
+}
+
+.world-star-dialog::backdrop {
+  background: rgba(2, 6, 23, 0.78);
+  backdrop-filter: blur(10px);
+}
+
+.world-star-dialog-panel {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(116, 192, 252, 0.2), transparent 20rem),
+    linear-gradient(145deg, rgba(8, 18, 34, 0.98), rgba(7, 17, 31, 0.98));
+  border: 1px solid rgba(116, 192, 252, 0.34);
+  border-radius: 1.25rem;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+  position: relative;
+}
+
+.world-star-dialog-close {
+  align-items: center;
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: #f8fafc;
+  display: inline-flex;
+  font-size: 1.6rem;
+  height: 2.7rem;
+  justify-content: center;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  width: 2.7rem;
+  z-index: 4;
+}
+
+.world-star-detail {
+  display: grid;
+  gap: 0;
+  grid-template-columns: minmax(18rem, 0.85fr) minmax(0, 1.15fr);
+}
+
+.world-star-detail-media {
+  background:
+    linear-gradient(180deg, rgba(116, 192, 252, 0.1), transparent),
+    rgba(7, 17, 31, 0.7);
+  min-height: 32rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.world-star-detail-media img {
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  object-position: 50% 14%;
+  position: absolute;
+  width: 100%;
+}
+
+.world-star-detail-media::after {
+  background: linear-gradient(180deg, transparent 45%, rgba(7, 17, 31, 0.92));
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+.world-star-detail-content {
+  display: grid;
+  gap: 1.25rem;
+  padding: clamp(1.5rem, 4vw, 2.4rem);
+}
+
+.world-star-detail-title {
+  padding-right: 3rem;
+}
+
+.world-star-detail-title p {
+  color: #7dd3fc;
+  font-size: 0.75rem;
+  font-weight: 950;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.world-star-detail-title h2 {
+  color: #f8fafc;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 950;
+  letter-spacing: 0;
+  line-height: 0.95;
+  margin-top: 0.4rem;
+}
+
+.world-star-facts,
+.world-star-stats {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.world-star-fact,
+.world-star-stat {
+  background: rgba(15, 23, 42, 0.68);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 0.85rem;
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+  padding: 0.8rem;
+}
+
+.world-star-fact span,
+.world-star-stat span {
+  color: #64748b;
+  font-size: 0.63rem;
+  font-weight: 950;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.world-star-fact strong,
+.world-star-stat strong {
+  color: #f8fafc;
+  font-size: 0.95rem;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.world-star-copy-block {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.world-star-copy-block h3 {
+  color: #fde68a;
+  font-size: 0.88rem;
+  font-weight: 950;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.world-star-copy-block p {
+  color: #cbd5e1;
+  line-height: 1.7;
+}
+
+.world-star-impact {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.world-star-impact-top {
+  align-items: center;
+  color: #f8fafc;
+  display: flex;
+  font-size: 0.82rem;
+  font-weight: 950;
+  justify-content: space-between;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.world-star-impact-track {
+  background: rgba(15, 23, 42, 0.88);
+  border-radius: 999px;
+  height: 0.7rem;
+  overflow: hidden;
+}
+
+.world-star-impact-fill {
+  background: linear-gradient(90deg, #7dd3fc, #f8fafc, #facc15);
+  border-radius: inherit;
+  display: block;
+  height: 100%;
+}
+
+@media (max-width: 760px) {
+  .world-stars-topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .world-stars-hero {
+    min-height: 34rem;
+  }
+
+  .world-stars-hero h1 {
+    font-size: clamp(3rem, 17vw, 4.8rem);
+    max-width: 8ch;
+  }
+
+  .world-star-card {
+    min-height: 31rem;
+  }
+
+  .world-star-image {
+    height: 16.5rem;
+  }
+
+  .world-star-detail {
+    grid-template-columns: 1fr;
+  }
+
+  .world-star-detail-media {
+    min-height: 18rem;
+  }
+
+  .world-star-facts,
+  .world-star-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .world-star-card {
+    transition: none;
+  }
+
+  .world-star-card:hover {
+    transform: none;
+  }
+}

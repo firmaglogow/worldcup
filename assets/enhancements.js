@@ -1824,6 +1824,8 @@
       ["Tabele", 2],
       ["Statystyki", 3],
       ["Staty", 3],
+      ["Gwiazdy Mundialu", 4],
+      ["Gwiazdy", 4],
       ["Grupa śmierci", 4],
       ["Śmierci", 4],
       ["Reprezentacje", 5],
@@ -1872,6 +1874,56 @@
       if (groupTables && statistics && groupTables.nextElementSibling !== statistics) {
         groupTables.insertAdjacentElement("afterend", statistics);
       }
+    });
+  }
+
+  function replaceButtonText(button, label) {
+    const textNodes = [...button.childNodes].filter(
+      (node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim(),
+    );
+
+    if (textNodes.length) {
+      textNodes[textNodes.length - 1].textContent = label;
+      return;
+    }
+
+    const labelNode = [...button.querySelectorAll("span, div")].find(
+      (node) =>
+        ["Grupa śmierci", "Śmierci"].includes(node.textContent.trim()),
+    );
+
+    if (labelNode) {
+      labelNode.textContent = label;
+      return;
+    }
+
+    button.textContent = label;
+  }
+
+  function enhanceWorldStarsNavigation() {
+    const buttons = [...document.querySelectorAll("button")].filter((button) =>
+      ["Grupa śmierci", "Śmierci", "Gwiazdy Mundialu", "Gwiazdy"].includes(
+        button.textContent.trim(),
+      ),
+    );
+
+    buttons.forEach((button) => {
+      replaceButtonText(button, "Gwiazdy Mundialu");
+      button.dataset.worldStarsNav = "true";
+      button.setAttribute("aria-label", "Przejdź do sekcji Gwiazdy Mundialu");
+      button.setAttribute("title", "Gwiazdy Mundialu");
+
+      if (button.dataset.worldStarsBound === "true") return;
+      button.dataset.worldStarsBound = "true";
+      button.addEventListener(
+        "click",
+        (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          window.location.href = "gwiazdy-mundialu/";
+        },
+        true,
+      );
     });
   }
 
@@ -2209,6 +2261,7 @@
     enhanceUpcomingMatches();
     enhanceMatchBrowser();
     addAdSlots();
+    enhanceWorldStarsNavigation();
     reorderNavigation();
     canonicalizeStoredScorers();
     canonicalizeRenderedScorers();
