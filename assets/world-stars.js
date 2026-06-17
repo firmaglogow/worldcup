@@ -44,6 +44,8 @@
       club: "Real Madrid C. F.",
       age: 27,
       image: "../assets/players/france/kylian-mbappe.jpg",
+      thumbnailImage: "../assets/players/france/kylian-mbappe.jpg",
+      profileImage: "../assets/players/france/kylian-mbappe-profile.jpg",
       accent: "#60a5fa",
       accentStrong: "#fef08a",
       keyStat: {
@@ -619,13 +621,22 @@
     return item;
   }
 
-  function createVisual(player, className) {
+  function getPlayerImage(player, variant) {
+    if (variant === "profile") {
+      return player.profileImage || player.thumbnailImage || player.image || null;
+    }
+
+    return player.thumbnailImage || player.image || player.profileImage || null;
+  }
+
+  function createVisual(player, className, variant = "thumbnail") {
     const wrap = createElement("div", className);
     wrap.style.setProperty("--accent", player.accent);
+    const imageSrc = getPlayerImage(player, variant);
 
-    if (player.image) {
+    if (imageSrc) {
       const image = document.createElement("img");
-      image.src = player.image;
+      image.src = imageSrc;
       image.alt = `Zdjęcie: ${player.name}`;
       image.width = 420;
       image.height = 520;
@@ -675,7 +686,7 @@
     flag.setAttribute("aria-label", player.country);
     top.append(rating, flag);
 
-    const imageWrap = createVisual(player, compact ? "world-star-image world-star-image--compact" : "world-star-image");
+    const imageWrap = createVisual(player, compact ? "world-star-image world-star-image--compact" : "world-star-image", "thumbnail");
 
     const body = createElement("div", "world-star-card-body");
     if (compact) {
@@ -704,7 +715,7 @@
   function renderDialogContent(player) {
     const content = createElement("article", "world-star-detail");
 
-    const media = createVisual(player, "world-star-detail-media");
+    const media = createVisual(player, "world-star-detail-media", "profile");
 
     const details = createElement("div", "world-star-detail-content");
     const title = createElement("div", "world-star-detail-title");
