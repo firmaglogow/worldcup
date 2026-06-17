@@ -633,6 +633,11 @@
     return item;
   }
 
+  function setPageAccent(player) {
+    document.body.style.setProperty("--active-star-accent", player?.accent || "#74c0fc");
+    document.body.style.setProperty("--active-star-strong", player?.accentStrong || "#facc15");
+  }
+
   function getPlayerImage(player, variant) {
     if (variant === "profile") {
       return player.profileImage || player.thumbnailImage || player.image || null;
@@ -685,6 +690,7 @@
     const compact = Boolean(options.compact);
     const card = document.createElement("button");
     card.className = compact ? "world-star-card world-star-card--compact" : "world-star-card";
+    if (player.rating >= 95) card.classList.add("world-star-card--elite");
     card.type = "button";
     card.dataset.starId = player.id;
     card.style.setProperty("--accent", player.accent);
@@ -706,21 +712,27 @@
     }
     body.append(
       createElement("h3", compact ? "world-star-name world-star-name--compact" : "world-star-name", player.shortName),
-      createElement("p", "world-star-meta", `${player.flag} ${player.country} · ${player.position} · ${player.club}`),
+      createElement("p", "world-star-meta", `${player.flag} ${player.country}`),
     );
 
     const keyStat = createElement("div", "world-star-key-stat");
-    keyStat.append(
-      createElement("span", "", player.keyStat.label),
-      createElement("strong", "", player.keyStat.value),
-    );
-    body.append(keyStat, createElement("p", "world-star-cta", "Kliknij kartę, żeby zobaczyć profil"));
-    if (compact) {
-      body.append(createElement("p", "world-star-compact-note", "Wielki nieobecny"));
-    }
+    keyStat.append(createElement("strong", "", player.keyStat.value));
+    body.append(keyStat);
 
     card.append(top, imageWrap, body);
     card.addEventListener("click", () => openDialog(player));
+    card.addEventListener("pointerenter", () => setPageAccent(player));
+    card.addEventListener("pointermove", (event) => {
+      const rect = card.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      card.style.setProperty("--tilt-x", `${(-y * 7).toFixed(2)}deg`);
+      card.style.setProperty("--tilt-y", `${(x * 7).toFixed(2)}deg`);
+    });
+    card.addEventListener("pointerleave", () => {
+      card.style.removeProperty("--tilt-x");
+      card.style.removeProperty("--tilt-y");
+    });
     return card;
   }
 

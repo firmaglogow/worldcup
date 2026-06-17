@@ -1,12 +1,15 @@
 .world-stars-page {
+  --active-star-accent: #74c0fc;
+  --active-star-strong: #facc15;
   background:
     linear-gradient(180deg, rgba(7, 17, 31, 0.58), rgba(7, 17, 31, 0.96) 34rem),
-    radial-gradient(circle at 28% 18%, rgba(116, 192, 252, 0.24), transparent 20rem),
-    radial-gradient(circle at 78% 18%, rgba(251, 191, 36, 0.14), transparent 24rem),
+    radial-gradient(circle at 28% 18%, color-mix(in srgb, var(--active-star-accent) 24%, transparent), transparent 20rem),
+    radial-gradient(circle at 78% 18%, color-mix(in srgb, var(--active-star-strong) 16%, transparent), transparent 24rem),
     #07111f;
   color: #e5eef8;
   min-height: 100vh;
   overflow-x: hidden;
+  transition: background 0.35s ease;
 }
 
 .world-stars-topbar {
@@ -58,11 +61,11 @@
 }
 
 .world-stars-hero {
-  align-items: end;
+  align-items: start;
   display: grid;
-  min-height: clamp(27rem, 58vh, 42rem);
+  min-height: clamp(20rem, 38vh, 30rem);
   overflow: hidden;
-  padding: clamp(2rem, 6vw, 5rem) 0;
+  padding: clamp(1rem, 2.5vw, 2rem) 0 1rem;
   position: relative;
 }
 
@@ -72,12 +75,15 @@
     url("../assets/stadiums/metlife-stadium.webp") center / cover;
   content: "";
   inset: 0;
-  opacity: 0.48;
+  opacity: 0.52;
   position: absolute;
+  transform: scale(1.02);
+  animation: stadium-pulse 11s ease-in-out infinite alternate;
 }
 
 .world-stars-hero::after {
   background:
+    radial-gradient(circle at 62% 18%, color-mix(in srgb, var(--active-star-accent) 28%, transparent), transparent 18rem),
     repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 76px),
     linear-gradient(180deg, transparent, rgba(7, 17, 31, 0.96));
   content: "";
@@ -87,6 +93,7 @@
 
 .world-stars-hero-copy {
   margin: 0 auto;
+  padding-top: clamp(0.1rem, 1vw, 0.8rem);
   position: relative;
   width: min(1180px, calc(100% - 2rem));
   z-index: 2;
@@ -116,14 +123,6 @@
   font-size: clamp(1.15rem, 2.5vw, 2rem);
   font-weight: 900;
   margin-top: 1.25rem;
-}
-
-.world-stars-intro {
-  color: #cbd5e1;
-  font-size: 1rem;
-  line-height: 1.75;
-  margin-top: 1rem;
-  max-width: 45rem;
 }
 
 .world-stars-hero-lights {
@@ -161,34 +160,29 @@
 
 .world-stars-roster {
   margin: 0 auto;
-  padding: clamp(2rem, 5vw, 4rem) 0 5rem;
+  padding: clamp(0.8rem, 2vw, 1.8rem) 0 3.5rem;
   width: min(1180px, calc(100% - 2rem));
 }
 
 .world-stars-section-heading {
   display: grid;
-  gap: 0.65rem;
+  gap: 0;
   max-width: 48rem;
 }
 
 .world-stars-section-heading h2 {
   color: #f8fafc;
-  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-size: clamp(1.45rem, 3.4vw, 2.3rem);
   font-weight: 950;
   letter-spacing: 0;
   line-height: 1;
-}
-
-.world-stars-section-heading p:not(.world-stars-kicker) {
-  color: #94a3b8;
-  line-height: 1.7;
 }
 
 .world-stars-grid {
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 23rem));
-  margin-top: 2rem;
+  margin-top: 0.8rem;
 }
 
 .world-stars-grid--compact {
@@ -198,7 +192,10 @@
 .world-star-card {
   --accent: #74c0fc;
   --accent-strong: #f8fafc;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
   background:
+    radial-gradient(circle at 20% 12%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 18rem),
     linear-gradient(145deg, rgba(116, 192, 252, 0.2), transparent 42%),
     linear-gradient(160deg, rgba(15, 23, 42, 0.72), rgba(7, 17, 31, 0.96));
   border: 1px solid color-mix(in srgb, var(--accent) 58%, transparent);
@@ -224,7 +221,7 @@
 
 .world-star-card::before {
   background:
-    linear-gradient(135deg, transparent 18%, rgba(255, 255, 255, 0.16) 19%, transparent 20%),
+    linear-gradient(135deg, transparent 18%, rgba(255, 255, 255, 0.12) 19%, transparent 20%),
     radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.22), transparent 10rem);
   content: "";
   inset: 0;
@@ -234,7 +231,7 @@
 }
 
 .world-star-card::after {
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 1.05rem;
   content: "";
   inset: 0.55rem;
@@ -242,10 +239,45 @@
   position: absolute;
 }
 
+.world-star-card--elite::after {
+  border-color: color-mix(in srgb, var(--accent) 68%, white);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent),
+    inset 0 0 40px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.world-star-card--elite::before {
+  background:
+    linear-gradient(115deg, transparent 0 38%, rgba(255, 255, 255, 0.18) 48%, transparent 58%),
+    linear-gradient(135deg, transparent 18%, rgba(255, 255, 255, 0.12) 19%, transparent 20%),
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.22), transparent 10rem);
+  background-size: 220% 220%, auto, auto;
+  animation: elite-sheen 6s ease-in-out infinite;
+}
+
+.world-star-card--elite .world-star-image::before {
+  background:
+    radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--accent) 70%, transparent), transparent 52%),
+    radial-gradient(circle at 50% 82%, rgba(251, 191, 36, 0.16), transparent 62%),
+    linear-gradient(180deg, transparent 28%, rgba(7, 17, 31, 0.1) 60%, rgba(7, 17, 31, 0.84));
+  filter: blur(0.2px);
+}
+
+.world-star-card--elite .world-star-image::after {
+  opacity: 1;
+}
+
+.world-star-card--elite:hover {
+  box-shadow:
+    0 38px 100px rgba(2, 6, 23, 0.7),
+    0 0 55px color-mix(in srgb, var(--accent) 28%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
 .world-star-card:hover {
   border-color: color-mix(in srgb, var(--accent) 82%, white);
   box-shadow: 0 34px 90px rgba(2, 6, 23, 0.62), 0 0 42px color-mix(in srgb, var(--accent) 22%, transparent);
-  transform: translateY(-0.45rem) rotateX(2deg) rotateY(-2deg);
+  transform: translateY(-0.45rem) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) scale(1.015);
 }
 
 .world-star-card-top {
@@ -291,6 +323,7 @@
   margin: -1.1rem auto 0;
   position: relative;
   width: min(100%, 18rem);
+  z-index: 1;
 }
 
 .world-star-image--compact {
@@ -299,19 +332,40 @@
 }
 
 .world-star-image::before {
-  background: radial-gradient(circle at 50% 52%, color-mix(in srgb, var(--accent) 42%, transparent), transparent 58%);
+  background:
+    radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--accent) 54%, transparent), transparent 56%),
+    linear-gradient(180deg, transparent 28%, rgba(7, 17, 31, 0.1) 60%, rgba(7, 17, 31, 0.84));
   content: "";
-  inset: 10% 0 0;
+  inset: 3% -2% -4%;
+  opacity: 0.95;
+  position: absolute;
+}
+
+.world-star-image::after {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 28%),
+    radial-gradient(circle at 50% 84%, rgba(7, 17, 31, 0.22), transparent 58%);
+  content: "";
+  inset: 0;
+  mix-blend-mode: screen;
+  opacity: 0.85;
+  pointer-events: none;
   position: absolute;
 }
 
 .world-star-image img {
-  filter: drop-shadow(0 1.2rem 1.5rem rgba(2, 6, 23, 0.7));
+  filter: contrast(1.06) saturate(1.18) brightness(1.02) drop-shadow(0 1.2rem 1.5rem rgba(2, 6, 23, 0.7));
   height: 100%;
   object-fit: cover;
   object-position: 50% 14%;
   position: relative;
   width: 100%;
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.world-star-card:hover .world-star-image img {
+  transform: scale(1.05) translateY(-0.15rem);
+  filter: contrast(1.1) saturate(1.25) brightness(1.06) drop-shadow(0 1.4rem 1.8rem rgba(2, 6, 23, 0.74));
 }
 
 .world-star-placeholder {
@@ -384,14 +438,14 @@
 
 .world-star-card-body {
   display: grid;
-  gap: 0.7rem;
+  gap: 0.35rem;
   margin-top: 0.2rem;
   position: relative;
   z-index: 2;
 }
 
 .world-star-card-body--compact {
-  gap: 0.55rem;
+  gap: 0.4rem;
 }
 
 .world-star-name {
@@ -410,52 +464,26 @@
 
 .world-star-meta {
   color: #cbd5e1;
-  font-size: 0.85rem;
+  font-size: 0.76rem;
   font-weight: 800;
 }
 
 .world-star-key-stat {
-  align-items: end;
+  align-items: center;
   background: rgba(7, 17, 31, 0.62);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 1rem;
   display: flex;
-  justify-content: space-between;
-  margin-top: 0.45rem;
+  justify-content: center;
+  margin-top: 0.35rem;
   padding: 0.9rem;
-}
-
-.world-star-key-stat span {
-  color: #94a3b8;
-  font-size: 0.68rem;
-  font-weight: 950;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
 }
 
 .world-star-key-stat strong {
   color: var(--accent-strong);
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 950;
   line-height: 1;
-}
-
-.world-star-cta {
-  color: #bae6fd;
-  font-size: 0.75rem;
-  font-weight: 950;
-  letter-spacing: 0.08em;
-  margin-top: 0.2rem;
-  text-transform: uppercase;
-}
-
-.world-star-compact-note {
-  color: #facc15;
-  font-size: 0.7rem;
-  font-weight: 950;
-  letter-spacing: 0.12em;
-  margin-top: 0.1rem;
-  text-transform: uppercase;
 }
 
 .world-star-dialog {
@@ -519,9 +547,16 @@
   height: 100%;
   inset: 0;
   object-fit: cover;
-  object-position: 50% 14%;
+  object-position: 50% 10%;
+  filter: contrast(1.08) saturate(1.2) brightness(1.03);
   position: absolute;
   width: 100%;
+  transition: transform 0.45s ease, filter 0.45s ease;
+}
+
+.world-star-dialog-panel:hover .world-star-detail-media img {
+  transform: scale(1.03);
+  filter: contrast(1.12) saturate(1.26) brightness(1.05);
 }
 
 .world-star-detail-media .world-star-placeholder {
@@ -535,7 +570,9 @@
 }
 
 .world-star-detail-media::after {
-  background: linear-gradient(180deg, transparent 45%, rgba(7, 17, 31, 0.92));
+  background:
+    linear-gradient(180deg, rgba(7, 17, 31, 0.12), transparent 18%, transparent 56%, rgba(7, 17, 31, 0.96)),
+    radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.18), transparent 22rem);
   content: "";
   inset: 0;
   position: absolute;
@@ -659,6 +696,8 @@
 
   .world-stars-hero {
     min-height: 34rem;
+    align-items: end;
+    padding: clamp(2rem, 6vw, 5rem) 0;
   }
 
   .world-stars-hero h1 {
@@ -696,6 +735,32 @@
   }
 }
 
+@media (min-width: 761px) {
+  .world-stars-hero-copy {
+    padding-top: 0;
+  }
+
+  .world-stars-hero h1 {
+    margin-top: 0;
+  }
+
+  .world-stars-subtitle {
+    margin-top: 0.35rem;
+  }
+
+  .world-stars-roster {
+    padding-top: 0.35rem;
+  }
+
+  .world-stars-section-heading h2 {
+    margin-top: 0;
+  }
+
+  .world-stars-section-heading {
+    margin-bottom: -0.15rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .world-star-card {
     transition: none;
@@ -703,5 +768,21 @@
 
   .world-star-card:hover {
     transform: none;
+  }
+
+  .world-stars-hero::before {
+    animation: none;
+  }
+}
+
+@keyframes stadium-pulse {
+  from {
+    filter: saturate(1) brightness(0.98);
+    transform: scale(1.02);
+  }
+
+  to {
+    filter: saturate(1.18) brightness(1.06);
+    transform: scale(1.055);
   }
 }
