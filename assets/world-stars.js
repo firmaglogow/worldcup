@@ -77,6 +77,8 @@
       club: "Manchester City FC",
       age: 25,
       image: "../assets/players/norway/erling-haaland.jpg",
+      thumbnailImage: "../assets/players/norway/erling-haaland-thumbnail.jpg",
+      profileImage: "../assets/players/norway/erling-haaland.jpg",
       accent: "#ef4444",
       accentStrong: "#f8fafc",
       keyStat: {
@@ -108,6 +110,8 @@
       club: "Al Nassr FC",
       age: 41,
       image: "../assets/players/portugal/cristiano-ronaldo.jpg",
+      thumbnailImage: "../assets/players/portugal/cristiano-ronaldo-thumbnail.jpg",
+      profileImage: "../assets/players/portugal/cristiano-ronaldo.jpg",
       accent: "#22c55e",
       accentStrong: "#facc15",
       keyStat: {
@@ -170,6 +174,8 @@
       club: "Real Madrid C. F.",
       age: 25,
       image: "../assets/players/brazil/vinicius-junior.jpg",
+      thumbnailImage: "../assets/players/brazil/vinicius-junior-thumbnail.jpg",
+      profileImage: "../assets/players/brazil/vinicius-junior.jpg",
       accent: "#22c55e",
       accentStrong: "#facc15",
       keyStat: {
@@ -263,6 +269,8 @@
       club: "Real Madrid C. F.",
       age: 22,
       image: "../assets/players/england/jude-bellingham.jpg",
+      thumbnailImage: "../assets/players/england/jude-bellingham-thumbnail.jpg",
+      profileImage: "../assets/players/england/jude-bellingham.jpg",
       accent: "#60a5fa",
       accentStrong: "#f8fafc",
       keyStat: {
@@ -356,6 +364,8 @@
       club: "FC Bayern München",
       age: 32,
       image: "../assets/players/england/harry-kane.jpg",
+      thumbnailImage: "../assets/players/england/harry-kane-thumbnail.jpg",
+      profileImage: "../assets/players/england/harry-kane.jpg",
       accent: "#94a3b8",
       accentStrong: "#facc15",
       keyStat: {
