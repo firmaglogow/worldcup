@@ -709,6 +709,81 @@
       });
   }
 
+  function enhancePrimaryNavigationIcons() {
+    if (document.getElementById("site-modern-nav-icons")) return;
+
+    const style = document.createElement("style");
+    style.id = "site-modern-nav-icons";
+    style.textContent = `
+      button[data-nav-order] svg {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: content-box;
+        padding: 0.4rem;
+        border-radius: 9999px;
+        background:
+          radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.26), transparent 42%),
+          linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(7, 17, 31, 0.9));
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.16),
+          inset 0 -10px 18px rgba(56, 189, 248, 0.08),
+          0 10px 22px rgba(2, 6, 23, 0.36);
+        filter: drop-shadow(0 2px 2px rgba(2, 6, 23, 0.34));
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.18s ease,
+          border-color 0.18s ease,
+          background 0.18s ease;
+      }
+
+      button[data-nav-order]:hover svg {
+        transform: translateY(-1px) scale(1.05);
+        border-color: rgba(251, 191, 36, 0.34);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.2),
+          inset 0 -10px 18px rgba(251, 191, 36, 0.1),
+          0 14px 28px rgba(2, 6, 23, 0.42);
+      }
+
+      button[data-nav-order][class*="text-amber-300"] svg,
+      button[data-nav-order][class*="border-amber-400"] svg,
+      button[data-nav-order][class*="bg-amber-400"] svg {
+        background:
+          radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.34), transparent 40%),
+          linear-gradient(145deg, rgba(251, 191, 36, 0.98), rgba(180, 83, 9, 0.96));
+        border-color: rgba(251, 191, 36, 0.45);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.28),
+          inset 0 -12px 18px rgba(120, 53, 15, 0.14),
+          0 14px 30px rgba(245, 158, 11, 0.28);
+      }
+
+      .hidden.sm\\:flex button[data-nav-order] {
+        gap: 0.55rem;
+      }
+
+      .hidden.sm\\:flex button[data-nav-order] svg {
+        width: 1.15rem;
+        height: 1.15rem;
+        padding: 0.34rem;
+        margin-right: 0.05rem;
+      }
+
+      .sm\\:hidden button[data-nav-order] svg {
+        width: 1.75rem;
+        height: 1.75rem;
+        padding: 0.45rem;
+      }
+
+      button[data-nav-order] span {
+        text-shadow: 0 1px 0 rgba(2, 6, 23, 0.5);
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
   const upcomingMatchColors = [
     "#fbbf24",
     "#38bdf8",
@@ -966,172 +1041,6 @@
     return panel;
   }
 
-  function createHomeSpotlightCard({
-    label,
-    title,
-    detail,
-    href = null,
-    accent = "#6ee7b7",
-    score = null,
-    badge = "",
-  }) {
-    const card = href
-      ? document.createElement("a")
-      : document.createElement("article");
-    card.className = "home-spotlight-card";
-    card.style.setProperty("--home-spotlight-accent", accent);
-    if (href) card.href = href;
-
-    const topRow = document.createElement("div");
-    topRow.className = "home-spotlight-card-top";
-
-    const tag = document.createElement("span");
-    tag.className = "home-spotlight-card-label";
-    tag.textContent = label;
-
-    const chip = document.createElement("span");
-    chip.className = "home-spotlight-card-badge";
-    chip.textContent = badge;
-
-    topRow.append(tag);
-    if (badge) topRow.append(chip);
-
-    const headline = document.createElement("strong");
-    headline.className = "home-spotlight-card-title";
-    headline.textContent = title;
-
-    const description = document.createElement("p");
-    description.className = "home-spotlight-card-detail";
-    description.textContent = detail;
-
-    card.append(topRow, headline, description);
-
-    if (score) {
-      const result = document.createElement("div");
-      result.className = "home-spotlight-card-score";
-      result.textContent = score;
-      card.append(result);
-    }
-
-    return card;
-  }
-
-  function buildHomeSpotlight(matches) {
-    const todayMatches = allMatchesForToday();
-    const primaryMatches = todayMatches.length ? todayMatches : matches;
-    const todaySignature = todayMatches
-      .map(
-        ({ match, fixture }) =>
-          `${match.id}:${fixture?.status?.short || "NS"}:${fixture?.goals?.home ?? "-"}:${fixture?.goals?.away ?? "-"}`,
-      )
-      .join("|");
-    const signature = `${nearestMatchSignature(matches)}::${todaySignature}`;
-
-    const now = todayMatches.find(({ fixture }) =>
-      ["1H", "HT", "2H", "ET", "BT", "P", "LIVE"].includes(
-        fixture?.status?.short,
-      ),
-    );
-    const finishedToday = [...todayMatches]
-      .reverse()
-      .find(({ fixture }) => ["FT", "AET", "PEN"].includes(fixture?.status?.short));
-
-    const firstMatch = primaryMatches[0];
-    const secondMatch = primaryMatches[1] || firstMatch;
-    const upcomingRange = upcomingDateRange(primaryMatches);
-    const todayCount = todayMatches.length;
-
-    const cards = [
-      createHomeSpotlightCard({
-        label: todayCount ? "DZIŚ GRAJĄ" : "NAJBLIŻSZY START",
-        title: firstMatch
-          ? `${firstMatch.match.time} · ${firstMatch.match.homeFlag} ${firstMatch.match.homeName}`
-          : "Brak meczu",
-        detail: firstMatch
-          ? `${firstMatch.match.awayFlag} ${firstMatch.match.awayName} · ${firstMatch.match.stadium}`
-          : "Terminarz jest pusto",
-        href: firstMatch ? `match.html?id=${firstMatch.match.id}` : null,
-        badge: todayCount ? `${todayCount} mecze` : "pierwszy start",
-        accent: "#fbbf24",
-      }),
-      createHomeSpotlightCard({
-        label: todayCount ? "DZISIEJSZA KOLEJKA" : "NAJBLIŻSZY DZIEŃ",
-        title: todayCount ? `${todayCount} mecz${todayCount === 1 ? "" : "e"}` : upcomingRange,
-        detail: todayCount
-          ? `${todayMatches[0]?.match.time || "?"} - ${todayMatches[todayMatches.length - 1]?.match.time || "?"}`
-          : "Patrz na karty poniżej, tam są konkretne pary i godziny.",
-        badge: todayCount ? "na dziś" : "kolejny termin",
-        accent: "#6ee7b7",
-      }),
-      createHomeSpotlightCard({
-        label: now
-          ? "NA ŻYWO"
-          : finishedToday
-            ? "OSTATNI WYNIK"
-            : "NASTĘPNY HIT",
-        title: now
-          ? `${now.fixture?.goals?.home ?? 0}:${now.fixture?.goals?.away ?? 0}`
-          : finishedToday
-            ? `${finishedToday.fixture?.goals?.home ?? 0}:${finishedToday.fixture?.goals?.away ?? 0}`
-            : secondMatch
-              ? `${secondMatch.match.time} · ${secondMatch.match.homeName}`
-              : "Brak danych",
-        detail: now
-          ? `${now.match.homeName} - ${now.match.awayName}${now.fixture?.status?.elapsed ? ` · ${now.fixture.status.elapsed}'` : ""}`
-          : finishedToday
-            ? `${finishedToday.match.homeName} - ${finishedToday.match.awayName}`
-            : secondMatch
-              ? `${secondMatch.match.homeName} - ${secondMatch.match.awayName} · ${secondMatch.match.stadium}`
-              : "Wkrótce pokażemy tu kolejny ważny mecz.",
-        href:
-          now || finishedToday || secondMatch
-            ? `match.html?id=${(now || finishedToday || secondMatch).match.id}`
-            : null,
-        badge: now ? "wynik w czasie rzeczywistym" : "warto śledzić",
-        accent: "#34d399",
-        score:
-          now && Number.isInteger(now.fixture?.goals?.home) && Number.isInteger(now.fixture?.goals?.away)
-            ? `${now.fixture.goals.home}:${now.fixture.goals.away}`
-            : null,
-      }),
-    ];
-
-    const panel = document.createElement("section");
-    panel.className = "home-spotlight";
-    panel.dataset.homeSpotlight = signature;
-    panel.setAttribute("aria-label", "Najważniejsze wydarzenia dnia");
-
-    const header = document.createElement("header");
-    header.className = "home-spotlight-header";
-
-    const titleGroup = document.createElement("div");
-    const kicker = document.createElement("span");
-    kicker.className = "home-spotlight-kicker";
-    kicker.textContent = "DZISIAJ W CENTRUM";
-
-    const title = document.createElement("h2");
-    title.textContent = "Najbliższe mecze i wydarzenia dnia";
-
-    const summary = document.createElement("p");
-    summary.className = "home-spotlight-summary";
-    summary.textContent = todayCount
-      ? `Dziś zaplanowano ${todayCount} mecz${todayCount === 1 ? "" : "e"}.`
-      : `Najbliższy dzień meczowy: ${upcomingRange}.`;
-    titleGroup.append(kicker, title, summary);
-
-    const badge = document.createElement("strong");
-    badge.className = "home-spotlight-range";
-    badge.textContent = todayCount ? upcomingRange : "NAJBLIŻSZE TERMINY";
-    header.append(titleGroup, badge);
-
-    const grid = document.createElement("div");
-    grid.className = "home-spotlight-grid";
-    cards.forEach((card) => grid.append(card));
-
-    panel.append(header, grid);
-    return panel;
-  }
-
   function enhanceUpcomingMatches() {
     const countdown = [...document.querySelectorAll(".mb-6.rounded-2xl")].find(
       (element) =>
@@ -1154,9 +1063,6 @@
       document
         .querySelectorAll("[data-upcoming-matches]")
         .forEach((panel) => panel.remove());
-      document
-        .querySelectorAll("[data-home-spotlight]")
-        .forEach((panel) => panel.remove());
       return;
     }
 
@@ -1164,20 +1070,13 @@
     if (!matches.length) return;
 
     const signature = nearestMatchSignature(matches);
-    const currentSpotlight = countdown.querySelector("[data-home-spotlight]");
     const currentPanel = countdown.querySelector("[data-upcoming-matches]");
-    if (
-      currentSpotlight?.dataset.homeSpotlight === `${signature}::${allMatchesForToday()
-        .map(({ match, fixture }) => `${match.id}:${fixture?.status?.short || "NS"}:${fixture?.goals?.home ?? "-"}:${fixture?.goals?.away ?? "-"}`)
-        .join("|")}` &&
-      currentPanel?.dataset.upcomingMatches === signature
-    ) {
+    if (currentPanel?.dataset.upcomingMatches === signature) {
       return;
     }
 
-    currentSpotlight?.remove();
     currentPanel?.remove();
-    countdown.append(buildHomeSpotlight(matches), createUpcomingMatchesPanel(matches));
+    countdown.append(createUpcomingMatchesPanel(matches));
   }
 
   const matchBrowserFinishedStatuses = new Set(["FT", "AET", "PEN"]);
@@ -1889,7 +1788,9 @@
 
     const labelNode = [...button.querySelectorAll("span, div")].find(
       (node) =>
-        ["Grupa śmierci", "Śmierci"].includes(node.textContent.trim()),
+        ["Grupa śmierci", "Śmierci", "Gwiazdy Mundialu", "Gwiazdy"].includes(
+          node.textContent.trim(),
+        ),
     );
 
     if (labelNode) {
@@ -1908,10 +1809,10 @@
     );
 
     buttons.forEach((button) => {
-      replaceButtonText(button, "Gwiazdy Mundialu");
+      replaceButtonText(button, "Gwiazdy");
       button.dataset.worldStarsNav = "true";
-      button.setAttribute("aria-label", "Przejdź do sekcji Gwiazdy Mundialu");
-      button.setAttribute("title", "Gwiazdy Mundialu");
+      button.setAttribute("aria-label", "Przejdź do sekcji Gwiazdy");
+      button.setAttribute("title", "Gwiazdy");
 
       if (button.dataset.worldStarsBound === "true") return;
       button.dataset.worldStarsBound = "true";
@@ -2257,6 +2158,7 @@
     addDataSource();
     replaceHeaderTrophy();
     makeHeaderTrophyInteractive();
+    enhancePrimaryNavigationIcons();
     enhanceStadiumMap();
     enhancePlayerSquad();
     enhanceTeamBackButton();
