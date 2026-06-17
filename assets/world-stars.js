@@ -189,6 +189,68 @@
         "Warto go obserwować, bo łączy szybkość, drybling i dużą odporność na presję. Jeśli Brazylia ma wrócić na sam szczyt, jego rola będzie absolutnie centralna.",
     },
     {
+      id: "neymar-jr",
+      rating: 94,
+      name: "Neymar Jr",
+      shortName: "Neymar",
+      country: "Brazylia",
+      flag: "🇧🇷",
+      position: "Napastnik",
+      club: "Santos FC",
+      age: 34,
+      image: "../assets/players/brazil/neymar-jr.jpg",
+      accent: "#facc15",
+      accentStrong: "#22c55e",
+      keyStat: {
+        label: "Key stat",
+        value: "10",
+        detail: "numer magii, wolnych i kreatywności",
+      },
+      tournamentStats: {
+        goals: 0,
+        assists: 0,
+        minutes: 0,
+      },
+      formImpact: 91,
+      route:
+        "Neymar nadal pozostaje jednym z najbardziej rozpoznawalnych nazwisk brazylijskiego futbolu. Jego technika, improwizacja i doświadczenie dają Brazylii profil piłkarza, który potrafi rozkręcić mecz jednym ruchem.",
+      curiosity:
+        "To nazwisko samo w sobie przyciąga uwagę kibiców, mediów i sponsorów.",
+      whyWatch:
+        "Warto go obserwować, bo Neymar nadal ma w sobie kreatora, który potrafi odwrócić przebieg akcji. Nawet jeśli nie dominuje fizycznie, jego jakość przy piłce zawsze przyciąga wzrok.",
+    },
+    {
+      id: "raphinha",
+      rating: 92,
+      name: "Raphinha",
+      shortName: "Raphinha",
+      country: "Brazylia",
+      flag: "🇧🇷",
+      position: "Napastnik",
+      club: "FC Barcelona",
+      age: 29,
+      image: "../assets/players/brazil/raphinha.jpg",
+      accent: "#16a34a",
+      accentStrong: "#facc15",
+      keyStat: {
+        label: "Key stat",
+        value: "11",
+        detail: "numer skrzydła i stałego zagrożenia",
+      },
+      tournamentStats: {
+        goals: 0,
+        assists: 0,
+        minutes: 0,
+      },
+      formImpact: 93,
+      route:
+        "Raphinha wnosi do Brazylii intensywność, pressing i bardzo mocny element zaskoczenia z prawej strony. To zawodnik, który potrafi zrobić przewagę nie tylko dryblingiem, ale też pracą bez piłki.",
+      curiosity:
+        "Na poziomie wielkiego turnieju często wygrywa nie tylko technika, ale też intensywność - a to jest jego duży atut.",
+      whyWatch:
+        "Warto go obserwować, bo jest jednym z tych skrzydłowych, którzy potrafią zmienić tempo całego meczu. Przy dobrej formie może być dla Brazylii równie ważny jak bardziej oczywiste gwiazdy.",
+    },
+    {
       id: "jude-bellingham",
       rating: 95,
       name: "Jude Bellingham",
