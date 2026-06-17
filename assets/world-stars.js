@@ -33,6 +33,37 @@
       whyWatch:
         "Warto go obserwować, bo nawet gdy nie dominuje fizycznie, nadal widzi boisko szybciej niż większość rywali. Jeśli Argentyna będzie potrzebować jednego podania, wolnego albo karnego pod presją, oczy całego stadionu znów pójdą w jego stronę.",
     },
+    {
+      id: "kylian-mbappe",
+      rating: 96,
+      name: "Kylian Mbappé",
+      shortName: "Mbappé",
+      country: "Francja",
+      flag: "🇫🇷",
+      position: "Napastnik",
+      club: "Real Madrid C. F.",
+      age: 27,
+      image: "../assets/players/france/kylian-mbappe.jpg",
+      accent: "#60a5fa",
+      accentStrong: "#fef08a",
+      keyStat: {
+        label: "Key stat",
+        value: "10",
+        detail: "numer lidera i główna broń Francji",
+      },
+      tournamentStats: {
+        goals: "do uzupełnienia",
+        assists: "do uzupełnienia",
+        minutes: "do uzupełnienia",
+      },
+      formImpact: 96,
+      route:
+        "Mbappé przyjeżdża na Mundial jako zawodnik, który potrafi rozstrzygać mecze jednym sprintem, jednym zejściem do środka i jednym strzałem. To typ piłkarza, którego rywale muszą pilnować cały czas, bo zostawia mało miejsca na oddech.",
+      curiosity:
+        "Mbappé jest jednym z najmocniejszych symboli współczesnej reprezentacji Francji i od lat wnosi do niej natychmiastową groźbę pod bramką.",
+      whyWatch:
+        "Warto go obserwować, bo łączy szybkość, timing i pewność w polu karnym. Gdy Francja przyspiesza, Mbappé bywa tym momentem, po którym mecz zaczyna się naprawdę.",
+    },
   ];
 
   const positionLabels = {
