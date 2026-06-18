@@ -373,6 +373,10 @@
   padding: 0;
 }
 
+.world-star-card--mbappe-cinematic {
+  min-height: 28rem;
+}
+
 .world-star-card--hero::before,
 .world-star-card--hero::after {
   content: none;
@@ -602,6 +606,32 @@
   text-transform: uppercase;
 }
 
+.world-star-hero-rating-badge,
+.world-star-hero-name-badge {
+  background: rgba(7, 17, 31, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  color: #f8fafc;
+  font-weight: 950;
+  padding: 0.4rem 0.72rem;
+  position: absolute;
+  text-transform: uppercase;
+}
+
+.world-star-hero-rating-badge {
+  font-size: 1.05rem;
+  left: 0.7rem;
+  letter-spacing: 0.05em;
+  top: 0.7rem;
+}
+
+.world-star-hero-name-badge {
+  bottom: 0.7rem;
+  font-size: 0.82rem;
+  left: 0.7rem;
+  letter-spacing: 0.14em;
+}
+
 .world-star-hero-footer {
   align-items: end;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -612,6 +642,26 @@
   padding-top: 0.2rem;
   position: relative;
   z-index: 1;
+}
+
+.world-star-hero-footer--minimal {
+  border-top: 0;
+  bottom: 0.9rem;
+  left: 0.9rem;
+  position: absolute;
+  right: 0.9rem;
+}
+
+.world-star-hero-spotline {
+  background: rgba(7, 17, 31, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: #e2e8f0;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.55rem 0.8rem;
+  width: fit-content;
 }
 
 .world-star-hero-stat {

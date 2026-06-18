@@ -373,6 +373,10 @@
   padding: 0;
 }
 
+.world-star-card--mbappe-cinematic {
+  min-height: 28rem;
+}
+
 .world-star-card--hero::before,
 .world-star-card--hero::after {
   content: none;
@@ -419,135 +423,6 @@
   position: absolute;
 }
 
-.world-star-hero-copy {
-  display: grid;
-  gap: 0.8rem;
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  padding: 0.35rem 0.3rem 0.2rem;
-  position: relative;
-  z-index: 1;
-}
-
-.world-star-hero-kicker {
-  align-items: center;
-  background: linear-gradient(145deg, rgba(248, 250, 252, 0.96), rgba(203, 213, 225, 0.82));
-  border-radius: 999px;
-  color: #07111f;
-  display: inline-flex;
-  font-size: 0.62rem;
-  font-weight: 950;
-  letter-spacing: 0.22em;
-  padding: 0.38rem 0.7rem;
-  text-transform: uppercase;
-  width: fit-content;
-}
-
-.world-star-hero-rating {
-  align-items: end;
-  display: flex;
-  gap: 0.8rem;
-}
-
-.world-star-hero-rating strong {
-  color: #f8fafc;
-  font-size: clamp(4.6rem, 8vw, 7rem);
-  font-weight: 950;
-  letter-spacing: -0.06em;
-  line-height: 0.84;
-  text-shadow: 0 18px 48px rgba(2, 6, 23, 0.45);
-}
-
-.world-star-hero-rating span {
-  color: #fbbf24;
-  font-size: 0.68rem;
-  font-weight: 950;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-.world-star-hero-name {
-  color: #f8fafc;
-  font-size: clamp(3rem, 6vw, 5.3rem);
-  font-weight: 950;
-  letter-spacing: -0.05em;
-  line-height: 0.9;
-  text-transform: uppercase;
-}
-
-.world-star-hero-meta {
-  color: #cbd5e1;
-  font-size: 0.88rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-}
-
-.world-star-hero-line {
-  color: #e2e8f0;
-  font-size: clamp(1rem, 1.8vw, 1.18rem);
-  font-weight: 700;
-  line-height: 1.55;
-  max-width: 34rem;
-}
-
-.world-star-hero-story {
-  background: rgba(7, 17, 31, 0.48);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 1.1rem;
-  display: grid;
-  gap: 0.3rem;
-  padding: 0.9rem 1rem;
-  width: min(100%, 31rem);
-}
-
-.world-star-hero-story span {
-  color: #7dd3fc;
-  font-size: 0.7rem;
-  font-weight: 950;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.world-star-hero-story p {
-  color: #e2e8f0;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-.world-star-hero-chips {
-  display: grid;
-  gap: 0.65rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  max-width: 36rem;
-}
-
-.world-star-hero-chip {
-  background:
-    linear-gradient(150deg, rgba(15, 23, 42, 0.88), rgba(8, 15, 31, 0.92)),
-    radial-gradient(circle at 50% 18%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 55%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 1rem;
-  display: grid;
-  gap: 0.2rem;
-  min-height: 4.1rem;
-  padding: 0.7rem 0.8rem;
-}
-
-.world-star-hero-chip span {
-  color: #94a3b8;
-  font-size: 0.62rem;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.world-star-hero-chip strong {
-  color: #f8fafc;
-  font-size: 0.88rem;
-  font-weight: 900;
-  line-height: 1.1;
-}
-
 .world-star-hero-visual {
   align-items: stretch;
   display: grid;
@@ -587,19 +462,30 @@
   filter: contrast(1.1) saturate(1.28) brightness(1.04) drop-shadow(0 1.8rem 1.8rem rgba(2, 6, 23, 0.72));
 }
 
-.world-star-hero-badge {
+.world-star-hero-rating-badge,
+.world-star-hero-name-badge {
   background: rgba(7, 17, 31, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 999px;
-  bottom: 0.4rem;
   color: #f8fafc;
-  font-size: 0.66rem;
   font-weight: 950;
-  letter-spacing: 0.18em;
   padding: 0.4rem 0.72rem;
   position: absolute;
-  right: 0.4rem;
   text-transform: uppercase;
+}
+
+.world-star-hero-rating-badge {
+  font-size: 1.05rem;
+  left: 0.7rem;
+  letter-spacing: 0.05em;
+  top: 0.7rem;
+}
+
+.world-star-hero-name-badge {
+  bottom: 0.7rem;
+  font-size: 0.82rem;
+  left: 0.7rem;
+  letter-spacing: 0.14em;
 }
 
 .world-star-hero-footer {
@@ -614,34 +500,28 @@
   z-index: 1;
 }
 
-.world-star-hero-stat {
-  display: grid;
-  gap: 0.25rem;
-}
-
-.world-star-hero-stat strong {
-  color: var(--accent-strong);
-  font-size: clamp(3.6rem, 7vw, 5.4rem);
-  font-weight: 950;
-  line-height: 0.86;
-}
-
-.world-star-hero-stat span {
-  color: #cbd5e1;
-  font-size: 0.88rem;
-  font-weight: 700;
-  line-height: 1.45;
-  max-width: 24rem;
-}
-
-.world-star-hero-minis {
-  display: grid;
-  gap: 0.65rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
 .world-star-card--hero:hover {
   transform: translateY(-0.55rem) scale(1.008);
+}
+
+.world-star-hero-footer--minimal {
+  border-top: 0;
+  bottom: 0.9rem;
+  left: 0.9rem;
+  position: absolute;
+  right: 0.9rem;
+}
+
+.world-star-hero-spotline {
+  background: rgba(7, 17, 31, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: #e2e8f0;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.55rem 0.8rem;
+  width: fit-content;
 }
 
 .world-star-card-tag,
@@ -1169,16 +1049,6 @@
 
   .world-star-hero-visual {
     min-height: 22rem;
-  }
-
-  .world-star-hero-chips,
-  .world-star-hero-minis {
-    grid-template-columns: 1fr;
-    max-width: none;
-  }
-
-  .world-star-hero-footer {
-    grid-template-columns: 1fr;
   }
 
   .world-star-image {
