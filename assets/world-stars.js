@@ -452,6 +452,23 @@
     },
   ];
 
+  const frontCardStats = {
+    "lionel-messi": { PAC: 88, DRI: 95, SHO: 99 },
+    "kylian-mbappe": { PAC: 99, DRI: 98, SHO: 91 },
+    "erling-haaland": { PAC: 96, DRI: 90, SHO: 99 },
+    "cristiano-ronaldo": { PAC: 92, DRI: 93, SHO: 97 },
+    "lamine-yamal": { PAC: 92, DRI: 97, SHO: 90 },
+    "vinicius-junior": { PAC: 98, DRI: 96, SHO: 91 },
+    "neymar-jr": { PAC: 90, DRI: 97, SHO: 95 },
+    raphinha: { PAC: 93, DRI: 94, SHO: 89 },
+    "jude-bellingham": { PAC: 91, DRI: 95, SHO: 99 },
+    pedri: { PAC: 86, DRI: 98, SHO: 98 },
+    "jamal-musiala": { PAC: 90, DRI: 95, SHO: 97 },
+    "harry-kane": { PAC: 91, DRI: 95, SHO: 99 },
+    "mohamed-salah": { PAC: 93, DRI: 95, SHO: 94 },
+    "son-heung-min": { PAC: 92, DRI: 95, SHO: 95 },
+  };
+
   const sortedPlayers = [...players].sort((a, b) => b.rating - a.rating || a.name.localeCompare(b.name, "pl"));
 
   const positionLabels = {
@@ -477,6 +494,14 @@
   function setPageAccent(player) {
     document.body.style.setProperty("--active-star-accent", player?.accent || "#74c0fc");
     document.body.style.setProperty("--active-star-strong", player?.accentStrong || "#facc15");
+  }
+
+  function getFrontStats(player) {
+    return frontCardStats[player.id] || {
+      PAC: player.rating,
+      DRI: player.rating,
+      SHO: player.rating,
+    };
   }
 
   function animateCountUp(node, target, duration = 1100) {
@@ -589,10 +614,11 @@
     );
 
     const stats = createElement("div", "world-star-fifa-stats");
+    const frontStats = getFrontStats(player);
     const statList = [
-      ["PAC", "99"],
-      ["DRI", "98"],
-      ["SHO", "97"],
+      ["PAC", frontStats.PAC],
+      ["DRI", frontStats.DRI],
+      ["SHO", frontStats.SHO],
     ];
     statList.forEach(([label, value]) => {
       const stat = createElement("div", "world-star-fifa-stat");
