@@ -134,7 +134,7 @@
     },
     {
       id: "lamine-yamal",
-      rating: 93,
+      rating: 94,
       name: "Lamine Yamal",
       shortName: "Yamal",
       country: "Hiszpania",
@@ -457,7 +457,7 @@
     "kylian-mbappe": { PAC: 99, DRI: 98, SHO: 91 },
     "erling-haaland": { PAC: 96, DRI: 90, SHO: 99 },
     "cristiano-ronaldo": { PAC: 92, DRI: 93, SHO: 97 },
-    "lamine-yamal": { PAC: 92, DRI: 97, SHO: 90 },
+    "lamine-yamal": { PAC: 89, DRI: 98, SHO: 95 },
     "vinicius-junior": { PAC: 98, DRI: 96, SHO: 91 },
     "neymar-jr": { PAC: 90, DRI: 97, SHO: 95 },
     raphinha: { PAC: 93, DRI: 94, SHO: 89 },
