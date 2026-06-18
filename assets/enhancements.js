@@ -1237,6 +1237,10 @@
         .sort((first, second) => second.kickoff - first.kickoff);
     }
 
+    if (mode === "all") {
+      return items.sort((first, second) => first.kickoff - second.kickoff);
+    }
+
     return items
       .filter(({ fixture, kickoff }) => {
         const status = fixture?.status?.short;
@@ -1259,6 +1263,70 @@
           ? "Brak meczów dla wybranego dnia i filtrów."
         : "Brak nadchodzących meczów dla wybranych filtrów.";
     return empty;
+  }
+
+  function matchBrowserGroupRound(match) {
+    if (match.phase !== "group") return null;
+
+    const groupKey = match.group || match.round || "";
+    if (!groupKey) return null;
+
+    const groupMatches = (window.WC2026_MATCHES?.matches || [])
+      .filter(
+        (candidate) =>
+          candidate.phase === "group" &&
+          (candidate.group || candidate.round || "") === groupKey,
+      )
+      .slice()
+      .sort((first, second) => matchKickoff(first) - matchKickoff(second));
+
+    const index = groupMatches.findIndex(
+      (candidate) => Number(candidate.id) === Number(match.id),
+    );
+    if (index < 0) return null;
+
+    return Math.floor(index / 2) + 1;
+  }
+
+  function matchBrowserAllSections(items) {
+    const roundBuckets = new Map();
+    const otherBuckets = new Map();
+
+    items.forEach((item) => {
+      const roundNumber = matchBrowserGroupRound(item.match);
+      if (roundNumber) {
+        const key = `group-${roundNumber}`;
+        const bucket = roundBuckets.get(key) || {
+          kind: "group",
+          order: roundNumber,
+          label: `${roundNumber}. KOLEJKA`,
+          items: [],
+        };
+        bucket.items.push(item);
+        roundBuckets.set(key, bucket);
+        return;
+      }
+
+      const label = item.match.round || item.match.phase || "Inne mecze";
+      const key = `other-${label}`;
+      const bucket = otherBuckets.get(key) || {
+        kind: "other",
+        order: item.kickoff.getTime(),
+        label,
+        items: [],
+      };
+      bucket.items.push(item);
+      bucket.order = Math.min(bucket.order, item.kickoff.getTime());
+      otherBuckets.set(key, bucket);
+    });
+
+    return [
+      ...[1, 2, 3]
+        .map((roundNumber) => roundBuckets.get(`group-${roundNumber}`))
+        .filter(Boolean)
+        .sort((first, second) => first.order - second.order),
+      ...[...otherBuckets.values()].sort((first, second) => first.order - second.order),
+    ];
   }
 
   function createMatchBrowserList(mode) {
@@ -1292,23 +1360,24 @@
       return panel;
     }
 
-    const grouped = new Map();
-    items.forEach((item) => {
-      const group = grouped.get(item.match.date) || [];
-      group.push(item);
-      grouped.set(item.match.date, group);
-    });
+    const sections =
+      mode === "all"
+        ? matchBrowserAllSections(items)
+        : [...new Set(items.map((item) => item.match.date))].map((date) => ({
+            label: formatMatchBrowserDate(date).toUpperCase(),
+            items: items.filter((item) => item.match.date === date),
+          }));
 
-    grouped.forEach((matches, date) => {
+    sections.forEach((sectionData) => {
       const section = document.createElement("section");
       section.className = "match-browser-date-section";
 
       const heading = document.createElement("h3");
-      heading.textContent = formatMatchBrowserDate(date).toUpperCase();
+      heading.textContent = sectionData.label;
 
       const grid = document.createElement("div");
       grid.className = "match-browser-grid";
-      matches.forEach((item, index) => {
+      sectionData.items.forEach((item, index) => {
         const card = createUpcomingMatchCard(item, index);
         card.classList.add("match-browser-card");
         grid.append(card);
