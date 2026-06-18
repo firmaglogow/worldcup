@@ -46,6 +46,7 @@
       image: "../assets/players/france/kylian-mbappe.jpg",
       thumbnailImage: "../assets/players/france/kylian-mbappe-profile.jpg",
       profileImage: "../assets/players/france/kylian-mbappe.jpg",
+      cardStyle: "showcase",
       accent: "#60a5fa",
       accentStrong: "#fef08a",
       keyStat: {
@@ -725,7 +726,106 @@
     return placeholder;
   }
 
+  function createShowcaseChip(label, value) {
+    const chip = createElement("div", "world-star-hero-chip");
+    chip.append(createElement("span", "", label), createElement("strong", "", value));
+    return chip;
+  }
+
+  function createMbappeShowcaseCard(player) {
+    const card = document.createElement("button");
+    card.className = "world-star-card world-star-card--hero";
+    if (player.rating >= 95) card.classList.add("world-star-card--elite");
+    card.type = "button";
+    card.dataset.starId = player.id;
+    card.dataset.cardTone = "world-star-card--hero";
+    card.style.setProperty("--accent", player.accent);
+    card.style.setProperty("--accent-strong", player.accentStrong);
+    card.setAttribute("aria-label", `Otwórz profil: ${player.name}`);
+
+    const shell = createElement("div", "world-star-hero-card");
+    const copy = createElement("div", "world-star-hero-copy");
+    copy.append(
+      createElement("span", "world-star-hero-kicker", "Showcase edition"),
+      createElement("div", "world-star-hero-rating"),
+    );
+    const rating = copy.lastElementChild;
+    rating.append(
+      createElement("strong", "", String(player.rating)),
+      createElement("span", "", positionLabels[player.position] || player.position),
+    );
+    copy.append(
+      createElement("h3", "world-star-hero-name", player.shortName),
+      createElement("p", "world-star-hero-meta", `${player.flag} ${player.country} · ${player.club}`),
+      createElement(
+        "p",
+        "world-star-hero-line",
+        "Szybkość, timing i finalizacja. Mbappé to karta, która ma wyglądać jak moment, a nie tylko jak zawodnik.",
+      ),
+    );
+
+    const story = createElement("div", "world-star-hero-story");
+    story.append(
+      createElement("span", "", "Mundialowy przełom"),
+      createElement(
+        "p",
+        "",
+        "Jedno przyspieszenie potrafi zmienić układ całego meczu. To jest karta o dynamice, presji i błysku, który wchodzi na stadion bez pytania.",
+      ),
+    );
+
+    const chips = createElement("div", "world-star-hero-chips");
+    chips.append(
+      createShowcaseChip("Key stat", player.keyStat.value),
+      createShowcaseChip("Rola", "transition killer"),
+      createShowcaseChip("Wibracja", "100% chaos"),
+    );
+    copy.append(story, chips);
+
+    const visual = createElement("div", "world-star-hero-visual");
+    visual.append(
+      createElement("div", "world-star-hero-visual-orbit"),
+      createVisual(player, "world-star-image world-star-image--hero", "thumbnail"),
+      createElement("span", "world-star-hero-badge", `${player.flag} ${player.shortName}`),
+    );
+
+    const footer = createElement("div", "world-star-hero-footer");
+    const stat = createElement("div", "world-star-hero-stat");
+    stat.append(
+      createElement("strong", "", String(player.keyStat.value)),
+      createElement("span", "", player.keyStat.detail),
+    );
+    const minis = createElement("div", "world-star-hero-minis");
+    minis.append(
+      createShowcaseChip("Styl", "explosive"),
+      createShowcaseChip("Tempo", "elite"),
+      createShowcaseChip("Clutch", "top tier"),
+    );
+    footer.append(stat, minis);
+
+    shell.append(copy, visual, footer);
+    card.append(shell);
+    card.addEventListener("click", () => openDialog(player));
+    card.addEventListener("pointerenter", () => setPageAccent(player));
+    card.addEventListener("pointermove", (event) => {
+      const rect = card.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      card.style.setProperty("--tilt-x", `${(-y * 5).toFixed(2)}deg`);
+      card.style.setProperty("--tilt-y", `${(x * 5).toFixed(2)}deg`);
+    });
+    card.addEventListener("pointerleave", () => {
+      card.style.removeProperty("--tilt-x");
+      card.style.removeProperty("--tilt-y");
+    });
+    return card;
+  }
+
   function createCard(player, options = {}) {
+    if (player.cardStyle === "showcase") {
+      return createMbappeShowcaseCard(player);
+    }
+
     const compact = Boolean(options.compact);
     const card = document.createElement("button");
     card.className = compact ? "world-star-card world-star-card--compact" : "world-star-card";

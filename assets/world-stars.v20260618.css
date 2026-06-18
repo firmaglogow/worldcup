@@ -364,6 +364,286 @@
   color: #fde68a;
 }
 
+.world-star-card--hero {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  grid-column: 1 / -1;
+  min-height: 30rem;
+  padding: 0;
+}
+
+.world-star-card--hero::before,
+.world-star-card--hero::after {
+  content: none;
+}
+
+.world-star-hero-card {
+  background:
+    radial-gradient(circle at 16% 16%, rgba(96, 165, 250, 0.34), transparent 15rem),
+    radial-gradient(circle at 84% 10%, rgba(250, 204, 21, 0.22), transparent 11rem),
+    radial-gradient(circle at 70% 82%, rgba(14, 165, 233, 0.08), transparent 16rem),
+    linear-gradient(135deg, rgba(4, 10, 24, 0.98), rgba(8, 15, 31, 0.95));
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  border-radius: 1.7rem;
+  box-shadow:
+    0 38px 120px rgba(2, 6, 23, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 0 90px color-mix(in srgb, var(--accent) 22%, transparent);
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1.08fr) minmax(17rem, 0.92fr);
+  grid-template-rows: auto 1fr auto;
+  min-height: 100%;
+  overflow: hidden;
+  padding: 1.15rem;
+  position: relative;
+}
+
+.world-star-hero-card::before {
+  background:
+    linear-gradient(120deg, transparent 0 42%, rgba(255, 255, 255, 0.14) 49%, transparent 58%),
+    conic-gradient(from 210deg at 50% 50%, transparent 0 28%, rgba(255, 255, 255, 0.12) 34%, transparent 44%, rgba(255, 255, 255, 0.08) 56%, transparent 68%, rgba(255, 255, 255, 0.15) 76%, transparent 86%, transparent 100%);
+  content: "";
+  inset: 0;
+  opacity: 0.7;
+  position: absolute;
+}
+
+.world-star-hero-card::after {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 1.45rem;
+  content: "";
+  inset: 0.55rem;
+  pointer-events: none;
+  position: absolute;
+}
+
+.world-star-hero-copy {
+  display: grid;
+  gap: 0.8rem;
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  padding: 0.35rem 0.3rem 0.2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.world-star-hero-kicker {
+  align-items: center;
+  background: linear-gradient(145deg, rgba(248, 250, 252, 0.96), rgba(203, 213, 225, 0.82));
+  border-radius: 999px;
+  color: #07111f;
+  display: inline-flex;
+  font-size: 0.62rem;
+  font-weight: 950;
+  letter-spacing: 0.22em;
+  padding: 0.38rem 0.7rem;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.world-star-hero-rating {
+  align-items: end;
+  display: flex;
+  gap: 0.8rem;
+}
+
+.world-star-hero-rating strong {
+  color: #f8fafc;
+  font-size: clamp(4.6rem, 8vw, 7rem);
+  font-weight: 950;
+  letter-spacing: -0.06em;
+  line-height: 0.84;
+  text-shadow: 0 18px 48px rgba(2, 6, 23, 0.45);
+}
+
+.world-star-hero-rating span {
+  color: #fbbf24;
+  font-size: 0.68rem;
+  font-weight: 950;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.world-star-hero-name {
+  color: #f8fafc;
+  font-size: clamp(3rem, 6vw, 5.3rem);
+  font-weight: 950;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.world-star-hero-meta {
+  color: #cbd5e1;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.world-star-hero-line {
+  color: #e2e8f0;
+  font-size: clamp(1rem, 1.8vw, 1.18rem);
+  font-weight: 700;
+  line-height: 1.55;
+  max-width: 34rem;
+}
+
+.world-star-hero-story {
+  background: rgba(7, 17, 31, 0.48);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.1rem;
+  display: grid;
+  gap: 0.3rem;
+  padding: 0.9rem 1rem;
+  width: min(100%, 31rem);
+}
+
+.world-star-hero-story span {
+  color: #7dd3fc;
+  font-size: 0.7rem;
+  font-weight: 950;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.world-star-hero-story p {
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.world-star-hero-chips {
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 36rem;
+}
+
+.world-star-hero-chip {
+  background:
+    linear-gradient(150deg, rgba(15, 23, 42, 0.88), rgba(8, 15, 31, 0.92)),
+    radial-gradient(circle at 50% 18%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 55%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+  display: grid;
+  gap: 0.2rem;
+  min-height: 4.1rem;
+  padding: 0.7rem 0.8rem;
+}
+
+.world-star-hero-chip span {
+  color: #94a3b8;
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.world-star-hero-chip strong {
+  color: #f8fafc;
+  font-size: 0.88rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.world-star-hero-visual {
+  align-items: stretch;
+  display: grid;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  min-height: 27rem;
+  position: relative;
+}
+
+.world-star-hero-visual-orbit {
+  background:
+    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 58%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08), transparent 67%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  inset: 12% 10% 12%;
+  opacity: 0.8;
+  position: absolute;
+  animation: hero-orbit 18s linear infinite;
+}
+
+.world-star-card--hero .world-star-image {
+  height: 100%;
+  margin: 0;
+  width: 100%;
+}
+
+.world-star-card--hero .world-star-image::before {
+  background:
+    radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--accent) 68%, transparent), transparent 54%),
+    radial-gradient(circle at 50% 78%, rgba(250, 204, 21, 0.16), transparent 60%),
+    linear-gradient(180deg, transparent 20%, rgba(7, 17, 31, 0.08) 55%, rgba(7, 17, 31, 0.88));
+}
+
+.world-star-card--hero .world-star-image img {
+  object-position: 50% 10%;
+  filter: contrast(1.1) saturate(1.28) brightness(1.04) drop-shadow(0 1.8rem 1.8rem rgba(2, 6, 23, 0.72));
+}
+
+.world-star-hero-badge {
+  background: rgba(7, 17, 31, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  bottom: 0.4rem;
+  color: #f8fafc;
+  font-size: 0.66rem;
+  font-weight: 950;
+  letter-spacing: 0.18em;
+  padding: 0.4rem 0.72rem;
+  position: absolute;
+  right: 0.4rem;
+  text-transform: uppercase;
+}
+
+.world-star-hero-footer {
+  align-items: end;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: grid;
+  gap: 1rem;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(14rem, 0.72fr) minmax(0, 1.28fr);
+  padding-top: 0.2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.world-star-hero-stat {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.world-star-hero-stat strong {
+  color: var(--accent-strong);
+  font-size: clamp(3.6rem, 7vw, 5.4rem);
+  font-weight: 950;
+  line-height: 0.86;
+}
+
+.world-star-hero-stat span {
+  color: #cbd5e1;
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.45;
+  max-width: 24rem;
+}
+
+.world-star-hero-minis {
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.world-star-card--hero:hover {
+  transform: translateY(-0.55rem) scale(1.008);
+}
+
 .world-star-card-tag,
 .world-star-detail-badge {
   align-self: start;
@@ -869,6 +1149,38 @@
     min-height: 25rem;
   }
 
+  .world-star-card--hero {
+    min-height: 0;
+  }
+
+  .world-star-hero-card {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    min-height: 0;
+    padding: 1rem;
+  }
+
+  .world-star-hero-copy,
+  .world-star-hero-visual,
+  .world-star-hero-footer {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .world-star-hero-visual {
+    min-height: 22rem;
+  }
+
+  .world-star-hero-chips,
+  .world-star-hero-minis {
+    grid-template-columns: 1fr;
+    max-width: none;
+  }
+
+  .world-star-hero-footer {
+    grid-template-columns: 1fr;
+  }
+
   .world-star-image {
     height: 16.5rem;
   }
@@ -940,6 +1252,16 @@
   to {
     filter: saturate(1.18) brightness(1.06);
     transform: scale(1.055);
+  }
+}
+
+@keyframes hero-orbit {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }
 
