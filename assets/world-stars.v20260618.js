@@ -728,7 +728,7 @@
 
   function createMbappeShowcaseCard(player) {
     const card = document.createElement("button");
-    card.className = "world-star-card world-star-card--hero world-star-card--mbappe-cinematic";
+    card.className = "world-star-card world-star-card--hero world-star-card--mbappe-fifa";
     if (player.rating >= 95) card.classList.add("world-star-card--elite");
     card.type = "button";
     card.dataset.starId = player.id;
@@ -737,20 +737,47 @@
     card.style.setProperty("--accent-strong", player.accentStrong);
     card.setAttribute("aria-label", `Otwórz profil: ${player.name}`);
 
-    const visual = createElement("div", "world-star-hero-visual");
+    const frame = createElement("div", "world-star-fifa-card");
+    const top = createElement("div", "world-star-fifa-top");
+    top.append(
+      createElement("div", "world-star-fifa-rating", String(player.rating)),
+      createElement("div", "world-star-fifa-meta"),
+    );
+    top.lastElementChild.append(
+      createElement("span", "", player.flag),
+      createElement("span", "", player.country),
+      createElement("span", "", positionLabels[player.position] || player.position),
+    );
+
+    const visual = createElement("div", "world-star-fifa-visual");
     visual.append(
       createElement("div", "world-star-hero-visual-orbit"),
       createVisual(player, "world-star-image world-star-image--hero", "thumbnail"),
-      createElement("span", "world-star-hero-rating-badge", String(player.rating)),
-      createElement("span", "world-star-hero-name-badge", `${player.shortName}`),
+      createElement("span", "world-star-fifa-nameplate", player.shortName),
     );
 
-    const footer = createElement("div", "world-star-hero-footer world-star-hero-footer--minimal");
-    footer.append(
-      createElement("p", "world-star-hero-spotline", `${player.flag} ${player.country} · kliknij, by otworzyć profil`),
+    const footer = createElement("div", "world-star-fifa-footer");
+    const nameBlock = createElement("div", "world-star-fifa-name");
+    nameBlock.append(
+      createElement("p", "", player.shortName),
+      createElement("span", "", `${player.flag} ${player.country}`),
     );
 
-    card.append(visual, footer);
+    const stats = createElement("div", "world-star-fifa-stats");
+    const statList = [
+      ["PAC", "99"],
+      ["SHO", "97"],
+      ["DRI", "96"],
+    ];
+    statList.forEach(([label, value]) => {
+      const stat = createElement("div", "world-star-fifa-stat");
+      stat.append(createElement("strong", "", value), createElement("span", "", label));
+      stats.append(stat);
+    });
+
+    footer.append(nameBlock, stats);
+    frame.append(top, visual, footer);
+    card.append(frame);
     card.addEventListener("click", () => openDialog(player));
     card.addEventListener("pointerenter", () => setPageAccent(player));
     card.addEventListener("pointermove", (event) => {
