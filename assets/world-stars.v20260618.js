@@ -739,21 +739,24 @@
 
     const frame = createElement("div", "world-star-fifa-card");
     const top = createElement("div", "world-star-fifa-top");
-    top.append(
+    const ratingBlock = createElement("div", "world-star-fifa-rating-block");
+    ratingBlock.append(
       createElement("div", "world-star-fifa-rating", String(player.rating)),
-      createElement("div", "world-star-fifa-meta"),
+      createElement("span", "world-star-fifa-position", positionLabels[player.position] || player.position),
     );
-    top.lastElementChild.append(
+    const meta = createElement("div", "world-star-fifa-meta");
+    meta.append(
       createElement("span", "", player.flag),
       createElement("span", "", player.country),
-      createElement("span", "", positionLabels[player.position] || player.position),
+      createElement("span", "", player.position),
     );
+    top.append(ratingBlock, meta);
 
     const visual = createElement("div", "world-star-fifa-visual");
     visual.append(
       createElement("div", "world-star-hero-visual-orbit"),
+      createElement("div", "world-star-fifa-shine"),
       createVisual(player, "world-star-image world-star-image--hero", "thumbnail"),
-      createElement("span", "world-star-fifa-nameplate", player.shortName),
     );
 
     const footer = createElement("div", "world-star-fifa-footer");
@@ -766,8 +769,8 @@
     const stats = createElement("div", "world-star-fifa-stats");
     const statList = [
       ["PAC", "99"],
+      ["DRI", "98"],
       ["SHO", "97"],
-      ["DRI", "96"],
     ];
     statList.forEach(([label, value]) => {
       const stat = createElement("div", "world-star-fifa-stat");
