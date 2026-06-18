@@ -336,7 +336,7 @@
   min-height: 28rem;
 }
 
-.world-star-card--mbappe-fifa {
+.world-star-card--fifa {
   min-height: 31rem;
 }
 
@@ -610,18 +610,18 @@
   text-transform: uppercase;
 }
 
-.world-star-card--mbappe-fifa .world-star-image {
+.world-star-card--fifa .world-star-image {
   height: 100%;
   margin: 0;
   width: 100%;
 }
 
-.world-star-card--mbappe-fifa .world-star-image img {
+.world-star-card--fifa .world-star-image img {
   object-position: 50% 8%;
   filter: contrast(1.12) saturate(1.24) brightness(1.04) drop-shadow(0 1.7rem 1.8rem rgba(2, 6, 23, 0.74));
 }
 
-.world-star-card--mbappe-fifa .world-star-image::before {
+.world-star-card--fifa .world-star-image::before {
   background:
     radial-gradient(circle at 50% 28%, rgba(255, 255, 255, 0.14), transparent 44%),
     radial-gradient(circle at 50% 72%, rgba(251, 191, 36, 0.18), transparent 58%),

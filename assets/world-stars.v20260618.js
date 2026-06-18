@@ -46,7 +46,6 @@
       image: "../assets/players/france/kylian-mbappe.jpg",
       thumbnailImage: "../assets/players/france/kylian-mbappe-profile.jpg",
       profileImage: "../assets/players/france/kylian-mbappe.jpg",
-      cardStyle: "showcase",
       accent: "#60a5fa",
       accentStrong: "#fef08a",
       keyStat: {
@@ -480,11 +479,6 @@
     document.body.style.setProperty("--active-star-strong", player?.accentStrong || "#facc15");
   }
 
-  function featuredTone(player) {
-    if (player.id === "lionel-messi") return "world-star-card--spotlight";
-    return "";
-  }
-
   function detailTone(player) {
     if (player.id === "lionel-messi") return "world-star-detail--spotlight";
     return "";
@@ -564,9 +558,9 @@
     return placeholder;
   }
 
-  function createMbappeShowcaseCard(player) {
+  function createFifaCard(player) {
     const card = document.createElement("button");
-    card.className = "world-star-card world-star-card--hero world-star-card--mbappe-fifa";
+    card.className = "world-star-card world-star-card--hero world-star-card--fifa";
     if (player.rating >= 95) card.classList.add("world-star-card--elite");
     card.type = "button";
     card.dataset.starId = player.id;
@@ -636,67 +630,7 @@
   }
 
   function createCard(player, options = {}) {
-    if (player.cardStyle === "showcase") {
-      return createMbappeShowcaseCard(player);
-    }
-
-    const compact = Boolean(options.compact);
-    const card = document.createElement("button");
-    card.className = compact ? "world-star-card world-star-card--compact" : "world-star-card";
-    if (player.rating >= 95) card.classList.add("world-star-card--elite");
-    const specialTone = featuredTone(player);
-    if (specialTone) card.classList.add(specialTone);
-    card.type = "button";
-    card.dataset.starId = player.id;
-    if (specialTone) card.dataset.cardTone = specialTone;
-    card.style.setProperty("--accent", player.accent);
-    card.style.setProperty("--accent-strong", player.accentStrong);
-    card.setAttribute("aria-label", `Otwórz profil: ${player.name}`);
-
-    const top = createElement("div", "world-star-card-top");
-    const rating = createElement("div", "world-star-rating", String(player.rating));
-    rating.append(createElement("span", "", positionLabels[player.position] || player.position));
-    const flag = createElement("span", "world-star-flag", player.flag);
-    flag.setAttribute("aria-label", player.country);
-    top.append(rating, flag);
-
-    const imageWrap = createVisual(player, compact ? "world-star-image world-star-image--compact" : "world-star-image", "thumbnail");
-
-    const body = createElement("div", "world-star-card-body");
-    if (compact) {
-      body.classList.add("world-star-card-body--compact");
-    }
-
-    const tagText = featuredTag(player);
-    if (tagText) {
-      const tag = createElement("span", compact ? "world-star-card-tag world-star-card-tag--compact" : "world-star-card-tag", tagText);
-      body.append(tag);
-    }
-
-    body.append(
-      createElement("h3", compact ? "world-star-name world-star-name--compact" : "world-star-name", player.shortName),
-      createElement("p", "world-star-meta", `${player.flag} ${player.country}`),
-    );
-
-    const keyStat = createElement("div", "world-star-key-stat");
-    keyStat.append(createElement("strong", "", player.keyStat.value));
-    body.append(keyStat);
-
-    card.append(top, imageWrap, body);
-    card.addEventListener("click", () => openDialog(player));
-    card.addEventListener("pointerenter", () => setPageAccent(player));
-    card.addEventListener("pointermove", (event) => {
-      const rect = card.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
-      card.style.setProperty("--tilt-x", `${(-y * 7).toFixed(2)}deg`);
-      card.style.setProperty("--tilt-y", `${(x * 7).toFixed(2)}deg`);
-    });
-    card.addEventListener("pointerleave", () => {
-      card.style.removeProperty("--tilt-x");
-      card.style.removeProperty("--tilt-y");
-    });
-    return card;
+    return createFifaCard(player);
   }
 
   function renderDialogContent(player) {
