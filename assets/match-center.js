@@ -7,11 +7,11 @@
       .filter((fixture) => fixture.appMatchId)
       .map((fixture) => [fixture.appMatchId, fixture]),
   );
-  const groupMatches = schedule.matches.filter(
-    (match) => match.phase === "group",
-  );
   const matchById = new Map(
     schedule.matches.map((match) => [Number(match.id), match]),
+  );
+  const groupMatches = schedule.matches.filter(
+    (match) => match.phase === "group",
   );
   const teamNames = new Set(
     Object.values(schedule.teams).map((team) => team.name),
@@ -35,26 +35,77 @@
     "Lumen Field": "69 000",
   };
 
+  function kickoffForFixture(fixture) {
+    const match = fixture?.appMatchId
+      ? matchById.get(Number(fixture.appMatchId))
+      : null;
+    if (!match?.date || !match?.time) return null;
+    return new Date(`${match.date}T${match.time}:00+02:00`);
+  }
+
+  function scoreFromEvents(fixture) {
+    const totals = { home: 0, away: 0 };
+    const homeName = fixture?.teams?.home?.name || "";
+    const awayName = fixture?.teams?.away?.name || "";
+    (fixture?.events || []).forEach((event) => {
+      if (event.type !== "Goal") return;
+      if (event.team === homeName) totals.home += 1;
+      if (event.team === awayName) totals.away += 1;
+    });
+    return totals;
+  }
+
   function statusDetails(fixture) {
     if (!fixture) {
       return { label: "Centrum meczu", className: "is-scheduled" };
     }
 
     const status = fixture.status?.short;
+    const kickoff = kickoffForFixture(fixture);
+    const now = Date.now();
+    const kickoffWindow =
+      kickoff &&
+      now >= kickoff.getTime() &&
+      now <= kickoff.getTime() + 180 * 60 * 1000;
+    const elapsedFromKickoff = kickoffWindow
+      ? Math.max(1, Math.floor((now - kickoff.getTime()) / 60000))
+      : null;
+    const derivedLive =
+      !status || ["NS", "TBD"].includes(status) ? elapsedFromKickoff : null;
     if (["FT", "AET", "PEN"].includes(status)) {
       return { label: "", className: "is-finished" };
     }
     if (["1H", "HT", "2H", "ET", "BT", "P", "LIVE"].includes(status)) {
+      const eventScore = scoreFromEvents(fixture);
       const score =
         Number.isInteger(fixture.goals?.home) &&
         Number.isInteger(fixture.goals?.away)
           ? ` ${fixture.goals.home}:${fixture.goals.away}`
-          : "";
+          : Number.isInteger(eventScore.home) &&
+              Number.isInteger(eventScore.away)
+            ? ` ${eventScore.home}:${eventScore.away}`
+            : "";
       const elapsed = fixture.status?.elapsed
         ? ` · ${fixture.status.elapsed}'`
-        : "";
+        : elapsedFromKickoff
+          ? ` · ${elapsedFromKickoff}'`
+          : "";
       return {
         label: `NA ŻYWO${score}${elapsed}`,
+        className: "is-live",
+      };
+    }
+    if (derivedLive) {
+      const score = scoreFromEvents(fixture);
+      const labelScore =
+        Number.isInteger(fixture.goals?.home) &&
+        Number.isInteger(fixture.goals?.away)
+          ? ` ${fixture.goals.home}:${fixture.goals.away}`
+          : Number.isInteger(score.home) && Number.isInteger(score.away)
+            ? ` ${score.home}:${score.away}`
+            : "";
+      return {
+        label: `NA ŻYWO${labelScore} · ${elapsedFromKickoff}'`,
         className: "is-live",
       };
     }

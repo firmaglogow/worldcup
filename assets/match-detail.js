@@ -10,6 +10,43 @@
   );
   const finishedStatuses = new Set(["FT", "AET", "PEN"]);
   const liveStatuses = new Set(["1H", "HT", "2H", "ET", "BT", "P", "LIVE"]);
+  const kickoff = match
+    ? new Date(`${match.date}T${match.time || "12:00"}:00+02:00`)
+    : null;
+
+  function elapsedFromKickoff() {
+    if (!kickoff) return null;
+    const now = Date.now();
+    if (now < kickoff.getTime() || now > kickoff.getTime() + 180 * 60 * 1000) {
+      return null;
+    }
+    return Math.max(1, Math.floor((now - kickoff.getTime()) / 60000));
+  }
+
+  function scoreFromEvents() {
+    const totals = { home: 0, away: 0 };
+    const homeName = fixture?.teams?.home?.name || "";
+    const awayName = fixture?.teams?.away?.name || "";
+    (fixture?.events || []).forEach((event) => {
+      if (event.type !== "Goal") return;
+      if (event.team === homeName) totals.home += 1;
+      if (event.team === awayName) totals.away += 1;
+    });
+    return totals;
+  }
+
+  function halftimeFromEvents() {
+    const totals = { home: 0, away: 0 };
+    const homeName = fixture?.teams?.home?.name || "";
+    const awayName = fixture?.teams?.away?.name || "";
+    (fixture?.events || []).forEach((event) => {
+      if (event.type !== "Goal") return;
+      if (!Number.isInteger(event.elapsed) || event.elapsed > 45) return;
+      if (event.team === homeName) totals.home += 1;
+      if (event.team === awayName) totals.away += 1;
+    });
+    return totals;
+  }
 
   function escapeHtml(value) {
     return String(value ?? "")
@@ -53,6 +90,7 @@
 
   function statusLabel() {
     const short = fixture?.status?.short;
+    const elapsed = fixture?.status?.elapsed || elapsedFromKickoff();
     if (finishedStatuses.has(short)) {
       if (short === "PEN") return "Zakończony po rzutach karnych";
       if (short === "AET") return "Zakończony po dogrywce";
@@ -60,10 +98,9 @@
     }
     if (short === "HT") return "PRZERWA";
     if (liveStatuses.has(short)) {
-      return fixture.status.elapsed
-        ? `NA ŻYWO · ${fixture.status.elapsed}'`
-        : "NA ŻYWO";
+      return elapsed ? `NA ŻYWO · ${elapsed}'` : "NA ŻYWO";
     }
+    if (elapsed) return `NA ŻYWO · ${elapsed}'`;
     if (short && !["NS", "TBD"].includes(short)) {
       return fixture.status.long || "Aktualizacja terminu";
     }
@@ -258,7 +295,9 @@
   const hasScore =
     Number.isInteger(fixture?.goals?.home) &&
     Number.isInteger(fixture?.goals?.away);
-  const halftime = fixture?.score?.halftime;
+  const eventScore = scoreFromEvents();
+  const halftime = fixture?.score?.halftime ||
+    (fixture?.status?.short === "HT" ? halftimeFromEvents() : null);
 
   document.title = `${home.name} – ${away.name} | MŚ 2026`;
   setText("[data-match-round]", `${match.round} · mecz #${match.id}`);
@@ -273,7 +312,11 @@
   setText("[data-match-status]", status);
   setText(
     "[data-match-score]",
-    hasScore ? `${fixture.goals.home} : ${fixture.goals.away}` : "– : –",
+    hasScore
+      ? `${fixture.goals.home} : ${fixture.goals.away}`
+      : Number.isInteger(eventScore.home) && Number.isInteger(eventScore.away)
+        ? `${eventScore.home} : ${eventScore.away}`
+        : "– : –",
   );
   setText(
     "[data-match-halftime]",
@@ -295,7 +338,7 @@
   if (statusElement) {
     statusElement.classList.toggle(
       "is-live",
-      liveStatuses.has(fixture?.status?.short),
+      liveStatuses.has(fixture?.status?.short) || elapsedFromKickoff() != null,
     );
     statusElement.classList.toggle(
       "is-finished",
@@ -307,14 +350,13 @@
   renderStatistics(home, away);
   renderLineups(home, away);
 
-  const kickoff = new Date(
-    `${match.date}T${match.time || "12:00"}:00+02:00`,
-  ).getTime();
+  const kickoffTime = kickoff?.getTime();
   const now = Date.now();
   const refreshWindow =
     !finishedStatuses.has(fixture?.status?.short) &&
-    now >= kickoff - 10 * 60 * 1000 &&
-    now <= kickoff + 4 * 60 * 60 * 1000;
+    kickoffTime != null &&
+    now >= kickoffTime - 10 * 60 * 1000 &&
+    now <= kickoffTime + 4 * 60 * 60 * 1000;
   if (refreshWindow) {
     window.setTimeout(() => {
       const url = new URL(window.location.href);

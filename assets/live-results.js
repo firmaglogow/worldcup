@@ -32,6 +32,9 @@
   const schedule = window.WC2026_MATCHES;
   const matchCenter = window.WC2026_MATCH_CENTER;
   if (!schedule?.matches?.length || !matchCenter?.fixtures?.length) return;
+  const matchesById = new Map(
+    schedule.matches.map((match) => [Number(match.id), match]),
+  );
 
   function normalize(value) {
     return String(value || "")
@@ -89,7 +92,13 @@
     return Number.isInteger(result) ? result : null;
   }
 
-  function statusFor(game) {
+  function kickoffForGame(game, appMatchId) {
+    const match = matchesById.get(Number(appMatchId));
+    if (!match?.date || !match?.time) return null;
+    return new Date(`${match.date}T${match.time}:00+02:00`);
+  }
+
+  function statusFor(game, appMatchId) {
     const finished =
       game.finished === true ||
       String(game.finished || "").toLowerCase() === "true";
@@ -98,10 +107,27 @@
     }
 
     const elapsedText = String(game.time_elapsed || "").toLowerCase();
+    const kickoff = kickoffForGame(game, appMatchId);
+    const now = Date.now();
+    const kickoffWindow =
+      kickoff &&
+      now >= kickoff.getTime() &&
+      now <= kickoff.getTime() + 180 * 60 * 1000;
+    const kickoffElapsed = kickoffWindow
+      ? Math.max(1, Math.floor((now - kickoff.getTime()) / 60000))
+      : null;
+
     if (
       !elapsedText ||
       ["notstarted", "not-started", "scheduled"].includes(elapsedText)
     ) {
+      if (kickoffElapsed != null) {
+        return {
+          short: "LIVE",
+          long: "Mecz trwa",
+          elapsed: kickoffElapsed,
+        };
+      }
       return { short: "NS", long: "Mecz zaplanowany", elapsed: null };
     }
     if (elapsedText.includes("half")) {
@@ -115,11 +141,39 @@
     }
 
     const elapsed = Number.parseInt(elapsedText, 10);
+    if (!Number.isInteger(elapsed) && kickoffElapsed != null) {
+      return { short: "LIVE", long: "Mecz trwa", elapsed: kickoffElapsed };
+    }
     return {
       short: "LIVE",
       long: "Mecz trwa",
-      elapsed: Number.isInteger(elapsed) ? elapsed : null,
+      elapsed: Number.isInteger(elapsed) ? elapsed : kickoffElapsed,
     };
+  }
+
+  function goalTotalsFromEvents(events, game) {
+    const homeName = game.home_team_name_en || "";
+    const awayName = game.away_team_name_en || "";
+    const totals = { home: 0, away: 0 };
+    (events || []).forEach((event) => {
+      if (event.type !== "Goal") return;
+      if (event.team === homeName) totals.home += 1;
+      if (event.team === awayName) totals.away += 1;
+    });
+    return totals;
+  }
+
+  function halftimeFromEvents(events, game) {
+    const homeName = game.home_team_name_en || "";
+    const awayName = game.away_team_name_en || "";
+    const totals = { home: 0, away: 0 };
+    (events || []).forEach((event) => {
+      if (event.type !== "Goal") return;
+      if (!Number.isInteger(event.elapsed) || event.elapsed > 45) return;
+      if (event.team === homeName) totals.home += 1;
+      if (event.team === awayName) totals.away += 1;
+    });
+    return totals;
   }
 
   function scorerItems(value) {
@@ -176,7 +230,7 @@
     const existing = fixturesById.get(Number(appMatch.id));
     if (!existing) return null;
 
-    const status = statusFor(game);
+    const status = statusFor(game, appMatch.id);
     if (
       FINISHED.has(existing.status?.short) &&
       FINISHED.has(status.short)
@@ -184,16 +238,39 @@
       return null;
     }
 
-    const homeGoals = integerOrNull(game.home_score);
-    const awayGoals = integerOrNull(game.away_score);
+    const events = eventsFor(game);
+    const inferredGoals = goalTotalsFromEvents(events, game);
+    const sourceHomeGoals = integerOrNull(game.home_score);
+    const sourceAwayGoals = integerOrNull(game.away_score);
+    const homeGoals = Number.isInteger(sourceHomeGoals)
+      ? sourceHomeGoals
+      : status.short === "NS"
+        ? null
+        : inferredGoals.home;
+    const awayGoals = Number.isInteger(sourceAwayGoals)
+      ? sourceAwayGoals
+      : status.short === "NS"
+        ? null
+        : inferredGoals.away;
     const hasScore =
       status.short !== "NS" &&
       Number.isInteger(homeGoals) &&
       Number.isInteger(awayGoals);
-    const events = eventsFor(game);
+    const halftimeScore = halftimeFromEvents(events, game);
     const halftime =
       status.short === "HT" && hasScore
-        ? { home: homeGoals, away: awayGoals }
+        ? {
+            home:
+              Number.isInteger(sourceHomeGoals) ||
+              Number.isInteger(sourceAwayGoals)
+                ? homeGoals
+                : halftimeScore.home,
+            away:
+              Number.isInteger(sourceHomeGoals) ||
+              Number.isInteger(sourceAwayGoals)
+                ? awayGoals
+                : halftimeScore.away,
+          }
         : existing.score?.halftime || { home: null, away: null };
 
     return {
@@ -371,10 +448,14 @@
     window.setTimeout(() => window.location.reload(), 50);
   });
 
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && shouldRefreshNow()) refresh();
+  });
+
   if (shouldRefreshNow()) {
     refresh();
     window.setInterval(() => {
       if (!document.hidden && shouldRefreshNow()) refresh();
-    }, 60 * 1000);
+    }, 30 * 1000);
   }
 })();

@@ -812,6 +812,27 @@
     return new Date(`${match.date}T${match.time}:00+02:00`);
   }
 
+  function kickoffElapsed(match) {
+    const kickoff = matchKickoff(match);
+    const now = Date.now();
+    if (now < kickoff.getTime() || now > kickoff.getTime() + 180 * 60 * 1000) {
+      return null;
+    }
+    return Math.max(1, Math.floor((now - kickoff.getTime()) / 60000));
+  }
+
+  function scoreFromEvents(fixture) {
+    const totals = { home: 0, away: 0 };
+    const homeName = fixture?.teams?.home?.name || "";
+    const awayName = fixture?.teams?.away?.name || "";
+    (fixture?.events || []).forEach((event) => {
+      if (event.type !== "Goal") return;
+      if (event.team === homeName) totals.home += 1;
+      if (event.team === awayName) totals.away += 1;
+    });
+    return totals;
+  }
+
   function nearestMatches() {
     const matches = window.WC2026_MATCHES?.matches || [];
     const fixtures = new Map(
@@ -896,6 +917,7 @@
 
   function upcomingMatchStatus(fixture, match) {
     const status = fixture?.status?.short;
+    const liveElapsed = kickoffElapsed(match);
     if (["FT", "AET", "PEN"].includes(status)) {
       const hasScore =
         Number.isInteger(fixture.goals?.home) &&
@@ -915,16 +937,37 @@
       };
     }
     if (["1H", "HT", "2H", "ET", "BT", "P", "LIVE"].includes(status)) {
+      const eventScore = scoreFromEvents(fixture);
       const hasScore =
         Number.isInteger(fixture.goals?.home) &&
         Number.isInteger(fixture.goals?.away);
       return {
         main: hasScore
           ? `${fixture.goals.home}:${fixture.goals.away}`
-          : "NA ŻYWO",
+          : Number.isInteger(eventScore.home) && Number.isInteger(eventScore.away)
+            ? `${eventScore.home}:${eventScore.away}`
+            : "NA ŻYWO",
         detail: fixture.status?.elapsed
           ? `NA ŻYWO · ${fixture.status.elapsed}'`
-          : "NA ŻYWO",
+          : liveElapsed
+            ? `NA ŻYWO · ${liveElapsed}'`
+            : "NA ŻYWO",
+        live: true,
+        finished: false,
+      };
+    }
+    if (liveElapsed) {
+      const eventScore = scoreFromEvents(fixture);
+      const hasScore =
+        Number.isInteger(fixture.goals?.home) &&
+        Number.isInteger(fixture.goals?.away);
+      return {
+        main: hasScore
+          ? `${fixture.goals.home}:${fixture.goals.away}`
+          : Number.isInteger(eventScore.home) && Number.isInteger(eventScore.away)
+            ? `${eventScore.home}:${eventScore.away}`
+            : "NA ŻYWO",
+        detail: `NA ŻYWO · ${liveElapsed}'`,
         live: true,
         finished: false,
       };
