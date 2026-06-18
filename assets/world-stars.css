@@ -274,6 +274,126 @@
     0 0 0 1px color-mix(in srgb, var(--accent) 20%, transparent);
 }
 
+.world-star-card--spotlight {
+  box-shadow:
+    0 40px 110px rgba(2, 6, 23, 0.66),
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 0 80px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.world-star-card--spotlight::before {
+  background:
+    conic-gradient(from 210deg at 50% 50%, transparent 0 18%, rgba(255, 255, 255, 0.18) 24%, transparent 32%, rgba(255, 255, 255, 0.12) 38%, transparent 50%, rgba(255, 255, 255, 0.2) 58%, transparent 68%, rgba(255, 255, 255, 0.08) 78%, transparent 100%),
+    radial-gradient(circle at 16% 18%, color-mix(in srgb, var(--accent) 42%, transparent), transparent 11rem),
+    radial-gradient(circle at 82% 14%, color-mix(in srgb, var(--accent-strong) 26%, transparent), transparent 10rem);
+  opacity: 1;
+}
+
+.world-star-card--spotlight::after {
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--accent) 26%, transparent),
+    inset 0 0 55px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.world-star-card--spotlight .world-star-image::before {
+  background:
+    radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--accent) 72%, transparent), transparent 50%),
+    radial-gradient(circle at 50% 78%, color-mix(in srgb, var(--accent-strong) 24%, transparent), transparent 64%),
+    linear-gradient(180deg, transparent 20%, rgba(7, 17, 31, 0.08) 55%, rgba(7, 17, 31, 0.9));
+}
+
+.world-star-card--spotlight .world-star-rating {
+  text-shadow:
+    0 0 12px rgba(255, 255, 255, 0.18),
+    0 14px 28px rgba(2, 6, 23, 0.45);
+}
+
+.world-star-card--spotlight .world-star-key-stat {
+  background:
+    linear-gradient(145deg, rgba(8, 18, 34, 0.9), rgba(15, 23, 42, 0.78)),
+    radial-gradient(circle at 50% 20%, color-mix(in srgb, var(--accent) 38%, transparent), transparent 50%);
+  border-color: color-mix(in srgb, var(--accent) 54%, transparent);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent),
+    0 0 24px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.world-star-card--spotlight .world-star-key-stat strong {
+  animation: card-key-pulse 2.6s ease-in-out infinite;
+}
+
+.world-star-card--absent-featured {
+  background:
+    radial-gradient(circle at 16% 10%, rgba(248, 113, 113, 0.2), transparent 14rem),
+    radial-gradient(circle at 78% 12%, rgba(251, 191, 36, 0.08), transparent 12rem),
+    linear-gradient(160deg, rgba(8, 15, 28, 0.94), rgba(3, 7, 18, 0.98));
+  border-color: color-mix(in srgb, var(--accent) 52%, transparent);
+  box-shadow:
+    0 24px 70px rgba(2, 6, 23, 0.55),
+    0 0 0 1px rgba(248, 113, 113, 0.08),
+    0 0 60px rgba(248, 113, 113, 0.12);
+}
+
+.world-star-card--absent-featured::before {
+  background:
+    linear-gradient(125deg, rgba(248, 113, 113, 0.16), transparent 28%, transparent 72%, rgba(251, 191, 36, 0.08)),
+    radial-gradient(circle at 20% 20%, rgba(248, 113, 113, 0.22), transparent 10rem),
+    radial-gradient(circle at 80% 8%, rgba(148, 163, 184, 0.16), transparent 12rem);
+  opacity: 1;
+}
+
+.world-star-card--absent-featured::after {
+  border-color: rgba(248, 113, 113, 0.18);
+}
+
+.world-star-card--absent-featured .world-star-image::before {
+  background:
+    radial-gradient(circle at 50% 36%, color-mix(in srgb, var(--accent) 58%, transparent), transparent 50%),
+    linear-gradient(180deg, transparent 16%, rgba(2, 6, 23, 0.08) 56%, rgba(2, 6, 23, 0.92));
+}
+
+.world-star-card--absent-featured .world-star-key-stat {
+  background:
+    linear-gradient(145deg, rgba(30, 41, 59, 0.86), rgba(15, 23, 42, 0.92)),
+    radial-gradient(circle at 50% 22%, rgba(248, 113, 113, 0.18), transparent 55%);
+  border-color: rgba(248, 113, 113, 0.26);
+}
+
+.world-star-card--absent-featured .world-star-key-stat strong {
+  color: #fde68a;
+}
+
+.world-star-card-tag,
+.world-star-detail-badge {
+  align-self: start;
+  border-radius: 999px;
+  color: #07111f;
+  display: inline-flex;
+  font-size: 0.62rem;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  padding: 0.35rem 0.65rem;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.world-star-card-tag {
+  background: linear-gradient(145deg, #f8fafc, #cbd5e1);
+  box-shadow: 0 10px 20px rgba(2, 6, 23, 0.18);
+}
+
+.world-star-card-tag--compact {
+  font-size: 0.56rem;
+  padding: 0.3rem 0.55rem;
+}
+
+.world-star-detail-badge {
+  background: linear-gradient(145deg, #fde68a, #fbbf24);
+  box-shadow: 0 16px 36px rgba(251, 191, 36, 0.22);
+  margin-bottom: -0.1rem;
+}
+
 .world-star-card:hover {
   border-color: color-mix(in srgb, var(--accent) 82%, white);
   box-shadow: 0 34px 90px rgba(2, 6, 23, 0.62), 0 0 42px color-mix(in srgb, var(--accent) 22%, transparent);
@@ -584,6 +704,40 @@
   padding: clamp(1.5rem, 4vw, 2.4rem);
 }
 
+.world-star-detail--spotlight .world-star-detail-content {
+  background:
+    radial-gradient(circle at 100% 0, rgba(251, 191, 36, 0.08), transparent 18rem),
+    radial-gradient(circle at 0 0, rgba(125, 211, 252, 0.12), transparent 15rem);
+}
+
+.world-star-detail--spotlight .world-star-detail-title h2 {
+  text-shadow: 0 14px 36px rgba(2, 6, 23, 0.5);
+}
+
+.world-star-detail--spotlight .world-star-impact-track {
+  box-shadow: inset 0 0 0 1px rgba(251, 191, 36, 0.06);
+}
+
+.world-star-detail--spotlight .world-star-impact-fill {
+  background: linear-gradient(90deg, #7dd3fc, #f8fafc, #facc15, #f8fafc);
+  background-size: 200% 100%;
+  animation: impact-shimmer 3.8s linear infinite;
+}
+
+.world-star-detail--absent-featured .world-star-detail-content {
+  background:
+    radial-gradient(circle at 100% 0, rgba(248, 113, 113, 0.08), transparent 18rem),
+    radial-gradient(circle at 0 100%, rgba(148, 163, 184, 0.1), transparent 15rem);
+}
+
+.world-star-detail--absent-featured .world-star-detail-title p {
+  color: #fda4af;
+}
+
+.world-star-detail--absent-featured .world-star-impact-fill {
+  background: linear-gradient(90deg, #fca5a5, #fde68a, #f87171);
+}
+
 .world-star-detail-title {
   padding-right: 3rem;
 }
@@ -686,6 +840,8 @@
   border-radius: inherit;
   display: block;
   height: 100%;
+  transition: width 1.15s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 0;
 }
 
 @media (max-width: 760px) {
@@ -784,5 +940,28 @@
   to {
     filter: saturate(1.18) brightness(1.06);
     transform: scale(1.055);
+  }
+}
+
+@keyframes card-key-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
+
+  50% {
+    transform: scale(1.03);
+    text-shadow: 0 0 18px rgba(255, 255, 255, 0.16);
+  }
+}
+
+@keyframes impact-shimmer {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 200% 0;
   }
 }

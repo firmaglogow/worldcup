@@ -638,6 +638,45 @@
     document.body.style.setProperty("--active-star-strong", player?.accentStrong || "#facc15");
   }
 
+  function featuredTone(player) {
+    if (player.id === "lionel-messi") return "world-star-card--spotlight";
+    if (player.id === "robert-lewandowski") return "world-star-card--absent-featured";
+    return "";
+  }
+
+  function detailTone(player) {
+    if (player.id === "lionel-messi") return "world-star-detail--spotlight";
+    if (player.id === "robert-lewandowski") return "world-star-detail--absent-featured";
+    return "";
+  }
+
+  function featuredTag(player) {
+    if (player.id === "lionel-messi") return "Legenda i luksus";
+    if (player.id === "robert-lewandowski") return "Najmocniejszy brak";
+    return "";
+  }
+
+  function animateCountUp(node, target, duration = 1100) {
+    const safeTarget = Number(target);
+    if (!Number.isFinite(safeTarget)) {
+      node.textContent = String(target);
+      return;
+    }
+
+    const start = performance.now();
+    const startValue = 0;
+    const easeOutCubic = (value) => 1 - Math.pow(1 - value, 3);
+
+    const tick = (now) => {
+      const progress = Math.min(1, (now - start) / duration);
+      const current = Math.round(startValue + (safeTarget - startValue) * easeOutCubic(progress));
+      node.textContent = String(current);
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+
+    requestAnimationFrame(tick);
+  }
+
   function getPlayerImage(player, variant) {
     if (variant === "profile") {
       return player.profileImage || player.thumbnailImage || player.image || null;
@@ -691,8 +730,11 @@
     const card = document.createElement("button");
     card.className = compact ? "world-star-card world-star-card--compact" : "world-star-card";
     if (player.rating >= 95) card.classList.add("world-star-card--elite");
+    const specialTone = featuredTone(player);
+    if (specialTone) card.classList.add(specialTone);
     card.type = "button";
     card.dataset.starId = player.id;
+    if (specialTone) card.dataset.cardTone = specialTone;
     card.style.setProperty("--accent", player.accent);
     card.style.setProperty("--accent-strong", player.accentStrong);
     card.setAttribute("aria-label", `Otwórz profil: ${player.name}`);
@@ -710,6 +752,13 @@
     if (compact) {
       body.classList.add("world-star-card-body--compact");
     }
+
+    const tagText = featuredTag(player);
+    if (tagText) {
+      const tag = createElement("span", compact ? "world-star-card-tag world-star-card-tag--compact" : "world-star-card-tag", tagText);
+      body.append(tag);
+    }
+
     body.append(
       createElement("h3", compact ? "world-star-name world-star-name--compact" : "world-star-name", player.shortName),
       createElement("p", "world-star-meta", `${player.flag} ${player.country}`),
@@ -763,11 +812,18 @@
     route.append(createElement("h3", "", "Droga na Mundial"), createElement("p", "", player.route));
 
     const stats = createElement("div", "world-star-stats");
-    stats.append(
+    const statItems = [
       fact("Gole", String(player.tournamentStats.goals), "world-star-stat"),
       fact("Asysty", String(player.tournamentStats.assists), "world-star-stat"),
       fact("Minuty", String(player.tournamentStats.minutes), "world-star-stat"),
-    );
+    ];
+    stats.append(...statItems);
+
+    const animatingStats = statItems.map((item) => {
+      const valueNode = item.querySelector("strong");
+      const numeric = Number(valueNode?.textContent);
+      return Number.isFinite(numeric) ? { node: valueNode, value: numeric } : null;
+    }).filter(Boolean);
 
     const impact = createElement("section", "world-star-impact");
     const impactTop = createElement("div", "world-star-impact-top");
@@ -777,7 +833,7 @@
     );
     const impactTrack = createElement("div", "world-star-impact-track");
     const impactFill = createElement("span", "world-star-impact-fill");
-    impactFill.style.width = `${player.formImpact}%`;
+    impactFill.style.width = "0%";
     impactTrack.append(impactFill);
     impact.append(impactTop, impactTrack);
 
@@ -790,8 +846,21 @@
       createElement("p", "", player.whyWatch),
     );
 
+    const specialTone = detailTone(player);
+    if (specialTone) {
+      content.classList.add(specialTone);
+      const heroTag = createElement("span", "world-star-detail-badge", featuredTag(player));
+      details.prepend(heroTag);
+    }
+
     details.append(title, facts, route, stats, impact, curiosity, whyWatch);
     content.append(media, details);
+
+    requestAnimationFrame(() => {
+      animatingStats.forEach(({ node, value }) => animateCountUp(node, value));
+      impactFill.style.width = `${player.formImpact}%`;
+    });
+
     return content;
   }
 
