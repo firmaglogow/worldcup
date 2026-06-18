@@ -1343,7 +1343,7 @@
     );
 
     const allItems = matchBrowserItems(mode);
-    const items = allItems.slice(0, matchBrowserLimit);
+    const items = mode === "all" ? allItems : allItems.slice(0, matchBrowserLimit);
     const filters = matchBrowserFilters();
     panel.dataset.matchBrowserSignature = [
       mode,
@@ -1568,7 +1568,7 @@
     container
       .querySelectorAll("[data-native-match-group]")
       .forEach((group) => {
-        group.hidden = ["day", "results", "upcoming"].includes(matchBrowserMode);
+        group.hidden = true;
       });
 
     browser.querySelectorAll("[data-match-browser-mode]").forEach((button) => {
@@ -1593,7 +1593,7 @@
     updateMatchBrowserDates(browser);
 
     const currentList = container.querySelector("[data-match-browser-list]");
-    if (["day", "results", "upcoming"].includes(matchBrowserMode)) {
+    if (["day", "results", "upcoming", "all"].includes(matchBrowserMode)) {
       const nextList = createMatchBrowserList(matchBrowserMode);
       if (
         currentList?.dataset.matchBrowserSignature !==
