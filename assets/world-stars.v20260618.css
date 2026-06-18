@@ -323,47 +323,6 @@
   animation: card-key-pulse 2.6s ease-in-out infinite;
 }
 
-.world-star-card--absent-featured {
-  background:
-    radial-gradient(circle at 16% 10%, rgba(248, 113, 113, 0.2), transparent 14rem),
-    radial-gradient(circle at 78% 12%, rgba(251, 191, 36, 0.08), transparent 12rem),
-    linear-gradient(160deg, rgba(8, 15, 28, 0.94), rgba(3, 7, 18, 0.98));
-  border-color: color-mix(in srgb, var(--accent) 52%, transparent);
-  box-shadow:
-    0 24px 70px rgba(2, 6, 23, 0.55),
-    0 0 0 1px rgba(248, 113, 113, 0.08),
-    0 0 60px rgba(248, 113, 113, 0.12);
-}
-
-.world-star-card--absent-featured::before {
-  background:
-    linear-gradient(125deg, rgba(248, 113, 113, 0.16), transparent 28%, transparent 72%, rgba(251, 191, 36, 0.08)),
-    radial-gradient(circle at 20% 20%, rgba(248, 113, 113, 0.22), transparent 10rem),
-    radial-gradient(circle at 80% 8%, rgba(148, 163, 184, 0.16), transparent 12rem);
-  opacity: 1;
-}
-
-.world-star-card--absent-featured::after {
-  border-color: rgba(248, 113, 113, 0.18);
-}
-
-.world-star-card--absent-featured .world-star-image::before {
-  background:
-    radial-gradient(circle at 50% 36%, color-mix(in srgb, var(--accent) 58%, transparent), transparent 50%),
-    linear-gradient(180deg, transparent 16%, rgba(2, 6, 23, 0.08) 56%, rgba(2, 6, 23, 0.92));
-}
-
-.world-star-card--absent-featured .world-star-key-stat {
-  background:
-    linear-gradient(145deg, rgba(30, 41, 59, 0.86), rgba(15, 23, 42, 0.92)),
-    radial-gradient(circle at 50% 22%, rgba(248, 113, 113, 0.18), transparent 55%);
-  border-color: rgba(248, 113, 113, 0.26);
-}
-
-.world-star-card--absent-featured .world-star-key-stat strong {
-  color: #fde68a;
-}
-
 .world-star-card--hero {
   background: transparent;
   border: 0;
@@ -1258,20 +1217,6 @@
   background: linear-gradient(90deg, #7dd3fc, #f8fafc, #facc15, #f8fafc);
   background-size: 200% 100%;
   animation: impact-shimmer 3.8s linear infinite;
-}
-
-.world-star-detail--absent-featured .world-star-detail-content {
-  background:
-    radial-gradient(circle at 100% 0, rgba(248, 113, 113, 0.08), transparent 18rem),
-    radial-gradient(circle at 0 100%, rgba(148, 163, 184, 0.1), transparent 15rem);
-}
-
-.world-star-detail--absent-featured .world-star-detail-title p {
-  color: #fda4af;
-}
-
-.world-star-detail--absent-featured .world-star-impact-fill {
-  background: linear-gradient(90deg, #fca5a5, #fde68a, #f87171);
 }
 
 .world-star-detail-title {

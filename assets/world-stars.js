@@ -453,166 +453,7 @@
     },
   ];
 
-  const absentPlayers = [
-    {
-      id: "robert-lewandowski",
-      rating: 93,
-      name: "Robert Lewandowski",
-      shortName: "Lewandowski",
-      country: "Polska",
-      flag: "🇵🇱",
-      position: "Napastnik",
-      club: "FC Barcelona",
-      age: 37,
-      image: "../assets/players/absent/robert-lewandowski.jpg",
-      accent: "#dc2626",
-      accentStrong: "#facc15",
-      keyStat: {
-        label: "Wielki nieobecny",
-        value: "1",
-        detail: "ostatni wielki turniej, którego zabraknie Polsce",
-      },
-      tournamentStats: {
-        goals: "—",
-        assists: "—",
-        minutes: "—",
-      },
-      formImpact: 92,
-      route:
-        "Lewandowski pozostaje jednym z największych nazwisk w historii polskiej piłki, ale tym razem Mundial obejrzy z boku. To właśnie dlatego jego brak w sekcji wielkich nieobecnych jest tak mocny i oczywisty.",
-      curiosity:
-        "To najbardziej symboliczna nieobecność dla polskich kibiców.",
-      whyWatch:
-        "Warto o nim pamiętać, bo jego obecność zawsze podnosiła rangę całej drużyny. Nawet bez boiska pozostaje nazwiskiem, które natychmiast przyciąga uwagę.",
-    },
-    {
-      id: "gianluigi-donnarumma",
-      rating: 92,
-      name: "Gianluigi Donnarumma",
-      shortName: "Donnarumma",
-      country: "Włochy",
-      flag: "🇮🇹",
-      position: "Bramkarz",
-      club: "Paris Saint-Germain",
-      age: 26,
-      image: "../assets/players/absent/gianluigi-donnarumma.jpg",
-      accent: "#2563eb",
-      accentStrong: "#f8fafc",
-      keyStat: {
-        label: "Wielki nieobecny",
-        value: "1",
-        detail: "jedna z największych strat dla bramki turnieju",
-      },
-      tournamentStats: {
-        goals: "—",
-        assists: "—",
-        minutes: "—",
-      },
-      formImpact: 90,
-      route:
-        "Donnarumma to bramkarz, który samą obecnością potrafi budować pewność w zespole. Bez niego Mundial traci jednego z najbardziej rozpoznawalnych golkiperów współczesnego futbolu.",
-      curiosity:
-        "Jest jednym z niewielu bramkarzy, których nazwisko samo przyciąga nagłówki.",
-      whyWatch:
-        "Warto go pamiętać jako symbol klasy i spokoju między słupkami. Brak takiej postaci naprawdę czuć na dużym turnieju.",
-    },
-    {
-      id: "rodrygo",
-      rating: 90,
-      name: "Rodrygo",
-      shortName: "Rodrygo",
-      country: "Brazylia",
-      flag: "🇧🇷",
-      position: "Napastnik",
-      club: "Real Madrid C. F.",
-      age: 24,
-      image: "../assets/players/absent/rodrygo.jpg",
-      accent: "#16a34a",
-      accentStrong: "#facc15",
-      keyStat: {
-        label: "Wielki nieobecny",
-        value: "1",
-        detail: "brak jednego z najbardziej efektownych skrzydłowych Brazylii",
-      },
-      tournamentStats: {
-        goals: "—",
-        assists: "—",
-        minutes: "—",
-      },
-      formImpact: 89,
-      route:
-        "Rodrygo wnosił do Brazylii lekkość, technikę i duże zagrożenie w ostatniej tercji. Jego brak odbiera turniejowi kolejnego piłkarza, który potrafi zrobić różnicę z niczego.",
-      curiosity:
-        "To jeden z tych zawodników, którzy szczególnie dobrze wyglądają w meczach pod presją.",
-      whyWatch:
-        "Warto o nim pamiętać, bo jego styl gry idealnie wpisuje się w najbardziej widowiskową wersję futbolu. Bez niego brazylijska ofensywa traci jedną z ciekawszych opcji.",
-    },
-    {
-      id: "khvicha-kvaratskhelia",
-      rating: 91,
-      name: "Khvicha Kvaratskhelia",
-      shortName: "Kvaratskhelia",
-      country: "Gruzja",
-      flag: "🇬🇪",
-      position: "Napastnik",
-      club: "Paris Saint-Germain",
-      age: 25,
-      image: "../assets/players/absent/khvicha-kvaratskhelia.jpg",
-      accent: "#f97316",
-      accentStrong: "#22c55e",
-      keyStat: {
-        label: "Wielki nieobecny",
-        value: "1",
-        detail: "najbardziej błyskotliwy drybler z Gruzji",
-      },
-      tournamentStats: {
-        goals: "—",
-        assists: "—",
-        minutes: "—",
-      },
-      formImpact: 91,
-      route:
-        "Kvaratskhelia potrafi zamieniać zwykłe wejście w akcję w coś nieprzewidywalnego. To dokładnie ten typ piłkarza, którego brak od razu czuć w jakości widowiska.",
-      curiosity:
-        "Jego styl gry jest bardzo charakterystyczny i łatwo rozpoznawalny nawet po jednym kontakcie.",
-      whyWatch:
-        "Warto go pamiętać jako jednego z najbardziej efektownych zawodników swojego pokolenia. Na takiej scenie byłby świetną reklamą turnieju.",
-    },
-    {
-      id: "bryan-mbeumo",
-      rating: 88,
-      name: "Bryan Mbeumo",
-      shortName: "Mbeumo",
-      country: "Kamerun",
-      flag: "🇨🇲",
-      position: "Napastnik",
-      club: "Manchester United",
-      age: 27,
-      image: "../assets/players/absent/bryan-mbeumo.jpg",
-      accent: "#f59e0b",
-      accentStrong: "#dc2626",
-      keyStat: {
-        label: "Wielki nieobecny",
-        value: "1",
-        detail: "brak jednej z najciekawszych historii afrykańskich",
-      },
-      tournamentStats: {
-        goals: "—",
-        assists: "—",
-        minutes: "—",
-      },
-      formImpact: 88,
-      route:
-        "Mbeumo byłby dla turnieju świetnym połączeniem skuteczności i intensywności. Jego brak zabiera Mundialowi piłkarza, który mógłby dać dużo energii i jakości na skrzydle.",
-      curiosity:
-        "To jeden z tych zawodników, których docenia się szczególnie wtedy, gdy ogląda się go regularnie.",
-      whyWatch:
-        "Warto go pamiętać, bo wnosi bardzo nowoczesny profil napastnika i skrzydłowego w jednym. W takiej sekcji idealnie pokazuje siłę nieobecnych.",
-    },
-  ];
-
   const sortedPlayers = [...players].sort((a, b) => b.rating - a.rating || a.name.localeCompare(b.name, "pl"));
-  const sortedAbsentPlayers = [...absentPlayers].sort((a, b) => b.rating - a.rating || a.name.localeCompare(b.name, "pl"));
 
   const positionLabels = {
     Napastnik: "FW",
@@ -641,19 +482,16 @@
 
   function featuredTone(player) {
     if (player.id === "lionel-messi") return "world-star-card--spotlight";
-    if (player.id === "robert-lewandowski") return "world-star-card--absent-featured";
     return "";
   }
 
   function detailTone(player) {
     if (player.id === "lionel-messi") return "world-star-detail--spotlight";
-    if (player.id === "robert-lewandowski") return "world-star-detail--absent-featured";
     return "";
   }
 
   function featuredTag(player) {
     if (player.id === "lionel-messi") return "Legenda i luksus";
-    if (player.id === "robert-lewandowski") return "Najmocniejszy brak";
     return "";
   }
 
@@ -962,9 +800,6 @@
 
   const grid = document.querySelector("[data-stars-grid]");
   sortedPlayers.forEach((player) => grid?.append(createCard(player)));
-
-  const absentGrid = document.querySelector("[data-absent-grid]");
-  sortedAbsentPlayers.forEach((player) => absentGrid?.append(createCard(player, { compact: true })));
 
   document.querySelector("[data-star-close]")?.addEventListener("click", closeDialog);
   document.querySelector("[data-star-dialog]")?.addEventListener("click", (event) => {
