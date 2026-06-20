@@ -812,6 +812,27 @@
     return new Date(`${match.date}T${match.time}:00+02:00`);
   }
 
+  function kickoffElapsed(match) {
+    const kickoff = matchKickoff(match);
+    const now = Date.now();
+    if (now < kickoff.getTime() || now > kickoff.getTime() + 180 * 60 * 1000) {
+      return null;
+    }
+    return Math.max(1, Math.floor((now - kickoff.getTime()) / 60000));
+  }
+
+  function scoreFromEvents(fixture) {
+    const totals = { home: 0, away: 0 };
+    const homeName = fixture?.teams?.home?.name || "";
+    const awayName = fixture?.teams?.away?.name || "";
+    (fixture?.events || []).forEach((event) => {
+      if (event.type !== "Goal") return;
+      if (event.team === homeName) totals.home += 1;
+      if (event.team === awayName) totals.away += 1;
+    });
+    return totals;
+  }
+
   function nearestMatches() {
     const matches = window.WC2026_MATCHES?.matches || [];
     const fixtures = new Map(
@@ -896,6 +917,7 @@
 
   function upcomingMatchStatus(fixture, match) {
     const status = fixture?.status?.short;
+    const liveElapsed = kickoffElapsed(match);
     if (["FT", "AET", "PEN"].includes(status)) {
       const hasScore =
         Number.isInteger(fixture.goals?.home) &&
@@ -915,16 +937,37 @@
       };
     }
     if (["1H", "HT", "2H", "ET", "BT", "P", "LIVE"].includes(status)) {
+      const eventScore = scoreFromEvents(fixture);
       const hasScore =
         Number.isInteger(fixture.goals?.home) &&
         Number.isInteger(fixture.goals?.away);
       return {
         main: hasScore
           ? `${fixture.goals.home}:${fixture.goals.away}`
-          : "NA ŻYWO",
+          : Number.isInteger(eventScore.home) && Number.isInteger(eventScore.away)
+            ? `${eventScore.home}:${eventScore.away}`
+            : "NA ŻYWO",
         detail: fixture.status?.elapsed
           ? `NA ŻYWO · ${fixture.status.elapsed}'`
-          : "NA ŻYWO",
+          : liveElapsed
+            ? `NA ŻYWO · ${liveElapsed}'`
+            : "NA ŻYWO",
+        live: true,
+        finished: false,
+      };
+    }
+    if (liveElapsed) {
+      const eventScore = scoreFromEvents(fixture);
+      const hasScore =
+        Number.isInteger(fixture.goals?.home) &&
+        Number.isInteger(fixture.goals?.away);
+      return {
+        main: hasScore
+          ? `${fixture.goals.home}:${fixture.goals.away}`
+          : Number.isInteger(eventScore.home) && Number.isInteger(eventScore.away)
+            ? `${eventScore.home}:${eventScore.away}`
+            : "NA ŻYWO",
+        detail: `NA ŻYWO · ${liveElapsed}'`,
         live: true,
         finished: false,
       };
@@ -2215,6 +2258,405 @@
     }
   }
 
+  const knockoutFinishedStatuses = new Set(["FT", "AET", "PEN"]);
+  const knockoutRoundOrder = [
+    "1/16",
+    "1/8",
+    "Ćwierćfinał",
+    "Półfinał",
+    "O 3. miejsce",
+    "FINAŁ",
+  ];
+
+  function readStoredTournamentResults() {
+    const groupResults = {};
+    const knockoutResults = {};
+
+    (window.WC2026_MATCH_CENTER?.fixtures || []).forEach((fixture) => {
+      if (
+        !fixture.appMatchId ||
+        !knockoutFinishedStatuses.has(fixture.status?.short) ||
+        !Number.isInteger(fixture.goals?.home) ||
+        !Number.isInteger(fixture.goals?.away)
+      ) {
+        return;
+      }
+
+      const result = {
+        hg: fixture.goals.home,
+        ag: fixture.goals.away,
+      };
+      const homePenalties = fixture.score?.penalty?.home;
+      const awayPenalties = fixture.score?.penalty?.away;
+      if (
+        Number.isInteger(homePenalties) &&
+        Number.isInteger(awayPenalties) &&
+        homePenalties !== awayPenalties
+      ) {
+        result.pen = homePenalties > awayPenalties ? "home" : "away";
+      }
+
+      if (Number(fixture.appMatchId) <= 72) {
+        groupResults[fixture.appMatchId] = result;
+      } else {
+        knockoutResults[fixture.appMatchId] = result;
+      }
+    });
+
+    try {
+      const saved = JSON.parse(localStorage.getItem("wc2026:v1") || "{}");
+      Object.assign(groupResults, saved.results || {});
+      Object.assign(knockoutResults, saved.koResults || {});
+    } catch {
+      // Match-center data is enough if local storage is unavailable.
+    }
+
+    return { groupResults, knockoutResults };
+  }
+
+  function teamInfo(code) {
+    const team = window.WC2026_MATCHES?.teams?.[code] || {};
+    return {
+      code,
+      name: team.name || code,
+      flag: team.flag || "",
+    };
+  }
+
+  function resultIsComplete(result) {
+    return Number.isInteger(result?.hg) && Number.isInteger(result?.ag);
+  }
+
+  function createEmptyStanding(code, group) {
+    return {
+      ...teamInfo(code),
+      group,
+      played: 0,
+      won: 0,
+      drawn: 0,
+      lost: 0,
+      gf: 0,
+      ga: 0,
+      gd: 0,
+      points: 0,
+    };
+  }
+
+  function calculateLiveStandings(results) {
+    const groupMatches = (window.WC2026_MATCHES?.matches || []).filter(
+      (match) => match.phase === "group",
+    );
+    const groups = {};
+
+    groupMatches.forEach((match) => {
+      groups[match.group] ||= {};
+      groups[match.group][match.homeCode] ||= createEmptyStanding(
+        match.homeCode,
+        match.group,
+      );
+      groups[match.group][match.awayCode] ||= createEmptyStanding(
+        match.awayCode,
+        match.group,
+      );
+
+      const result = results[match.id];
+      if (!resultIsComplete(result)) return;
+
+      const home = groups[match.group][match.homeCode];
+      const away = groups[match.group][match.awayCode];
+      home.played += 1;
+      away.played += 1;
+      home.gf += result.hg;
+      home.ga += result.ag;
+      away.gf += result.ag;
+      away.ga += result.hg;
+      home.gd = home.gf - home.ga;
+      away.gd = away.gf - away.ga;
+
+      if (result.hg > result.ag) {
+        home.won += 1;
+        away.lost += 1;
+        home.points += 3;
+      } else if (result.ag > result.hg) {
+        away.won += 1;
+        home.lost += 1;
+        away.points += 3;
+      } else {
+        home.drawn += 1;
+        away.drawn += 1;
+        home.points += 1;
+        away.points += 1;
+      }
+    });
+
+    const completedGroups = new Set();
+    const sortedGroups = {};
+    Object.keys(groups)
+      .sort()
+      .forEach((group) => {
+        sortedGroups[group] = Object.values(groups[group]).sort(
+          (first, second) =>
+            second.points - first.points ||
+            second.gd - first.gd ||
+            second.gf - first.gf ||
+            first.name.localeCompare(second.name, "pl"),
+        );
+
+        const groupDone = groupMatches
+          .filter((match) => match.group === group)
+          .every((match) => resultIsComplete(results[match.id]));
+        if (groupDone) completedGroups.add(group);
+      });
+
+    const thirdTeams = Object.entries(sortedGroups)
+      .map(([group, table]) => ({ ...table[2], group }))
+      .sort(
+        (first, second) =>
+          second.points - first.points ||
+          second.gd - first.gd ||
+          second.gf - first.gf ||
+          first.name.localeCompare(second.name, "pl"),
+      );
+
+    return { groups: sortedGroups, completedGroups, thirdTeams };
+  }
+
+  function knockoutWinner(homeCode, awayCode, result) {
+    if (!homeCode || !awayCode || !resultIsComplete(result)) return null;
+    if (result.hg > result.ag) return { winner: homeCode, loser: awayCode };
+    if (result.ag > result.hg) return { winner: awayCode, loser: homeCode };
+    if (result.pen === "home") return { winner: homeCode, loser: awayCode };
+    if (result.pen === "away") return { winner: awayCode, loser: homeCode };
+    return null;
+  }
+
+  function resolveGroupLabel(label, standings, usedThirds) {
+    const groupWinner = label?.match(/^Zwycięzca grupy ([A-L])$/);
+    if (groupWinner) {
+      const group = groupWinner[1];
+      const team = standings.groups[group]?.[0];
+      return team
+        ? {
+            code: team.code,
+            label: null,
+            projected: !standings.completedGroups.has(group),
+          }
+        : { code: null, label };
+    }
+
+    const groupRunnerUp = label?.match(/^2\. miejsce grupy ([A-L])$/);
+    if (groupRunnerUp) {
+      const group = groupRunnerUp[1];
+      const team = standings.groups[group]?.[1];
+      return team
+        ? {
+            code: team.code,
+            label: null,
+            projected: !standings.completedGroups.has(group),
+          }
+        : { code: null, label };
+    }
+
+    const thirdPlace = label?.match(/^3\. miejsce \(([^)]+)\)$/);
+    if (thirdPlace) {
+      const allowed = new Set(thirdPlace[1].split("/"));
+      const team = standings.thirdTeams
+        .slice(0, 8)
+        .find((candidate) => allowed.has(candidate.group) && !usedThirds.has(candidate.code));
+      if (!team) return { code: null, label };
+      usedThirds.add(team.code);
+      return {
+        code: team.code,
+        label: null,
+        projected: !standings.completedGroups.has(team.group),
+      };
+    }
+
+    return { code: null, label: label || "Do ustalenia" };
+  }
+
+  function resolveBracket(standings, knockoutResults) {
+    const matches = (window.WC2026_MATCHES?.matches || [])
+      .filter((match) => match.phase === "knockout")
+      .sort((first, second) => Number(first.id) - Number(second.id));
+    const bracket = {};
+    const usedThirds = new Set();
+
+    const resolveSlot = (label) => {
+      const matchWinner = label?.match(/^Zwycięzca meczu (\d+)$/);
+      if (matchWinner) {
+        const source = bracket[Number(matchWinner[1])];
+        return source?.winner
+          ? { code: source.winner, label: null }
+          : { code: null, label };
+      }
+
+      const matchLoser = label?.match(/^Przegrany meczu (\d+)$/);
+      if (matchLoser) {
+        const source = bracket[Number(matchLoser[1])];
+        return source?.loser
+          ? { code: source.loser, label: null }
+          : { code: null, label };
+      }
+
+      return resolveGroupLabel(label, standings, usedThirds);
+    };
+
+    matches.forEach((match) => {
+      const home = resolveSlot(match.homeLabel);
+      const away = resolveSlot(match.awayLabel);
+      const result = knockoutResults[match.id];
+      const decision = knockoutWinner(home.code, away.code, result) || {};
+      bracket[match.id] = {
+        match,
+        home,
+        away,
+        result,
+        winner: decision.winner || null,
+        loser: decision.loser || null,
+      };
+    });
+
+    return bracket;
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function renderBracketTeam(slot) {
+    if (!slot?.code) {
+      return `<span class="live-bracket-placeholder">${escapeHtml(slot?.label || "Do ustalenia")}</span>`;
+    }
+    const team = teamInfo(slot.code);
+    return `<span class="live-bracket-team${slot.projected ? " is-projected" : ""}"${slot.projected ? ' title="Według aktualnej tabeli"' : ""}><span>${escapeHtml(team.flag)}</span><span class="live-bracket-team-name"><strong>${escapeHtml(team.name)}</strong>${slot.projected ? "<small>na dziś</small>" : ""}</span></span>`;
+  }
+
+  function renderLiveKnockoutPanel(data) {
+    const section = document.createElement("section");
+    section.className = "live-knockout-panel";
+    section.dataset.liveKnockoutPanel = data.signature;
+
+    const knownRoundOf32 = Object.values(data.bracket).filter(
+      (item) =>
+        item.match.round === "1/16" &&
+        item.home.code &&
+        item.away.code,
+    ).length;
+    const completedGroupCount = data.standings.completedGroups.size;
+    const projectedGroupCount = Object.keys(data.standings.groups).length;
+    const champion = data.bracket[104]?.winner
+      ? teamInfo(data.bracket[104].winner)
+      : null;
+
+    const rounds = knockoutRoundOrder
+      .map((round) => {
+        const items = Object.values(data.bracket).filter(
+          (item) => item.match.round === round,
+        );
+        if (!items.length) return "";
+
+        const cards = items
+          .map((item) => {
+            const result = resultIsComplete(item.result)
+              ? `${item.result.hg}:${item.result.ag}${item.result.pen ? " k." : ""}`
+              : "vs";
+            return `
+              <article class="live-bracket-card${item.winner ? " is-decided" : ""}${item.home.code && item.away.code ? " is-ready" : ""}">
+                <div class="live-bracket-meta">
+                  <span>#${item.match.id}</span>
+                  <span>${escapeHtml(item.match.time)}</span>
+                </div>
+                <div class="live-bracket-match">
+                  ${renderBracketTeam(item.home)}
+                  <strong class="live-bracket-score">${escapeHtml(result)}</strong>
+                  ${renderBracketTeam(item.away)}
+                </div>
+                <p>${escapeHtml(item.match.stadium)} · ${escapeHtml(item.match.city)}</p>
+              </article>
+            `;
+          })
+          .join("");
+
+        return `
+          <section class="live-bracket-round">
+            <h3>${escapeHtml(round)}</h3>
+            <div class="live-bracket-round-grid">${cards}</div>
+          </section>
+        `;
+      })
+      .join("");
+
+    section.innerHTML = `
+      <header class="live-bracket-header">
+        <div>
+          <p class="live-bracket-kicker">DRABINKA NA ŻYWO</p>
+          <h2>Symulator fazy pucharowej</h2>
+          <p>Układ pokazuje pary według aktualnej tabeli. Po każdym wyniku drużyny mogą automatycznie przeskoczyć w inne miejsce drabinki.</p>
+        </div>
+        <div class="live-bracket-status">
+          <strong>${knownRoundOf32}/16</strong>
+          <span>par 1/16 wyliczonych</span>
+        </div>
+      </header>
+      <div class="live-bracket-summary">
+        <span>${projectedGroupCount}/12 grup w projekcji</span>
+        <span>${completedGroupCount}/12 grup zakończonych</span>
+        <span>${Object.keys(data.groupResults).length}/72 wyników grupowych</span>
+        <span>${Object.keys(data.knockoutResults).length}/32 wyników pucharowych</span>
+      </div>
+      ${
+        champion
+          ? `<div class="live-bracket-champion"><span>${escapeHtml(champion.flag)}</span><strong>${escapeHtml(champion.name)}</strong><small>Mistrz świata 2026</small></div>`
+          : ""
+      }
+      <div class="live-bracket-scroll">${rounds}</div>
+    `;
+
+    return section;
+  }
+
+  function enhanceLiveKnockoutBracket() {
+    const anchor = [...document.querySelectorAll(".rounded-2xl")].find(
+      (element) =>
+        element.textContent.includes("Auto-drabinka") &&
+        element.textContent.includes("Pary układają się"),
+    );
+
+    if (!anchor) {
+      document
+        .querySelectorAll("[data-live-knockout-panel]")
+        .forEach((panel) => panel.remove());
+      return;
+    }
+
+    const { groupResults, knockoutResults } = readStoredTournamentResults();
+    const standings = calculateLiveStandings(groupResults);
+    const bracket = resolveBracket(standings, knockoutResults);
+    const signature = JSON.stringify({
+      groupResults,
+      knockoutResults,
+      completedGroups: [...standings.completedGroups],
+    });
+
+    const existing = document.querySelector("[data-live-knockout-panel]");
+    if (existing?.dataset.liveKnockoutPanel === signature) return;
+
+    const panel = renderLiveKnockoutPanel({
+      groupResults,
+      knockoutResults,
+      standings,
+      bracket,
+      signature,
+    });
+    existing?.remove();
+    anchor.insertAdjacentElement("beforebegin", panel);
+  }
+
   function secureExternalLinks() {
     document
       .querySelectorAll('a[target="_blank"]')
@@ -2240,6 +2682,7 @@
     canonicalizeStoredScorers();
     canonicalizeRenderedScorers();
     enhanceStatistics();
+    enhanceLiveKnockoutBracket();
     secureExternalLinks();
   }
 

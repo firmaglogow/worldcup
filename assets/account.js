@@ -29,7 +29,7 @@
     session: null,
     user: null,
     profile: null,
-    awaitingEmail: "",
+    authMode: "login",
     view: "account",
     message: "",
     messageType: "info",
@@ -171,12 +171,19 @@
     });
     await hydrateFromCloud({ migrateLocal: true });
     state.message = successMessage;
-    state.messageType = "success";
-    state.modalOpen = true;
-    state.view = "account";
-    updateLauncher();
+      state.messageType = "success";
+      state.modalOpen = true;
+      state.view = "account";
+      updateLauncher();
     renderModal();
     cleanAuthUrl();
+  }
+
+  function setAuthMode(mode) {
+    state.authMode = mode;
+    state.message = "";
+    state.messageType = "info";
+    renderModal();
   }
 
   async function handleAuthCallback() {
@@ -191,6 +198,7 @@
         ? `Nie udało się potwierdzić konta: ${errorDescription}`
         : "Nie udało się potwierdzić konta. Link mógł wygasnąć albo został już użyty.";
       state.messageType = "error";
+      state.authMode = "login";
       state.modalOpen = true;
       state.view = "account";
       cleanAuthUrl();
@@ -211,6 +219,7 @@
         session,
         "Konto zostało potwierdzone. Możesz już korzystać z typów.",
       );
+      state.authMode = "login";
       return;
     }
 
@@ -233,6 +242,7 @@
         },
         "Konto jest aktywne. Możesz już korzystać z typów.",
       );
+      state.authMode = "login";
     }
   }
 
@@ -470,56 +480,77 @@
     renderModal();
   }
 
-  async function sendOtp(email) {
+  async function signInWithPassword(email, password) {
     if (IS_PREVIEW) {
-      state.awaitingEmail = email;
-      setMessage("Tryb podglądu: wpisz kod 123456.", "success");
-      return;
-    }
-    await request(
-      `/auth/v1/otp?redirect_to=${encodeURIComponent(AUTH_REDIRECT_URL)}`,
-      {
-      method: "POST",
-      body: JSON.stringify({
-        email,
-        create_user: true,
-        emailRedirectTo: AUTH_REDIRECT_URL,
-        redirect_to: AUTH_REDIRECT_URL,
-      }),
-      },
-    );
-    state.awaitingEmail = email;
-    setMessage("Kod logowania został wysłany. Sprawdź również spam.", "success");
-  }
-
-  async function verifyOtp(token) {
-    if (IS_PREVIEW) {
-      if (token !== "123456") throw new Error("W trybie podglądu użyj 123456.");
-      state.user = { id: "preview-user", email: state.awaitingEmail };
+      state.user = { id: "preview-user", email };
       state.profile = { id: "preview-user", username: "Kibic 2026" };
-      state.awaitingEmail = "";
       setMessage("Zalogowano w trybie podglądu.", "success");
       updateLauncher();
       return;
     }
-    const session = await request("/auth/v1/verify", {
+    const session = await request("/auth/v1/token?grant_type=password", {
       method: "POST",
       body: JSON.stringify({
-        email: state.awaitingEmail,
-        token,
-        type: "email",
+        email,
+        password,
       }),
     });
-    saveSession(session);
-    state.user = session.user;
-    await hydrateFromCloud({ migrateLocal: true });
-    state.awaitingEmail = "";
+    await consumeSession(
+      session,
+      "Zalogowano. Sesja została zapamiętana na tym urządzeniu.",
+    );
+  }
+
+  async function signUpWithPassword(email, password) {
+    if (IS_PREVIEW) {
+      state.user = { id: "preview-user", email };
+      state.profile = { id: "preview-user", username: "Kibic 2026" };
+      setMessage("Konto utworzone w trybie podglądu.", "success");
+      updateLauncher();
+      return;
+    }
+    const result = await request("/auth/v1/signup", {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password,
+        options: {
+          emailRedirectTo: AUTH_REDIRECT_URL,
+        },
+      }),
+    });
+
+    if (result?.session?.access_token) {
+      await consumeSession(
+        result.session,
+        "Konto utworzone. Twoje typy są już połączone z kontem.",
+      );
+      return;
+    }
+
+    state.authMode = "login";
     setMessage(
-      "Konto jest aktywne. Twoje dotychczasowe typy zostały przeniesione.",
+      "Konto zostało utworzone. Sprawdź e-mail i potwierdź rejestrację, a potem zaloguj się hasłem.",
       "success",
     );
     updateLauncher();
-    window.setTimeout(() => window.location.reload(), 650);
+  }
+
+  async function updatePassword(password) {
+    if (IS_PREVIEW) {
+      setMessage("Hasło zapisane w trybie podglądu.", "success");
+      return;
+    }
+    const accessToken = await validAccessToken();
+    if (!accessToken) throw new Error("Najpierw zaloguj się do konta.");
+    await request("/auth/v1/user", {
+      method: "PUT",
+      accessToken,
+      body: JSON.stringify({
+        password,
+      }),
+    });
+    setMessage("Hasło zostało zapisane. Od teraz możesz logować się hasłem.", "success");
   }
 
   async function updateUsername(username) {
@@ -560,7 +591,6 @@
     saveSession(null);
     state.user = null;
     state.profile = null;
-    state.awaitingEmail = "";
     state.message = "Wylogowano.";
     state.messageType = "success";
     updateLauncher();
@@ -639,6 +669,12 @@
           <span class="wc-account-status-dot"></span>
           ${state.syncing ? "Synchronizowanie typów…" : "Typy są zapisane na koncie"}
         </div>
+        <form class="wc-account-form" data-account-form="password">
+          <label for="wc-account-password-new">Ustaw hasło do logowania</label>
+          <input id="wc-account-password-new" name="password" type="password"
+            autocomplete="new-password" minlength="8" placeholder="min. 8 znaków" required>
+          <button type="submit">Zapisz hasło</button>
+        </form>
         <div class="wc-account-actions">
           <button type="button" data-account-action="sync">Synchronizuj teraz</button>
           <button type="button" data-account-action="logout">Wyloguj</button>
@@ -649,42 +685,33 @@
       `;
     }
 
-    if (state.awaitingEmail) {
-      return `
-        <div class="wc-account-intro">
-          <strong>Wpisz kod z wiadomości</strong>
-          <p>Wysłaliśmy sześciocyfrowy kod na <b>${escapeHtml(
-            state.awaitingEmail,
-          )}</b>.</p>
-        </div>
-        <form class="wc-account-form" data-account-form="verify">
-          <label for="wc-account-token">Kod logowania</label>
-          <input id="wc-account-token" name="token" inputmode="numeric"
-            autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6"
-            placeholder="000000" required>
-          <button type="submit">Zaloguj się</button>
-          <button type="button" class="is-secondary" data-account-action="back">
-            Zmień adres e-mail
-          </button>
-        </form>
-      `;
-    }
+    const isLogin = state.authMode === "login";
 
     return `
       <div class="wc-account-intro">
-        <strong>Twoje typy zawsze pod ręką</strong>
-        <p>Zaloguj się kodem e-mail. Typy i punkty będą dostępne na telefonie,
-          komputerze i po ponownym wejściu na stronę.</p>
+        <strong>${isLogin ? "Zaloguj się do konta" : "Załóż konto typera"}</strong>
+        <p>${isLogin ? "Logujesz się zwykłym hasłem. Sesja zostanie zapamiętana w tej przeglądarce, więc nie będziesz musiał robić tego od nowa." : "Zakładasz konto raz. Potem zawsze możesz wejść tym samym e-mailem i hasłem."}</p>
       </div>
-      <form class="wc-account-form" data-account-form="login">
+      <nav class="wc-account-tabs wc-account-auth-tabs" aria-label="Logowanie i rejestracja">
+        <button type="button" data-auth-mode="login" class="${
+          isLogin ? "is-active" : ""
+        }">Zaloguj się</button>
+        <button type="button" data-auth-mode="register" class="${
+          isLogin ? "" : "is-active"
+        }">Załóż konto</button>
+      </nav>
+      <form class="wc-account-form" data-account-form="${isLogin ? "login" : "register"}">
         <label for="wc-account-email">Adres e-mail</label>
         <input id="wc-account-email" name="email" type="email"
           autocomplete="email" placeholder="twoj@email.pl" required>
-        <button type="submit">Wyślij kod logowania</button>
+        <label for="wc-account-password">Hasło</label>
+        <input id="wc-account-password" name="password" type="password"
+          autocomplete="${isLogin ? "current-password" : "new-password"}"
+          minlength="8" placeholder="min. 8 znaków" required>
+        <button type="submit">${isLogin ? "Zaloguj się" : "Utwórz konto"}</button>
       </form>
       <p class="wc-account-privacy">
-        Logowanie jest dobrowolne. Bez konta typy nadal zapisują się lokalnie
-        w tej przeglądarce.
+        Bez konta typy nadal zapisują się lokalnie w tej przeglądarce.
       </p>
     `;
   }
@@ -750,7 +777,7 @@
   function launcherLabel() {
     if (state.syncing) return "Synchronizacja…";
     if (state.user) return state.profile?.username || "Moje konto";
-    return "Zaloguj typy";
+    return "Zaloguj się";
   }
 
   function updateLauncher() {
@@ -840,8 +867,8 @@
       if (!action) return;
       try {
         if (action === "back") {
-          state.awaitingEmail = "";
           state.message = "";
+          state.authMode = "login";
           renderModal();
         } else if (action === "sync") {
           await pushAppState();
@@ -864,9 +891,17 @@
       try {
         const data = new FormData(form);
         if (form.dataset.accountForm === "login") {
-          await sendOtp(String(data.get("email") || "").trim().toLowerCase());
-        } else if (form.dataset.accountForm === "verify") {
-          await verifyOtp(String(data.get("token") || "").trim());
+          await signInWithPassword(
+            String(data.get("email") || "").trim().toLowerCase(),
+            String(data.get("password") || ""),
+          );
+        } else if (form.dataset.accountForm === "register") {
+          await signUpWithPassword(
+            String(data.get("email") || "").trim().toLowerCase(),
+            String(data.get("password") || ""),
+          );
+        } else if (form.dataset.accountForm === "password") {
+          await updatePassword(String(data.get("password") || ""));
         } else if (form.dataset.accountForm === "username") {
           await updateUsername(String(data.get("username") || "").trim());
         }
@@ -875,6 +910,12 @@
       } finally {
         submit.disabled = false;
       }
+    });
+
+    modal.addEventListener("click", (event) => {
+      const authMode = event.target.closest("[data-auth-mode]")?.dataset.authMode;
+      if (!authMode) return;
+      setAuthMode(authMode);
     });
 
     document.addEventListener("keydown", (event) => {

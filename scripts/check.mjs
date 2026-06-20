@@ -15,6 +15,10 @@ const css = fs.readFileSync(
   new URL("../assets/styles.css", import.meta.url),
   "utf8",
 );
+const liveBracketCss = fs.readFileSync(
+  new URL("../assets/live-bracket.css", import.meta.url),
+  "utf8",
+);
 const playerProfile = fs.readFileSync(
   new URL("../assets/player-profile.js", import.meta.url),
   "utf8",
@@ -182,7 +186,7 @@ assert(
   "Advertising should remain visible on every tab",
 );
 assert(
-  index.includes("assets/enhancements.js?v=20260617-world-stars-nav-local-fix"),
+  index.includes("assets/enhancements.v20260618.js?v=20260620-live-knockout"),
   "Latest advertising visibility cache key is missing",
 );
 assert(
@@ -201,8 +205,8 @@ assert(
   "Community goal events are not imported",
 );
 assert(
-  index.includes("assets/live-results.js?v=20260614-team-alias-fallback") &&
-    matchPage.includes("assets/live-results.js?v=20260614-team-alias-fallback"),
+  index.includes("assets/live-results.js?v=20260618-live-refresh") &&
+    matchPage.includes("assets/live-results.js?v=20260618-live-refresh"),
   "Browser live-results fallback is not connected",
 );
 assert(
@@ -607,8 +611,9 @@ assert(
 assert(
   account.includes('const APP_STORAGE_KEY = "wc2026:v1"') &&
     account.includes("sync_my_predictions") &&
-    account.includes("/auth/v1/otp") &&
-    account.includes("/auth/v1/verify") &&
+    account.includes("/auth/v1/token?grant_type=password") &&
+    account.includes("/auth/v1/signup") &&
+    account.includes("/auth/v1/user") &&
     account.includes("get_leaderboard"),
   "Account login or prediction synchronization is missing",
 );
@@ -640,7 +645,7 @@ assert(
   "Legacy today matches strip is not hidden",
 );
 assert(
-  index.includes("assets/match-center.js?v=20260614-score-links"),
+  index.includes("assets/match-center.js?v=20260618-live-refresh"),
   "Latest match card cache key is missing",
 );
 assert(
@@ -656,8 +661,15 @@ assert(
   "Statistics navigation order is not stable across application refreshes",
 );
 assert(
-  index.includes("assets/enhancements.js?v=20260617-world-stars-nav-local-fix"),
+  index.includes("assets/enhancements.v20260618.js?v=20260620-live-knockout"),
   "Latest navigation enhancement cache key is missing",
+);
+assert(
+  index.includes("assets/live-bracket.css?v=20260620-live-knockout") &&
+    enhancements.includes("function enhanceLiveKnockoutBracket()") &&
+    enhancements.includes("DRABINKA NA ŻYWO") &&
+    liveBracketCss.includes(".live-knockout-panel"),
+  "Live knockout bracket module is missing",
 );
 assert(
   index.includes("assets/match-center.css?v=20260614-account-system"),
