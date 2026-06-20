@@ -784,6 +784,185 @@
     document.head.appendChild(style);
   }
 
+  function ensureCollapsibleMobileNavigationStyles() {
+    if (document.getElementById("site-mobile-nav-collapse-styles")) return;
+
+    const style = document.createElement("style");
+    style.id = "site-mobile-nav-collapse-styles";
+    style.textContent = `
+      .site-mobile-nav-toggle {
+        display: none;
+      }
+
+      @media (max-width: 639px) {
+        .site-mobile-nav-toggle {
+          align-items: center;
+          background:
+            radial-gradient(circle at top left, rgba(251, 191, 36, 0.12), transparent 48%),
+            linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(6, 78, 59, 0.4));
+          border: 1px solid rgba(52, 211, 153, 0.26);
+          border-radius: 0.9rem;
+          box-shadow: 0 10px 28px rgba(2, 6, 23, 0.22);
+          color: #e2e8f0;
+          display: flex;
+          gap: 0.7rem;
+          justify-content: space-between;
+          margin: 0 auto 0.55rem;
+          padding: 0.7rem 0.85rem;
+          width: calc(100% - 1rem);
+        }
+
+        .site-mobile-nav-toggle-main {
+          align-items: center;
+          display: flex;
+          gap: 0.65rem;
+          min-width: 0;
+        }
+
+        .site-mobile-nav-toggle-lines {
+          display: grid;
+          gap: 0.18rem;
+          width: 1.05rem;
+        }
+
+        .site-mobile-nav-toggle-lines span {
+          background: #fbbf24;
+          border-radius: 999px;
+          display: block;
+          height: 0.12rem;
+        }
+
+        .site-mobile-nav-toggle-text {
+          display: grid;
+          min-width: 0;
+          text-align: left;
+        }
+
+        .site-mobile-nav-toggle-text small {
+          color: #86efac;
+          font-size: 0.58rem;
+          font-weight: 900;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+        }
+
+        .site-mobile-nav-current {
+          color: #f8fafc;
+          font-size: 0.92rem;
+          font-weight: 950;
+          line-height: 1.1;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .site-mobile-nav-chevron {
+          color: #fbbf24;
+          font-size: 1rem;
+          font-weight: 900;
+          transition: transform 0.18s ease;
+        }
+
+        .site-mobile-nav-toggle[aria-expanded="true"] .site-mobile-nav-chevron {
+          transform: rotate(180deg);
+        }
+
+        .site-mobile-nav-panel {
+          display: none !important;
+        }
+
+        .site-mobile-nav-toggle[aria-expanded="true"] + .site-mobile-nav-panel {
+          background: rgba(2, 6, 23, 0.72);
+          border: 1px solid rgba(51, 65, 85, 0.72);
+          border-radius: 1rem;
+          display: grid !important;
+          gap: 0.45rem;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          margin: -0.2rem auto 0.65rem;
+          max-height: min(62vh, 30rem);
+          overflow-y: auto;
+          padding: 0.5rem;
+          width: calc(100% - 1rem);
+        }
+
+        .site-mobile-nav-panel button[data-nav-order] {
+          border: 1px solid rgba(51, 65, 85, 0.58);
+          min-height: 4.15rem;
+          padding-left: 0.35rem;
+          padding-right: 0.35rem;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function updateMobileNavigationToggle(toggle, navigation) {
+    const activeButton =
+      [...navigation.querySelectorAll("button[data-nav-order]")].find((button) =>
+        /text-amber-300|bg-amber-400|ring-amber|border-amber/.test(button.className),
+      ) || navigation.querySelector("button[data-nav-order]");
+
+    const label = activeButton?.textContent.trim() || "Mecze";
+    const current = toggle.querySelector(".site-mobile-nav-current");
+    if (current && current.textContent !== label) {
+      current.textContent = label;
+    }
+  }
+
+  function enhanceCollapsibleMobileNavigation() {
+    ensureCollapsibleMobileNavigationStyles();
+
+    const navigations = [...document.querySelectorAll(".sm\\:hidden")].filter(
+      (navigation) =>
+        navigation.querySelectorAll("button[data-nav-order]").length >= 8,
+    );
+
+    navigations.forEach((navigation) => {
+      navigation.classList.add("site-mobile-nav-panel");
+
+      let toggle =
+        navigation.previousElementSibling?.dataset?.mobileNavToggle === "true"
+          ? navigation.previousElementSibling
+          : null;
+
+      if (!toggle) {
+        toggle = document.createElement("button");
+        toggle.type = "button";
+        toggle.className = "site-mobile-nav-toggle";
+        toggle.dataset.mobileNavToggle = "true";
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.innerHTML = `
+          <span class="site-mobile-nav-toggle-main">
+            <span class="site-mobile-nav-toggle-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+            <span class="site-mobile-nav-toggle-text">
+              <small>Menu strony</small>
+              <span class="site-mobile-nav-current">Mecze</span>
+            </span>
+          </span>
+          <span class="site-mobile-nav-chevron" aria-hidden="true">⌄</span>
+        `;
+
+        toggle.addEventListener("click", () => {
+          const isOpen = toggle.getAttribute("aria-expanded") === "true";
+          toggle.setAttribute("aria-expanded", String(!isOpen));
+        });
+
+        navigation.addEventListener("click", (event) => {
+          if (event.target.closest("button[data-nav-order]")) {
+            window.setTimeout(() => {
+              toggle.setAttribute("aria-expanded", "false");
+              updateMobileNavigationToggle(toggle, navigation);
+            }, 80);
+          }
+        });
+
+        navigation.insertAdjacentElement("beforebegin", toggle);
+      }
+
+      updateMobileNavigationToggle(toggle, navigation);
+    });
+  }
+
   const upcomingMatchColors = [
     "#fbbf24",
     "#38bdf8",
@@ -2679,6 +2858,7 @@
     addAdSlots();
     enhanceWorldStarsNavigation();
     reorderNavigation();
+    enhanceCollapsibleMobileNavigation();
     canonicalizeStoredScorers();
     canonicalizeRenderedScorers();
     enhanceStatistics();

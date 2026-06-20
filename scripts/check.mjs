@@ -186,7 +186,7 @@ assert(
   "Advertising should remain visible on every tab",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260620-live-knockout"),
+  index.includes("assets/enhancements.v20260618.js?v=20260620-mobile-nav"),
   "Latest advertising visibility cache key is missing",
 );
 assert(
@@ -661,7 +661,7 @@ assert(
   "Statistics navigation order is not stable across application refreshes",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260620-live-knockout"),
+  index.includes("assets/enhancements.v20260618.js?v=20260620-mobile-nav"),
   "Latest navigation enhancement cache key is missing",
 );
 assert(
@@ -670,6 +670,12 @@ assert(
     enhancements.includes("DRABINKA NA ŻYWO") &&
     liveBracketCss.includes(".live-knockout-panel"),
   "Live knockout bracket module is missing",
+);
+assert(
+  enhancements.includes("function enhanceCollapsibleMobileNavigation()") &&
+    enhancements.includes("site-mobile-nav-toggle") &&
+    enhancements.includes("site-mobile-nav-panel"),
+  "Collapsible mobile navigation is missing",
 );
 assert(
   index.includes("assets/match-center.css?v=20260614-account-system"),
