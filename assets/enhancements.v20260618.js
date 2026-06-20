@@ -2712,7 +2712,7 @@
       return `<span class="live-bracket-placeholder">${escapeHtml(slot?.label || "Do ustalenia")}</span>`;
     }
     const team = teamInfo(slot.code);
-    return `<span class="live-bracket-team${slot.projected ? " is-projected" : ""}"${slot.projected ? ' title="Według aktualnej tabeli"' : ""}><span>${escapeHtml(team.flag)}</span><span class="live-bracket-team-name"><strong>${escapeHtml(team.name)}</strong>${slot.projected ? "<small>na dziś</small>" : ""}</span></span>`;
+    return `<span class="live-bracket-team"><span>${escapeHtml(team.flag)}</span><span class="live-bracket-team-name"><strong>${escapeHtml(team.name)}</strong></span></span>`;
   }
 
   function renderLiveKnockoutPanel(data) {
@@ -2720,14 +2720,6 @@
     section.className = "live-knockout-panel";
     section.dataset.liveKnockoutPanel = data.signature;
 
-    const knownRoundOf32 = Object.values(data.bracket).filter(
-      (item) =>
-        item.match.round === "1/16" &&
-        item.home.code &&
-        item.away.code,
-    ).length;
-    const completedGroupCount = data.standings.completedGroups.size;
-    const projectedGroupCount = Object.keys(data.standings.groups).length;
     const champion = data.bracket[104]?.winner
       ? teamInfo(data.bracket[104].winner)
       : null;
@@ -2774,20 +2766,8 @@
       <header class="live-bracket-header">
         <div>
           <p class="live-bracket-kicker">DRABINKA NA ŻYWO</p>
-          <h2>Symulator fazy pucharowej</h2>
-          <p>Układ pokazuje pary według aktualnej tabeli. Po każdym wyniku drużyny mogą automatycznie przeskoczyć w inne miejsce drabinki.</p>
-        </div>
-        <div class="live-bracket-status">
-          <strong>${knownRoundOf32}/16</strong>
-          <span>par 1/16 wyliczonych</span>
         </div>
       </header>
-      <div class="live-bracket-summary">
-        <span>${projectedGroupCount}/12 grup w projekcji</span>
-        <span>${completedGroupCount}/12 grup zakończonych</span>
-        <span>${Object.keys(data.groupResults).length}/72 wyników grupowych</span>
-        <span>${Object.keys(data.knockoutResults).length}/32 wyników pucharowych</span>
-      </div>
       ${
         champion
           ? `<div class="live-bracket-champion"><span>${escapeHtml(champion.flag)}</span><strong>${escapeHtml(champion.name)}</strong><small>Mistrz świata 2026</small></div>`
