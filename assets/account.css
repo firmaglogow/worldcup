@@ -400,9 +400,11 @@
 
 @media (max-width: 640px) {
   .wc-account-launcher {
-    bottom: 0.7rem;
+    bottom: calc(5.25rem + env(safe-area-inset-bottom));
     max-width: calc(100vw - 1.4rem);
-    right: 0.7rem;
+    min-height: 2.55rem;
+    padding: 0.5rem 0.78rem;
+    right: 0.85rem;
   }
 
   .wc-account-dialog {

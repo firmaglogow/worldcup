@@ -600,7 +600,7 @@ assert(
 assert(
   index.includes("assets/supabase-config.js?v=20260614-account-system") &&
     index.includes("assets/account.js?v=20260614-account-system") &&
-    index.includes("assets/account.css?v=20260614-account-system"),
+    index.includes("assets/account.css?v=20260620-mobile-safe-login"),
   "Account system assets are not connected",
 );
 assert(
@@ -665,12 +665,17 @@ assert(
   "Latest navigation enhancement cache key is missing",
 );
 assert(
-  index.includes("assets/live-bracket.css?v=20260620-live-bracket-clean") &&
+  index.includes("assets/live-bracket.css?v=20260620-swipe-hint") &&
     enhancements.includes("function enhanceLiveKnockoutBracket()") &&
     enhancements.includes("DRABINKA NA ŻYWO") &&
     liveBracketCss.includes(".live-knockout-panel") &&
+    liveBracketCss.includes("Przesuń w prawo") &&
     !enhancements.includes("<small>na dziś</small>"),
   "Live knockout bracket module is missing",
+);
+assert(
+  accountCss.includes("bottom: calc(5.25rem + env(safe-area-inset-bottom))"),
+  "Mobile account launcher safe position is missing",
 );
 assert(
   enhancements.includes("function enhanceCollapsibleMobileNavigation()") &&
