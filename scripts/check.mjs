@@ -186,7 +186,7 @@ assert(
   "Advertising should remain visible on every tab",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260620-live-bracket-clean"),
+  index.includes("assets/enhancements.v20260618.js?v=20260620-account-in-menu"),
   "Latest advertising visibility cache key is missing",
 );
 assert(
@@ -600,7 +600,7 @@ assert(
 assert(
   index.includes("assets/supabase-config.js?v=20260614-account-system") &&
     index.includes("assets/account.js?v=20260614-account-system") &&
-    index.includes("assets/account.css?v=20260620-mobile-safe-login"),
+    index.includes("assets/account.css?v=20260620-account-in-menu"),
   "Account system assets are not connected",
 );
 assert(
@@ -661,7 +661,7 @@ assert(
   "Statistics navigation order is not stable across application refreshes",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260620-live-bracket-clean"),
+  index.includes("assets/enhancements.v20260618.js?v=20260620-account-in-menu"),
   "Latest navigation enhancement cache key is missing",
 );
 assert(
@@ -674,8 +674,11 @@ assert(
   "Live knockout bracket module is missing",
 );
 assert(
-  accountCss.includes("bottom: calc(5.25rem + env(safe-area-inset-bottom))"),
-  "Mobile account launcher safe position is missing",
+  accountCss.includes(".wc-account-launcher") &&
+    accountCss.includes("display: none") &&
+    enhancements.includes("site-mobile-account-button") &&
+    enhancements.includes("data-mobile-account-button"),
+  "Mobile account entry is not moved into the menu",
 );
 assert(
   enhancements.includes("function enhanceCollapsibleMobileNavigation()") &&

@@ -891,9 +891,73 @@
           padding-left: 0.35rem;
           padding-right: 0.35rem;
         }
+
+        .site-mobile-account-button {
+          align-items: center;
+          background: linear-gradient(135deg, #fbbf24, #f59e0b);
+          border: 1px solid #fde68a;
+          border-radius: 0.75rem;
+          color: #07111f;
+          display: flex;
+          flex-direction: column;
+          font-size: 0.68rem;
+          font-weight: 950;
+          gap: 0.25rem;
+          justify-content: center;
+          min-height: 4.15rem;
+          padding: 0.45rem 0.35rem;
+          text-align: center;
+        }
+
+        .site-mobile-account-button.is-signed-in {
+          background: linear-gradient(135deg, #34d399, #10b981);
+          border-color: #a7f3d0;
+        }
+
+        .site-mobile-account-icon {
+          align-items: center;
+          background: rgba(7, 17, 31, 0.12);
+          border-radius: 999px;
+          display: inline-flex;
+          font-size: 1rem;
+          height: 1.75rem;
+          justify-content: center;
+          width: 1.75rem;
+        }
       }
     `;
     document.head.appendChild(style);
+  }
+
+  function accountLauncherText() {
+    const launcher = document.querySelector("[data-account-launcher]");
+    return launcher?.textContent.trim() || "Zaloguj się";
+  }
+
+  function ensureMobileAccountMenuButton(navigation) {
+    const launcher = document.querySelector("[data-account-launcher]");
+    if (!launcher) return;
+
+    let button = navigation.querySelector("[data-mobile-account-button]");
+    if (!button) {
+      button = document.createElement("button");
+      button.type = "button";
+      button.className = "site-mobile-account-button";
+      button.dataset.mobileAccountButton = "true";
+      button.addEventListener("click", () => {
+        launcher.click();
+      });
+      navigation.append(button);
+    }
+
+    const label = accountLauncherText();
+    button.classList.toggle("is-signed-in", launcher.classList.contains("is-signed-in"));
+    button.innerHTML = `
+      <span class="site-mobile-account-icon" aria-hidden="true">${
+        launcher.classList.contains("is-signed-in") ? "✓" : "♙"
+      }</span>
+      <span>${escapeHtml(label)}</span>
+    `;
   }
 
   function updateMobileNavigationToggle(toggle, navigation) {
@@ -919,6 +983,7 @@
 
     navigations.forEach((navigation) => {
       navigation.classList.add("site-mobile-nav-panel");
+      ensureMobileAccountMenuButton(navigation);
 
       let toggle =
         navigation.previousElementSibling?.dataset?.mobileNavToggle === "true"
@@ -952,6 +1017,7 @@
             window.setTimeout(() => {
               toggle.setAttribute("aria-expanded", "false");
               updateMobileNavigationToggle(toggle, navigation);
+              ensureMobileAccountMenuButton(navigation);
             }, 80);
           }
         });
@@ -960,6 +1026,7 @@
       }
 
       updateMobileNavigationToggle(toggle, navigation);
+      ensureMobileAccountMenuButton(navigation);
     });
   }
 
