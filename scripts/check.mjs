@@ -186,7 +186,7 @@ assert(
   "Advertising should remain visible on every tab",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260620-account-in-menu"),
+  index.includes("assets/enhancements.v20260618.js?v=20260620-account-menu-wide"),
   "Latest advertising visibility cache key is missing",
 );
 assert(
@@ -667,7 +667,7 @@ assert(
   "Statistics navigation order is not stable across application refreshes",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260620-account-in-menu"),
+  index.includes("assets/enhancements.v20260618.js?v=20260620-account-menu-wide"),
   "Latest navigation enhancement cache key is missing",
 );
 assert(
@@ -683,7 +683,8 @@ assert(
   accountCss.includes(".wc-account-launcher") &&
     accountCss.includes("display: none") &&
     enhancements.includes("site-mobile-account-button") &&
-    enhancements.includes("data-mobile-account-button"),
+    enhancements.includes("data-mobile-account-button") &&
+    enhancements.includes("grid-column: 1 / -1"),
   "Mobile account entry is not moved into the menu",
 );
 assert(

@@ -898,15 +898,16 @@
           border: 1px solid #fde68a;
           border-radius: 0.75rem;
           color: #07111f;
-          display: flex;
-          flex-direction: column;
-          font-size: 0.68rem;
+          display: grid;
+          font-size: 0.82rem;
           font-weight: 950;
-          gap: 0.25rem;
-          justify-content: center;
-          min-height: 4.15rem;
-          padding: 0.45rem 0.35rem;
-          text-align: center;
+          gap: 0.55rem;
+          grid-column: 1 / -1;
+          grid-template-columns: auto 1fr;
+          justify-content: start;
+          min-height: 3.15rem;
+          padding: 0.55rem 0.75rem;
+          text-align: left;
         }
 
         .site-mobile-account-button.is-signed-in {
@@ -920,9 +921,9 @@
           border-radius: 999px;
           display: inline-flex;
           font-size: 1rem;
-          height: 1.75rem;
+          height: 2rem;
           justify-content: center;
-          width: 1.75rem;
+          width: 2rem;
         }
       }
     `;
