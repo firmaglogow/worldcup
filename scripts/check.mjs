@@ -641,6 +641,12 @@ assert(
   "Account privacy information is missing",
 );
 assert(
+  index.includes("FREE HOME design Studio") &&
+    index.includes('href="http://www.freehomedesign.pl/"') &&
+    index.includes('rel="noopener noreferrer"'),
+  "Footer creator credit is missing",
+);
+assert(
   matchCenterCss.includes("[data-legacy-today-matches]"),
   "Legacy today matches strip is not hidden",
 );
