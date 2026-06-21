@@ -201,8 +201,8 @@ assert(
   "Advertising should remain visible on every tab",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260621-mobile-nav-fix") &&
-    index.includes("assets/match-center.css?v=20260621-mobile-wow"),
+  index.includes("assets/enhancements.v20260618.js?v=20260621-mobile-nav-position") &&
+    index.includes("assets/match-center.css?v=20260621-mobile-nav-position"),
   "Latest advertising visibility cache key is missing",
 );
 assert(
@@ -609,7 +609,7 @@ assert(
 assert(
   index.includes("assets/app.js?v=20260614-account-system") &&
     index.includes(
-      "assets/match-center.css?v=20260621-mobile-wow",
+      "assets/match-center.css?v=20260621-mobile-nav-position",
     ),
   "Latest prediction cache keys are missing",
 );
@@ -683,7 +683,7 @@ assert(
   "Statistics navigation order is not stable across application refreshes",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260621-mobile-nav-fix"),
+  index.includes("assets/enhancements.v20260618.js?v=20260621-mobile-nav-position"),
   "Latest navigation enhancement cache key is missing",
 );
 assert(
@@ -719,7 +719,7 @@ assert(
   "Collapsible mobile navigation is missing",
 );
 assert(
-  index.includes("assets/match-center.css?v=20260621-mobile-wow"),
+  index.includes("assets/match-center.css?v=20260621-mobile-nav-position"),
   "Latest navigation styles cache key is missing",
 );
 assert(
@@ -756,12 +756,15 @@ assert(
     enhancements.includes('short: "Staty"') &&
     enhancements.includes('short: "Gwiazdy"') &&
     enhancements.includes("function findNavigationButton(labels)") &&
+    enhancements.includes("source.click()") &&
     !enhancements.includes('short: "Dream XI"') &&
     !enhancements.includes('short: "Typy"') &&
     enhancements.includes("function enhanceScoreChangeToast()") &&
     enhancements.includes("function enhanceMatchActionButtons()") &&
     matchCenterCss.includes(".mobile-match-hero") &&
     matchCenterCss.includes(".mobile-bottom-nav") &&
+    matchCenterCss.includes("padding-bottom: 11rem") &&
+    matchCenterCss.includes("4.75rem") &&
     !matchCenterCss.includes(".sticky-live-ticker") &&
     matchCenterCss.includes(".goal-update-toast") &&
     matchCenterCss.includes(".upcoming-match-actions"),

@@ -3048,7 +3048,7 @@
       button.dataset.active = String(item.labels.includes(activeLabel));
       button.innerHTML = `<span aria-hidden="true">${item.icon}</span><strong>${escapeHtml(item.short)}</strong>`;
       button.addEventListener("click", () => {
-        source.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+        source.click();
       });
       nav.append(button);
     });
