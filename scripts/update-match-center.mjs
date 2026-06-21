@@ -485,8 +485,6 @@ const fixtures = schedule.matches.map((appMatch) => {
 function buildWorldStarStats(fixtures) {
   const players = WORLD_STAR_PLAYERS.map((player) => {
     let goals = 0;
-    let assists = 0;
-    let hasAssistData = false;
 
     fixtures
       .filter((fixture) =>
@@ -499,19 +497,12 @@ function buildWorldStarStats(fixtures) {
           if (event.type === "Goal" && event.detail !== "Own Goal") {
             if (personMatches(event.player, player.names)) goals += 1;
           }
-          if (String(event.assist || "").trim()) {
-            hasAssistData = true;
-            if (personMatches(event.assist, player.names)) assists += 1;
-          }
         });
       });
 
     return {
       id: player.id,
       goals,
-      assists: hasAssistData ? assists : null,
-      minutes: null,
-      averageRating: null,
     };
   });
 
@@ -520,9 +511,6 @@ function buildWorldStarStats(fixtures) {
     source: "match-center-events",
     capabilities: {
       goals: true,
-      assists: players.some((player) => player.assists !== null),
-      minutes: false,
-      averageRating: false,
     },
     players,
   };

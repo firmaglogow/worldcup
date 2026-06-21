@@ -861,23 +861,36 @@ assert(
 );
 assert(
   worldStarsPage.includes("assets/match-center-data.js?v=") &&
-    worldStarsPage.includes("world-stars.v20260618.css?v=20260621-star-live-stats") &&
-    worldStarsPage.includes("world-stars.v20260618.js?v=20260621-star-stats-generated") &&
+    worldStarsPage.includes("world-stars.v20260618.css?v=20260621-star-goals-only") &&
+    worldStarsPage.includes("world-stars.v20260618.js?v=20260621-star-goals-only") &&
     worldStars.includes("world-star-fifa-age") &&
     worldStars.includes("${player.age} lat") &&
     worldStars.includes("function buildLiveStats()") &&
     worldStars.includes("function refreshWorldStarStats()") &&
     worldStars.includes("matchCenter.starStats?.players?.length") &&
     worldStars.includes("data/match-center.json") &&
-    worldStars.includes("Śr. nota") &&
-    worldStars.includes("formatLiveStat(liveStats.averageRating") &&
+    worldStars.includes('fact("Gole", String(liveStats.goals)') &&
+    !worldStars.includes("Śr. nota") &&
+    !worldStars.includes('fact("Asysty"') &&
+    !worldStars.includes('fact("Minuty"') &&
+    !worldStars.includes("assists:") &&
+    !worldStars.includes("minutes:") &&
+    !worldStars.includes("averageRating") &&
     worldStarsCss.includes(".world-star-fifa-age"),
   "World stars live stats or age badge are missing",
 );
 assert(
   matchCenter.starStats?.capabilities?.goals === true &&
+    !("assists" in matchCenter.starStats.capabilities) &&
+    !("minutes" in matchCenter.starStats.capabilities) &&
+    !("averageRating" in matchCenter.starStats.capabilities) &&
     matchCenter.starStats.players.some(
-      (player) => player.id === "kylian-mbappe" && player.goals >= 0,
+      (player) =>
+        player.id === "kylian-mbappe" &&
+        player.goals >= 0 &&
+        !("assists" in player) &&
+        !("minutes" in player) &&
+        !("averageRating" in player),
     ) &&
     matchUpdater.includes("function buildWorldStarStats(fixtures)") &&
     matchUpdater.includes("WORLD_STAR_PLAYERS"),

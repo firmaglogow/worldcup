@@ -8,114 +8,69 @@
     "season": 2026
   },
   "timezone": "Europe/Warsaw",
-  "updatedAt": "2026-06-21T21:01:27.802Z",
+  "updatedAt": "2026-06-21T21:08:48.703Z",
   "starStats": {
-    "updatedAt": "2026-06-21T21:01:27.805Z",
+    "updatedAt": "2026-06-21T21:08:48.706Z",
     "source": "match-center-events",
     "capabilities": {
-      "goals": true,
-      "assists": false,
-      "minutes": false,
-      "averageRating": false
+      "goals": true
     },
     "players": [
       {
         "id": "lionel-messi",
-        "goals": 3,
-        "assists": null,
-        "minutes": null,
-        "averageRating": null
+        "goals": 3
       },
       {
         "id": "kylian-mbappe",
-        "goals": 2,
-        "assists": null,
-        "minutes": null,
-        "averageRating": null
+        "goals": 2
       },
       {
         "id": "erling-haaland",
-        "goals": 2,
-        "assists": null,
-        "minutes": null,
-        "averageRating": null
+        "goals": 2
       },
       {
         "id": "cristiano-ronaldo",
-        "goals": 0,
-        "assists": null,
-        "minutes": null,
-        "averageRating": null
+        "goals": 0
       },
       {
         "id": "lamine-yamal",
-        "goals": 1,
-        "assists": null,
-        "minutes": null,
-        "averageRating": null
+        "goals": 1
       },
       {
         "id": "vinicius-junior",
-        "goals": 2,
-        "assists": null,
-        "minutes": null,
-        "averageRating": null
+        "goals": 2
       },
       {
         "id": "neymar-jr",
-        "goals": 0,
-        "assists": null,
-        "minutes": null,
-        "averageRating": null
+        "goals": 0
       },
       {
         "id": "raphinha",
-        "goals": 0,
-        "assists": null,
-        "minutes": null,
-        "averageRating": null
+        "goals": 0
       },
       {
         "id": "jude-bellingham",
-        "goals": 1,
-        "assists": null,
-        "minutes": null,
-        "averageRating": null
+        "goals": 1
       },
       {
         "id": "pedri",
-        "goals": 0,
-        "assists": null,
-        "minutes": null,
-        "averageRating": null
+        "goals": 0
       },
       {
         "id": "jamal-musiala",
-        "goals": 1,
-        "assists": null,
-        "minutes": null,
-        "averageRating": null
+        "goals": 1
       },
       {
         "id": "harry-kane",
-        "goals": 2,
-        "assists": null,
-        "minutes": null,
-        "averageRating": null
+        "goals": 2
       },
       {
         "id": "mohamed-salah",
-        "goals": 0,
-        "assists": null,
-        "minutes": null,
-        "averageRating": null
+        "goals": 0
       },
       {
         "id": "son-heung-min",
-        "goals": 0,
-        "assists": null,
-        "minutes": null,
-        "averageRating": null
+        "goals": 0
       }
     ]
   },
@@ -194,7 +149,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.794Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.697Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -282,7 +237,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.801Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.702Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -360,7 +315,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.801Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.702Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -468,7 +423,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.801Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.702Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -546,7 +501,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.801Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.702Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -624,7 +579,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.801Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.702Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -692,7 +647,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.801Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -770,7 +725,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.801Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -908,7 +863,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1006,7 +961,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1074,7 +1029,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1192,7 +1147,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1249,7 +1204,7 @@
       "events": [],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1327,7 +1282,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1405,7 +1360,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1503,7 +1458,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1601,7 +1556,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1709,7 +1664,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1797,7 +1752,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1895,7 +1850,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -1973,7 +1928,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -2091,7 +2046,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -2159,7 +2114,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -2257,7 +2212,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -2335,7 +2290,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -2443,7 +2398,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -2561,7 +2516,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -2629,7 +2584,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -2697,7 +2652,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -2775,7 +2730,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -2863,7 +2818,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -2931,7 +2886,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -3049,7 +3004,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -3137,7 +3092,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -3194,7 +3149,7 @@
       "events": [],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -3292,7 +3247,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -3390,7 +3345,7 @@
       ],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "OpenFootball"
     },
@@ -3406,8 +3361,8 @@
       "city": "Los Angeles",
       "referee": "",
       "status": {
-        "short": "LIVE",
-        "long": "Mecz trwa",
+        "short": "FT",
+        "long": "Mecz zakończony",
         "elapsed": null
       },
       "teams": {
@@ -3432,8 +3387,8 @@
           "away": null
         },
         "fulltime": {
-          "home": null,
-          "away": null
+          "home": 0,
+          "away": 0
         },
         "extratime": {
           "home": null,
@@ -3447,7 +3402,7 @@
       "events": [],
       "statistics": [],
       "lineups": [],
-      "detailsFetchedAt": "2026-06-21T21:01:27.802Z",
+      "detailsFetchedAt": "2026-06-21T21:08:48.703Z",
       "detailsAttempts": 0,
       "dataSource": "WorldCup26"
     },

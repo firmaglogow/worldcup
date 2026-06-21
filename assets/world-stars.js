@@ -22,8 +22,6 @@
       },
       tournamentStats: {
         goals: 3,
-        assists: 0,
-        minutes: 270,
       },
       formImpact: 94,
       route:
@@ -55,8 +53,6 @@
       },
       tournamentStats: {
         goals: "do uzupełnienia",
-        assists: "do uzupełnienia",
-        minutes: "do uzupełnienia",
       },
       formImpact: 96,
       route:
@@ -88,8 +84,6 @@
       },
       tournamentStats: {
         goals: 0,
-        assists: 0,
-        minutes: 0,
       },
       formImpact: 95,
       route:
@@ -121,8 +115,6 @@
       },
       tournamentStats: {
         goals: "do uzupełnienia",
-        assists: "do uzupełnienia",
-        minutes: "do uzupełnienia",
       },
       formImpact: 92,
       route:
@@ -152,8 +144,6 @@
       },
       tournamentStats: {
         goals: 0,
-        assists: 0,
-        minutes: 0,
       },
       formImpact: 97,
       route:
@@ -185,8 +175,6 @@
       },
       tournamentStats: {
         goals: 0,
-        assists: 0,
-        minutes: 0,
       },
       formImpact: 96,
       route:
@@ -216,8 +204,6 @@
       },
       tournamentStats: {
         goals: 0,
-        assists: 0,
-        minutes: 0,
       },
       formImpact: 91,
       route:
@@ -247,8 +233,6 @@
       },
       tournamentStats: {
         goals: 0,
-        assists: 0,
-        minutes: 0,
       },
       formImpact: 93,
       route:
@@ -280,8 +264,6 @@
       },
       tournamentStats: {
         goals: 0,
-        assists: 0,
-        minutes: 0,
       },
       formImpact: 95,
       route:
@@ -311,8 +293,6 @@
       },
       tournamentStats: {
         goals: 0,
-        assists: 0,
-        minutes: 0,
       },
       formImpact: 94,
       route:
@@ -344,8 +324,6 @@
       },
       tournamentStats: {
         goals: 0,
-        assists: 0,
-        minutes: 0,
       },
       formImpact: 95,
       route:
@@ -377,8 +355,6 @@
       },
       tournamentStats: {
         goals: 0,
-        assists: 0,
-        minutes: 0,
       },
       formImpact: 94,
       route:
@@ -408,8 +384,6 @@
       },
       tournamentStats: {
         goals: 0,
-        assists: 0,
-        minutes: 0,
       },
       formImpact: 93,
       route:
@@ -439,8 +413,6 @@
       },
       tournamentStats: {
         goals: 0,
-        assists: 0,
-        minutes: 0,
       },
       formImpact: 92,
       route:
@@ -538,50 +510,6 @@
     return Number.isFinite(number) ? number : null;
   }
 
-  function readNestedNumber(source, keys) {
-    if (!source || typeof source !== "object") return null;
-    for (const key of keys) {
-      const direct = numberFromUnknown(source[key]);
-      if (direct !== null) return direct;
-    }
-    for (const value of Object.values(source)) {
-      if (!value || typeof value !== "object") continue;
-      const nested = readNestedNumber(value, keys);
-      if (nested !== null) return nested;
-    }
-    return null;
-  }
-
-  function collectPlayerMetrics(source, player, output) {
-    if (!source || typeof source !== "object") return;
-    if (Array.isArray(source)) {
-      source.forEach((item) => collectPlayerMetrics(item, player, output));
-      return;
-    }
-
-    const candidateNames = [
-      source.name,
-      source.player,
-      source.player?.name,
-      source.athlete,
-      source.athlete?.name,
-    ].filter(Boolean);
-
-    if (candidateNames.some((name) => personMatches(name, player))) {
-      const minutes = readNestedNumber(source, ["minutes", "mins", "time"]);
-      const rating = readNestedNumber(source, ["rating", "rate", "note"]);
-      if (minutes !== null) output.minutes += minutes;
-      if (rating !== null) {
-        output.ratingTotal += rating;
-        output.ratingMatches += 1;
-      }
-    }
-
-    for (const value of Object.values(source)) {
-      if (value && typeof value === "object") collectPlayerMetrics(value, player, output);
-    }
-  }
-
   function buildLiveStats() {
     if (liveStatsByPlayer) return liveStatsByPlayer;
 
@@ -592,9 +520,6 @@
           player.id,
           {
             goals: numberFromUnknown(player.goals) ?? 0,
-            assists: numberFromUnknown(player.assists),
-            minutes: numberFromUnknown(player.minutes),
-            averageRating: numberFromUnknown(player.averageRating),
             updatedAt: matchCenter.starStats.updatedAt || matchCenter.updatedAt || "",
           },
         ]),
@@ -611,12 +536,8 @@
     players.forEach((player) => {
       const stats = {
         goals: 0,
-        assists: hasAssistData ? 0 : null,
-        minutes: null,
-        averageRating: null,
         updatedAt: matchCenter.updatedAt || "",
       };
-      const metrics = { minutes: 0, ratingTotal: 0, ratingMatches: 0 };
 
       fixtures
         .filter((fixture) => fixtureInvolvesPlayerCountry(fixture, player))
@@ -629,18 +550,9 @@
             ) {
               stats.goals += 1;
             }
-            if (hasAssistData && personMatches(event.assist, player)) {
-              stats.assists += 1;
-            }
           });
-          collectPlayerMetrics(fixture.lineups, player, metrics);
-          collectPlayerMetrics(fixture.statistics, player, metrics);
         });
 
-      if (metrics.minutes > 0) stats.minutes = metrics.minutes;
-      if (metrics.ratingMatches > 0) {
-        stats.averageRating = metrics.ratingTotal / metrics.ratingMatches;
-      }
       liveStatsByPlayer.set(player.id, stats);
     });
 
@@ -655,9 +567,6 @@
   function getPlayerLiveStats(player) {
     return buildLiveStats().get(player.id) || {
       goals: 0,
-      assists: null,
-      minutes: null,
-      averageRating: null,
     };
   }
 
@@ -895,21 +804,8 @@
     const stats = createElement("div", "world-star-stats");
     const statItems = [
       fact("Gole", String(liveStats.goals), "world-star-stat"),
-      fact("Asysty", formatLiveStat(liveStats.assists), "world-star-stat"),
-      fact("Minuty", formatLiveStat(liveStats.minutes, Math.round), "world-star-stat"),
-      fact(
-        "Śr. nota",
-        formatLiveStat(liveStats.averageRating, (value) => value.toFixed(2)),
-        "world-star-stat world-star-stat--rating",
-      ),
     ];
     stats.append(...statItems);
-
-    const statsNote = createElement(
-      "p",
-      "world-star-stats-note",
-      "Gole aktualizują się automatycznie z raportów meczowych. Asysty, minuty i noty pojawią się po podłączeniu pełnych statystyk zawodników.",
-    );
 
     const animatingStats = statItems.map((item) => {
       const valueNode = item.querySelector("strong");
@@ -945,7 +841,7 @@
       details.prepend(heroTag);
     }
 
-    details.append(title, facts, route, stats, statsNote, impact, curiosity, whyWatch);
+    details.append(title, facts, route, stats, impact, curiosity, whyWatch);
     content.append(media, details);
 
     requestAnimationFrame(() => {
