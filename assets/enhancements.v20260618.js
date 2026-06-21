@@ -1834,6 +1834,32 @@
     });
   }
 
+  function enhanceMatchBrowserFilterToggle(filterPanel) {
+    if (!filterPanel || filterPanel.dataset.matchBrowserFilterToggle === "true") {
+      return;
+    }
+
+    filterPanel.dataset.matchBrowserFilterToggle = "true";
+    filterPanel.classList.add("match-browser-filter-collapsible");
+
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "match-browser-filter-toggle";
+    toggle.dataset.matchBrowserFilterToggleButton = "true";
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.innerHTML = `
+      <span>Filtry terminarza</span>
+      <strong>Pokaż</strong>
+    `;
+    toggle.addEventListener("click", () => {
+      const isOpen = filterPanel.classList.toggle("is-filter-open");
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.querySelector("strong").textContent = isOpen ? "Ukryj" : "Pokaż";
+    });
+
+    filterPanel.insertAdjacentElement("beforebegin", toggle);
+  }
+
   function renderMatchBrowser() {
     const dateSelect = document.querySelector(
       'select[aria-label="Filtr dnia"]',
@@ -1853,6 +1879,7 @@
     filterPanel.dataset.matchBrowserFilter = "true";
     filterPanel.dataset.matchBrowserMode = matchBrowserMode;
     dateSelect.parentElement?.classList.add("match-browser-filter-grid");
+    enhanceMatchBrowserFilterToggle(filterPanel);
 
     markNativeMatchGroups(container, filterPanel);
     container

@@ -393,6 +393,10 @@
   border-color: #34d399;
 }
 
+.match-browser-filter-toggle {
+  display: none;
+}
+
 .match-browser-empty {
   background: rgba(15, 23, 42, 0.58);
   border: 1px dashed rgba(71, 85, 105, 0.82);
@@ -1401,6 +1405,10 @@
 }
 
 @media (max-width: 520px) {
+  .upcoming-matches {
+    display: none;
+  }
+
   .match-browser {
     padding: 0.8rem;
   }
@@ -1420,6 +1428,37 @@
 
   .match-browser-tabs button {
     min-height: 2.5rem;
+  }
+
+  .match-browser-filter-toggle {
+    align-items: center;
+    background:
+      radial-gradient(circle at top left, rgba(52, 211, 153, 0.12), transparent 48%),
+      rgba(15, 23, 42, 0.82);
+    border: 1px solid rgba(52, 211, 153, 0.28);
+    border-radius: 0.85rem;
+    color: #d1fae5;
+    display: flex;
+    font-size: 0.78rem;
+    font-weight: 900;
+    justify-content: space-between;
+    min-height: 2.75rem;
+    padding: 0.65rem 0.85rem;
+  }
+
+  .match-browser-filter-toggle strong {
+    color: #fbbf24;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .match-browser-filter-collapsible {
+    display: none;
+  }
+
+  .match-browser-filter-collapsible.is-filter-open {
+    display: block;
   }
 
   .match-browser-date-navigation {

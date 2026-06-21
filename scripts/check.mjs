@@ -186,7 +186,7 @@ assert(
   "Advertising should remain visible on every tab",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260620-account-menu-wide"),
+  index.includes("assets/enhancements.v20260618.js?v=20260621-clean-mobile-schedule"),
   "Latest advertising visibility cache key is missing",
 );
 assert(
@@ -593,7 +593,7 @@ assert(
 assert(
   index.includes("assets/app.js?v=20260614-account-system") &&
     index.includes(
-      "assets/match-center.css?v=20260614-account-system",
+      "assets/match-center.css?v=20260621-clean-mobile-schedule",
     ),
   "Latest prediction cache keys are missing",
 );
@@ -667,7 +667,7 @@ assert(
   "Statistics navigation order is not stable across application refreshes",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260620-account-menu-wide"),
+  index.includes("assets/enhancements.v20260618.js?v=20260621-clean-mobile-schedule"),
   "Latest navigation enhancement cache key is missing",
 );
 assert(
@@ -678,6 +678,14 @@ assert(
     liveBracketCss.includes("Przesuń w prawo") &&
     !enhancements.includes("<small>na dziś</small>"),
   "Live knockout bracket module is missing",
+);
+assert(
+  enhancements.includes("function enhanceMatchBrowserFilterToggle") &&
+    enhancements.includes("match-browser-filter-toggle") &&
+    matchCenterCss.includes(".upcoming-matches") &&
+    matchCenterCss.includes("display: none") &&
+    matchCenterCss.includes(".match-browser-filter-collapsible"),
+  "Mobile match schedule cleanup is missing",
 );
 assert(
   accountCss.includes(".wc-account-launcher") &&
@@ -694,7 +702,7 @@ assert(
   "Collapsible mobile navigation is missing",
 );
 assert(
-  index.includes("assets/match-center.css?v=20260614-account-system"),
+  index.includes("assets/match-center.css?v=20260621-clean-mobile-schedule"),
   "Latest navigation styles cache key is missing",
 );
 assert(
