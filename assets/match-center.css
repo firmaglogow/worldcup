@@ -1405,10 +1405,6 @@
 }
 
 @media (max-width: 520px) {
-  .upcoming-matches {
-    display: none;
-  }
-
   .match-browser {
     padding: 0.8rem;
   }

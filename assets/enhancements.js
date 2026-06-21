@@ -1088,9 +1088,7 @@
         fixture,
       ]),
     );
-    const finished = new Set(["FT", "AET", "PEN", "CANC", "ABD"]);
-    const live = new Set(["1H", "HT", "2H", "ET", "BT", "P", "LIVE"]);
-    const recentThreshold = Date.now() - 3 * 60 * 60 * 1000;
+    const now = Date.now();
 
     const candidates = matches
       .map((match) => ({
@@ -1098,16 +1096,11 @@
         fixture: fixtures.get(Number(match.id)),
         kickoff: matchKickoff(match),
       }))
-      .filter(({ fixture, kickoff }) => {
-        const status = fixture?.status?.short;
-        return (
-          !finished.has(status) &&
-          (live.has(status) || kickoff.getTime() >= recentThreshold)
-        );
-      })
+      .filter(({ kickoff }) => kickoff.getTime() > now)
       .sort((first, second) => first.kickoff - second.kickoff);
 
-    return candidates.slice(0, 4);
+    const nextDates = [...new Set(candidates.map(({ match }) => match.date))].slice(0, 2);
+    return candidates.filter(({ match }) => nextDates.includes(match.date));
   }
 
   function nearestMatchSignature(matches) {
@@ -1841,15 +1834,16 @@
 
     filterPanel.dataset.matchBrowserFilterToggle = "true";
     filterPanel.classList.add("match-browser-filter-collapsible");
+    filterPanel.classList.add("is-filter-open");
 
     const toggle = document.createElement("button");
     toggle.type = "button";
     toggle.className = "match-browser-filter-toggle";
     toggle.dataset.matchBrowserFilterToggleButton = "true";
-    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-expanded", "true");
     toggle.innerHTML = `
       <span>Filtry terminarza</span>
-      <strong>Pokaż</strong>
+      <strong>Ukryj</strong>
     `;
     toggle.addEventListener("click", () => {
       const isOpen = filterPanel.classList.toggle("is-filter-open");

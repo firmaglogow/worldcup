@@ -147,8 +147,11 @@ assert(
   "Upcoming matches panel is missing",
 );
 assert(
-  enhancements.includes("slice(0, 4)"),
-  "Upcoming matches panel does not show four fixtures",
+  enhancements.includes("const now = Date.now()") &&
+    enhancements.includes("kickoff.getTime() > now") &&
+    enhancements.includes("nextDates") &&
+    enhancements.includes("slice(0, 2)"),
+  "Upcoming matches panel does not show two future match days",
 );
 assert(
   enhancements.includes("NAJBLIŻSZE MECZE"),
@@ -186,7 +189,7 @@ assert(
   "Advertising should remain visible on every tab",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260621-clean-mobile-schedule"),
+  index.includes("assets/enhancements.v20260618.js?v=20260621-upcoming-two-days"),
   "Latest advertising visibility cache key is missing",
 );
 assert(
@@ -593,7 +596,7 @@ assert(
 assert(
   index.includes("assets/app.js?v=20260614-account-system") &&
     index.includes(
-      "assets/match-center.css?v=20260621-clean-mobile-schedule",
+      "assets/match-center.css?v=20260621-upcoming-two-days",
     ),
   "Latest prediction cache keys are missing",
 );
@@ -667,7 +670,7 @@ assert(
   "Statistics navigation order is not stable across application refreshes",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260621-clean-mobile-schedule"),
+  index.includes("assets/enhancements.v20260618.js?v=20260621-upcoming-two-days"),
   "Latest navigation enhancement cache key is missing",
 );
 assert(
@@ -682,8 +685,9 @@ assert(
 assert(
   enhancements.includes("function enhanceMatchBrowserFilterToggle") &&
     enhancements.includes("match-browser-filter-toggle") &&
+    enhancements.includes('toggle.setAttribute("aria-expanded", "true")') &&
+    enhancements.includes("filterPanel.classList.add(\"is-filter-open\")") &&
     matchCenterCss.includes(".upcoming-matches") &&
-    matchCenterCss.includes("display: none") &&
     matchCenterCss.includes(".match-browser-filter-collapsible"),
   "Mobile match schedule cleanup is missing",
 );
@@ -702,7 +706,7 @@ assert(
   "Collapsible mobile navigation is missing",
 );
 assert(
-  index.includes("assets/match-center.css?v=20260621-clean-mobile-schedule"),
+  index.includes("assets/match-center.css?v=20260621-upcoming-two-days"),
   "Latest navigation styles cache key is missing",
 );
 assert(
