@@ -606,6 +606,7 @@
       createElement("span", "", player.flag),
       createElement("span", "", player.country),
       createElement("span", "", player.position),
+      createElement("span", "world-star-fifa-age", `${player.age} lat`),
     );
     top.append(ratingBlock, meta);
 

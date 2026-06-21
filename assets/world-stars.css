@@ -575,6 +575,14 @@
   text-transform: uppercase;
 }
 
+.world-star-fifa-meta .world-star-fifa-age {
+  background:
+    linear-gradient(135deg, rgba(251, 191, 36, 0.24), rgba(52, 211, 153, 0.14)),
+    rgba(7, 17, 31, 0.82);
+  border-color: rgba(251, 191, 36, 0.44);
+  color: #fde68a;
+}
+
 .world-star-fifa-visual {
   align-items: stretch;
   display: grid;

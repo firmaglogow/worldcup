@@ -74,6 +74,18 @@ const accountCss = fs.readFileSync(
   new URL("../assets/account.css", import.meta.url),
   "utf8",
 );
+const worldStarsPage = fs.readFileSync(
+  new URL("../gwiazdy-mundialu/index.html", import.meta.url),
+  "utf8",
+);
+const worldStars = fs.readFileSync(
+  new URL("../assets/world-stars.v20260618.js", import.meta.url),
+  "utf8",
+);
+const worldStarsCss = fs.readFileSync(
+  new URL("../assets/world-stars.v20260618.css", import.meta.url),
+  "utf8",
+);
 const supabaseConfig = fs.readFileSync(
   new URL("../assets/supabase-config.js", import.meta.url),
   "utf8",
@@ -822,6 +834,14 @@ assert(
 assert(
   matchWorkflow.includes("Pobierz bezpłatne wyniki"),
   "Free match update step is missing",
+);
+assert(
+  worldStarsPage.includes("world-stars.v20260618.css?v=20260621-star-age") &&
+    worldStarsPage.includes("world-stars.v20260618.js?v=20260621-star-age") &&
+    worldStars.includes("world-star-fifa-age") &&
+    worldStars.includes("${player.age} lat") &&
+    worldStarsCss.includes(".world-star-fifa-age"),
+  "World stars card age badge is missing",
 );
 
 console.log("All project checks passed.");
