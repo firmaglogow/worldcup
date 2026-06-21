@@ -586,6 +586,22 @@
     if (liveStatsByPlayer) return liveStatsByPlayer;
 
     const matchCenter = liveStatsSource || window.WC2026_MATCH_CENTER || {};
+    if (matchCenter.starStats?.players?.length) {
+      liveStatsByPlayer = new Map(
+        matchCenter.starStats.players.map((player) => [
+          player.id,
+          {
+            goals: numberFromUnknown(player.goals) ?? 0,
+            assists: numberFromUnknown(player.assists),
+            minutes: numberFromUnknown(player.minutes),
+            averageRating: numberFromUnknown(player.averageRating),
+            updatedAt: matchCenter.starStats.updatedAt || matchCenter.updatedAt || "",
+          },
+        ]),
+      );
+      return liveStatsByPlayer;
+    }
+
     const fixtures = matchCenter.fixtures || [];
     const hasAssistData = fixtures.some((fixture) =>
       (fixture.events || []).some((event) => String(event.assist || "").trim()),
@@ -892,7 +908,7 @@
     const statsNote = createElement(
       "p",
       "world-star-stats-note",
-      "Statystyki liczone automatycznie z centrum meczów po aktualizacji wyników.",
+      "Gole aktualizują się automatycznie z raportów meczowych. Asysty, minuty i noty pojawią się po podłączeniu pełnych statystyk zawodników.",
     );
 
     const animatingStats = statItems.map((item) => {

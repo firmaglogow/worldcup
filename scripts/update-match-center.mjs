@@ -5,6 +5,78 @@ const OPENFOOTBALL_URL =
   "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json";
 const WORLDCUP26_URL = "https://worldcup26.ir/get/games";
 const FINISHED_STATUSES = new Set(["FT", "AET", "PEN"]);
+const WORLD_STAR_PLAYERS = [
+  {
+    id: "lionel-messi",
+    names: ["Lionel Messi", "Messi"],
+    country: "Argentina",
+  },
+  {
+    id: "kylian-mbappe",
+    names: ["Kylian Mbappé", "Mbappé"],
+    country: "France",
+  },
+  {
+    id: "erling-haaland",
+    names: ["Erling Haaland", "Haaland"],
+    country: "Norway",
+  },
+  {
+    id: "cristiano-ronaldo",
+    names: ["Cristiano Ronaldo", "Ronaldo"],
+    country: "Portugal",
+  },
+  {
+    id: "lamine-yamal",
+    names: ["Lamine Yamal", "Yamal"],
+    country: "Spain",
+  },
+  {
+    id: "vinicius-junior",
+    names: ["Vinícius Júnior", "Vinícius Junior", "Vinicius Junior", "Vinícius"],
+    country: "Brazil",
+  },
+  {
+    id: "neymar-jr",
+    names: ["Neymar Jr", "Neymar"],
+    country: "Brazil",
+  },
+  {
+    id: "raphinha",
+    names: ["Raphinha"],
+    country: "Brazil",
+  },
+  {
+    id: "jude-bellingham",
+    names: ["Jude Bellingham", "Bellingham"],
+    country: "England",
+  },
+  {
+    id: "pedri",
+    names: ["Pedri"],
+    country: "Spain",
+  },
+  {
+    id: "jamal-musiala",
+    names: ["Jamal Musiala", "Musiala"],
+    country: "Germany",
+  },
+  {
+    id: "harry-kane",
+    names: ["Harry Kane", "Kane"],
+    country: "England",
+  },
+  {
+    id: "mohamed-salah",
+    names: ["Mohamed Salah", "Salah"],
+    country: "Egypt",
+  },
+  {
+    id: "son-heung-min",
+    names: ["Son Heung-min", "Heung-min Son", "Son"],
+    country: "South Korea",
+  },
+];
 
 const schedule = JSON.parse(
   fs.readFileSync(new URL("../data/matches.json", import.meta.url), "utf8"),
@@ -59,6 +131,22 @@ function normalize(value) {
     .replace(/&/g, " and ")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
+}
+
+function normalizePerson(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\b(jr|junior|sr|senior)\b/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function personMatches(value, names) {
+  const normalized = normalizePerson(value);
+  if (!normalized) return false;
+  return names.map(normalizePerson).some((name) => name === normalized);
 }
 
 for (const team of Object.values(schedule.teams)) {
@@ -394,6 +482,52 @@ const fixtures = schedule.matches.map((appMatch) => {
   };
 });
 
+function buildWorldStarStats(fixtures) {
+  const players = WORLD_STAR_PLAYERS.map((player) => {
+    let goals = 0;
+    let assists = 0;
+    let hasAssistData = false;
+
+    fixtures
+      .filter((fixture) =>
+        [fixture.teams?.home?.name, fixture.teams?.away?.name]
+          .map(normalizePerson)
+          .includes(normalizePerson(player.country)),
+      )
+      .forEach((fixture) => {
+        (fixture.events || []).forEach((event) => {
+          if (event.type === "Goal" && event.detail !== "Own Goal") {
+            if (personMatches(event.player, player.names)) goals += 1;
+          }
+          if (String(event.assist || "").trim()) {
+            hasAssistData = true;
+            if (personMatches(event.assist, player.names)) assists += 1;
+          }
+        });
+      });
+
+    return {
+      id: player.id,
+      goals,
+      assists: hasAssistData ? assists : null,
+      minutes: null,
+      averageRating: null,
+    };
+  });
+
+  return {
+    updatedAt: new Date().toISOString(),
+    source: "match-center-events",
+    capabilities: {
+      goals: true,
+      assists: players.some((player) => player.assists !== null),
+      minutes: false,
+      averageRating: false,
+    },
+    players,
+  };
+}
+
 const output = {
   version: 2,
   source: "OpenFootball + WorldCup26",
@@ -406,6 +540,7 @@ const output = {
   },
   timezone: TIMEZONE,
   updatedAt: new Date().toISOString(),
+  starStats: buildWorldStarStats(fixtures),
   fixtures,
 };
 
@@ -414,6 +549,7 @@ const comparableOutput = JSON.stringify({
   source: output.source,
   competition: output.competition,
   timezone: output.timezone,
+  starStats: output.starStats,
   fixtures: output.fixtures.map(({ detailsFetchedAt, ...fixture }) => fixture),
 });
 const comparablePrevious = JSON.stringify({
@@ -421,6 +557,7 @@ const comparablePrevious = JSON.stringify({
   source: previous.source,
   competition: previous.competition,
   timezone: previous.timezone,
+  starStats: previous.starStats,
   fixtures: (previous.fixtures || []).map(
     ({ detailsFetchedAt, ...fixture }) => fixture,
   ),

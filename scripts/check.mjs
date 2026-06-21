@@ -859,16 +859,26 @@ assert(
 assert(
   worldStarsPage.includes("assets/match-center-data.js?v=") &&
     worldStarsPage.includes("world-stars.v20260618.css?v=20260621-star-live-stats") &&
-    worldStarsPage.includes("world-stars.v20260618.js?v=20260621-star-live-stats") &&
+    worldStarsPage.includes("world-stars.v20260618.js?v=20260621-star-stats-generated") &&
     worldStars.includes("world-star-fifa-age") &&
     worldStars.includes("${player.age} lat") &&
     worldStars.includes("function buildLiveStats()") &&
     worldStars.includes("function refreshWorldStarStats()") &&
+    worldStars.includes("matchCenter.starStats?.players?.length") &&
     worldStars.includes("data/match-center.json") &&
     worldStars.includes("Śr. nota") &&
     worldStars.includes("formatLiveStat(liveStats.averageRating") &&
     worldStarsCss.includes(".world-star-fifa-age"),
   "World stars live stats or age badge are missing",
+);
+assert(
+  matchCenter.starStats?.capabilities?.goals === true &&
+    matchCenter.starStats.players.some(
+      (player) => player.id === "kylian-mbappe" && player.goals >= 0,
+    ) &&
+    matchUpdater.includes("function buildWorldStarStats(fixtures)") &&
+    matchUpdater.includes("WORLD_STAR_PLAYERS"),
+  "Generated world star stats are missing",
 );
 
 console.log("All project checks passed.");
