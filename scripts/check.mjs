@@ -751,12 +751,13 @@ assert(
 assert(
   enhancements.includes("function enhanceMobileMatchHero()") &&
     enhancements.includes("function enhanceMobileBottomNavigation()") &&
-    enhancements.includes("function enhanceStickyLiveTicker()") &&
+    !enhancements.includes("function enhanceStickyLiveTicker()") &&
+    !enhancements.includes("function liveTickerItem()") &&
     enhancements.includes("function enhanceScoreChangeToast()") &&
     enhancements.includes("function enhanceMatchActionButtons()") &&
     matchCenterCss.includes(".mobile-match-hero") &&
     matchCenterCss.includes(".mobile-bottom-nav") &&
-    matchCenterCss.includes(".sticky-live-ticker") &&
+    !matchCenterCss.includes(".sticky-live-ticker") &&
     matchCenterCss.includes(".goal-update-toast") &&
     matchCenterCss.includes(".upcoming-match-actions"),
   "Mobile wow match experience is missing",

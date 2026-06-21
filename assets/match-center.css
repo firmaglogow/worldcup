@@ -1622,7 +1622,6 @@
 
 .mobile-match-hero,
 .mobile-bottom-nav,
-.sticky-live-ticker,
 .goal-update-toast {
   display: none;
 }
@@ -1831,48 +1830,6 @@
   .mobile-bottom-nav-button[data-active="true"] {
     background: linear-gradient(145deg, #fbbf24, #f59e0b);
     color: #07111f;
-  }
-
-  .sticky-live-ticker {
-    align-items: center;
-    background: linear-gradient(90deg, rgba(127, 29, 29, 0.96), rgba(15, 23, 42, 0.96));
-    border: 1px solid rgba(248, 113, 113, 0.35);
-    border-radius: 999px;
-    bottom: 5.05rem;
-    box-shadow: 0 14px 34px rgba(2, 6, 23, 0.36);
-    color: #f8fafc;
-    display: grid;
-    gap: 0.45rem;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    left: 0.85rem;
-    padding: 0.55rem 0.72rem;
-    position: fixed;
-    right: 0.85rem;
-    text-decoration: none;
-    z-index: 79;
-  }
-
-  .sticky-live-ticker span {
-    background: #ef4444;
-    border-radius: 999px;
-    color: #fff;
-    font-size: 0.58rem;
-    font-weight: 950;
-    letter-spacing: 0.08em;
-    padding: 0.25rem 0.38rem;
-  }
-
-  .sticky-live-ticker strong {
-    font-size: 0.72rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .sticky-live-ticker small {
-    color: #fde68a;
-    font-size: 0.58rem;
-    font-weight: 900;
   }
 
   .goal-update-toast {

@@ -3038,43 +3038,6 @@
     });
   }
 
-  function liveTickerItem() {
-    const item = bestMobileHeroMatch();
-    if (!item) return null;
-    const { match, fixture } = item;
-    const status = upcomingMatchStatus(fixture, match);
-    return {
-      match,
-      status,
-      label: `${match.homeFlag} ${match.homeName} ${status.main} ${match.awayName} ${match.awayFlag}`,
-    };
-  }
-
-  function enhanceStickyLiveTicker() {
-    const item = liveTickerItem();
-    let ticker = document.querySelector("[data-sticky-live-ticker]");
-    if (!item || !isMatchesTabActive()) {
-      ticker?.remove();
-      return;
-    }
-
-    const signature = `${item.match.id}:${item.status.main}:${item.status.detail}`;
-    if (!ticker) {
-      ticker = document.createElement("a");
-      ticker.className = "sticky-live-ticker";
-      ticker.dataset.stickyLiveTicker = "";
-      document.body.append(ticker);
-    }
-    if (ticker.dataset.stickyLiveTicker === signature) return;
-    ticker.dataset.stickyLiveTicker = signature;
-    ticker.href = `match.html?id=${item.match.id}`;
-    ticker.innerHTML = `
-      <span>${item.status.live ? "LIVE" : item.status.finished ? "WYNIK" : "NEXT"}</span>
-      <strong>${escapeHtml(item.label)}</strong>
-      <small>${escapeHtml(item.status.detail)}</small>
-    `;
-  }
-
   function favoriteTeamCodes() {
     try {
       return new Set(JSON.parse(localStorage.getItem("wc2026:fav-teams") || "[]"));
@@ -3259,7 +3222,7 @@
     enhanceLiveKnockoutBracket();
     enhanceMobileMatchHero();
     enhanceMobileBottomNavigation();
-    enhanceStickyLiveTicker();
+    document.querySelector("[data-sticky-live-ticker]")?.remove();
     enhanceMatchActionButtons();
     enhanceFavoriteMatchesHint();
     enhanceScoreChangeToast();
