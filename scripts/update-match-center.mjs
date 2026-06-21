@@ -17,6 +17,7 @@ const browserDataPath = new URL(
 const pagePaths = [
   new URL("../index.html", import.meta.url),
   new URL("../match.html", import.meta.url),
+  new URL("../gwiazdy-mundialu/index.html", import.meta.url),
 ];
 const previous = fs.existsSync(matchCenterPath)
   ? JSON.parse(fs.readFileSync(matchCenterPath, "utf8"))
@@ -436,14 +437,17 @@ fs.writeFileSync(
   `window.WC2026_MATCH_CENTER = ${JSON.stringify(output)};\n`,
 );
 const dataVersion = `live-${output.updatedAt.replace(/\D/g, "").slice(0, 12)}`;
+const matchCenterDataPattern = /((?:\.\.\/)?assets\/match-center-data\.js\?v=)[^"]+/g;
 for (const pagePath of pagePaths) {
   const page = fs.readFileSync(pagePath, "utf8");
-  if (!/assets\/match-center-data\.js\?v=[^"]+/.test(page)) {
+  matchCenterDataPattern.lastIndex = 0;
+  if (!matchCenterDataPattern.test(page)) {
     throw new Error(`Nie znaleziono wersji danych w ${pagePath.pathname}`);
   }
+  matchCenterDataPattern.lastIndex = 0;
   const updatedPage = page.replace(
-    /assets\/match-center-data\.js\?v=[^"]+/g,
-    `assets/match-center-data.js?v=${dataVersion}`,
+    matchCenterDataPattern,
+    `$1${dataVersion}`,
   );
   if (updatedPage !== page) fs.writeFileSync(pagePath, updatedPage);
 }

@@ -1283,6 +1283,17 @@
   overflow-wrap: anywhere;
 }
 
+.world-star-stat--rating strong {
+  color: #fde68a;
+}
+
+.world-star-stats-note {
+  color: #94a3b8;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  margin-top: -0.25rem;
+}
+
 .world-star-copy-block {
   display: grid;
   gap: 0.55rem;

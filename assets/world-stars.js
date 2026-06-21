@@ -478,6 +478,194 @@
     Bramkarz: "GK",
   };
 
+  const countryProviderNames = {
+    Argentyna: ["Argentina"],
+    Brazylia: ["Brazil"],
+    Egipt: ["Egypt"],
+    Francja: ["France"],
+    Hiszpania: ["Spain"],
+    Korea: ["South Korea", "Korea Republic"],
+    Niemcy: ["Germany"],
+    Norwegia: ["Norway"],
+    Portugalia: ["Portugal"],
+  };
+
+  let liveStatsByPlayer = null;
+  let liveStatsSource = window.WC2026_MATCH_CENTER || null;
+
+  function normalizePersonName(value) {
+    return String(value || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/\b(jr|junior|sr|senior)\b/g, "")
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim();
+  }
+
+  function playerNameKeys(player) {
+    const keys = [player.name, player.shortName]
+      .map(normalizePersonName)
+      .filter((value) => value.length >= 4);
+    const parts = normalizePersonName(player.name).split(" ").filter(Boolean);
+    if (parts.length > 1) keys.push(`${parts[parts.length - 1]} ${parts[0]}`);
+    return [...new Set(keys)];
+  }
+
+  function personMatches(value, player) {
+    const normalized = normalizePersonName(value);
+    if (!normalized) return false;
+    return playerNameKeys(player).some((key) => normalized === key);
+  }
+
+  function teamMatchesPlayerCountry(fixture, player, teamName) {
+    const providerNames = countryProviderNames[player.country] || [player.country];
+    const normalizedTeam = normalizePersonName(teamName);
+    return providerNames.some((name) => normalizePersonName(name) === normalizedTeam);
+  }
+
+  function fixtureInvolvesPlayerCountry(fixture, player) {
+    return (
+      teamMatchesPlayerCountry(fixture, player, fixture?.teams?.home?.name) ||
+      teamMatchesPlayerCountry(fixture, player, fixture?.teams?.away?.name)
+    );
+  }
+
+  function numberFromUnknown(value) {
+    if (value === null || value === undefined || value === "") return null;
+    const normalized = String(value).replace(",", ".");
+    const number = Number(normalized);
+    return Number.isFinite(number) ? number : null;
+  }
+
+  function readNestedNumber(source, keys) {
+    if (!source || typeof source !== "object") return null;
+    for (const key of keys) {
+      const direct = numberFromUnknown(source[key]);
+      if (direct !== null) return direct;
+    }
+    for (const value of Object.values(source)) {
+      if (!value || typeof value !== "object") continue;
+      const nested = readNestedNumber(value, keys);
+      if (nested !== null) return nested;
+    }
+    return null;
+  }
+
+  function collectPlayerMetrics(source, player, output) {
+    if (!source || typeof source !== "object") return;
+    if (Array.isArray(source)) {
+      source.forEach((item) => collectPlayerMetrics(item, player, output));
+      return;
+    }
+
+    const candidateNames = [
+      source.name,
+      source.player,
+      source.player?.name,
+      source.athlete,
+      source.athlete?.name,
+    ].filter(Boolean);
+
+    if (candidateNames.some((name) => personMatches(name, player))) {
+      const minutes = readNestedNumber(source, ["minutes", "mins", "time"]);
+      const rating = readNestedNumber(source, ["rating", "rate", "note"]);
+      if (minutes !== null) output.minutes += minutes;
+      if (rating !== null) {
+        output.ratingTotal += rating;
+        output.ratingMatches += 1;
+      }
+    }
+
+    for (const value of Object.values(source)) {
+      if (value && typeof value === "object") collectPlayerMetrics(value, player, output);
+    }
+  }
+
+  function buildLiveStats() {
+    if (liveStatsByPlayer) return liveStatsByPlayer;
+
+    const matchCenter = liveStatsSource || window.WC2026_MATCH_CENTER || {};
+    const fixtures = matchCenter.fixtures || [];
+    const hasAssistData = fixtures.some((fixture) =>
+      (fixture.events || []).some((event) => String(event.assist || "").trim()),
+    );
+    liveStatsByPlayer = new Map();
+
+    players.forEach((player) => {
+      const stats = {
+        goals: 0,
+        assists: hasAssistData ? 0 : null,
+        minutes: null,
+        averageRating: null,
+        updatedAt: matchCenter.updatedAt || "",
+      };
+      const metrics = { minutes: 0, ratingTotal: 0, ratingMatches: 0 };
+
+      fixtures
+        .filter((fixture) => fixtureInvolvesPlayerCountry(fixture, player))
+        .forEach((fixture) => {
+          (fixture.events || []).forEach((event) => {
+            if (
+              event.type === "Goal" &&
+              event.detail !== "Own Goal" &&
+              personMatches(event.player, player)
+            ) {
+              stats.goals += 1;
+            }
+            if (hasAssistData && personMatches(event.assist, player)) {
+              stats.assists += 1;
+            }
+          });
+          collectPlayerMetrics(fixture.lineups, player, metrics);
+          collectPlayerMetrics(fixture.statistics, player, metrics);
+        });
+
+      if (metrics.minutes > 0) stats.minutes = metrics.minutes;
+      if (metrics.ratingMatches > 0) {
+        stats.averageRating = metrics.ratingTotal / metrics.ratingMatches;
+      }
+      liveStatsByPlayer.set(player.id, stats);
+    });
+
+    return liveStatsByPlayer;
+  }
+
+  function formatLiveStat(value, formatter = (item) => String(item)) {
+    if (value === null || value === undefined || value === "") return "—";
+    return formatter(value);
+  }
+
+  function getPlayerLiveStats(player) {
+    return buildLiveStats().get(player.id) || {
+      goals: 0,
+      assists: null,
+      minutes: null,
+      averageRating: null,
+    };
+  }
+
+  async function refreshWorldStarStats() {
+    try {
+      const url = new URL("../data/match-center.json", window.location.href);
+      url.searchParams.set("stars", String(Date.now()));
+      const response = await fetch(url, { cache: "no-store" });
+      if (!response.ok) return;
+      liveStatsSource = await response.json();
+      liveStatsByPlayer = null;
+
+      const dialog = document.querySelector("[data-star-dialog]");
+      const content = document.querySelector("[data-star-dialog-content]");
+      const activeId = content?.querySelector(".world-star-detail")?.dataset.starId;
+      if (dialog?.hasAttribute("open") && activeId) {
+        const activePlayer = players.find((player) => player.id === activeId);
+        if (activePlayer) content.replaceChildren(renderDialogContent(activePlayer));
+      }
+    } catch (error) {
+      // File previews can block fetch(); the embedded match-center script remains the fallback.
+    }
+  }
+
   function createElement(tag, className, text = "") {
     const element = document.createElement(tag);
     if (className) element.className = className;
@@ -502,6 +690,16 @@
       DRI: player.rating,
       SHO: player.rating,
     };
+  }
+
+  function detailTone(player) {
+    if (player.id === "lionel-messi") return "world-star-detail--spotlight";
+    return "";
+  }
+
+  function featuredTag(player) {
+    if (player.id === "lionel-messi") return "Legenda i luksus";
+    return "";
   }
 
   function animateCountUp(node, target, duration = 1100) {
@@ -652,6 +850,7 @@
 
   function renderDialogContent(player) {
     const content = createElement("article", "world-star-detail");
+    content.dataset.starId = player.id;
 
     const media = createVisual(player, "world-star-detail-media", "profile");
 
@@ -676,13 +875,25 @@
     const route = createElement("section", "world-star-copy-block");
     route.append(createElement("h3", "", "Droga na Mundial"), createElement("p", "", player.route));
 
+    const liveStats = getPlayerLiveStats(player);
     const stats = createElement("div", "world-star-stats");
     const statItems = [
-      fact("Gole", String(player.tournamentStats.goals), "world-star-stat"),
-      fact("Asysty", String(player.tournamentStats.assists), "world-star-stat"),
-      fact("Minuty", String(player.tournamentStats.minutes), "world-star-stat"),
+      fact("Gole", String(liveStats.goals), "world-star-stat"),
+      fact("Asysty", formatLiveStat(liveStats.assists), "world-star-stat"),
+      fact("Minuty", formatLiveStat(liveStats.minutes, Math.round), "world-star-stat"),
+      fact(
+        "Śr. nota",
+        formatLiveStat(liveStats.averageRating, (value) => value.toFixed(2)),
+        "world-star-stat world-star-stat--rating",
+      ),
     ];
     stats.append(...statItems);
+
+    const statsNote = createElement(
+      "p",
+      "world-star-stats-note",
+      "Statystyki liczone automatycznie z centrum meczów po aktualizacji wyników.",
+    );
 
     const animatingStats = statItems.map((item) => {
       const valueNode = item.querySelector("strong");
@@ -718,7 +929,7 @@
       details.prepend(heroTag);
     }
 
-    details.append(title, facts, route, stats, impact, curiosity, whyWatch);
+    details.append(title, facts, route, stats, statsNote, impact, curiosity, whyWatch);
     content.append(media, details);
 
     requestAnimationFrame(() => {
@@ -751,6 +962,7 @@
 
   const grid = document.querySelector("[data-stars-grid]");
   sortedPlayers.forEach((player) => grid?.append(createCard(player)));
+  refreshWorldStarStats();
 
   document.querySelector("[data-star-close]")?.addEventListener("click", closeDialog);
   document.querySelector("[data-star-dialog]")?.addEventListener("click", (event) => {

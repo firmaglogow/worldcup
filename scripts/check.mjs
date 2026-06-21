@@ -827,8 +827,9 @@ assert(
   "Halftime score capture and preservation are missing",
 );
 assert(
-  matchUpdater.includes("assets/match-center-data.js?v=${dataVersion}") &&
-    matchWorkflow.includes("index.html match.html"),
+  matchUpdater.includes("matchCenterDataPattern") &&
+    matchUpdater.includes("$1${dataVersion}") &&
+    matchUpdater.includes("../gwiazdy-mundialu/index.html"),
   "Automatic live-data cache refresh is missing",
 );
 assert(
@@ -836,12 +837,18 @@ assert(
   "Free match update step is missing",
 );
 assert(
-  worldStarsPage.includes("world-stars.v20260618.css?v=20260621-star-age") &&
-    worldStarsPage.includes("world-stars.v20260618.js?v=20260621-star-age") &&
+  worldStarsPage.includes("assets/match-center-data.js?v=") &&
+    worldStarsPage.includes("world-stars.v20260618.css?v=20260621-star-live-stats") &&
+    worldStarsPage.includes("world-stars.v20260618.js?v=20260621-star-live-stats") &&
     worldStars.includes("world-star-fifa-age") &&
     worldStars.includes("${player.age} lat") &&
+    worldStars.includes("function buildLiveStats()") &&
+    worldStars.includes("function refreshWorldStarStats()") &&
+    worldStars.includes("data/match-center.json") &&
+    worldStars.includes("Śr. nota") &&
+    worldStars.includes("formatLiveStat(liveStats.averageRating") &&
     worldStarsCss.includes(".world-star-fifa-age"),
-  "World stars card age badge is missing",
+  "World stars live stats or age badge are missing",
 );
 
 console.log("All project checks passed.");
