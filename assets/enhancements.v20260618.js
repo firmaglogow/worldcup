@@ -2905,6 +2905,331 @@
     anchor.insertAdjacentElement("beforebegin", panel);
   }
 
+  const mobileQuickNavItems = [
+    { label: "Mecze", icon: "📅" },
+    { label: "Tabele grup", short: "Tabele", icon: "📊" },
+    { label: "Faza pucharowa", short: "Puchar", icon: "🏆" },
+    { label: "Dream Team", short: "Dream XI", icon: "⭐" },
+    { label: "Mój typ", short: "Typy", icon: "🎯" },
+  ];
+
+  function matchStatusShort(fixture, match) {
+    const status = upcomingMatchStatus(fixture, match);
+    if (status.live) return "NA ŻYWO";
+    if (status.finished) return "KONIEC";
+    return "START";
+  }
+
+  function bestMobileHeroMatch() {
+    const fixtures = new Map(
+      (window.WC2026_MATCH_CENTER?.fixtures || []).map((fixture) => [
+        Number(fixture.appMatchId),
+        fixture,
+      ]),
+    );
+    const now = Date.now();
+    const items = (window.WC2026_MATCHES?.matches || [])
+      .map((match) => ({
+        match,
+        fixture: fixtures.get(Number(match.id)),
+        kickoff: matchKickoff(match),
+      }))
+      .sort((first, second) => first.kickoff - second.kickoff);
+
+    return (
+      items.find(({ fixture, match, kickoff }) => {
+        const status = fixture?.status?.short;
+        return (
+          matchBrowserLiveStatuses.has(status) ||
+          (kickoff.getTime() <= now && now <= kickoff.getTime() + 180 * 60 * 1000)
+        );
+      }) ||
+      items.find(({ kickoff, fixture }) => {
+        const status = fixture?.status?.short;
+        return (
+          kickoff.getTime() > now &&
+          !matchBrowserFinishedStatuses.has(status)
+        );
+      }) ||
+      items.find(({ fixture }) =>
+        matchBrowserFinishedStatuses.has(fixture?.status?.short),
+      )
+    );
+  }
+
+  function createMobileMatchHero(item) {
+    const { match, fixture } = item;
+    const status = upcomingMatchStatus(fixture, match);
+    const hero = document.createElement("section");
+    hero.className = `mobile-match-hero${status.live ? " is-live" : ""}`;
+    hero.dataset.mobileMatchHero = `${match.id}:${status.main}:${status.detail}`;
+
+    hero.innerHTML = `
+      <a class="mobile-match-hero-link" href="match.html?id=${match.id}">
+        <span class="mobile-match-hero-kicker">${status.live ? "TERAZ GRANE" : status.finished ? "OSTATNI WYNIK" : "NAJBLIŻSZY MECZ"}</span>
+        <div class="mobile-match-hero-score">
+          <span><b>${escapeHtml(match.homeFlag)}</b><strong>${escapeHtml(match.homeName)}</strong></span>
+          <em>
+            <strong>${escapeHtml(status.main)}</strong>
+            <small>${escapeHtml(status.detail)}</small>
+          </em>
+          <span><b>${escapeHtml(match.awayFlag)}</b><strong>${escapeHtml(match.awayName)}</strong></span>
+        </div>
+        <p>${escapeHtml(match.stadium)} · ${escapeHtml(match.city)}</p>
+      </a>
+    `;
+    return hero;
+  }
+
+  function enhanceMobileMatchHero() {
+    if (!isMatchesTabActive()) {
+      document.querySelector("[data-mobile-match-hero]")?.remove();
+      return;
+    }
+    const browser = document.querySelector("[data-match-browser]");
+    const container = browser?.parentElement;
+    if (!browser || !container) return;
+
+    const item = bestMobileHeroMatch();
+    if (!item) return;
+    const hero = createMobileMatchHero(item);
+    const existing = container.querySelector("[data-mobile-match-hero]");
+    if (existing?.dataset.mobileMatchHero === hero.dataset.mobileMatchHero) return;
+    existing?.remove();
+    browser.insertAdjacentElement("beforebegin", hero);
+  }
+
+  function activeMobileNavLabel() {
+    const active =
+      [...document.querySelectorAll("button[data-nav-order]")].find((button) =>
+        button.className.includes("amber"),
+      ) || [...document.querySelectorAll("button[data-nav-order]")][0];
+    return active?.textContent.trim() || "Mecze";
+  }
+
+  function enhanceMobileBottomNavigation() {
+    let nav = document.querySelector("[data-mobile-bottom-nav]");
+    if (!nav) {
+      nav = document.createElement("nav");
+      nav.className = "mobile-bottom-nav";
+      nav.dataset.mobileBottomNav = "true";
+      nav.setAttribute("aria-label", "Szybka nawigacja mobilna");
+      document.body.append(nav);
+    }
+
+    const activeLabel = activeMobileNavLabel();
+    const signature = `${activeLabel}:${mobileQuickNavItems.map((item) => item.label).join("|")}`;
+    if (nav.dataset.signature === signature) return;
+    nav.dataset.signature = signature;
+    nav.replaceChildren();
+
+    mobileQuickNavItems.forEach((item) => {
+      const source = [...document.querySelectorAll("button[data-nav-order]")].find(
+        (button) => button.textContent.trim() === item.label,
+      );
+      if (!source) return;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "mobile-bottom-nav-button";
+      button.dataset.active = String(activeLabel === item.label);
+      button.innerHTML = `<span aria-hidden="true">${item.icon}</span><strong>${escapeHtml(item.short || item.label)}</strong>`;
+      button.addEventListener("click", () => source.click());
+      nav.append(button);
+    });
+  }
+
+  function liveTickerItem() {
+    const item = bestMobileHeroMatch();
+    if (!item) return null;
+    const { match, fixture } = item;
+    const status = upcomingMatchStatus(fixture, match);
+    return {
+      match,
+      status,
+      label: `${match.homeFlag} ${match.homeName} ${status.main} ${match.awayName} ${match.awayFlag}`,
+    };
+  }
+
+  function enhanceStickyLiveTicker() {
+    const item = liveTickerItem();
+    let ticker = document.querySelector("[data-sticky-live-ticker]");
+    if (!item || !isMatchesTabActive()) {
+      ticker?.remove();
+      return;
+    }
+
+    const signature = `${item.match.id}:${item.status.main}:${item.status.detail}`;
+    if (!ticker) {
+      ticker = document.createElement("a");
+      ticker.className = "sticky-live-ticker";
+      ticker.dataset.stickyLiveTicker = "";
+      document.body.append(ticker);
+    }
+    if (ticker.dataset.stickyLiveTicker === signature) return;
+    ticker.dataset.stickyLiveTicker = signature;
+    ticker.href = `match.html?id=${item.match.id}`;
+    ticker.innerHTML = `
+      <span>${item.status.live ? "LIVE" : item.status.finished ? "WYNIK" : "NEXT"}</span>
+      <strong>${escapeHtml(item.label)}</strong>
+      <small>${escapeHtml(item.status.detail)}</small>
+    `;
+  }
+
+  function favoriteTeamCodes() {
+    try {
+      return new Set(JSON.parse(localStorage.getItem("wc2026:fav-teams") || "[]"));
+    } catch {
+      return new Set();
+    }
+  }
+
+  function saveFavoriteTeamCodes(codes) {
+    try {
+      localStorage.setItem("wc2026:fav-teams", JSON.stringify([...codes]));
+    } catch {
+      // Favorites are an optional mobile convenience.
+    }
+  }
+
+  function toggleFavoriteTeam(code) {
+    if (!code) return;
+    const codes = favoriteTeamCodes();
+    if (codes.has(code)) codes.delete(code);
+    else codes.add(code);
+    saveFavoriteTeamCodes(codes);
+  }
+
+  function setFavoriteMatchTeams(match, active) {
+    const codes = favoriteTeamCodes();
+    [match.homeCode, match.awayCode].filter(Boolean).forEach((code) => {
+      if (active) codes.add(code);
+      else codes.delete(code);
+    });
+    saveFavoriteTeamCodes(codes);
+  }
+
+  function createCalendarHref(match) {
+    const start = matchKickoff(match);
+    const end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
+    const format = (date) =>
+      date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
+    const title = encodeURIComponent(`${match.homeName} - ${match.awayName}`);
+    const location = encodeURIComponent(`${match.stadium}, ${match.city}`);
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${format(start)}/${format(end)}&location=${location}`;
+  }
+
+  function enhanceMatchActionButtons() {
+    const favorites = favoriteTeamCodes();
+    document.querySelectorAll(".upcoming-match-card").forEach((card) => {
+      if (card.dataset.matchActions === "true") return;
+      card.querySelector(".upcoming-match-actions")?.remove();
+      const href = card.getAttribute("href") || "";
+      const id = Number(new URL(href, window.location.href).searchParams.get("id"));
+      const match = (window.WC2026_MATCHES?.matches || []).find(
+        (candidate) => Number(candidate.id) === id,
+      );
+      if (!match) return;
+
+      card.dataset.matchActions = "true";
+      if (favorites.has(match.homeCode) || favorites.has(match.awayCode)) {
+        card.classList.add("is-favorite-match");
+      } else {
+        card.classList.remove("is-favorite-match");
+      }
+
+      const actions = document.createElement("div");
+      actions.className = "upcoming-match-actions";
+      const isFavorite = favorites.has(match.homeCode) || favorites.has(match.awayCode);
+
+      const favorite = document.createElement("button");
+      favorite.type = "button";
+      favorite.className = "upcoming-match-action";
+      favorite.textContent = isFavorite ? "★ Mój mecz" : "☆ Obserwuj";
+      favorite.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setFavoriteMatchTeams(match, !isFavorite);
+        document.querySelectorAll("[data-match-actions='true']").forEach((node) => {
+          node.dataset.matchActions = "false";
+        });
+        enhanceMatchActionButtons();
+      });
+
+      const calendar = document.createElement("a");
+      calendar.className = "upcoming-match-action";
+      calendar.href = createCalendarHref(match);
+      calendar.target = "_blank";
+      calendar.textContent = "＋ Kalendarz";
+      calendar.addEventListener("click", (event) => event.stopPropagation());
+
+      actions.append(favorite, calendar);
+      card.append(actions);
+    });
+  }
+
+  function enhanceFavoriteMatchesHint() {
+    if (!isMatchesTabActive()) return;
+    const codes = favoriteTeamCodes();
+    const browser = document.querySelector("[data-match-browser]");
+    if (!browser || !codes.size) return;
+    if (browser.querySelector("[data-favorite-matches-hint]")) return;
+    const hint = document.createElement("button");
+    hint.type = "button";
+    hint.className = "favorite-matches-hint";
+    hint.dataset.favoriteMatchesHint = "true";
+    hint.textContent = "⭐ Pokaż moje drużyny";
+    hint.addEventListener("click", () => {
+      const select = document.querySelector('select[aria-label="Filtr drużyny"]');
+      const firstCode = [...codes].find((code) =>
+        [...(select?.options || [])].some((option) => option.value === code),
+      );
+      if (select && firstCode) {
+        select.value = firstCode;
+        select.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+    });
+    browser.append(hint);
+  }
+
+  function enhanceScoreChangeToast() {
+    const fixtures = window.WC2026_MATCH_CENTER?.fixtures || [];
+    if (!fixtures.length) return;
+    const scores = fixtures
+      .filter((fixture) =>
+        Number.isInteger(fixture.goals?.home) &&
+        Number.isInteger(fixture.goals?.away),
+      )
+      .map((fixture) => `${fixture.appMatchId}:${fixture.goals.home}:${fixture.goals.away}`)
+      .join("|");
+    if (!scores) return;
+
+    let previous = "";
+    try {
+      previous = localStorage.getItem("wc2026:last-score-signature") || "";
+      localStorage.setItem("wc2026:last-score-signature", scores);
+    } catch {
+      return;
+    }
+    if (!previous || previous === scores || document.querySelector("[data-goal-toast]")) return;
+
+    const changed = scores
+      .split("|")
+      .find((entry) => !previous.split("|").includes(entry));
+    const matchId = Number(changed?.split(":")[0]);
+    const match = (window.WC2026_MATCHES?.matches || []).find(
+      (candidate) => Number(candidate.id) === matchId,
+    );
+    if (!match) return;
+
+    const toast = document.createElement("a");
+    toast.className = "goal-update-toast";
+    toast.dataset.goalToast = "true";
+    toast.href = `match.html?id=${match.id}`;
+    toast.innerHTML = `<span>GOL / AKTUALIZACJA</span><strong>${escapeHtml(match.homeName)} - ${escapeHtml(match.awayName)}</strong>`;
+    document.body.append(toast);
+    window.setTimeout(() => toast.remove(), 5200);
+  }
+
   function secureExternalLinks() {
     document
       .querySelectorAll('a[target="_blank"]')
@@ -2932,6 +3257,12 @@
     canonicalizeRenderedScorers();
     enhanceStatistics();
     enhanceLiveKnockoutBracket();
+    enhanceMobileMatchHero();
+    enhanceMobileBottomNavigation();
+    enhanceStickyLiveTicker();
+    enhanceMatchActionButtons();
+    enhanceFavoriteMatchesHint();
+    enhanceScoreChangeToast();
     secureExternalLinks();
   }
 

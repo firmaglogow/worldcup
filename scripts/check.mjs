@@ -201,7 +201,8 @@ assert(
   "Advertising should remain visible on every tab",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260621-upcoming-two-days"),
+  index.includes("assets/enhancements.v20260618.js?v=20260621-mobile-wow") &&
+    index.includes("assets/match-center.css?v=20260621-mobile-wow"),
   "Latest advertising visibility cache key is missing",
 );
 assert(
@@ -608,7 +609,7 @@ assert(
 assert(
   index.includes("assets/app.js?v=20260614-account-system") &&
     index.includes(
-      "assets/match-center.css?v=20260621-upcoming-two-days",
+      "assets/match-center.css?v=20260621-mobile-wow",
     ),
   "Latest prediction cache keys are missing",
 );
@@ -682,7 +683,7 @@ assert(
   "Statistics navigation order is not stable across application refreshes",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260621-upcoming-two-days"),
+  index.includes("assets/enhancements.v20260618.js?v=20260621-mobile-wow"),
   "Latest navigation enhancement cache key is missing",
 );
 assert(
@@ -718,7 +719,7 @@ assert(
   "Collapsible mobile navigation is missing",
 );
 assert(
-  index.includes("assets/match-center.css?v=20260621-upcoming-two-days"),
+  index.includes("assets/match-center.css?v=20260621-mobile-wow"),
   "Latest navigation styles cache key is missing",
 );
 assert(
@@ -746,6 +747,19 @@ assert(
   enhancements.includes("function enhanceDreamTeamPhotos()") &&
     matchCenterCss.includes(".dream-team-player-photo"),
   "Dream Team player portraits are missing",
+);
+assert(
+  enhancements.includes("function enhanceMobileMatchHero()") &&
+    enhancements.includes("function enhanceMobileBottomNavigation()") &&
+    enhancements.includes("function enhanceStickyLiveTicker()") &&
+    enhancements.includes("function enhanceScoreChangeToast()") &&
+    enhancements.includes("function enhanceMatchActionButtons()") &&
+    matchCenterCss.includes(".mobile-match-hero") &&
+    matchCenterCss.includes(".mobile-bottom-nav") &&
+    matchCenterCss.includes(".sticky-live-ticker") &&
+    matchCenterCss.includes(".goal-update-toast") &&
+    matchCenterCss.includes(".upcoming-match-actions"),
+  "Mobile wow match experience is missing",
 );
 assert(
   matchCenterCss.includes(".site-primary-nav-desktop") &&
