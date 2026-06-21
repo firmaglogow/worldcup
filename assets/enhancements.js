@@ -2906,11 +2906,15 @@
   }
 
   const mobileQuickNavItems = [
-    { label: "Mecze", icon: "📅" },
-    { label: "Tabele grup", short: "Tabele", icon: "📊" },
-    { label: "Faza pucharowa", short: "Puchar", icon: "🏆" },
-    { label: "Dream Team", short: "Dream XI", icon: "⭐" },
-    { label: "Mój typ", short: "Typy", icon: "🎯" },
+    { labels: ["Mecze"], short: "Mecze", icon: "📅" },
+    { labels: ["Tabele grup", "Tabele"], short: "Tabele", icon: "📊" },
+    { labels: ["Statystyki", "Staty"], short: "Staty", icon: "📈" },
+    {
+      labels: ["Gwiazdy Mundialu", "Gwiazdy", "Grupa śmierci", "Śmierci"],
+      short: "Gwiazdy",
+      icon: "🔥",
+    },
+    { labels: ["Faza pucharowa", "Puchar"], short: "Puchar", icon: "🏆" },
   ];
 
   function matchStatusShort(fixture, match) {
@@ -3007,6 +3011,18 @@
     return active?.textContent.trim() || "Mecze";
   }
 
+  function findNavigationButton(labels) {
+    const accepted = new Set(labels);
+    const buttons = [...document.querySelectorAll("button[data-nav-order]")];
+    return (
+      buttons.find((button) => accepted.has(button.textContent.trim())) ||
+      buttons.find((button) =>
+        labels.some((label) => button.textContent.trim().includes(label)),
+      ) ||
+      null
+    );
+  }
+
   function enhanceMobileBottomNavigation() {
     let nav = document.querySelector("[data-mobile-bottom-nav]");
     if (!nav) {
@@ -3018,22 +3034,22 @@
     }
 
     const activeLabel = activeMobileNavLabel();
-    const signature = `${activeLabel}:${mobileQuickNavItems.map((item) => item.label).join("|")}`;
+    const signature = `${activeLabel}:${mobileQuickNavItems.map((item) => item.short).join("|")}`;
     if (nav.dataset.signature === signature) return;
     nav.dataset.signature = signature;
     nav.replaceChildren();
 
     mobileQuickNavItems.forEach((item) => {
-      const source = [...document.querySelectorAll("button[data-nav-order]")].find(
-        (button) => button.textContent.trim() === item.label,
-      );
+      const source = findNavigationButton(item.labels);
       if (!source) return;
       const button = document.createElement("button");
       button.type = "button";
       button.className = "mobile-bottom-nav-button";
-      button.dataset.active = String(activeLabel === item.label);
-      button.innerHTML = `<span aria-hidden="true">${item.icon}</span><strong>${escapeHtml(item.short || item.label)}</strong>`;
-      button.addEventListener("click", () => source.click());
+      button.dataset.active = String(item.labels.includes(activeLabel));
+      button.innerHTML = `<span aria-hidden="true">${item.icon}</span><strong>${escapeHtml(item.short)}</strong>`;
+      button.addEventListener("click", () => {
+        source.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+      });
       nav.append(button);
     });
   }
