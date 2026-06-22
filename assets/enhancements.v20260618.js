@@ -3040,14 +3040,14 @@
     nav.replaceChildren();
 
     mobileQuickNavItems.forEach((item) => {
-      const source = findNavigationButton(item.labels);
-      if (!source) return;
       const button = document.createElement("button");
       button.type = "button";
       button.className = "mobile-bottom-nav-button";
       button.dataset.active = String(item.labels.includes(activeLabel));
       button.innerHTML = `<span aria-hidden="true">${item.icon}</span><strong>${escapeHtml(item.short)}</strong>`;
       button.addEventListener("click", () => {
+        const source = findNavigationButton(item.labels);
+        if (!source) return;
         source.click();
       });
       nav.append(button);

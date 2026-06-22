@@ -201,8 +201,8 @@ assert(
   "Advertising should remain visible on every tab",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260621-mobile-nav-position") &&
-    index.includes("assets/match-center.css?v=20260622-mobile-nav-low"),
+  index.includes("assets/enhancements.v20260618.js?v=20260622-mobile-nav-visible") &&
+    index.includes("assets/match-center.css?v=20260622-mobile-nav-visible"),
   "Latest advertising visibility cache key is missing",
 );
 assert(
@@ -609,7 +609,7 @@ assert(
 assert(
   index.includes("assets/app.js?v=20260614-account-system") &&
     index.includes(
-      "assets/match-center.css?v=20260622-mobile-nav-low",
+      "assets/match-center.css?v=20260622-mobile-nav-visible",
     ),
   "Latest prediction cache keys are missing",
 );
@@ -683,7 +683,7 @@ assert(
   "Statistics navigation order is not stable across application refreshes",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260621-mobile-nav-position"),
+  index.includes("assets/enhancements.v20260618.js?v=20260622-mobile-nav-visible"),
   "Latest navigation enhancement cache key is missing",
 );
 assert(
@@ -719,7 +719,7 @@ assert(
   "Collapsible mobile navigation is missing",
 );
 assert(
-  index.includes("assets/match-center.css?v=20260622-mobile-nav-low"),
+  index.includes("assets/match-center.css?v=20260622-mobile-nav-visible"),
   "Latest navigation styles cache key is missing",
 );
 assert(
@@ -763,8 +763,8 @@ assert(
     enhancements.includes("function enhanceMatchActionButtons()") &&
     matchCenterCss.includes(".mobile-match-hero") &&
     matchCenterCss.includes(".mobile-bottom-nav") &&
-    matchCenterCss.includes("padding-bottom: 6.75rem") &&
-    matchCenterCss.includes("bottom: max(0.55rem, env(safe-area-inset-bottom, 0px))") &&
+    matchCenterCss.includes("padding-bottom: 5.75rem") &&
+    matchCenterCss.includes("bottom: 0.25rem") &&
     matchCenterCss.includes("z-index: 2147483000") &&
     !matchCenterCss.includes(".sticky-live-ticker") &&
     matchCenterCss.includes(".goal-update-toast") &&
