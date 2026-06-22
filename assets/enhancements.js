@@ -761,14 +761,14 @@
       }
 
       .hidden.sm\\:flex button[data-nav-order] {
-        gap: 0.55rem;
+        gap: 0.42rem;
       }
 
       .hidden.sm\\:flex button[data-nav-order] svg {
-        width: 1.15rem;
-        height: 1.15rem;
-        padding: 0.34rem;
-        margin-right: 0.05rem;
+        width: 0.95rem;
+        height: 0.95rem;
+        padding: 0.26rem;
+        margin-right: 0;
       }
 
       .sm\\:hidden button[data-nav-order] svg {
@@ -3054,6 +3054,17 @@
     });
   }
 
+  function enhanceCompactDesktopHeader() {
+    const syncLine = [...document.querySelectorAll("p, span, div")].find((element) =>
+      element.childElementCount === 0 &&
+      element.textContent.includes("Ostatnia synchronizacja"),
+    );
+    if (!syncLine) return;
+
+    syncLine.classList.add("site-desktop-sync-line");
+    syncLine.closest(".sticky")?.classList.add("site-compact-desktop-header");
+  }
+
   function favoriteTeamCodes() {
     try {
       return new Set(JSON.parse(localStorage.getItem("wc2026:fav-teams") || "[]"));
@@ -3238,6 +3249,7 @@
     enhanceLiveKnockoutBracket();
     enhanceMobileMatchHero();
     enhanceMobileBottomNavigation();
+    enhanceCompactDesktopHeader();
     document.querySelector("[data-sticky-live-ticker]")?.remove();
     enhanceMatchActionButtons();
     enhanceFavoriteMatchesHint();

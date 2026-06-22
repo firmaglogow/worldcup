@@ -201,8 +201,8 @@ assert(
   "Advertising should remain visible on every tab",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260622-mobile-nav-visible") &&
-    index.includes("assets/match-center.css?v=20260622-mobile-nav-visible"),
+  index.includes("assets/enhancements.v20260618.js?v=20260622-compact-desktop-header") &&
+    index.includes("assets/match-center.css?v=20260622-compact-desktop-header"),
   "Latest advertising visibility cache key is missing",
 );
 assert(
@@ -609,7 +609,7 @@ assert(
 assert(
   index.includes("assets/app.js?v=20260614-account-system") &&
     index.includes(
-      "assets/match-center.css?v=20260622-mobile-nav-visible",
+      "assets/match-center.css?v=20260622-compact-desktop-header",
     ),
   "Latest prediction cache keys are missing",
 );
@@ -683,7 +683,7 @@ assert(
   "Statistics navigation order is not stable across application refreshes",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260622-mobile-nav-visible"),
+  index.includes("assets/enhancements.v20260618.js?v=20260622-compact-desktop-header"),
   "Latest navigation enhancement cache key is missing",
 );
 assert(
@@ -719,7 +719,7 @@ assert(
   "Collapsible mobile navigation is missing",
 );
 assert(
-  index.includes("assets/match-center.css?v=20260622-mobile-nav-visible"),
+  index.includes("assets/match-center.css?v=20260622-compact-desktop-header"),
   "Latest navigation styles cache key is missing",
 );
 assert(
@@ -773,7 +773,10 @@ assert(
 );
 assert(
   matchCenterCss.includes(".site-primary-nav-desktop") &&
-    matchCenterCss.includes("grid-template-columns: repeat(6"),
+    matchCenterCss.includes("grid-template-columns: repeat(6") &&
+    matchCenterCss.includes(".site-compact-desktop-header") &&
+    matchCenterCss.includes(".site-desktop-sync-line") &&
+    enhancements.includes("function enhanceCompactDesktopHeader()"),
   "Two-row desktop navigation is missing",
 );
 assert(

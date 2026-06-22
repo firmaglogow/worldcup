@@ -810,27 +810,50 @@
 }
 
 @media (min-width: 1024px) {
+  .site-compact-desktop-header > div {
+    padding-bottom: 0.55rem !important;
+    padding-top: 0.65rem !important;
+  }
+
+  .site-compact-desktop-header h1 {
+    font-size: 1.55rem !important;
+    line-height: 1.05 !important;
+  }
+
+  .site-compact-desktop-header .site-trophy-mark {
+    height: 3rem !important;
+    width: 3rem !important;
+  }
+
+  .site-desktop-sync-line {
+    display: none !important;
+  }
+
   .site-primary-nav-desktop {
     display: grid !important;
-    gap: 0.3rem 0.4rem !important;
+    gap: 0.12rem 0.35rem !important;
     grid-template-columns: repeat(6, minmax(0, 1fr));
     overflow: visible !important;
-    padding-bottom: 0.45rem;
+    padding-bottom: 0.18rem;
   }
 
   .site-primary-nav-desktop > button {
     justify-content: center;
-    line-height: 1.15;
+    line-height: 1.05;
     min-width: 0;
-    padding: 0.65rem 0.45rem !important;
+    padding: 0.38rem 0.38rem !important;
     text-align: center;
     white-space: normal !important;
   }
 
   .site-primary-nav-desktop > button svg {
     flex: 0 0 auto;
-    height: 1rem;
-    width: 1rem;
+    height: 0.9rem;
+    width: 0.9rem;
+  }
+
+  .site-primary-nav-desktop > button span {
+    font-size: 0.86rem;
   }
 }
 
