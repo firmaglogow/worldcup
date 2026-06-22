@@ -202,7 +202,7 @@ assert(
 );
 assert(
   index.includes("assets/enhancements.v20260618.js?v=20260621-mobile-nav-position") &&
-    index.includes("assets/match-center.css?v=20260621-mobile-nav-position"),
+    index.includes("assets/match-center.css?v=20260622-mobile-nav-low"),
   "Latest advertising visibility cache key is missing",
 );
 assert(
@@ -609,7 +609,7 @@ assert(
 assert(
   index.includes("assets/app.js?v=20260614-account-system") &&
     index.includes(
-      "assets/match-center.css?v=20260621-mobile-nav-position",
+      "assets/match-center.css?v=20260622-mobile-nav-low",
     ),
   "Latest prediction cache keys are missing",
 );
@@ -719,7 +719,7 @@ assert(
   "Collapsible mobile navigation is missing",
 );
 assert(
-  index.includes("assets/match-center.css?v=20260621-mobile-nav-position"),
+  index.includes("assets/match-center.css?v=20260622-mobile-nav-low"),
   "Latest navigation styles cache key is missing",
 );
 assert(
@@ -763,8 +763,9 @@ assert(
     enhancements.includes("function enhanceMatchActionButtons()") &&
     matchCenterCss.includes(".mobile-match-hero") &&
     matchCenterCss.includes(".mobile-bottom-nav") &&
-    matchCenterCss.includes("padding-bottom: 11rem") &&
-    matchCenterCss.includes("4.75rem") &&
+    matchCenterCss.includes("padding-bottom: 6.75rem") &&
+    matchCenterCss.includes("bottom: max(0.55rem, env(safe-area-inset-bottom, 0px))") &&
+    matchCenterCss.includes("z-index: 2147483000") &&
     !matchCenterCss.includes(".sticky-live-ticker") &&
     matchCenterCss.includes(".goal-update-toast") &&
     matchCenterCss.includes(".upcoming-match-actions"),
