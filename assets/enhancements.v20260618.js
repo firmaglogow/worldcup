@@ -1220,8 +1220,67 @@
     };
   }
 
+  function normalizeTeamName(value) {
+    return String(value || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/&/g, " and ")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+  }
+
+  function teamByProviderName(name) {
+    const teams = Object.values(window.WC2026_MATCHES?.teams || {});
+    const normalized = normalizeTeamName(name);
+    if (!normalized) return null;
+    return (
+      teams.find(
+        (team) =>
+          normalizeTeamName(team.providerName) === normalized ||
+          normalizeTeamName(team.name) === normalized,
+      ) || null
+    );
+  }
+
+  function displayTeamForMatch(match, fixture, side) {
+    const directCode = match?.[`${side}Code`];
+    const directTeam = directCode
+      ? window.WC2026_MATCHES?.teams?.[directCode]
+      : null;
+    if (directTeam) {
+      return {
+        code: directTeam.code,
+        flag: directTeam.flag,
+        name: directTeam.name,
+      };
+    }
+
+    const fixtureName = fixture?.teams?.[side]?.name;
+    const fixtureTeam = teamByProviderName(fixtureName);
+    if (fixtureTeam) {
+      return {
+        code: fixtureTeam.code,
+        flag: fixtureTeam.flag,
+        name: fixtureTeam.name,
+      };
+    }
+
+    return {
+      code: null,
+      flag: "",
+      name:
+        match?.[`${side}Name`] ||
+        match?.[`${side}Label`] ||
+        fixtureName ||
+        "Do ustalenia",
+    };
+  }
+
   function createUpcomingMatchCard(item, index) {
     const { match, fixture } = item;
+    const homeTeam = displayTeamForMatch(match, fixture, "home");
+    const awayTeam = displayTeamForMatch(match, fixture, "away");
     const [, month, day] = match.date.split("-").map(Number);
     const weekday = new Date(`${match.date}T12:00:00Z`).getUTCDay();
     const card = document.createElement("a");
@@ -1233,7 +1292,7 @@
     );
     card.setAttribute(
       "aria-label",
-      `${match.homeName} - ${match.awayName}, ${match.time}`,
+      `${homeTeam.name} - ${awayTeam.name}, ${match.time}`,
     );
 
     const meta = document.createElement("div");
@@ -1278,9 +1337,9 @@
     center.append(mainStatus, detail);
 
     matchup.append(
-      createTeam(match.homeFlag, match.homeName),
+      createTeam(homeTeam.flag, homeTeam.name),
       center,
-      createTeam(match.awayFlag, match.awayName),
+      createTeam(awayTeam.flag, awayTeam.name),
     );
 
     const venue = document.createElement("p");
@@ -3220,6 +3279,44 @@
     window.setTimeout(() => toast.remove(), 5200);
   }
 
+  function isKnockoutPhaseActive() {
+    const groupMatches = (window.WC2026_MATCHES?.matches || []).filter(
+      (match) => match.phase === "group",
+    );
+    if (!groupMatches.length) return false;
+
+    const fixtures = new Map(
+      (window.WC2026_MATCH_CENTER?.fixtures || [])
+        .filter((fixture) => fixture.appMatchId)
+        .map((fixture) => [Number(fixture.appMatchId), fixture]),
+    );
+
+    return groupMatches.every((match) => {
+      const fixture = fixtures.get(Number(match.id));
+      const status = fixture?.status?.short || "";
+      return (
+        matchBrowserFinishedStatuses.has(status) ||
+        (Number.isInteger(fixture?.goals?.home) &&
+          Number.isInteger(fixture?.goals?.away))
+      );
+    });
+  }
+
+  function enhanceKnockoutHomepageCopy() {
+    if (!isMatchesTabActive() || !isKnockoutPhaseActive()) return;
+
+    const elements = [...document.querySelectorAll("body *")];
+    const progressLabel = elements.find(
+      (element) => element.textContent.trim() === "Postęp fazy grupowej",
+    );
+    if (progressLabel) progressLabel.textContent = "Faza pucharowa";
+
+    const progressValue = elements.find((element) =>
+      /^\d+\s*\/\s*72\s+meczów\s*·\s*\d+%$/.test(element.textContent.trim()),
+    );
+    if (progressValue) progressValue.textContent = "1/16 finału";
+  }
+
   function secureExternalLinks() {
     document
       .querySelectorAll('a[target="_blank"]')
@@ -3254,6 +3351,7 @@
     enhanceMatchActionButtons();
     enhanceFavoriteMatchesHint();
     enhanceScoreChangeToast();
+    enhanceKnockoutHomepageCopy();
     secureExternalLinks();
   }
 

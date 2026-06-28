@@ -1453,7 +1453,13 @@
       "stadium": "SoFi Stadium",
       "city": "Los Angeles",
       "homeLabel": "2. miejsce grupy A",
-      "awayLabel": "2. miejsce grupy B"
+      "awayLabel": "2. miejsce grupy B",
+      "homeCode": "RSA",
+      "homeName": "RPA",
+      "homeFlag": "🇿🇦",
+      "awayCode": "CAN",
+      "awayName": "Kanada",
+      "awayFlag": "🇨🇦"
     },
     {
       "id": 74,
@@ -1464,7 +1470,13 @@
       "stadium": "Gillette Stadium",
       "city": "Boston",
       "homeLabel": "Zwycięzca grupy E",
-      "awayLabel": "3. miejsce (A/B/C/D/F)"
+      "awayLabel": "3. miejsce (A/B/C/D/F)",
+      "homeCode": "GER",
+      "homeName": "Niemcy",
+      "homeFlag": "🇩🇪",
+      "awayCode": "SWE",
+      "awayName": "Szwecja",
+      "awayFlag": "🇸🇪"
     },
     {
       "id": 75,
@@ -1475,7 +1487,13 @@
       "stadium": "Estadio BBVA",
       "city": "Monterrey",
       "homeLabel": "Zwycięzca grupy F",
-      "awayLabel": "2. miejsce grupy C"
+      "awayLabel": "2. miejsce grupy C",
+      "homeCode": "NED",
+      "homeName": "Holandia",
+      "homeFlag": "🇳🇱",
+      "awayCode": "MAR",
+      "awayName": "Maroko",
+      "awayFlag": "🇲🇦"
     },
     {
       "id": 76,
@@ -1486,7 +1504,13 @@
       "stadium": "NRG Stadium",
       "city": "Houston",
       "homeLabel": "Zwycięzca grupy C",
-      "awayLabel": "2. miejsce grupy F"
+      "awayLabel": "2. miejsce grupy F",
+      "homeCode": "BRA",
+      "homeName": "Brazylia",
+      "homeFlag": "🇧🇷",
+      "awayCode": "JPN",
+      "awayName": "Japonia",
+      "awayFlag": "🇯🇵"
     },
     {
       "id": 77,
@@ -1497,7 +1521,13 @@
       "stadium": "MetLife Stadium",
       "city": "New Jersey",
       "homeLabel": "Zwycięzca grupy I",
-      "awayLabel": "3. miejsce (C/D/F/G/H)"
+      "awayLabel": "3. miejsce (C/D/F/G/H)",
+      "homeCode": "FRA",
+      "homeName": "Francja",
+      "homeFlag": "🇫🇷",
+      "awayCode": "PAR",
+      "awayName": "Paragwaj",
+      "awayFlag": "🇵🇾"
     },
     {
       "id": 78,
@@ -1508,7 +1538,13 @@
       "stadium": "AT&T Stadium",
       "city": "Dallas",
       "homeLabel": "2. miejsce grupy E",
-      "awayLabel": "2. miejsce grupy I"
+      "awayLabel": "2. miejsce grupy I",
+      "homeCode": "CIV",
+      "homeName": "WKS",
+      "homeFlag": "🇨🇮",
+      "awayCode": "NOR",
+      "awayName": "Norwegia",
+      "awayFlag": "🇳🇴"
     },
     {
       "id": 79,
@@ -1519,7 +1555,13 @@
       "stadium": "Estadio Azteca",
       "city": "Mexico City",
       "homeLabel": "Zwycięzca grupy A",
-      "awayLabel": "3. miejsce (C/E/F/H/I)"
+      "awayLabel": "3. miejsce (C/E/F/H/I)",
+      "homeCode": "MEX",
+      "homeName": "Meksyk",
+      "homeFlag": "🇲🇽",
+      "awayCode": "ECU",
+      "awayName": "Ekwador",
+      "awayFlag": "🇪🇨"
     },
     {
       "id": 80,
@@ -1530,7 +1572,13 @@
       "stadium": "Mercedes-Benz Stadium",
       "city": "Atlanta",
       "homeLabel": "Zwycięzca grupy L",
-      "awayLabel": "3. miejsce (E/H/I/J/K)"
+      "awayLabel": "3. miejsce (E/H/I/J/K)",
+      "homeCode": "ENG",
+      "homeName": "Anglia",
+      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "awayCode": "COD",
+      "awayName": "DR Konga",
+      "awayFlag": "🇨🇩"
     },
     {
       "id": 81,
@@ -1541,7 +1589,13 @@
       "stadium": "Levi's Stadium",
       "city": "San Francisco",
       "homeLabel": "Zwycięzca grupy D",
-      "awayLabel": "3. miejsce (B/E/F/I/J)"
+      "awayLabel": "3. miejsce (B/E/F/I/J)",
+      "homeCode": "USA",
+      "homeName": "USA",
+      "homeFlag": "🇺🇸",
+      "awayCode": "BIH",
+      "awayName": "Bośnia i H.",
+      "awayFlag": "🇧🇦"
     },
     {
       "id": 82,
@@ -1552,7 +1606,13 @@
       "stadium": "Lumen Field",
       "city": "Seattle",
       "homeLabel": "Zwycięzca grupy G",
-      "awayLabel": "3. miejsce (A/E/H/I/J)"
+      "awayLabel": "3. miejsce (A/E/H/I/J)",
+      "homeCode": "BEL",
+      "homeName": "Belgia",
+      "homeFlag": "🇧🇪",
+      "awayCode": "ALG",
+      "awayName": "Algieria",
+      "awayFlag": "🇩🇿"
     },
     {
       "id": 83,
@@ -1563,7 +1623,13 @@
       "stadium": "BMO Field",
       "city": "Toronto",
       "homeLabel": "2. miejsce grupy K",
-      "awayLabel": "2. miejsce grupy L"
+      "awayLabel": "2. miejsce grupy L",
+      "homeCode": "POR",
+      "homeName": "Portugalia",
+      "homeFlag": "🇵🇹",
+      "awayCode": "CRO",
+      "awayName": "Chorwacja",
+      "awayFlag": "🇭🇷"
     },
     {
       "id": 84,
@@ -1574,7 +1640,13 @@
       "stadium": "SoFi Stadium",
       "city": "Los Angeles",
       "homeLabel": "Zwycięzca grupy H",
-      "awayLabel": "2. miejsce grupy J"
+      "awayLabel": "2. miejsce grupy J",
+      "homeCode": "ESP",
+      "homeName": "Hiszpania",
+      "homeFlag": "🇪🇸",
+      "awayCode": "AUT",
+      "awayName": "Austria",
+      "awayFlag": "🇦🇹"
     },
     {
       "id": 85,
@@ -1585,7 +1657,13 @@
       "stadium": "BC Place",
       "city": "Vancouver",
       "homeLabel": "Zwycięzca grupy B",
-      "awayLabel": "3. miejsce (E/F/G/I/J)"
+      "awayLabel": "3. miejsce (E/F/G/I/J)",
+      "homeCode": "SUI",
+      "homeName": "Szwajcaria",
+      "homeFlag": "🇨🇭",
+      "awayCode": "SEN",
+      "awayName": "Senegal",
+      "awayFlag": "🇸🇳"
     },
     {
       "id": 86,
@@ -1596,7 +1674,13 @@
       "stadium": "Hard Rock Stadium",
       "city": "Miami",
       "homeLabel": "Zwycięzca grupy J",
-      "awayLabel": "2. miejsce grupy H"
+      "awayLabel": "2. miejsce grupy H",
+      "homeCode": "ARG",
+      "homeName": "Argentyna",
+      "homeFlag": "🇦🇷",
+      "awayCode": "CPV",
+      "awayName": "Z. Przylądek",
+      "awayFlag": "🇨🇻"
     },
     {
       "id": 87,
@@ -1607,7 +1691,13 @@
       "stadium": "Arrowhead Stadium",
       "city": "Kansas City",
       "homeLabel": "Zwycięzca grupy K",
-      "awayLabel": "3. miejsce (D/E/I/J/L)"
+      "awayLabel": "3. miejsce (D/E/I/J/L)",
+      "homeCode": "COL",
+      "homeName": "Kolumbia",
+      "homeFlag": "🇨🇴",
+      "awayCode": "GHA",
+      "awayName": "Ghana",
+      "awayFlag": "🇬🇭"
     },
     {
       "id": 88,
@@ -1618,7 +1708,13 @@
       "stadium": "AT&T Stadium",
       "city": "Dallas",
       "homeLabel": "2. miejsce grupy D",
-      "awayLabel": "2. miejsce grupy G"
+      "awayLabel": "2. miejsce grupy G",
+      "homeCode": "AUS",
+      "homeName": "Australia",
+      "homeFlag": "🇦🇺",
+      "awayCode": "EGY",
+      "awayName": "Egipt",
+      "awayFlag": "🇪🇬"
     },
     {
       "id": 89,

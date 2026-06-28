@@ -159,6 +159,13 @@ assert(
   "Upcoming matches panel is missing",
 );
 assert(
+  enhancements.includes("function enhanceKnockoutHomepageCopy()") &&
+    enhancements.includes('"Faza pucharowa"') &&
+    enhancements.includes('"1/16 finału"') &&
+    enhancements.includes("^\\d+\\s*\\/\\s*72\\s+meczów"),
+  "Knockout homepage focus copy is missing",
+);
+assert(
   enhancements.includes("const now = Date.now()") &&
     enhancements.includes("kickoff.getTime() > now") &&
     enhancements.includes("nextDates") &&
@@ -201,9 +208,9 @@ assert(
   "Advertising should remain visible on every tab",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260622-compact-desktop-header") &&
+  index.includes("assets/enhancements.v20260618.js?v=20260628-knockout-teams") &&
     index.includes("assets/match-center.css?v=20260622-compact-desktop-header"),
-  "Latest advertising visibility cache key is missing",
+  "Latest enhancement cache key is missing",
 );
 assert(
   enhancements.includes("mailto:emistrzostwaswiata2026@gmail.com"),
@@ -683,8 +690,27 @@ assert(
   "Statistics navigation order is not stable across application refreshes",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260622-compact-desktop-header"),
+  index.includes("assets/enhancements.v20260618.js?v=20260628-knockout-teams"),
   "Latest navigation enhancement cache key is missing",
+);
+assert(
+  index.includes("assets/matches.js?v=20260628-knockout-teams") &&
+    matchPage.includes("assets/matches.js?v=20260628-knockout-teams"),
+  "Latest knockout schedule cache key is missing",
+);
+assert(
+  matches.matches
+    .filter((match) => match.phase === "knockout" && match.round === "1/16")
+    .every(
+      (match) =>
+        match.homeCode &&
+        match.awayCode &&
+        match.homeName &&
+        match.awayName &&
+        match.homeFlag &&
+        match.awayFlag,
+    ),
+  "Round of 32 knockout matches must show qualified teams",
 );
 assert(
   index.includes("assets/live-bracket.css?v=20260620-swipe-hint") &&
