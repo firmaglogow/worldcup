@@ -142,6 +142,30 @@
   min-width: 0;
 }
 
+.live-bracket-candidates {
+  display: grid;
+  font-style: normal;
+  gap: 0.12rem;
+}
+
+.live-bracket-candidates small {
+  color: #64748b;
+  font-size: 0.54rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.live-bracket-candidates strong {
+  color: #e2e8f0;
+  font-size: 0.68rem;
+  font-weight: 900;
+  line-height: 1.15;
+}
+
 .live-bracket-match .live-bracket-placeholder:last-child {
   text-align: right;
 }

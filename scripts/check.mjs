@@ -208,7 +208,7 @@ assert(
   "Advertising should remain visible on every tab",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260628-knockout-teams") &&
+  index.includes("assets/enhancements.v20260618.js?v=20260628-possible-teams") &&
     index.includes("assets/match-center.css?v=20260622-compact-desktop-header"),
   "Latest enhancement cache key is missing",
 );
@@ -690,7 +690,7 @@ assert(
   "Statistics navigation order is not stable across application refreshes",
 );
 assert(
-  index.includes("assets/enhancements.v20260618.js?v=20260628-knockout-teams"),
+  index.includes("assets/enhancements.v20260618.js?v=20260628-possible-teams"),
   "Latest navigation enhancement cache key is missing",
 );
 assert(
@@ -713,10 +713,13 @@ assert(
   "Round of 32 knockout matches must show qualified teams",
 );
 assert(
-  index.includes("assets/live-bracket.css?v=20260620-swipe-hint") &&
+  index.includes("assets/live-bracket.css?v=20260628-possible-teams") &&
     enhancements.includes("function enhanceLiveKnockoutBracket()") &&
+    enhancements.includes("function possibleTeamsFromSourceMatch") &&
+    enhancements.includes("live-bracket-candidates") &&
     enhancements.includes("DRABINKA NA ŻYWO") &&
     liveBracketCss.includes(".live-knockout-panel") &&
+    liveBracketCss.includes(".live-bracket-candidates") &&
     liveBracketCss.includes("Przesuń w prawo") &&
     !enhancements.includes("<small>na dziś</small>"),
   "Live knockout bracket module is missing",

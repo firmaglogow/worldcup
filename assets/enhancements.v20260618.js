@@ -1243,6 +1243,37 @@
     );
   }
 
+  function teamDisplayByCode(code) {
+    const team = code ? window.WC2026_MATCHES?.teams?.[code] : null;
+    return team ? `${team.flag} ${team.name}` : "";
+  }
+
+  function possibleTeamsFromSourceMatch(matchId) {
+    const source = (window.WC2026_MATCHES?.matches || []).find(
+      (candidate) => Number(candidate.id) === Number(matchId),
+    );
+    if (!source) return "";
+
+    const direct = [teamDisplayByCode(source.homeCode), teamDisplayByCode(source.awayCode)]
+      .filter(Boolean)
+      .join(" / ");
+    if (direct) return direct;
+
+    const home = possibleTeamsFromMatchLabel(source.homeLabel);
+    const away = possibleTeamsFromMatchLabel(source.awayLabel);
+    return [home, away].filter(Boolean).join(" / ");
+  }
+
+  function possibleTeamsFromMatchLabel(label) {
+    const matchWinner = label?.match(/^Zwycięzca meczu (\d+)$/);
+    if (matchWinner) return possibleTeamsFromSourceMatch(matchWinner[1]);
+
+    const matchLoser = label?.match(/^Przegrany meczu (\d+)$/);
+    if (matchLoser) return possibleTeamsFromSourceMatch(matchLoser[1]);
+
+    return "";
+  }
+
   function displayTeamForMatch(match, fixture, side) {
     const directCode = match?.[`${side}Code`];
     const directTeam = directCode
@@ -1263,6 +1294,15 @@
         code: fixtureTeam.code,
         flag: fixtureTeam.flag,
         name: fixtureTeam.name,
+      };
+    }
+
+    const possibleTeams = possibleTeamsFromMatchLabel(match?.[`${side}Label`]);
+    if (possibleTeams) {
+      return {
+        code: null,
+        flag: "⚽",
+        name: possibleTeams,
       };
     }
 
@@ -2815,7 +2855,11 @@
         const source = bracket[Number(matchWinner[1])];
         return source?.winner
           ? { code: source.winner, label: null }
-          : { code: null, label };
+          : {
+              code: null,
+              label,
+              candidates: possibleTeamsFromSourceMatch(matchWinner[1]),
+            };
       }
 
       const matchLoser = label?.match(/^Przegrany meczu (\d+)$/);
@@ -2823,7 +2867,11 @@
         const source = bracket[Number(matchLoser[1])];
         return source?.loser
           ? { code: source.loser, label: null }
-          : { code: null, label };
+          : {
+              code: null,
+              label,
+              candidates: possibleTeamsFromSourceMatch(matchLoser[1]),
+            };
       }
 
       return resolveGroupLabel(label, standings, usedThirds);
@@ -2857,6 +2905,9 @@
 
   function renderBracketTeam(slot) {
     if (!slot?.code) {
+      if (slot?.candidates) {
+        return `<span class="live-bracket-placeholder live-bracket-candidates"><small>${escapeHtml(slot.label || "Możliwy awans")}</small><strong>${escapeHtml(slot.candidates)}</strong></span>`;
+      }
       return `<span class="live-bracket-placeholder">${escapeHtml(slot?.label || "Do ustalenia")}</span>`;
     }
     const team = teamInfo(slot.code);
