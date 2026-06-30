@@ -694,9 +694,15 @@ assert(
   "Latest navigation enhancement cache key is missing",
 );
 assert(
-  index.includes("assets/matches.js?v=20260628-knockout-teams") &&
-    matchPage.includes("assets/matches.js?v=20260628-knockout-teams"),
+  index.includes("assets/matches.js?v=20260630-1-8-finalu") &&
+    matchPage.includes("assets/matches.js?v=20260630-1-8-finalu"),
   "Latest knockout schedule cache key is missing",
+);
+assert(
+  index.includes("assets/match-center-data.js?v=live-202606301438") &&
+    matchPage.includes("assets/match-center-data.js?v=live-202606301438") &&
+    worldStarsPage.includes("assets/match-center-data.js?v=live-202606301438"),
+  "Latest live match-center cache key is missing",
 );
 assert(
   matches.matches
@@ -711,6 +717,13 @@ assert(
         match.awayFlag,
     ),
   "Round of 32 knockout matches must show qualified teams",
+);
+assert(
+  matches.matches.find((match) => match.id === 89)?.homeCode === "PAR" &&
+    matches.matches.find((match) => match.id === 90)?.homeCode === "CAN" &&
+    matches.matches.find((match) => match.id === 90)?.awayCode === "MAR" &&
+    matches.matches.find((match) => match.id === 91)?.homeCode === "BRA",
+  "Round of 16 must include loaded teams from finished knockout matches",
 );
 assert(
   index.includes("assets/live-bracket.css?v=20260628-possible-teams") &&

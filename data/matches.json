@@ -1474,9 +1474,9 @@
       "homeCode": "GER",
       "homeName": "Niemcy",
       "homeFlag": "🇩🇪",
-      "awayCode": "SWE",
-      "awayName": "Szwecja",
-      "awayFlag": "🇸🇪"
+      "awayCode": "PAR",
+      "awayName": "Paragwaj",
+      "awayFlag": "🇵🇾"
     },
     {
       "id": 75,
@@ -1525,9 +1525,9 @@
       "homeCode": "FRA",
       "homeName": "Francja",
       "homeFlag": "🇫🇷",
-      "awayCode": "PAR",
-      "awayName": "Paragwaj",
-      "awayFlag": "🇵🇾"
+      "awayCode": "SWE",
+      "awayName": "Szwecja",
+      "awayFlag": "🇸🇪"
     },
     {
       "id": 78,
@@ -1610,9 +1610,9 @@
       "homeCode": "BEL",
       "homeName": "Belgia",
       "homeFlag": "🇧🇪",
-      "awayCode": "ALG",
-      "awayName": "Algieria",
-      "awayFlag": "🇩🇿"
+      "awayCode": "SEN",
+      "awayName": "Senegal",
+      "awayFlag": "🇸🇳"
     },
     {
       "id": 83,
@@ -1661,9 +1661,9 @@
       "homeCode": "SUI",
       "homeName": "Szwajcaria",
       "homeFlag": "🇨🇭",
-      "awayCode": "SEN",
-      "awayName": "Senegal",
-      "awayFlag": "🇸🇳"
+      "awayCode": "ALG",
+      "awayName": "Algieria",
+      "awayFlag": "🇩🇿"
     },
     {
       "id": 86,
@@ -1725,7 +1725,10 @@
       "stadium": "Lincoln Financial Field",
       "city": "Philadelphia",
       "homeLabel": "Zwycięzca meczu 74",
-      "awayLabel": "Zwycięzca meczu 77"
+      "awayLabel": "Zwycięzca meczu 77",
+      "homeCode": "PAR",
+      "homeName": "Paragwaj",
+      "homeFlag": "🇵🇾"
     },
     {
       "id": 90,
@@ -1736,7 +1739,13 @@
       "stadium": "NRG Stadium",
       "city": "Houston",
       "homeLabel": "Zwycięzca meczu 73",
-      "awayLabel": "Zwycięzca meczu 75"
+      "awayLabel": "Zwycięzca meczu 75",
+      "homeCode": "CAN",
+      "homeName": "Kanada",
+      "homeFlag": "🇨🇦",
+      "awayCode": "MAR",
+      "awayName": "Maroko",
+      "awayFlag": "🇲🇦"
     },
     {
       "id": 91,
@@ -1747,7 +1756,10 @@
       "stadium": "MetLife Stadium",
       "city": "New Jersey",
       "homeLabel": "Zwycięzca meczu 76",
-      "awayLabel": "Zwycięzca meczu 78"
+      "awayLabel": "Zwycięzca meczu 78",
+      "homeCode": "BRA",
+      "homeName": "Brazylia",
+      "homeFlag": "🇧🇷"
     },
     {
       "id": 92,
