@@ -1728,7 +1728,10 @@
       "awayLabel": "Zwycięzca meczu 77",
       "homeCode": "PAR",
       "homeName": "Paragwaj",
-      "homeFlag": "🇵🇾"
+      "homeFlag": "🇵🇾",
+      "awayCode": "FRA",
+      "awayName": "Francja",
+      "awayFlag": "🇫🇷"
     },
     {
       "id": 90,
@@ -1759,7 +1762,10 @@
       "awayLabel": "Zwycięzca meczu 78",
       "homeCode": "BRA",
       "homeName": "Brazylia",
-      "homeFlag": "🇧🇷"
+      "homeFlag": "🇧🇷",
+      "awayCode": "NOR",
+      "awayName": "Norwegia",
+      "awayFlag": "🇳🇴"
     },
     {
       "id": 92,
@@ -1770,7 +1776,13 @@
       "stadium": "Estadio Azteca",
       "city": "Mexico City",
       "homeLabel": "Zwycięzca meczu 79",
-      "awayLabel": "Zwycięzca meczu 80"
+      "awayLabel": "Zwycięzca meczu 80",
+      "homeCode": "MEX",
+      "homeName": "Meksyk",
+      "homeFlag": "🇲🇽",
+      "awayCode": "ENG",
+      "awayName": "Anglia",
+      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
     },
     {
       "id": 93,
@@ -1781,7 +1793,13 @@
       "stadium": "AT&T Stadium",
       "city": "Dallas",
       "homeLabel": "Zwycięzca meczu 83",
-      "awayLabel": "Zwycięzca meczu 84"
+      "awayLabel": "Zwycięzca meczu 84",
+      "homeCode": "POR",
+      "homeName": "Portugalia",
+      "homeFlag": "🇵🇹",
+      "awayCode": "ESP",
+      "awayName": "Hiszpania",
+      "awayFlag": "🇪🇸"
     },
     {
       "id": 94,
@@ -1792,7 +1810,13 @@
       "stadium": "Lumen Field",
       "city": "Seattle",
       "homeLabel": "Zwycięzca meczu 81",
-      "awayLabel": "Zwycięzca meczu 82"
+      "awayLabel": "Zwycięzca meczu 82",
+      "homeCode": "USA",
+      "homeName": "USA",
+      "homeFlag": "🇺🇸",
+      "awayCode": "BEL",
+      "awayName": "Belgia",
+      "awayFlag": "🇧🇪"
     },
     {
       "id": 95,
@@ -1803,7 +1827,13 @@
       "stadium": "Mercedes-Benz Stadium",
       "city": "Atlanta",
       "homeLabel": "Zwycięzca meczu 86",
-      "awayLabel": "Zwycięzca meczu 88"
+      "awayLabel": "Zwycięzca meczu 88",
+      "homeCode": "ARG",
+      "homeName": "Argentyna",
+      "homeFlag": "🇦🇷",
+      "awayCode": "EGY",
+      "awayName": "Egipt",
+      "awayFlag": "🇪🇬"
     },
     {
       "id": 96,
@@ -1814,7 +1844,13 @@
       "stadium": "BC Place",
       "city": "Vancouver",
       "homeLabel": "Zwycięzca meczu 85",
-      "awayLabel": "Zwycięzca meczu 87"
+      "awayLabel": "Zwycięzca meczu 87",
+      "homeCode": "SUI",
+      "homeName": "Szwajcaria",
+      "homeFlag": "🇨🇭",
+      "awayCode": "COL",
+      "awayName": "Kolumbia",
+      "awayFlag": "🇨🇴"
     },
     {
       "id": 97,
@@ -1825,7 +1861,13 @@
       "stadium": "Gillette Stadium",
       "city": "Boston",
       "homeLabel": "Zwycięzca meczu 89",
-      "awayLabel": "Zwycięzca meczu 90"
+      "awayLabel": "Zwycięzca meczu 90",
+      "homeCode": "FRA",
+      "homeName": "Francja",
+      "homeFlag": "🇫🇷",
+      "awayCode": "MAR",
+      "awayName": "Maroko",
+      "awayFlag": "🇲🇦"
     },
     {
       "id": 98,
@@ -1836,7 +1878,10 @@
       "stadium": "SoFi Stadium",
       "city": "Los Angeles",
       "homeLabel": "Zwycięzca meczu 93",
-      "awayLabel": "Zwycięzca meczu 94"
+      "awayLabel": "Zwycięzca meczu 94",
+      "homeCode": "ESP",
+      "homeName": "Hiszpania",
+      "homeFlag": "🇪🇸"
     },
     {
       "id": 99,
@@ -1847,7 +1892,13 @@
       "stadium": "Hard Rock Stadium",
       "city": "Miami",
       "homeLabel": "Zwycięzca meczu 91",
-      "awayLabel": "Zwycięzca meczu 92"
+      "awayLabel": "Zwycięzca meczu 92",
+      "homeCode": "NOR",
+      "homeName": "Norwegia",
+      "homeFlag": "🇳🇴",
+      "awayCode": "ENG",
+      "awayName": "Anglia",
+      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
     },
     {
       "id": 100,

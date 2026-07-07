@@ -694,14 +694,14 @@ assert(
   "Latest navigation enhancement cache key is missing",
 );
 assert(
-  index.includes("assets/matches.js?v=20260630-1-8-finalu") &&
-    matchPage.includes("assets/matches.js?v=20260630-1-8-finalu"),
+  index.includes("assets/matches.js?v=20260706-drabinka") &&
+    matchPage.includes("assets/matches.js?v=20260706-drabinka"),
   "Latest knockout schedule cache key is missing",
 );
 assert(
-  index.includes("assets/match-center-data.js?v=live-202606301438") &&
-    matchPage.includes("assets/match-center-data.js?v=live-202606301438") &&
-    worldStarsPage.includes("assets/match-center-data.js?v=live-202606301438"),
+  index.includes("assets/match-center-data.js?v=live-202607062108") &&
+    matchPage.includes("assets/match-center-data.js?v=live-202607062108") &&
+    worldStarsPage.includes("assets/match-center-data.js?v=live-202607062108"),
   "Latest live match-center cache key is missing",
 );
 assert(
@@ -720,9 +720,26 @@ assert(
 );
 assert(
   matches.matches.find((match) => match.id === 89)?.homeCode === "PAR" &&
+    matches.matches.find((match) => match.id === 89)?.awayCode === "FRA" &&
     matches.matches.find((match) => match.id === 90)?.homeCode === "CAN" &&
     matches.matches.find((match) => match.id === 90)?.awayCode === "MAR" &&
-    matches.matches.find((match) => match.id === 91)?.homeCode === "BRA",
+    matches.matches.find((match) => match.id === 91)?.homeCode === "BRA" &&
+    matches.matches.find((match) => match.id === 91)?.awayCode === "NOR" &&
+    matches.matches.find((match) => match.id === 92)?.homeCode === "MEX" &&
+    matches.matches.find((match) => match.id === 92)?.awayCode === "ENG" &&
+    matches.matches.find((match) => match.id === 93)?.homeCode === "POR" &&
+    matches.matches.find((match) => match.id === 93)?.awayCode === "ESP" &&
+    matches.matches.find((match) => match.id === 94)?.homeCode === "USA" &&
+    matches.matches.find((match) => match.id === 94)?.awayCode === "BEL" &&
+    matches.matches.find((match) => match.id === 95)?.homeCode === "ARG" &&
+    matches.matches.find((match) => match.id === 95)?.awayCode === "EGY" &&
+    matches.matches.find((match) => match.id === 96)?.homeCode === "SUI" &&
+    matches.matches.find((match) => match.id === 96)?.awayCode === "COL" &&
+    matches.matches.find((match) => match.id === 97)?.homeCode === "FRA" &&
+    matches.matches.find((match) => match.id === 97)?.awayCode === "MAR" &&
+    matches.matches.find((match) => match.id === 98)?.homeCode === "ESP" &&
+    matches.matches.find((match) => match.id === 99)?.homeCode === "NOR" &&
+    matches.matches.find((match) => match.id === 99)?.awayCode === "ENG",
   "Round of 16 must include loaded teams from finished knockout matches",
 );
 assert(

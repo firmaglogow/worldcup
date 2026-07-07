@@ -194,7 +194,7 @@
       <text x="104" y="1656" fill="#94a3b8" font-size="18" font-weight="900" text-anchor="start" font-family="Inter, Arial, sans-serif">#89 · 2026-07-04 · 23:00</text>
       <text x="104" y="1692" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇵🇾 Paragwaj</text>
       <text x="385" y="1717" fill="#fbbf24" font-size="22" font-weight="950" text-anchor="middle" font-family="Inter, Arial, sans-serif">VS</text>
-      <text x="104" y="1753" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇫🇷 Francja / 🇸🇪 Szwecja</text>
+      <text x="104" y="1753" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇫🇷 Francja</text>
       
     </g>
   
@@ -214,7 +214,7 @@
       <text x="104" y="1866" fill="#94a3b8" font-size="18" font-weight="900" text-anchor="start" font-family="Inter, Arial, sans-serif">#91 · 2026-07-05 · 22:00</text>
       <text x="104" y="1902" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇧🇷 Brazylia</text>
       <text x="385" y="1927" fill="#fbbf24" font-size="22" font-weight="950" text-anchor="middle" font-family="Inter, Arial, sans-serif">VS</text>
-      <text x="104" y="1963" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇨🇮 WKS / 🇳🇴 Norwegia</text>
+      <text x="104" y="1963" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇳🇴 Norwegia</text>
       
     </g>
   
@@ -222,9 +222,9 @@
       <rect x="730" y="1830" width="610" height="178" rx="22" fill="rgba(15,23,42,0.86)" stroke="#60a5fa" stroke-opacity="0.5" stroke-width="2"/>
       <rect x="730" y="1830" width="610" height="6" rx="3" fill="#60a5fa"/>
       <text x="754" y="1866" fill="#94a3b8" font-size="18" font-weight="900" text-anchor="start" font-family="Inter, Arial, sans-serif">#92 · 2026-07-06 · 02:00</text>
-      <text x="754" y="1902" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇲🇽 Meksyk / 🇪🇨 Ekwador</text>
+      <text x="754" y="1902" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇲🇽 Meksyk</text>
       <text x="1035" y="1927" fill="#fbbf24" font-size="22" font-weight="950" text-anchor="middle" font-family="Inter, Arial, sans-serif">VS</text>
-      <text x="754" y="1963" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Anglia / 🇨🇩 DR</text><text x="754" y="1993" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">Konga</text>
+      <text x="754" y="1963" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Anglia</text>
       
     </g>
   
@@ -232,9 +232,9 @@
       <rect x="80" y="2040" width="610" height="178" rx="22" fill="rgba(15,23,42,0.86)" stroke="#34d399" stroke-opacity="0.5" stroke-width="2"/>
       <rect x="80" y="2040" width="610" height="6" rx="3" fill="#34d399"/>
       <text x="104" y="2076" fill="#94a3b8" font-size="18" font-weight="900" text-anchor="start" font-family="Inter, Arial, sans-serif">#93 · 2026-07-06 · 21:00</text>
-      <text x="104" y="2112" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇵🇹 Portugalia / 🇭🇷 Chorwacja</text>
+      <text x="104" y="2112" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇵🇹 Portugalia</text>
       <text x="385" y="2137" fill="#fbbf24" font-size="22" font-weight="950" text-anchor="middle" font-family="Inter, Arial, sans-serif">VS</text>
-      <text x="104" y="2173" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇪🇸 Hiszpania / 🇦🇹 Austria</text>
+      <text x="104" y="2173" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇪🇸 Hiszpania</text>
       
     </g>
   
@@ -242,9 +242,9 @@
       <rect x="730" y="2040" width="610" height="178" rx="22" fill="rgba(15,23,42,0.86)" stroke="#60a5fa" stroke-opacity="0.5" stroke-width="2"/>
       <rect x="730" y="2040" width="610" height="6" rx="3" fill="#60a5fa"/>
       <text x="754" y="2076" fill="#94a3b8" font-size="18" font-weight="900" text-anchor="start" font-family="Inter, Arial, sans-serif">#94 · 2026-07-07 · 02:00</text>
-      <text x="754" y="2112" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇺🇸 USA / 🇧🇦 Bośnia i H.</text>
+      <text x="754" y="2112" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇺🇸 USA</text>
       <text x="1035" y="2137" fill="#fbbf24" font-size="22" font-weight="950" text-anchor="middle" font-family="Inter, Arial, sans-serif">VS</text>
-      <text x="754" y="2173" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇧🇪 Belgia / 🇸🇳 Senegal</text>
+      <text x="754" y="2173" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇧🇪 Belgia</text>
       
     </g>
   
@@ -252,9 +252,9 @@
       <rect x="80" y="2250" width="610" height="178" rx="22" fill="rgba(15,23,42,0.86)" stroke="#34d399" stroke-opacity="0.5" stroke-width="2"/>
       <rect x="80" y="2250" width="610" height="6" rx="3" fill="#34d399"/>
       <text x="104" y="2286" fill="#94a3b8" font-size="18" font-weight="900" text-anchor="start" font-family="Inter, Arial, sans-serif">#95 · 2026-07-07 · 18:00</text>
-      <text x="104" y="2322" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇦🇷 Argentyna / 🇨🇻 Z.</text><text x="104" y="2352" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">Przylądek</text>
+      <text x="104" y="2322" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇦🇷 Argentyna</text>
       <text x="385" y="2347" fill="#fbbf24" font-size="22" font-weight="950" text-anchor="middle" font-family="Inter, Arial, sans-serif">VS</text>
-      <text x="104" y="2383" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇦🇺 Australia / 🇪🇬 Egipt</text>
+      <text x="104" y="2383" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇪🇬 Egipt</text>
       
     </g>
   
@@ -262,9 +262,9 @@
       <rect x="730" y="2250" width="610" height="178" rx="22" fill="rgba(15,23,42,0.86)" stroke="#60a5fa" stroke-opacity="0.5" stroke-width="2"/>
       <rect x="730" y="2250" width="610" height="6" rx="3" fill="#60a5fa"/>
       <text x="754" y="2286" fill="#94a3b8" font-size="18" font-weight="900" text-anchor="start" font-family="Inter, Arial, sans-serif">#96 · 2026-07-07 · 22:00</text>
-      <text x="754" y="2322" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇨🇭 Szwajcaria / 🇩🇿 Algieria</text>
+      <text x="754" y="2322" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇨🇭 Szwajcaria</text>
       <text x="1035" y="2347" fill="#fbbf24" font-size="22" font-weight="950" text-anchor="middle" font-family="Inter, Arial, sans-serif">VS</text>
-      <text x="754" y="2383" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇨🇴 Kolumbia / 🇬🇭 Ghana</text>
+      <text x="754" y="2383" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇨🇴 Kolumbia</text>
       
     </g>
   
@@ -277,9 +277,9 @@
       <rect x="80" y="2550" width="610" height="132" rx="22" fill="rgba(15,23,42,0.86)" stroke="#fbbf24" stroke-opacity="0.5" stroke-width="2"/>
       <rect x="80" y="2550" width="610" height="6" rx="3" fill="#fbbf24"/>
       <text x="104" y="2586" fill="#94a3b8" font-size="18" font-weight="900" text-anchor="start" font-family="Inter, Arial, sans-serif">#97 · 2026-07-09 · 22:00</text>
-      <text x="104" y="2622" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">Zwyc. #89</text>
+      <text x="104" y="2622" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇫🇷 Francja</text>
       <text x="385" y="2624" fill="#fbbf24" font-size="22" font-weight="950" text-anchor="middle" font-family="Inter, Arial, sans-serif">VS</text>
-      <text x="104" y="2660" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">Zwyc. #90</text>
+      <text x="104" y="2660" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇲🇦 Maroko</text>
       
     </g>
   
@@ -287,7 +287,7 @@
       <rect x="730" y="2550" width="610" height="132" rx="22" fill="rgba(15,23,42,0.86)" stroke="#fbbf24" stroke-opacity="0.5" stroke-width="2"/>
       <rect x="730" y="2550" width="610" height="6" rx="3" fill="#fbbf24"/>
       <text x="754" y="2586" fill="#94a3b8" font-size="18" font-weight="900" text-anchor="start" font-family="Inter, Arial, sans-serif">#98 · 2026-07-10 · 21:00</text>
-      <text x="754" y="2622" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">Zwyc. #93</text>
+      <text x="754" y="2622" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇪🇸 Hiszpania</text>
       <text x="1035" y="2624" fill="#fbbf24" font-size="22" font-weight="950" text-anchor="middle" font-family="Inter, Arial, sans-serif">VS</text>
       <text x="754" y="2660" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">Zwyc. #94</text>
       
@@ -297,9 +297,9 @@
       <rect x="80" y="2715" width="610" height="132" rx="22" fill="rgba(15,23,42,0.86)" stroke="#fbbf24" stroke-opacity="0.5" stroke-width="2"/>
       <rect x="80" y="2715" width="610" height="6" rx="3" fill="#fbbf24"/>
       <text x="104" y="2751" fill="#94a3b8" font-size="18" font-weight="900" text-anchor="start" font-family="Inter, Arial, sans-serif">#99 · 2026-07-11 · 23:00</text>
-      <text x="104" y="2787" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">Zwyc. #91</text>
+      <text x="104" y="2787" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🇳🇴 Norwegia</text>
       <text x="385" y="2789" fill="#fbbf24" font-size="22" font-weight="950" text-anchor="middle" font-family="Inter, Arial, sans-serif">VS</text>
-      <text x="104" y="2825" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">Zwyc. #92</text>
+      <text x="104" y="2825" fill="#ffffff" font-size="24" font-weight="950" text-anchor="start" font-family="Inter, Arial, sans-serif">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Anglia</text>
       
     </g>
   
