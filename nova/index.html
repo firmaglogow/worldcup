@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="pl" data-theme="night">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOVA — makieta nowego interfejsu | Mistrzostwa Świata 2026</title>
+<meta name="description" content="NOVA to makieta nowego systemu wizualnego serwisu mistrzostwaswiata2026.pl: centrum meczowe, tabele grup, drabinka, typer i biblioteka komponentów.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="nova.css?v=20260818-nova-1">
+</head>
+<body>
+
+<!-- =============================================================== NAGŁÓWEK -->
+<header class="topbar">
+  <div class="shell topbar__inner">
+    <a class="brand" href="#top">
+      <span class="brand__mark" aria-hidden="true">N</span>
+      <span>
+        <span class="brand__name">Mistrzostwa Świata 2026</span>
+        <span class="brand__sub">Makieta NOVA</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Główna nawigacja makiety">
+      <a href="#centrum" aria-current="page">Centrum</a>
+      <a href="#mecze">Mecze</a>
+      <a href="#tabele">Tabele grup</a>
+      <a href="#puchar">Faza pucharowa</a>
+      <a href="#gwiazdy">Gwiazdy</a>
+      <a href="#typer">Mój typ</a>
+      <a href="#stadiony">Stadiony</a>
+      <a href="#mobile">Mobile</a>
+      <a href="#system">System</a>
+    </nav>
+
+    <div class="topbar__actions">
+      <button class="icon-btn" type="button" id="themeToggle" aria-pressed="false" title="Przełącz motyw dzień / noc">
+        <span aria-hidden="true" id="themeIcon">☾</span>
+        <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Przełącz motyw</span>
+      </button>
+      <span class="avatar" title="Zalogowany typer">MK</span>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ================================================================== HERO -->
+<section class="hero shell" id="centrum">
+  <p class="eyebrow">Koncepcja interfejsu · wersja 1.0</p>
+  <h1 style="font-size:clamp(2rem,5vw,3.25rem);margin:.4rem 0 .6rem">Centrum kibica <span style="background:var(--grad-nova);-webkit-background-clip:text;background-clip:text;color:transparent">NOVA</span></h1>
+  <p class="muted" style="max-width:62ch;margin:0 0 1.75rem">
+    Jeden ekran, który odpowiada na trzy pytania kibica: co trwa teraz, co będzie dziś i jak wygląda mój typ.
+    Poniżej makieta wszystkich kluczowych modułów serwisu w nowym języku wizualnym.
+  </p>
+
+  <div class="hero__grid">
+
+    <!-- Karta meczu na żywo -->
+    <article class="card match-hero">
+      <div class="match-hero__top">
+        <span class="chip chip--live"><span class="dot" aria-hidden="true"></span> NA ŻYWO · dogrywka 106'</span>
+        <span class="chip chip--gold">🏆 FINAŁ</span>
+        <span class="chip">MetLife Stadium · New Jersey</span>
+      </div>
+
+      <div class="scoreline">
+        <div class="team">
+          <span class="team__flag" aria-hidden="true">🇪🇸</span>
+          <span class="team__name">Hiszpania</span>
+          <span class="team__meta">7 zwycięstw · 16 bramek</span>
+        </div>
+        <div class="score">
+          <span class="score__value">1 : 0</span>
+          <span class="score__note">po 90 min 0:0</span>
+        </div>
+        <div class="team">
+          <span class="team__flag" aria-hidden="true">🇦🇷</span>
+          <span class="team__name">Argentyna</span>
+          <span class="team__meta">6 zwycięstw · 14 bramek</span>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <span class="timeline__item"><span class="timeline__min">106'</span> ⚽ Ferran Torres</span>
+        <span class="timeline__item"><span class="timeline__min">78'</span> 🟨 Rodrigo De Paul</span>
+        <span class="timeline__item"><span class="timeline__min">64'</span> 🔁 Yamal → Oyarzabal</span>
+      </div>
+
+      <div class="match-stats">
+        <div class="meter"><span>Posiadanie</span><span class="bar"><i style="width:58%"></i></span><b>58%</b></div>
+        <div class="meter"><span>Strzały (celne)</span><span class="bar"><i style="width:64%"></i></span><b>14 (6)</b></div>
+        <div class="meter"><span>xG</span><span class="bar"><i style="width:71%"></i></span><b>1,84</b></div>
+        <div class="meter"><span>Podania celne</span><span class="bar"><i style="width:89%"></i></span><b>89%</b></div>
+      </div>
+
+      <div class="match-hero__foot">
+        <button class="btn btn--primary" type="button">Śledź na żywo</button>
+        <button class="btn" type="button">Składy i statystyki</button>
+        <button class="btn btn--ghost" type="button">Dodaj do kalendarza</button>
+      </div>
+    </article>
+
+    <!-- Panel boczny -->
+    <div class="side-stack">
+      <article class="card card__pad">
+        <p class="eyebrow">Do końca meczu</p>
+        <div class="countdown" style="margin-top:.75rem">
+          <div class="countdown__cell"><div class="countdown__num">00</div><div class="countdown__label">dni</div></div>
+          <div class="countdown__cell"><div class="countdown__num">00</div><div class="countdown__label">godz</div></div>
+          <div class="countdown__cell"><div class="countdown__num">13</div><div class="countdown__label">min</div></div>
+          <div class="countdown__cell"><div class="countdown__num">42</div><div class="countdown__label">sek</div></div>
+        </div>
+        <p class="muted" style="font-size:.8rem;margin:.85rem 0 0">
+          Licznik przełącza się automatycznie: przed meczem odlicza do pierwszego gwizdka, w trakcie — do końca regulaminowego czasu.
+        </p>
+      </article>
+
+      <article class="card card__pad">
+        <p class="eyebrow">Turniej w liczbach</p>
+        <div class="stat-grid" style="margin-top:.85rem">
+          <div class="stat stat--accent"><div class="stat__value">104</div><div class="stat__label">mecze w terminarzu</div></div>
+          <div class="stat stat--cyan"><div class="stat__value">48</div><div class="stat__label">reprezentacji</div></div>
+          <div class="stat stat--gold"><div class="stat__value">237</div><div class="stat__label">bramek</div></div>
+          <div class="stat"><div class="stat__value">2,28</div><div class="stat__label">średnia na mecz</div></div>
+        </div>
+      </article>
+
+      <article class="card card__pad">
+        <p class="eyebrow">Twój typer</p>
+        <div style="display:flex;align-items:center;gap:.9rem;margin-top:.85rem">
+          <span class="avatar" style="width:52px;height:52px;font-size:1.1rem">MK</span>
+          <div style="min-width:0">
+            <div style="font-weight:700">Miejsce 12 / 1 486</div>
+            <div class="muted" style="font-size:.82rem">184 pkt · 41 trafionych wyników</div>
+          </div>
+          <button class="btn btn--gold" type="button" style="margin-left:auto">Typuj</button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================= MECZE -->
+<section class="section shell" id="mecze">
+  <div class="section__head">
+    <div>
+      <p class="eyebrow">Moduł 01</p>
+      <h2 class="section__title">Mecze</h2>
+      <p class="section__desc">Jedna lista dla wszystkich faz. Wiersz meczu ma stałą siatkę: godzina, drużyny z wynikiem, kontekst (stadion, faza). Stan „na żywo” podświetla wiersz, a nie zmienia jego układu.</p>
+    </div>
+    <div class="segmented" role="tablist" aria-label="Filtr meczów">
+      <button role="tab" aria-selected="true">Dziś</button>
+      <button role="tab" aria-selected="false">Faza grupowa</button>
+      <button role="tab" aria-selected="false">Pucharowa</button>
+      <button role="tab" aria-selected="false">Moje drużyny</button>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <div class="match-row">
+        <div class="match-row__time">21:00<span class="match-row__date">19 lip</span></div>
+        <div class="match-row__teams">
+          <div class="match-row__team"><span aria-hidden="true">🇪🇸</span><em>Hiszpania</em><b>1</b></div>
+          <div class="match-row__team"><span aria-hidden="true">🇦🇷</span><em>Argentyna</em><b>0</b></div>
+        </div>
+        <div class="match-row__meta"><span class="chip chip--live"><span class="dot" aria-hidden="true"></span>106'</span><div style="margin-top:.35rem">FINAŁ · MetLife</div></div>
+      </div>
+
+      <div class="match-row">
+        <div class="match-row__time">21:00<span class="match-row__date">15 lip</span></div>
+        <div class="match-row__teams">
+          <div class="match-row__team match-row__team--lost"><span aria-hidden="true">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><em>Anglia</em><b>1</b></div>
+          <div class="match-row__team"><span aria-hidden="true">🇦🇷</span><em>Argentyna</em><b>2</b></div>
+        </div>
+        <div class="match-row__meta">Zakończony<div style="margin-top:.35rem">Półfinał · Atlanta</div></div>
+      </div>
+
+      <div class="match-row">
+        <div class="match-row__time">21:00<span class="match-row__date">14 lip</span></div>
+        <div class="match-row__teams">
+          <div class="match-row__team match-row__team--lost"><span aria-hidden="true">🇫🇷</span><em>Francja</em><b>0</b></div>
+          <div class="match-row__team"><span aria-hidden="true">🇪🇸</span><em>Hiszpania</em><b>2</b></div>
+        </div>
+        <div class="match-row__meta">Zakończony<div style="margin-top:.35rem">Półfinał · Dallas</div></div>
+      </div>
+
+      <div class="match-row">
+        <div class="match-row__time">03:00<span class="match-row__date">12 lip</span></div>
+        <div class="match-row__teams">
+          <div class="match-row__team"><span aria-hidden="true">🇦🇷</span><em>Argentyna</em><b>1</b></div>
+          <div class="match-row__team match-row__team--lost"><span aria-hidden="true">🇨🇭</span><em>Szwajcaria</em><b>1</b></div>
+        </div>
+        <div class="match-row__meta">k. 4:2<div style="margin-top:.35rem">Ćwierćfinał · Kansas City</div></div>
+      </div>
+    </div>
+
+    <article class="card card__pad">
+      <p class="eyebrow">Wariant karty meczu</p>
+      <h3 style="font-size:1.1rem;margin:.4rem 0 1rem">Karta „przed meczem”</h3>
+
+      <div class="predict" style="grid-template-columns:1fr auto 1fr">
+        <div class="team"><span class="team__flag" style="font-size:2rem" aria-hidden="true">🇵🇱</span><span class="team__name" style="font-size:.95rem">Polska</span></div>
+        <div class="score"><span class="score__value" style="font-size:1.6rem">20:00</span><span class="score__note">12 czerwca</span></div>
+        <div class="team"><span class="team__flag" style="font-size:2rem" aria-hidden="true">🇳🇱</span><span class="team__name" style="font-size:.95rem">Holandia</span></div>
+      </div>
+
+      <div class="meter"><span>Forma gospodarzy</span><span class="bar"><i style="width:72%"></i></span><b>72</b></div>
+      <div class="meter"><span>Forma gości</span><span class="bar"><i style="width:64%"></i></span><b>64</b></div>
+      <div class="meter"><span>Typy kibiców</span><span class="bar"><i style="width:38%"></i></span><b>38%</b></div>
+
+      <div class="pill-row" style="margin-top:1rem">
+        <span class="chip">Transmisja: TVP Sport</span>
+        <span class="chip">Sędzia: Szymon Marciniak</span>
+        <span class="chip">Grupa D</span>
+      </div>
+
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem">
+        <button class="btn btn--primary" type="button">Obstaw wynik</button>
+        <button class="btn" type="button">Przypomnij mi</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================================================================ TABELE -->
+<section class="section shell" id="tabele">
+  <div class="section__head">
+    <div>
+      <p class="eyebrow">Moduł 02</p>
+      <h2 class="section__title">Tabele grup</h2>
+      <p class="section__desc">Pozycja premiowana awansem jest oznaczona kolorem tła numeru, nie całym wierszem — dzięki temu tabela zostaje czytelna także w trybie dziennym i przy daltonizmie (kolor + kształt + legenda).</p>
+    </div>
+    <div class="segmented" role="tablist" aria-label="Wybór grupy">
+      <button role="tab" aria-selected="true">A</button>
+      <button role="tab" aria-selected="false">B</button>
+      <button role="tab" aria-selected="false">C</button>
+      <button role="tab" aria-selected="false">D</button>
+      <button role="tab" aria-selected="false">…</button>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table class="nova-table">
+      <caption class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Tabela grupy A</caption>
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Drużyna</th>
+          <th scope="col">M</th>
+          <th scope="col">Z</th>
+          <th scope="col">R</th>
+          <th scope="col">P</th>
+          <th scope="col">Bramki</th>
+          <th scope="col">+/−</th>
+          <th scope="col">Pkt</th>
+          <th scope="col">Forma</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pos pos--q">1</span></td>
+          <td><span class="team-cell"><span aria-hidden="true">🇲🇽</span>Meksyk</span></td>
+          <td>3</td><td>3</td><td>0</td><td>0</td><td>6:0</td><td>+6</td><td><b>9</b></td>
+          <td><span class="form"><i data-r="W">W</i><i data-r="W">W</i><i data-r="W">W</i></span></td>
+        </tr>
+        <tr>
+          <td><span class="pos pos--q">2</span></td>
+          <td><span class="team-cell"><span aria-hidden="true">🇿🇦</span>RPA</span></td>
+          <td>3</td><td>1</td><td>1</td><td>1</td><td>2:3</td><td>−1</td><td><b>4</b></td>
+          <td><span class="form"><i data-r="P">P</i><i data-r="W">W</i><i data-r="R">R</i></span></td>
+        </tr>
+        <tr>
+          <td><span class="pos pos--play">3</span></td>
+          <td><span class="team-cell"><span aria-hidden="true">🇰🇷</span>Korea Południowa</span></td>
+          <td>3</td><td>1</td><td>0</td><td>2</td><td>2:3</td><td>−1</td><td><b>3</b></td>
+          <td><span class="form"><i data-r="W">W</i><i data-r="P">P</i><i data-r="P">P</i></span></td>
+        </tr>
+        <tr>
+          <td><span class="pos">4</span></td>
+          <td><span class="team-cell"><span aria-hidden="true">🇨🇿</span>Czechy</span></td>
+          <td>3</td><td>0</td><td>1</td><td>2</td><td>2:6</td><td>−4</td><td><b>1</b></td>
+          <td><span class="form"><i data-r="R">R</i><i data-r="P">P</i><i data-r="P">P</i></span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="legend">
+    <span><i style="background:var(--lime)"></i> awans bezpośredni (1–2 miejsce)</span>
+    <span><i style="background:var(--gold)"></i> szansa z miejsca 3.</span>
+    <span><i style="background:var(--nova-surface-3)"></i> odpada</span>
+  </div>
+</section>
+
+<!-- =============================================================== DRABINKA -->
+<section class="section shell" id="puchar">
+  <div class="section__head">
+    <div>
+      <p class="eyebrow">Moduł 03</p>
+      <h2 class="section__title">Faza pucharowa</h2>
+      <p class="section__desc">Drabinka w czterech kolumnach przewija się poziomo na telefonie i mieści w całości na desktopie. Zwycięzca pary dostaje jasne tło i pogrubienie — bez dodatkowych ikon.</p>
+    </div>
+    <div class="segmented" role="tablist" aria-label="Zakres drabinki">
+      <button role="tab" aria-selected="true">Od ćwierćfinałów</button>
+      <button role="tab" aria-selected="false">Pełna drabinka</button>
+    </div>
+  </div>
+
+  <div class="card card__pad">
+    <div class="bracket">
+      <div class="bracket__col">
+        <p class="bracket__label">Ćwierćfinały</p>
+        <div class="tie">
+          <div class="tie__side tie__side--win"><span aria-hidden="true">🇫🇷</span> Francja <b>2</b></div>
+          <div class="tie__side tie__side--out"><span aria-hidden="true">🇲🇦</span> Maroko <b>0</b></div>
+        </div>
+        <div class="tie">
+          <div class="tie__side tie__side--win"><span aria-hidden="true">🇪🇸</span> Hiszpania <b>2</b></div>
+          <div class="tie__side tie__side--out"><span aria-hidden="true">🇧🇪</span> Belgia <b>1</b></div>
+        </div>
+        <div class="tie">
+          <div class="tie__side tie__side--out"><span aria-hidden="true">🇳🇴</span> Norwegia <b>1</b></div>
+          <div class="tie__side tie__side--win"><span aria-hidden="true">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span> Anglia <b>1 (5)</b></div>
+        </div>
+        <div class="tie">
+          <div class="tie__side tie__side--win"><span aria-hidden="true">🇦🇷</span> Argentyna <b>1 (4)</b></div>
+          <div class="tie__side tie__side--out"><span aria-hidden="true">🇨🇭</span> Szwajcaria <b>1</b></div>
+        </div>
+      </div>
+
+      <div class="bracket__col">
+        <p class="bracket__label">Półfinały</p>
+        <div class="tie">
+          <div class="tie__side tie__side--out"><span aria-hidden="true">🇫🇷</span> Francja <b>0</b></div>
+          <div class="tie__side tie__side--win"><span aria-hidden="true">🇪🇸</span> Hiszpania <b>2</b></div>
+        </div>
+        <div class="tie">
+          <div class="tie__side tie__side--out"><span aria-hidden="true">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span> Anglia <b>1</b></div>
+          <div class="tie__side tie__side--win"><span aria-hidden="true">🇦🇷</span> Argentyna <b>2</b></div>
+        </div>
+      </div>
+
+      <div class="bracket__col">
+        <p class="bracket__label">Finał</p>
+        <div class="tie tie--final">
+          <div class="tie__side"><span aria-hidden="true">🇪🇸</span> Hiszpania <b>1</b></div>
+          <div class="tie__side"><span aria-hidden="true">🇦🇷</span> Argentyna <b>0</b></div>
+        </div>
+        <p class="muted" style="text-align:center;font-size:.72rem;margin:.4rem 0 0">106' · dogrywka trwa</p>
+      </div>
+
+      <div class="bracket__col">
+        <p class="bracket__label">Mecz o 3. miejsce</p>
+        <div class="tie">
+          <div class="tie__side tie__side--win"><span aria-hidden="true">🇫🇷</span> Francja <b>2</b></div>
+          <div class="tie__side tie__side--out"><span aria-hidden="true">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span> Anglia <b>1</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================== GWIAZDY -->
+<section class="section shell" id="gwiazdy">
+  <div class="section__head">
+    <div>
+      <p class="eyebrow">Moduł 04</p>
+      <h2 class="section__title">Gwiazdy i statystyki</h2>
+      <p class="section__desc">Ranking strzelców z paskiem proporcji zamiast samych liczb oraz karta zawodnika, która wchodzi w skład podstrony profilu.</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <article class="card card__pad">
+      <p class="eyebrow">Klasyfikacja strzelców</p>
+      <h3 style="font-size:1.05rem;margin:.4rem 0 .9rem">Złoty But — na żywo</h3>
+
+      <div class="rank-row">
+        <div class="rank-row__pos">1</div>
+        <div class="rank-row__avatar" aria-hidden="true">🇫🇷</div>
+        <div>
+          <div class="rank-row__name">Kylian Mbappé</div>
+          <div class="rank-row__club">Francja · 7 meczów</div>
+          <span class="bar"><i style="width:100%"></i></span>
+        </div>
+        <div class="rank-row__goals">10</div>
+      </div>
+
+      <div class="rank-row">
+        <div class="rank-row__pos">2</div>
+        <div class="rank-row__avatar" aria-hidden="true">🇦🇷</div>
+        <div>
+          <div class="rank-row__name">Lionel Messi</div>
+          <div class="rank-row__club">Argentyna · 7 meczów</div>
+          <span class="bar"><i style="width:80%"></i></span>
+        </div>
+        <div class="rank-row__goals">8</div>
+      </div>
+
+      <div class="rank-row">
+        <div class="rank-row__pos">3</div>
+        <div class="rank-row__avatar" aria-hidden="true">🇳🇴</div>
+        <div>
+          <div class="rank-row__name">Erling Haaland</div>
+          <div class="rank-row__club">Norwegia · 5 meczów</div>
+          <span class="bar"><i style="width:70%"></i></span>
+        </div>
+        <div class="rank-row__goals">7</div>
+      </div>
+
+      <div class="rank-row">
+        <div class="rank-row__pos">4</div>
+        <div class="rank-row__avatar" aria-hidden="true">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+        <div>
+          <div class="rank-row__name">Jude Bellingham</div>
+          <div class="rank-row__club">Anglia · 6 meczów</div>
+          <span class="bar"><i style="width:70%"></i></span>
+        </div>
+        <div class="rank-row__goals">7</div>
+      </div>
+
+      <div class="rank-row">
+        <div class="rank-row__pos">5</div>
+        <div class="rank-row__avatar" aria-hidden="true">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+        <div>
+          <div class="rank-row__name">Harry Kane</div>
+          <div class="rank-row__club">Anglia · 6 meczów</div>
+          <span class="bar"><i style="width:60%"></i></span>
+        </div>
+        <div class="rank-row__goals">6</div>
+      </div>
+    </article>
+
+    <article class="card card__pad">
+      <p class="eyebrow">Karta zawodnika</p>
+      <div class="player-card" style="margin-top:.9rem">
+        <div class="player-card__photo" aria-hidden="true">🇫🇷</div>
+        <div>
+          <h3 style="font-size:1.35rem">Kylian Mbappé</h3>
+          <p class="muted" style="margin:.2rem 0 0;font-size:.86rem">Napastnik · Francja · nr 10</p>
+          <div class="pill-row">
+            <span class="chip">27 lat</span>
+            <span class="chip">Real Madryt</span>
+            <span class="chip chip--gold">Król strzelców</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:1.1rem">
+        <div class="meter"><span>Bramki</span><span class="bar"><i style="width:100%"></i></span><b>10</b></div>
+        <div class="meter"><span>Asysty</span><span class="bar"><i style="width:40%"></i></span><b>4</b></div>
+        <div class="meter"><span>Strzały celne</span><span class="bar"><i style="width:62%"></i></span><b>21</b></div>
+        <div class="meter"><span>Minuty</span><span class="bar"><i style="width:88%"></i></span><b>612</b></div>
+      </div>
+
+      <p class="note" style="margin-top:1.1rem">
+        Zdjęcia zawodników pochodzą z Wikimedia Commons — makieta zachowuje miejsce na podpis autora i licencję pod fotografią.
+      </p>
+    </article>
+  </div>
+</section>
+
+<!-- ================================================================ TYPER -->
+<section class="section shell" id="typer">
+  <div class="section__head">
+    <div>
+      <p class="eyebrow">Moduł 05</p>
+      <h2 class="section__title">Mój typ</h2>
+      <p class="section__desc">Typowanie w jednym geście: stepper zamiast klawiatury numerycznej, natychmiastowy zapis i widoczna pozycja w rankingu. Ten sam komponent działa dla gościa (zapis lokalny) i dla konta (synchronizacja).</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <article class="card card__pad">
+      <p class="eyebrow">Kolejne mecze do obstawienia</p>
+
+      <div class="predict" style="margin-top:.9rem">
+        <div class="team"><span class="team__flag" style="font-size:1.9rem" aria-hidden="true">🇵🇱</span><span class="team__name" style="font-size:.9rem">Polska</span></div>
+        <div class="stepper">
+          <button type="button" data-step="-1" data-target="pol" aria-label="Mniej goli Polski">−</button>
+          <output id="pol" data-score>2</output>
+          <button type="button" data-step="1" data-target="pol" aria-label="Więcej goli Polski">+</button>
+          <span class="muted" aria-hidden="true">:</span>
+          <button type="button" data-step="-1" data-target="ned" aria-label="Mniej goli Holandii">−</button>
+          <output id="ned" data-score>1</output>
+          <button type="button" data-step="1" data-target="ned" aria-label="Więcej goli Holandii">+</button>
+        </div>
+        <div class="team"><span class="team__flag" style="font-size:1.9rem" aria-hidden="true">🇳🇱</span><span class="team__name" style="font-size:.9rem">Holandia</span></div>
+      </div>
+
+      <div class="predict" style="margin-top:.7rem">
+        <div class="team"><span class="team__flag" style="font-size:1.9rem" aria-hidden="true">🇧🇷</span><span class="team__name" style="font-size:.9rem">Brazylia</span></div>
+        <div class="stepper">
+          <button type="button" data-step="-1" data-target="bra" aria-label="Mniej goli Brazylii">−</button>
+          <output id="bra" data-score>1</output>
+          <button type="button" data-step="1" data-target="bra" aria-label="Więcej goli Brazylii">+</button>
+          <span class="muted" aria-hidden="true">:</span>
+          <button type="button" data-step="-1" data-target="ger" aria-label="Mniej goli Niemiec">−</button>
+          <output id="ger" data-score>1</output>
+          <button type="button" data-step="1" data-target="ger" aria-label="Więcej goli Niemiec">+</button>
+        </div>
+        <div class="team"><span class="team__flag" style="font-size:1.9rem" aria-hidden="true">🇩🇪</span><span class="team__name" style="font-size:.9rem">Niemcy</span></div>
+      </div>
+
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.1rem;align-items:center">
+        <button class="btn btn--primary" type="button">Zapisz typy</button>
+        <button class="btn btn--ghost" type="button">Udostępnij</button>
+        <span class="muted" style="font-size:.78rem;margin-left:auto">Zapisano 14:32</span>
+      </div>
+    </article>
+
+    <article class="card card__pad">
+      <p class="eyebrow">Ranking typerów</p>
+      <h3 style="font-size:1.05rem;margin:.4rem 0 .9rem">Tydzień 5 · 1 486 graczy</h3>
+
+      <div class="ranking-row"><span class="rank-row__pos">10</span><span>kibic_z_gdanska</span><b>191</b></div>
+      <div class="ranking-row"><span class="rank-row__pos">11</span><span>AniaTypuje</span><b>187</b></div>
+      <div class="ranking-row ranking-row--me"><span class="rank-row__pos">12</span><span>Ty · MK <span class="chip" style="padding:.1rem .5rem;font-size:.66rem">+3</span></span><b>184</b></div>
+      <div class="ranking-row"><span class="rank-row__pos">13</span><span>mundial_2026</span><b>180</b></div>
+      <div class="ranking-row"><span class="rank-row__pos">14</span><span>Piotrek_88</span><b>178</b></div>
+
+      <div class="stat-grid" style="margin-top:1.1rem">
+        <div class="stat stat--accent"><div class="stat__value">41</div><div class="stat__label">trafione wyniki</div></div>
+        <div class="stat stat--cyan"><div class="stat__value">68%</div><div class="stat__label">trafione rezultaty</div></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================= STADIONY -->
+<section class="section shell" id="stadiony">
+  <div class="section__head">
+    <div>
+      <p class="eyebrow">Moduł 06</p>
+      <h2 class="section__title">Stadiony</h2>
+      <p class="section__desc">Kafle 16:9 z miejscem na zdjęcie, kraj, pojemność i liczbę meczów. Ta sama siatka obsługuje 16 obiektów bez zmiany układu.</p>
+    </div>
+    <button class="btn" type="button">Zobacz mapę</button>
+  </div>
+
+  <div class="grid-fit">
+    <article class="venue">
+      <div class="venue__img" aria-hidden="true">🏟️</div>
+      <div class="venue__body">
+        <p class="venue__name">MetLife Stadium</p>
+        <p class="venue__meta">New Jersey 🇺🇸 · 82 500 miejsc</p>
+        <div class="pill-row"><span class="chip chip--gold">FINAŁ</span><span class="chip">8 meczów</span></div>
+      </div>
+    </article>
+
+    <article class="venue">
+      <div class="venue__img" aria-hidden="true">🏟️</div>
+      <div class="venue__body">
+        <p class="venue__name">Estadio Azteca</p>
+        <p class="venue__meta">Mexico City 🇲🇽 · 87 500 miejsc</p>
+        <div class="pill-row"><span class="chip">Mecz otwarcia</span><span class="chip">5 meczów</span></div>
+      </div>
+    </article>
+
+    <article class="venue">
+      <div class="venue__img" aria-hidden="true">🏟️</div>
+      <div class="venue__body">
+        <p class="venue__name">AT&amp;T Stadium</p>
+        <p class="venue__meta">Dallas 🇺🇸 · 80 000 miejsc</p>
+        <div class="pill-row"><span class="chip">Półfinał</span><span class="chip">9 meczów</span></div>
+      </div>
+    </article>
+
+    <article class="venue">
+      <div class="venue__img" aria-hidden="true">🏟️</div>
+      <div class="venue__body">
+        <p class="venue__name">BC Place</p>
+        <p class="venue__meta">Vancouver 🇨🇦 · 54 500 miejsc</p>
+        <div class="pill-row"><span class="chip">1/8 finału</span><span class="chip">7 meczów</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- =============================================================== MOBILE -->
+<section class="section shell" id="mobile">
+  <div class="section__head">
+    <div>
+      <p class="eyebrow">Moduł 07</p>
+      <h2 class="section__title">Widok mobilny</h2>
+      <p class="section__desc">Ponad 80% ruchu serwisu to telefony, więc makieta zaczyna się od ekranu 360 px. Nawigacja przenosi się na dolny pasek z pięcioma sekcjami, a hero skraca się do jednej karty meczu.</p>
+    </div>
+  </div>
+
+  <div class="phones">
+    <div class="phone">
+      <div class="phone__notch" aria-hidden="true"></div>
+      <div class="phone__screen">
+        <div class="phone__body">
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <span class="brand__mark" style="width:28px;height:28px;border-radius:9px;font-size:.8rem" aria-hidden="true">N</span>
+            <strong style="font-size:.85rem">Centrum kibica</strong>
+            <span class="avatar" style="width:26px;height:26px;font-size:.7rem;margin-left:auto">MK</span>
+          </div>
+
+          <div class="mini-card" style="border-color:rgb(255 77 109 / .45)">
+            <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.45rem">
+              <span class="dot" aria-hidden="true"></span>
+              <span style="font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#ff8098">Na żywo 106'</span>
+              <span class="muted" style="margin-left:auto;font-size:.66rem">FINAŁ</span>
+            </div>
+            <div class="mini-card__row"><span aria-hidden="true">🇪🇸</span> Hiszpania <b>1</b></div>
+            <div class="mini-card__row" style="margin-top:.25rem"><span aria-hidden="true">🇦🇷</span> Argentyna <b>0</b></div>
+          </div>
+
+          <div class="mini-card">
+            <div class="muted" style="font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem">Twój typ</div>
+            <div class="mini-card__row">Miejsce 12 / 1 486 <b>184</b></div>
+            <span class="bar" style="margin-top:.45rem"><i style="width:62%"></i></span>
+          </div>
+
+          <div class="mini-card">
+            <div class="muted" style="font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem">Król strzelców</div>
+            <div class="mini-card__row"><span aria-hidden="true">🇫🇷</span> K. Mbappé <b>10</b></div>
+            <div class="mini-card__row" style="margin-top:.25rem"><span aria-hidden="true">🇦🇷</span> L. Messi <b>8</b></div>
+          </div>
+        </div>
+
+        <div class="tabbar">
+          <span data-active><i aria-hidden="true">⚡</i>Centrum</span>
+          <span><i aria-hidden="true">📅</i>Mecze</span>
+          <span><i aria-hidden="true">📊</i>Tabele</span>
+          <span><i aria-hidden="true">🎯</i>Typer</span>
+          <span><i aria-hidden="true">☰</i>Więcej</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phone">
+      <div class="phone__notch" aria-hidden="true"></div>
+      <div class="phone__screen">
+        <div class="phone__body">
+          <strong style="font-size:.85rem">Tabele grup</strong>
+          <div class="segmented" style="font-size:.7rem">
+            <button aria-selected="true" style="padding:.28rem .6rem">A</button>
+            <button aria-selected="false" style="padding:.28rem .6rem">B</button>
+            <button aria-selected="false" style="padding:.28rem .6rem">C</button>
+            <button aria-selected="false" style="padding:.28rem .6rem">D</button>
+          </div>
+
+          <div class="mini-card">
+            <div class="mini-card__row"><span class="pos pos--q" style="width:20px;height:20px;font-size:.66rem">1</span><span aria-hidden="true">🇲🇽</span> Meksyk <b>9</b></div>
+            <div class="mini-card__row" style="margin-top:.4rem"><span class="pos pos--q" style="width:20px;height:20px;font-size:.66rem">2</span><span aria-hidden="true">🇿🇦</span> RPA <b>4</b></div>
+            <div class="mini-card__row" style="margin-top:.4rem"><span class="pos pos--play" style="width:20px;height:20px;font-size:.66rem">3</span><span aria-hidden="true">🇰🇷</span> Korea Płd. <b>3</b></div>
+            <div class="mini-card__row" style="margin-top:.4rem"><span class="pos" style="width:20px;height:20px;font-size:.66rem">4</span><span aria-hidden="true">🇨🇿</span> Czechy <b>1</b></div>
+          </div>
+
+          <div class="mini-card">
+            <div class="muted" style="font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem">Ostatnia kolejka</div>
+            <div class="mini-card__row"><span aria-hidden="true">🇲🇽</span> Meksyk – Czechy <b>2:0</b></div>
+            <div class="mini-card__row" style="margin-top:.25rem"><span aria-hidden="true">🇰🇷</span> Korea – RPA <b>1:0</b></div>
+          </div>
+        </div>
+
+        <div class="tabbar">
+          <span><i aria-hidden="true">⚡</i>Centrum</span>
+          <span><i aria-hidden="true">📅</i>Mecze</span>
+          <span data-active><i aria-hidden="true">📊</i>Tabele</span>
+          <span><i aria-hidden="true">🎯</i>Typer</span>
+          <span><i aria-hidden="true">☰</i>Więcej</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================== SYSTEM -->
+<section class="section shell" id="system">
+  <div class="section__head">
+    <div>
+      <p class="eyebrow">Fundament</p>
+      <h2 class="section__title">System projektowy NOVA</h2>
+      <p class="section__desc">Tokeny są zdefiniowane raz w <code>nova.css</code> i sterują oboma motywami. Wdrożenie na produkcję sprowadza się do podmiany zmiennych, bez przepisywania komponentów.</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <article class="card card__pad">
+      <p class="eyebrow">Paleta</p>
+      <div class="swatches" style="margin-top:.9rem">
+        <div class="swatch"><div class="swatch__chip" style="background:#05070f"></div><div class="swatch__body"><div class="swatch__name">Tło</div><div class="swatch__hex">#05070F</div></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#0e1424"></div><div class="swatch__body"><div class="swatch__name">Powierzchnia</div><div class="swatch__hex">#0E1424</div></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#8b5cf6"></div><div class="swatch__body"><div class="swatch__name">Akcent 1</div><div class="swatch__hex">#8B5CF6</div></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#22d3ee"></div><div class="swatch__body"><div class="swatch__name">Akcent 2</div><div class="swatch__hex">#22D3EE</div></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#a3e635"></div><div class="swatch__body"><div class="swatch__name">Sukces</div><div class="swatch__hex">#A3E635</div></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#fbbf24"></div><div class="swatch__body"><div class="swatch__name">Trofeum</div><div class="swatch__hex">#FBBF24</div></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#ff4d6d"></div><div class="swatch__body"><div class="swatch__name">Na żywo</div><div class="swatch__hex">#FF4D6D</div></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:linear-gradient(135deg,#8b5cf6,#22d3ee,#a3e635)"></div><div class="swatch__body"><div class="swatch__name">Gradient NOVA</div><div class="swatch__hex">135°</div></div></div>
+      </div>
+      <p class="note" style="margin-top:1.1rem">Złoto z obecnej strony zostaje — zmienia rolę: z koloru interfejsu na sygnał trofeum (finał, król strzelców, lider rankingu).</p>
+    </article>
+
+    <article class="card card__pad">
+      <p class="eyebrow">Typografia</p>
+      <div style="margin-top:.9rem">
+        <div class="type-row"><span style="font-family:var(--font-display);font-size:2rem;font-weight:700">Display 32</span><span class="type-row__meta">Space Grotesk 700 / −0.02em</span></div>
+        <div class="type-row"><span style="font-family:var(--font-display);font-size:1.35rem;font-weight:700">Nagłówek 22</span><span class="type-row__meta">Space Grotesk 700</span></div>
+        <div class="type-row"><span style="font-size:1rem;font-weight:600">Treść 16 / 1.55</span><span class="type-row__meta">Inter 400–600</span></div>
+        <div class="type-row"><span style="font-size:.78rem;color:var(--nova-muted)">Podpis 12.5</span><span class="type-row__meta">Inter 500</span></div>
+        <div class="type-row"><span style="font-family:var(--font-num);font-size:1.6rem;font-weight:700">0123456789</span><span class="type-row__meta">wyniki, tabele, liczniki</span></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="grid-3" style="margin-top:1.25rem">
+    <article class="card card__pad">
+      <p class="eyebrow">Komponenty</p>
+      <div class="pill-row" style="margin-top:.85rem">
+        <span class="chip">chip</span>
+        <span class="chip chip--live"><span class="dot" aria-hidden="true"></span>live</span>
+        <span class="chip chip--gold">gold</span>
+      </div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.85rem">
+        <button class="btn btn--primary" type="button">Primary</button>
+        <button class="btn" type="button">Secondary</button>
+        <button class="btn btn--ghost" type="button">Ghost</button>
+      </div>
+      <div class="segmented" style="margin-top:.85rem">
+        <button aria-selected="true">Segment</button>
+        <button aria-selected="false">Segment</button>
+      </div>
+    </article>
+
+    <article class="card card__pad">
+      <p class="eyebrow">Zasady</p>
+      <ul class="checklist" style="margin-top:.85rem">
+        <li>Wynik meczu zawsze największym elementem karty.</li>
+        <li>Maksymalnie jeden akcent kolorystyczny na kartę.</li>
+        <li>Stan „na żywo” = kolor + kropka + tekst, nigdy sam kolor.</li>
+        <li>Promienie: 10 / 16 / 24 / 32 px — bez wartości pośrednich.</li>
+        <li>Odstępy z siatki 4 px.</li>
+      </ul>
+    </article>
+
+    <article class="card card__pad">
+      <p class="eyebrow">Dostępność</p>
+      <ul class="checklist" style="margin-top:.85rem">
+        <li>Kontrast tekstu ≥ 4.5:1 w obu motywach.</li>
+        <li>Widoczny focus (3 px, kolor cyan) na każdym elemencie.</li>
+        <li>Tabele z nagłówkami <code>th scope</code> i podpisem.</li>
+        <li>Emoji flag oznaczone <code>aria-hidden</code>, nazwa krajem w tekście.</li>
+        <li>Respektowane <code>prefers-reduced-motion</code>.</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================== ROADMAP -->
+<section class="section shell" id="wdrozenie">
+  <div class="card card__pad">
+    <p class="eyebrow">Co dalej</p>
+    <h2 class="section__title" style="margin:.4rem 0 .8rem">Ścieżka wdrożenia</h2>
+    <div class="grid-3">
+      <div>
+        <h3 style="font-size:1rem">Krok 1 — tokeny</h3>
+        <p class="muted" style="font-size:.86rem">Przeniesienie zmiennych NOVA do <code>src/styles.css</code> obok istniejącej warstwy Tailwind. Bez zmian w komponentach React.</p>
+      </div>
+      <div>
+        <h3 style="font-size:1rem">Krok 2 — centrum meczowe</h3>
+        <p class="muted" style="font-size:.86rem">Nowa karta meczu i lista w zakładce „Mecze”, wykorzystujące dane z <code>match-center.json</code>.</p>
+      </div>
+      <div>
+        <h3 style="font-size:1rem">Krok 3 — reszta zakładek</h3>
+        <p class="muted" style="font-size:.86rem">Tabele, drabinka, typer i stadiony przechodzą na wspólne komponenty; stary arkusz znika.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="shell">
+    <p><strong>NOVA</strong> — makieta poglądowa interfejsu serwisu mistrzostwaswiata2026.pl. Strona nie jest podlinkowana z serwisu produkcyjnego i nie jest indeksowana.</p>
+    <p style="margin:.5rem 0 0">Dane w makiecie pochodzą z <code>data/match-center.json</code> i <code>data/matches.json</code> tego repozytorium; część wartości ma charakter poglądowy.</p>
+    <p style="margin:.5rem 0 0"><a href="../index.html">← Wróć do obecnej wersji serwisu</a></p>
+  </div>
+</footer>
+
+<script src="nova.js?v=20260818-nova-1" defer></script>
+</body>
+</html>
